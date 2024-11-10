@@ -1,0 +1,34 @@
+name: C Build and Static Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y clang-tidy cppcheck make gcc
+
+      - name: Build with Makefile
+        run: make
+
+      - name: Run clang-tidy
+        run: clang-tidy src/*.c -- -Iinclude
+
+      - name: Run cppcheck
+        run: cppcheck --enable=all --inconclusive --std=c99 src/
+
+      - name: Clean up
+        run: make clean
