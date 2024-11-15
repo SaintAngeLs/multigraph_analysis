@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -Wall -Iinclude
+CFLAGS = -Wall -Wpedantic -Werror -std=c99 -Iinclude
 BUILD_DIR = build
-SRC = src/main.c src/graph.c src/utils.c src/graph_factory.c src/graph_algorithm.c include/config.c 
+SRC = src/graph.c  src/graph_algorithm.c  src/graph_factory.c  src/main.c  src/utils.c include/config.c 
 OBJ = $(SRC:src/%.c=$(BUILD_DIR)/%.o)
 TARGET = multigraph_analysis
 
@@ -21,7 +21,7 @@ $(BUILD_DIR)/config.o: include/config.c
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET)
 
-debug: CFLAGS += -g
+debug: CFLAGS += -g -fsanitize=address,undefined
 debug: clean all
 
 release: CFLAGS += -O2
