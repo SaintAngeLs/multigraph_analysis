@@ -1,0 +1,3 @@
+Graph size: 0
+Max cycle count: 0
+Hamiltonian extensions: 0
