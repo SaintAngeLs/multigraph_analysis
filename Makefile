@@ -26,3 +26,6 @@ debug: clean all
 
 release: CFLAGS += -O2
 release: clean all
+
+test:
+	@bash ./test/test_runner.sh
