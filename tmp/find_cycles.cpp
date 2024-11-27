@@ -1,6 +1,7 @@
 // Converted from Java to C++
 
 // http://normalisiert.de/code/java/elementaryCycles.zip
+// http://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF
 // 27 Nov 2024
 
 #include <iostream>
