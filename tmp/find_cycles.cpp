@@ -31,7 +31,8 @@ static std::vector<std::vector<int>> getAdjList(const std::vector<std::vector<bo
                 v.push_back(j);
             }
         }
-        list[i] = std::vector<int>(v.size());
+        list[i].clear();
+        list[i].resize(v.size());
         for (int j = 0; j < v.size(); ++j) {
             int in = v[j];
             list[i][j] = in;
@@ -78,11 +79,14 @@ struct StrongConnectedComponents {
 
     SCCResult getAdjacencyList(int node) {
         auto alos = adjListOriginal.size();
-        visited = std::vector<bool>(alos);
-        lowlink = std::vector<int>(alos);
-        number = std::vector<int>(alos);
-        stack = std::forward_list<int>();
-        currentSCCs = std::vector<std::vector<int>>();
+        visited.clear();
+        visited.resize(alos);
+        lowlink.clear();
+        lowlink.resize(alos);
+        number.clear();
+        number.resize(alos);
+        stack.clear();
+        currentSCCs.clear();
 
         makeAdjListSubgraph(node);
 
@@ -110,7 +114,8 @@ struct StrongConnectedComponents {
     }
 
     void makeAdjListSubgraph(int node) {
-        adjList = std::vector<std::vector<int>>(adjListOriginal.size());
+        adjList.clear();
+        adjList.resize(adjListOriginal.size());
 
         for (int i = node; i < adjList.size(); ++i) {
             std::vector<int> successors;
@@ -121,7 +126,8 @@ struct StrongConnectedComponents {
             }
 
             if (successors.size() > 0) {
-                adjList[i] = std::vector<int>(successors.size());
+                adjList[i].clear();
+                adjList[i].resize(successors.size());
                 for (int j = 0; j < successors.size(); ++j) {
                     int succ = successors[j];
                     adjList[i][j] = succ;
@@ -152,9 +158,10 @@ struct StrongConnectedComponents {
         std::vector<std::vector<int>> lowestIdAdjacencyList;
 
         if (!nodes.empty()) {
-            lowestIdAdjacencyList = std::vector<std::vector<int>>(adjList.size());
+            lowestIdAdjacencyList.clear();
+            lowestIdAdjacencyList.resize(adjList.size());
             for (int i = 0; i < lowestIdAdjacencyList.size(); ++i) {
-                lowestIdAdjacencyList[i] = std::vector<int>();
+                lowestIdAdjacencyList[i].clear();
             }
             for (int i = 0; i < nodes.size(); ++i) {
                 int node = nodes[i];
@@ -223,19 +230,21 @@ struct ElementaryCyclesSearch {
     }
 
     std::list<std::vector<int>> getElementaryCycles() {
-        blocked = std::vector<bool>(adjList.size());
-        B = std::vector<std::vector<int>>(adjList.size());
+        blocked.clear();
+        blocked.resize(adjList.size());
+        B.clear();
+        B.resize(adjList.size());
         StrongConnectedComponents sccs(adjList);
         int s = 0;
 
         while (true) {
             SCCResult sccResult = sccs.getAdjacencyList(s);
             if (!sccResult.adjList.empty()) {
-                auto scc = sccResult.adjList;
+                const auto& scc = sccResult.adjList;
                 s = sccResult.lowestNodeId;
                 for (int j = 0; j < scc.size(); ++j) {
-                    if (!scc[j].empty() && scc[j].size() > 0) {
-                        B[j] = std::vector<int>();
+                    if (!scc[j].empty()) {
+                        B[j].clear();
                         blocked[j] = false;
                     }
                 }
