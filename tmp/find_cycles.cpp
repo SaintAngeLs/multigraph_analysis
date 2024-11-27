@@ -312,14 +312,14 @@ struct ElementaryCyclesSearch {
 int main() {
 
     // more than 11 takes too much RAM
-    const int N = 11;
+    const int N = 10;
 
     std::vector<int> nodes(N);
     for (int i = 0; i < N; ++i) {
         nodes[i] = i+1000;
     }
 
-    std::vector<std::vector<bool>> adjMatrix(N, std::vector<bool>(N, true));
+    std::vector<std::vector<bool>> adjMatrix(N, std::vector<bool>(N, false));
     adjMatrix[0][1] = true;
     adjMatrix[1][2] = true;
     adjMatrix[2][0] = true;
