@@ -20,8 +20,6 @@
 
 struct ElementaryCyclesSearch {
     std::list<std::vector<int>> cycles;
-    std::size_t cycle_count = 0;
-
     std::vector<bool> blocked;
     std::vector<std::vector<int>> B;
     std::list<int> stack;
@@ -57,18 +55,16 @@ struct ElementaryCyclesSearch {
                 }
 
                 if (nr_lacking < min_nr_lacking) {
-                    //cycles.clear();
-                    cycle_count = 0;
+                    cycles.clear();
                     min_nr_lacking = nr_lacking;
                 }
 
                 if (nr_lacking <= min_nr_lacking) {
-                    ++cycle_count;
-                    //std::vector<int> cycle;
-                    //for (int now : stack) {
-                    //    cycle.push_back(now);
-                    //}
-                    //cycles.push_back(cycle);
+                    std::vector<int> cycle;
+                    for (int now : stack) {
+                        cycle.push_back(now);
+                    }
+                    cycles.push_back(cycle);
                 }
 
                 if (!adjMatrix[stack.back()][w]) {
@@ -116,7 +112,7 @@ struct ElementaryCyclesSearch {
 
 int main() {
 
-    // more than 11 takes too much time
+    // more than 11 takes too much RAM
     const int N = 11;
 
     std::vector<std::vector<int>> adjMatrix(N, std::vector<int>(N, 0));
@@ -137,18 +133,18 @@ int main() {
     //for (int i = 0; i < N; ++i)
     ecs.findCycles(0, 0, N, adjMatrix); 
     
-    //auto& cycles = ecs.cycles;
+    auto& cycles = ecs.cycles;
     int i;
     std::list<std::vector<int>>::iterator it;
-    std::cout << ecs.cycle_count << std::endl;
-    /*for (i = 0, it = cycles.begin(); i < cycles.size(); ++i, ++it) {
+    std::cout << cycles.size() << std::endl;
+    for (i = 0, it = cycles.begin(); i < cycles.size(); ++i, ++it) {
         std::vector<int> cycle = *it;
         for (int j = 0; j < cycle.size(); ++j) {
             int node = cycle[j];
             std::cout << node << " -> ";
         }
         std::cout << std::endl;
-    }*/
+    }
 
     return 0;
 }
