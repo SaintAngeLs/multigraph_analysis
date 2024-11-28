@@ -37,12 +37,7 @@ struct ElementaryCyclesSearch {
         if (!stack.empty() && !adjMatrix[prev_stack_back][v]) {
             ++nr_lacking;
         }
-       
-        if (nr_lacking > min_nr_lacking) {
-            --nr_lacking;
-            return true;
-        }
-
+        
         stack.push_back(v);
         blocked[v] = true;
 
@@ -117,11 +112,12 @@ int main() {
 
     std::vector<std::vector<int>> adjMatrix(N, std::vector<int>(N, 0));
    
+    //adjMatrix[4][3] = 1;
+    //adjMatrix[3][2] = 1;
     adjMatrix[4][5] = 1;
     adjMatrix[5][6] = 1;
     adjMatrix[3][2] = 1;
     adjMatrix[2][1] = 1;
-    
 
     //std::fill(adjMatrix[0].begin(), adjMatrix[0].end(), 0);
     //std::fill(adjMatrix[1].begin(), adjMatrix[1].end(), 0);

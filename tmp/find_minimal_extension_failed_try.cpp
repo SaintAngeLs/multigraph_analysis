@@ -37,56 +37,48 @@ struct ElementaryCyclesSearch {
         if (!stack.empty() && !adjMatrix[prev_stack_back][v]) {
             ++nr_lacking;
         }
-       
+
+        if (nr_lacking <= min_nr_lacking) {
+            stack.push_back(v);
+            blocked[v] = true;
+
+            for (int w = 0; w < n; ++w) {
+                // force the algorithm to process full cycles
+                if (w == s && stack.size() == n) {
+                    if (nr_lacking < min_nr_lacking) {
+                        cycles.clear();
+                        min_nr_lacking = nr_lacking;
+                    }
+
+                    if (nr_lacking <= min_nr_lacking) {
+                        std::vector<int> cycle;
+                        for (int now : stack) {
+                            cycle.push_back(now);
+                        }
+                        cycles.push_back(cycle);
+                    }
+                    f = true;
+                } else if (!blocked[w]) {
+                    if (findCycles(w, s, n, adjMatrix)) {
+                        f = true;
+                    }
+                }
+            }
+
+            if (f) {
+                unblock(v);
+            } else {
+                for (int w = 0; w < n; ++w) {
+                    if (std::find(B[w].begin(), B[w].end(), v) == B[w].end()) {
+                        B[w].push_back(v);
+                    }
+                }
+            }
+        }
+
         if (nr_lacking > min_nr_lacking) {
             --nr_lacking;
-            return true;
-        }
-
-        stack.push_back(v);
-        blocked[v] = true;
-
-        for (int w = 0; w < n; ++w) {
-            // force the algorithm to process full cycles
-            if (w == s && stack.size() == n) {
-                
-                if (!adjMatrix[stack.back()][w]) {
-                    ++nr_lacking;
-                }
-
-                if (nr_lacking < min_nr_lacking) {
-                    cycles.clear();
-                    min_nr_lacking = nr_lacking;
-                }
-
-                if (nr_lacking <= min_nr_lacking) {
-                    std::vector<int> cycle;
-                    for (int now : stack) {
-                        cycle.push_back(now);
-                    }
-                    cycles.push_back(cycle);
-                }
-
-                if (!adjMatrix[stack.back()][w]) {
-                    --nr_lacking;
-                }
-
-                f = true;
-            } else if (!blocked[w]) {
-                if (findCycles(w, s, n, adjMatrix)) {
-                    f = true;
-                }
-            }
-        }
-
-        if (f) {
-            unblock(v);
-        } else {
-            for (int w = 0; w < n; ++w) {
-                if (std::find(B[w].begin(), B[w].end(), v) == B[w].end()) {
-                    B[w].push_back(v);
-                }
-            }
+            return f;
         }
 
         if (stack.size() > 1 && !adjMatrix[prev_stack_back][stack.back()]) {
@@ -113,15 +105,12 @@ struct ElementaryCyclesSearch {
 int main() {
 
     // more than 11 takes too much RAM
-    const int N = 11;
+    const int N = 6;
 
     std::vector<std::vector<int>> adjMatrix(N, std::vector<int>(N, 0));
    
-    adjMatrix[4][5] = 1;
-    adjMatrix[5][6] = 1;
-    adjMatrix[3][2] = 1;
-    adjMatrix[2][1] = 1;
-    
+    adjMatrix[4][3] = 1;
+    adjMatrix[2][3] = 1;
 
     //std::fill(adjMatrix[0].begin(), adjMatrix[0].end(), 0);
     //std::fill(adjMatrix[1].begin(), adjMatrix[1].end(), 0);
@@ -130,9 +119,7 @@ int main() {
     //std::fill(adjMatrix[4].begin(), adjMatrix[4].end(), 0);
 
     ElementaryCyclesSearch ecs(N);
-    //for (int i = 0; i < N; ++i)
     ecs.findCycles(0, 0, N, adjMatrix); 
-    
     auto& cycles = ecs.cycles;
     int i;
     std::list<std::vector<int>>::iterator it;
