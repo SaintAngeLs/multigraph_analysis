@@ -262,7 +262,10 @@ struct ElementaryCyclesSearch {
 
         for (auto w : adjList[v]) {
             // force the algorithm not to count smaller cycles
-            if (w.first == s && stack.size() >= max_cycle_size) {
+            if (w.first == s) {
+                if (stack.size() >= max_cycle_size) {
+                
+                // indent
                 if (stack.size() > max_cycle_size) {
                     cycles.clear();
                     max_cycle_size = stack.size();
@@ -289,6 +292,9 @@ struct ElementaryCyclesSearch {
 
                 if (!cycle.empty())
                     cycles.push_back(cycle);
+                // !indent
+                }
+
                 f = true;
             } else if (!blocked[w.first]) {
                 if (findCycles(w.first, s, adjList)) {
@@ -308,15 +314,16 @@ struct ElementaryCyclesSearch {
         }
 
         stack.erase(std::find(stack.begin(), stack.end(), v));
+        //stack.pop_back();
         return f;
     }
 
     void unblock(int node) {
         blocked[node] = false;
-        auto Bnode = B[node];
+        auto& Bnode = B[node];
         while (Bnode.size() > 0) {
             int w = Bnode[0];
-            Bnode.erase(std::find(Bnode.begin(), Bnode.end(), w));
+            Bnode.erase(Bnode.begin());
             if (blocked[w]) {
                 unblock(w);
             }
@@ -327,20 +334,43 @@ struct ElementaryCyclesSearch {
 int main() {
 
     // more than 11 takes too much RAM
-    int N = 10;
-    std::cerr << "Enter N: ";
-    std::cin >> N;
+    int N = 8;
+    //std::cerr << "Enter N: ";
+    //std::cin >> N;
 
     std::vector<int> nodes(N);
     for (int i = 0; i < N; ++i) {
         nodes[i] = i+1000;
     }
 
-    std::vector<std::vector<int>> adjMatrix(N, std::vector<int>(N, 2));
+    std::vector<std::vector<int>> adjMatrix(N, std::vector<int>(N, 0));
     
+    adjMatrix[0][1] = 1;
     adjMatrix[1][0] = 1;
     adjMatrix[0][2] = 1;
+    adjMatrix[2][0] = 1;
+    adjMatrix[1][3] = 1;
+    adjMatrix[3][1] = 1;
+    adjMatrix[2][3] = 1;
+    adjMatrix[3][2] = 1;
+    adjMatrix[0][3] = 1;
     adjMatrix[2][1] = 1;
+    adjMatrix[4][5] = 1;
+    adjMatrix[5][4] = 1;
+    adjMatrix[4][6] = 1;
+    adjMatrix[6][4] = 1;
+    adjMatrix[6][7] = 1;
+    adjMatrix[7][6] = 1;
+    adjMatrix[5][7] = 1;
+    adjMatrix[7][5] = 1;
+    adjMatrix[5][6] = 1;
+    adjMatrix[7][4] = 1;
+
+    //adjMatrix[3][5] = 1;
+    //adjMatrix[4][2] = 1;
+
+    adjMatrix[4][1] = 1;
+    adjMatrix[3][6] = 1;
 
     //std::fill(adjMatrix[1].begin(), adjMatrix[1].end(), false);
 

@@ -262,6 +262,8 @@ struct ElementaryCyclesSearch {
     }
 
     bool findCycles(int v, int s, const std::vector<std::vector<int>>& adjList) {
+        //std::cerr << "v = " << v << std::endl;
+
         bool f = false;
         stack.push_back(v);
         blocked[v] = true;
@@ -294,15 +296,16 @@ struct ElementaryCyclesSearch {
         }
 
         stack.erase(std::find(stack.begin(), stack.end(), v));
+        //stack.pop_back();
         return f;
     }
 
     void unblock(int node) {
         blocked[node] = false;
-        auto Bnode = B[node];
+        auto& Bnode = B[node];
         while (Bnode.size() > 0) {
             int w = Bnode[0];
-            Bnode.erase(std::find(Bnode.begin(), Bnode.end(), w));
+            Bnode.erase(Bnode.begin());
             if (blocked[w]) {
                 unblock(w);
             }
@@ -313,7 +316,7 @@ struct ElementaryCyclesSearch {
 int main() {
 
     // more than 11 takes too much RAM
-    const int N = 10;
+    const int N = 8;
 
     std::vector<int> nodes(N);
     for (int i = 0; i < N; ++i) {
@@ -321,7 +324,8 @@ int main() {
     }
 
     std::vector<std::vector<bool>> adjMatrix(N, std::vector<bool>(N, false));
-    adjMatrix[0][1] = true;
+    
+    /*adjMatrix[0][1] = true;
     adjMatrix[1][2] = true;
     adjMatrix[2][0] = true;
     adjMatrix[3][4] = true;
@@ -333,6 +337,34 @@ int main() {
     adjMatrix[7][8] = true;
     adjMatrix[8][6] = true;
     adjMatrix[6][1] = true;
+    */
+    
+    adjMatrix[0][1] = 1;
+    adjMatrix[1][0] = 1;
+    adjMatrix[0][2] = 1;
+    adjMatrix[2][0] = 1;
+    adjMatrix[1][3] = 1;
+    adjMatrix[3][1] = 1;
+    adjMatrix[2][3] = 1;
+    adjMatrix[3][2] = 1;
+    adjMatrix[0][3] = 1;
+    adjMatrix[2][1] = 1;
+    adjMatrix[4][5] = 1;
+    adjMatrix[5][4] = 1;
+    adjMatrix[4][6] = 1;
+    adjMatrix[6][4] = 1;
+    adjMatrix[6][7] = 1;
+    adjMatrix[7][6] = 1;
+    adjMatrix[5][7] = 1;
+    adjMatrix[7][5] = 1;
+    adjMatrix[5][6] = 1;
+    adjMatrix[7][4] = 1;
+
+    adjMatrix[3][5] = 1;
+    adjMatrix[4][2] = 1;
+
+    //adjMatrix[3][7] = 1;
+    //adjMatrix[4][1] = 1;
 
     ElementaryCyclesSearch ecs(adjMatrix, nodes);
     std::list<std::vector<int>> cycles = ecs.getElementaryCycles();
