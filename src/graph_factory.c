@@ -1,18 +1,36 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <glib.h>
 #include "graph.h"
 #include "graph_factory.h"
+#include "graph_interface.h"
 #include "utils.h"
 
-Graph* create_graph_with_type(GraphType type, int vertices) {
-    Graph *graph = (Graph *)malloc(sizeof(Graph));
-    if (!graph) return NULL;
+// void* create_graph_with_type(GraphType type, int vertices) {
+//     if (type == SIMPLE_GRAPH) {
+//         // return create_graph(vertices);  
+//         return create_multigraph(vertices);
+//     } else if (type == MULTIGRAPH) {
+//         return create_multigraph(vertices);
+//     }
 
-    graph->vertices = vertices;
-    graph->adjacency_matrix = allocate_matrix(vertices);
+//     fprintf(stderr, "Invalid graph type specified.\n");
+//     return NULL; 
+// }
 
-    if (type == MULTIGRAPH) {
-        //  ... add support for multigraphs
+
+GraphInterface* create_graph_with_type(GraphType type, int vertices) {
+    if (type == SIMPLE_GRAPH) {
+        Graph *simple_graph = create_graph(vertices);
+        
+        if (!simple_graph) {
+            return NULL;
+        }
+        return (GraphInterface*)simple_graph;
+    } else if (type == MULTIGRAPH) {
+        return create_multigraph(vertices);
     }
 
-    return graph;
+    fprintf(stderr, "Invalid graph type specified.\n");
+    return NULL;
 }
