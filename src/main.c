@@ -5,7 +5,7 @@
 #include "graph.h"
 #include "utils.h"
 #include "config.h"
-#include "graph_algorithm.h"  // Ensure this header is included
+#include "graph_algorithm.h"
 
 void handle_arguments(int argc, char *argv[], Config *config) {
     if (argc < 2) {
@@ -29,19 +29,35 @@ FILE* open_file_with_retry(const char *filename) {
 }
 
 void analyze_multigraph(GraphInterface *multigraph) {
-    printf("Multigraph size: %d\n", multigraph->calculate_size(multigraph));
-    printf("Cycle count: %d\n", default_algorithm.find_cycles(multigraph, multigraph->vertices));
-    printf("Hamiltonian cycles: %d\n", default_algorithm.count_hamiltonian_cycles(multigraph, multigraph->vertices));
+    printf("Analyzing Multigraph:\n");
+    printf("------------------------------------------------\n");
+
+    int graph_size = multigraph->calculate_size(multigraph);
+    printf("Graph size (sum of edge weights): %d\n", graph_size);
+
+    int cycle_count = default_algorithm.find_cycles(multigraph, multigraph->vertices);
+    printf("Cycle count: %d\n", cycle_count);
+
+    int hamiltonian_cycles = default_algorithm.count_hamiltonian_cycles(multigraph, multigraph->vertices);
+    printf("Hamiltonian cycles: %d\n", hamiltonian_cycles);
 
     GArray *metric = default_algorithm.calculate_metric(multigraph, multigraph->vertices);
     printf("Metric values:\n");
     for (int i = 0; i < metric->len; i++) {
-        printf("Metric[%d] = %d\n", i, g_array_index(metric, int, i));
+        printf("  Metric[%d] = %d\n", i, g_array_index(metric, int, i));
     }
     g_array_free(metric, TRUE);
 
-    int minimalExtension = default_algorithm.find_minimal_extension(multigraph, multigraph->vertices);
-    printf("Minimal extension for Hamiltonian cycle: %d\n", minimalExtension);
+    int minimal_extension = default_algorithm.find_minimal_extension(multigraph, multigraph->vertices);
+    printf("Minimal extension for Hamiltonian cycle: %d\n", minimal_extension);
+
+    int maximal_cycle_length = default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices);
+    printf("Maximal cycle length: %d\n", maximal_cycle_length);
+
+    int maximal_cycle_count = default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices);
+    printf("Number of maximal cycles: %d\n", maximal_cycle_count);
+
+    printf("------------------------------------------------\n\n");
 }
 
 void cleanup_resources(GraphInterface *multigraph) {
@@ -51,37 +67,37 @@ void cleanup_resources(GraphInterface *multigraph) {
 }
 
 int main(int argc, char *argv[]) {
-    Config *config = get_config(); // Ensure this retrieves a struct with config settings
+    Config *config = get_config();
     handle_arguments(argc, argv, config);
 
     FILE *file = open_file_with_retry(config->input_file);
 
     int num_graphs;
-    fscanf(file, "%d", &num_graphs); // Read the number of graphs
-    printf("Processing %d graphs.\n", num_graphs);
+    fscanf(file, "%d", &num_graphs);
+    printf("Processing %d graphs.\n\n", num_graphs);
 
     for (int i = 0; i < num_graphs; i++) {
+        printf("Graph %d:\n", i + 1);
+
         int vertices;
-        fscanf(file, "%d", &vertices); // Read the number of vertices for each graph
+        fscanf(file, "%d", &vertices);
 
         GraphInterface *multigraph = create_multigraph(vertices);
         if (!multigraph) {
-            fprintf(stderr, "Failed to initialize the graph interface.\n");
+            fprintf(stderr, "Failed to initialize the graph interface for graph %d.\n", i + 1);
             continue;
         }
 
-        // Load edges
-        int src, dest, weight;
         for (int j = 0; j < vertices; j++) {
             for (int k = 0; k < vertices; k++) {
+                int weight;
                 fscanf(file, "%d", &weight);
-                if (weight > 0) { // Only add actual edges
+                if (weight > 0) { 
                     multigraph->add_edge(multigraph, j, k, weight);
                 }
             }
         }
 
-        // Analyze the graph
         analyze_multigraph(multigraph);
         cleanup_resources(multigraph);
     }

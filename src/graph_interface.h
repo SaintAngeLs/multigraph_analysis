@@ -20,9 +20,13 @@ typedef struct GraphInterface {
     GArray* (*calculate_metric)(void *self, int vertices);
 
     int (*find_minimal_extension)(void *self, int vertices);
+
+    int (*count_maximal_cycles)(void *graph, int vertices);
+
+    int (*find_maximal_cycles)(void *graph, int vertices);
     
     int vertices;
-    
+
 } GraphInterface;
 
 #endif

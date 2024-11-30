@@ -31,6 +31,10 @@ typedef struct {
 
     int (*find_minimal_extension)(void *graph, int vertices);
 
+    int (*count_maximal_cycles)(void *graph, int vertices);
+
+    int (*find_maximal_cycles)(void *graph, int vertices);
+
 } GraphAlgorithm;
 
 
