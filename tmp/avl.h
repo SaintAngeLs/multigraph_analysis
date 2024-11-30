@@ -9,8 +9,8 @@
 typedef struct AvlNode_ {
     size_t key;
     size_t value;
-     AvlNode_* left;
-     AvlNode_* right;
+    AvlNode_* left;
+    AvlNode_* right;
     int_fast32_t height; 
 } AvlNode;
 

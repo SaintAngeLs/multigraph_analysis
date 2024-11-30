@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <math.h>
 #include "avl.h"
 
 void swap_int_ptr(int** a, int** b) {
@@ -58,12 +59,16 @@ void free_graph(int* X, int* Xparam) {
 }
 
 static int comp_graphs_n;
-int comp_graphs(const int*const* a, const int*const* b) {
+int comp_graphs(const int* a, const int* b) {
     for (int i = 0; i < comp_graphs_n*comp_graphs_n; ++i) {
-        if ((*a)[i] < (*b)[i]) { return -1; }
-        if ((*a)[i] > (*b)[i]) { return 1; }
+        if ((a)[i] < (b)[i]) { return -1; }
+        if ((a)[i] > (b)[i]) { return 1; }
     }
     return 0;
+}
+
+int comp_int(int a, int b) {
+    return (a < b) ? -1 : ((a > b) ? 1 : 0);
 }
 
 void avl_for_each(AvlNode* root, void (*op)(AvlNode* node)) {
@@ -84,17 +89,32 @@ void free_graph_storage_unit(AvlNode* node) {
     free((void*)node->key);
 }
 
+int h(int* G, int n, int* degs_self, int* degs_other) {
+    for (int i = 0; i < n; ++i) {
+        degs_self[i] = 0;
+        for (int j = 0; j < n; ++j) {
+            degs_self[i] += G[n*i+j];
+        }
+    }
+    heapsort(degs_self, sizeof(int), n, comp_int);
+    int sum = 0;
+    for (int i = 0; i < n; ++i) {
+        sum += abs(degs_self[i] - degs_other[i]);
+    }
+    return sum;
+}
+
 int a_star(int* start, int* goal, int n, int* result) {
     /* put start and goal to the db */
     comp_graphs_n = n;
     
     AvlNode* tmp_avl_alloc = malloc(sizeof(AvlNode));
-    if (!tmp_avl_alloc) {
+    //if (!tmp_avl_alloc) {
         // TODO
-    }
-    int* tmp_graph = malloc(sizeof(int), n*n);
+    //}
+    int* tmp_graph = malloc(sizeof(int)*n*n);
     if (!tmp_graph) {
-        return 0; // TODO
+    //    return 0; // TODO
     }
     memcpy(tmp_graph, start, sizeof(int)*n*n);
     AvlNode* avl_graph_storage = avl_create_node(tmp_avl_alloc, tmp_graph, NULL);
@@ -103,20 +123,40 @@ int a_star(int* start, int* goal, int n, int* result) {
     if (!tmp_avl_alloc) {
         // TODO
     }
-    tmp_graph = malloc(sizeof(int), n*n);
+    tmp_graph = malloc(sizeof(int)*n*n);
     if (!tmp_graph) {
-        return 0; // TODO
+    //    return 0; // TODO
     }
     memcpy(tmp_graph, goal, sizeof(int)*n*n);
     avl_insert(&avl_graph_storage, tmp_avl_alloc, tmp_graph, NULL, comp_graphs);
 
-    AvlNode* avl_qprior = NULL;
-    AvlNode* avl_qgraph = NULL;
-    AvlNode* avl_g = NULL;
-    AvlNode* avl_c = NULL;
+    AvlNode* avl_qprior = NULL; // <priority, graph node>
+    AvlNode* avl_qgraph = NULL; // <graph node, priority map node>
+    AvlNode* avl_g = NULL;      // <graph node, cost>
+    AvlNode* avl_c = NULL;      // <graph node>
+    
+    // calculate degs
+    int *degs_goal, *degs_curr;
+    degs_goal = malloc(sizeof(int)*n); // TODO
+    degs_curr = malloc(sizeof(int)*n); // TODO
+    
+    // TODO: dry
+    for (int i = 0; i < n; ++i) {
+        degs_goal[i] = 0;
+        for (int j = 0; j < n; ++j) {
+            degs_goal[i] += goal[n*i+j];
+        }
+    }
+    heapsort(degs_goal, sizeof(int), n, comp_int);
+
+    // insert start
+    tmp_avl_alloc = malloc(sizeof(AvlNode)); // TODO
+    avl_insert(&avl_qprior, tmp_avl_alloc, h(start, n, degs_curr, degs_goal), avl_find(avl_graph_storage, start), comp_int);
 
     // TODO: continue
-    
+
+    free(degs_goat);
+    free(degs_curr);
     avl_free(avl_c);
     avl_free(avl_g);
     avl_free(avl_qgraph);

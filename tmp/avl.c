@@ -185,3 +185,19 @@ AvlNode* avl_delete_key(AvlNode** root_ptr, size_t key, int (*comp)(const void*,
     *root_ptr = root;
     return deleted_node;
 }
+
+AvlNode* find_node(AvlNode* root, size_t key, int (*comp)(const void*, const void*)) {
+    if (!root) {
+        return NULL;
+    }
+    if (comp(key, root->key) == 0) {
+        return root;
+    }
+    if (comp(key, root->key) < 0) {
+        return find_node(root->left, key, comp);
+    }
+    if (comp(key, root->key) > 0) {
+        return find_node(root->right, key, comp);
+    }
+    return NULL;
+}
