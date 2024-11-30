@@ -1,5 +1,5 @@
-#ifndef MINIML_AVL_IMPL_H
-#define MINIML_AVL_IMPL_H
+#ifndef AVL_IMPL_H
+#define AVL_IMPL_H
 #include <stddef.h>
 
 /* elem: node */
