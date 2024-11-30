@@ -1,78 +1,187 @@
 #include "avl.h"
-#include "avl_impl.h"
-#include <string.h>
 
-GraphStorageNode *avl_insert_gstor(GraphStorageNode *tree_root,
-                                void* elem, void* second_value,
-                                GraphStorageNode *allocMem,
-                                int (*comp)(const void *, const void *)) {
-  GraphStorageNode fakeNode;
-  memset(&fakeNode, 0, sizeof(GraphStorageNode));
-  fakeNode.value = elem;
-  fakeNode.second_value = second_value;
-  return avl_insert_impl(
-      tree_root, &fakeNode, allocMem, sizeof(GraphStorageNode), comp,
-      offsetof(GraphStorageNode, left), offsetof(GraphStorageNode, right),
-      offsetof(GraphStorageNode, ht));
+int_fast32_t height(AvlNode* node) {
+    if (node == NULL)
+        return 0;
+    return node->height;
 }
 
-GraphStorageNode *avl_delete_value_gstor(GraphStorageNode *tree_root,
-                                      void* valueElem,
-                                      int (*comp)(const void *, const void *)) {
-  GraphStorageNode fakeNode;
-  memset(&fakeNode, 0, sizeof(GraphStorageNode));
-  fakeNode.value = valueElem;
-  return avl_erase_by_value_impl(
-      tree_root, &fakeNode, sizeof(GraphStorageNode), comp,
-      offsetof(GraphStorageNode, left), offsetof(GraphStorageNode, right),
-      offsetof(GraphStorageNode, ht));
+
+AvlNode* avl_create_node(AvlNode* alloc_mem, size_t key, size_t value) {
+    AvlNode* newNode = alloc_mem;
+    newNode->key = key;
+    newNode->value = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    newNode->height = 1;
+    return newNode;
 }
 
-GraphStorageNode *avl_find_gstor(GraphStorageNode *tree_root,
-                              void* valueElem,
-                              int (*comp)(const void *, const void *)) {
-  GraphStorageNode fakeNode;
-  memset(&fakeNode, 0, sizeof(GraphStorageNode));
-  fakeNode.value = valueElem;
-  return avl_find_impl(tree_root, comp, &fakeNode,
-                       offsetof(GraphStorageNode, left),
-                       offsetof(GraphStorageNode, right));
+static int_fast32_t max(int_fast32_t a, int_fast32_t b) {
+    return (a < b) ? b : a;
 }
 
-/*GraphStorageNode2 *avl_insert2(GraphStorageNode2 *tree_root,
-                                  DataQueryKey elem,
-                                  GraphStorageNode2 *allocMem,
-                                  int (*comp)(const void *, const void *)) {
-  GraphStorageNode2 fakeNode;
-  memset(&fakeNode, 0, sizeof(GraphStorageNode2));
-  fakeNode.value = elem;
-  return avl_insert_impl(tree_root, &fakeNode, allocMem,
-                         sizeof(GraphStorageNode2), comp,
-                         offsetof(GraphStorageNode2, left),
-                         offsetof(GraphStorageNode2, right),
-                         offsetof(GraphStorageNode2, ht));
+AvlNode* rightRotate(AvlNode* y) {
+    AvlNode* x = y->left;
+    AvlNode* T2 = x->right;
+
+    
+    x->right = y;
+    y->left = T2;
+
+    
+    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
+
+    
+    return x;
 }
 
-GraphStorageNode2 *
-avl_delete_value2(GraphStorageNode2 *tree_root, DataQueryKey elem,
-                  int (*comp)(const void *, const void *)) {
-  GraphStorageNode2 fakeNode;
-  memset(&fakeNode, 0, sizeof(GraphStorageNode2));
-  fakeNode.value = elem;
-  return avl_erase_by_value_impl(tree_root, &fakeNode,
-                                 sizeof(GraphStorageNode2), comp,
-                                 offsetof(GraphStorageNode2, left),
-                                 offsetof(GraphStorageNode2, right),
-                                 offsetof(GraphStorageNode2, ht));
+
+AvlNode* leftRotate(AvlNode* x) {
+    AvlNode* y = x->right;
+    AvlNode* T2 = y->left;
+
+    
+    y->left = x;
+    x->right = T2;
+
+    
+    x->height = max(height(x->left), height(x->right)) + 1;
+    y->height = max(height(y->left), height(y->right)) + 1;
+
+    
+    return y;
 }
 
-GraphStorageNode2 *avl_find2(GraphStorageNode2 *tree_root,
-                                DataQueryKey elem,
-                                int (*comp)(const void *, const void *)) {
-  GraphStorageNode2 fakeNode;
-  memset(&fakeNode, 0, sizeof(GraphStorageNode2));
-  fakeNode.value = elem;
-  return avl_find_impl(tree_root, comp, &fakeNode,
-                       offsetof(GraphStorageNode2, left),
-                       offsetof(GraphStorageNode2, right));
-}*/
+
+int_fast32_t getBalance(AvlNode* node) {
+    if (node == NULL)
+        return 0;
+    return height(node->left) - height(node->right);
+}
+
+
+void insert(AvlNode** root_ptr, AvlNode* alloc_mem, size_t key, size_t value, int (*comp)(const void*, const void*)) {
+    
+    if (*root_ptr == NULL) {
+        *root_ptr = avl_create_node(alloc_mem, key, value);
+        return;
+    }
+
+    AvlNode* root = *root_ptr;
+
+    if (comp(key, root->key) < 0)
+        avl_insert(&root->left, alloc_mem, key, value, comp);
+    else if (comp(key, root->key) > 0)
+        avl_insert(&root->right, alloc_mem, key, value, comp);
+    else 
+        return;
+    
+    root->height = 1 + max(height(root->left), height(root->right));
+
+    int_fast32_t balance = getBalance(root);
+    
+    if (balance > 1 && comp(key, root->left->key) < 0) {
+        *root_ptr = rightRotate(root);
+        return;
+    }
+
+    
+    if (balance < -1 && comp(key, root->right->key) > 0) {
+        *root_ptr = leftRotate(root);
+        return;
+    }
+
+    
+    if (balance > 1 && comp(key, root->left->key) > 0) {
+        root->left = leftRotate(root->left);
+        *root_ptr = rightRotate(root);
+        return;
+    }
+
+    
+    if (balance < -1 && comp(key, root->right->data) < 0) {
+        root->right = rightRotate(root->right);
+        *root_ptr = leftRotate(root);
+        return;
+    }
+
+    *root_ptr = root;
+}
+
+
+AvlNode* avl_min_node(AvlNode* node) {
+    AvlNode* current = node;
+    while (current->left != NULL)
+        current = current->left;
+    return current;
+}
+
+
+AvlNode* avl_delete_key(AvlNode** root_ptr, size_t key, int (*comp)(const void*, const void*)) {
+    if (root_ptr == NULL)
+        return NULL;
+
+    AvlNode* root = *root_ptr;
+    AvlNode* deleted_node = NULL;
+
+    if (comp(key, root->key) < 0)
+        deleted_node = avl_delete_key(&root->left, key, comp);
+    else if (comp(key, root->key) > 0)
+        deleted_node = avl_delete_key(&root->right, key, comp);
+    else {
+        
+        if ((root->left == NULL) || (root->right == NULL)) {
+            AvlNode* temp = root->left ? root->left : root->right;
+
+            if (temp == NULL) {
+                temp = root;
+                root = NULL;
+            } else 
+                *root = *temp; 
+
+            deleted_node = temp;
+        } else {
+            
+            AvlNode* temp = avl_min_node(root->right);
+            root->data = temp->data;
+            deleted_node = avl_delete_node(&root->right, temp->key, comp);
+        }
+    }
+
+    
+    if (root == NULL) {
+        *root_ptr = root;
+        return deleted_node;
+    }
+    
+    root->height = 1 + max(height(root->left), height(root->right));
+
+    int_fast32_t balance = getBalance(root);
+    
+    if (balance > 1 && getBalance(root->left) >= 0) {
+        *root_ptr = rightRotate(root);
+        return deleted_node;
+    }
+
+    if (balance > 1 && getBalance(root->left) < 0) {
+        root->left = leftRotate(root->left);
+        *root_ptr = rightRotate(root);
+        return deleted_node;
+    }
+    
+    if (balance < -1 && getBalance(root->right) <= 0) {
+        *root_ptr = leftRotate(root);
+        return deleted_node;
+    }
+    
+    if (balance < -1 && getBalance(root->right) > 0) {
+        root->right = rightRotate(root->right);
+        *root_ptr = leftRotate(root);
+        return deleted_node;
+    }
+
+    *root_ptr = root;
+    return deleted_node;
+}

@@ -57,24 +57,8 @@ void free_graph(int* X, int* Xparam) {
     }
 }
 
-typedef struct MemoryNode {
-    GraphStorageNode value;
-    struct MemoryNode* prev;
-    struct MemoryNode* next;
-
-} MemoryNode;
-
-void free_memory_list_gstor(MemoryNode* node) {
-    while (!node) {
-        MemoryNode* next = node->next;
-        free(node->value.value);
-        free(node);
-        node = next;
-    }
-}
-
 static int comp_graphs_n;
-int comp_graphs(int** a, int** b) {
+int comp_graphs(const int*const* a, const int*const* b) {
     for (int i = 0; i < comp_graphs_n*comp_graphs_n; ++i) {
         if ((*a)[i] < (*b)[i]) { return -1; }
         if ((*a)[i] > (*b)[i]) { return 1; }
@@ -82,78 +66,63 @@ int comp_graphs(int** a, int** b) {
     return 0;
 }
 
+void avl_for_each(AvlNode* root, void (*op)(AvlNode* node)) {
+    if (!root) return;
+    op(root);
+    avl_for_each(root->left, op);
+    avl_for_each(root->right, op);
+}
+
+void avl_free(AvlNode* root) {
+    if (!root) return;
+    avl_free(root->left);
+    avl_free(root->right);
+    free(root);
+}
+
+void free_graph_storage_unit(AvlNode* node) {
+    free((void*)node->key);
+}
+
 int a_star(int* start, int* goal, int n, int* result) {
-    MemoryNode* memory_list_head = malloc(sizeof(MemoryNode));
-    if (!memory_list_head) return 0;
-    memory_list_head->prev = NULL;
-    memory_list_head->next = NULL;
-    MemoryNode* memory_list_curr = memory_list_head;
-    
-    // TODO
-    MemoryNode* memory_qprior_head;
-    MemoryNode* memory_qgraph_head;
-    MemoryNode* memory_g_head;
-    MemoryNode* memory_c_head;
-
-    MemoryNode* memory_qprior_curr;
-    MemoryNode* memory_qgraph_curr;
-    MemoryNode* memory_g_curr;
-    MemoryNode* memory_c_curr;
-
-    GraphStorageNode* graph_storage_root = NULL;
-    
     /* put start and goal to the db */
     comp_graphs_n = n;
     
-    // TODO: repeated
-    // difference: start, goal
-    graph_storage_root = avl_insert_gstor(graph_storage_root, tmp_graph, NULL, &memory_list_curr->value, comp_graphs);
-    
-    memory_list_curr->next = malloc(sizeof(MemoryNode));
-    if (!memory_list_curr->next) {
-        /*TODO*/
-        return 0;
+    AvlNode* tmp_avl_alloc = malloc(sizeof(AvlNode));
+    if (!tmp_avl_alloc) {
+        // TODO
     }
-    memory_list_curr->next->prev = memory_list_curr;
-    memory_list_curr = memory_list_curr->next;
-    memory_list_curr->next = NULL;
-   
     int* tmp_graph = malloc(sizeof(int), n*n);
     if (!tmp_graph) {
         return 0; // TODO
     }
-    memcpy(tmp_graph, goal, n*n);
-     
-    graph_storage_root = avl_insert_gstor(graph_storage_root, tmp_graph, NULL, &memory_list_curr->value, comp_graphs);
+    memcpy(tmp_graph, start, sizeof(int)*n*n);
+    AvlNode* avl_graph_storage = avl_create_node(tmp_avl_alloc, tmp_graph, NULL);
     
-    memory_list_curr->next = malloc(sizeof(MemoryNode));
-    if (!memory_list_curr->next) {
-        /*TODO*/
-        return 0;
+    tmp_avl_alloc = malloc(sizeof(AvlNode));
+    if (!tmp_avl_alloc) {
+        // TODO
     }
-    memory_list_curr->next->prev = memory_list_curr;
-    memory_list_curr = memory_list_curr->next;
-    memory_list_curr->next = NULL;
+    tmp_graph = malloc(sizeof(int), n*n);
+    if (!tmp_graph) {
+        return 0; // TODO
+    }
+    memcpy(tmp_graph, goal, sizeof(int)*n*n);
+    avl_insert(&avl_graph_storage, tmp_avl_alloc, tmp_graph, NULL, comp_graphs);
+
+    AvlNode* avl_qprior = NULL;
+    AvlNode* avl_qgraph = NULL;
+    AvlNode* avl_g = NULL;
+    AvlNode* avl_c = NULL;
+
+    // TODO: continue
     
-    // TODO
-    GraphStorageNode* qprior_root = NULL;
-    GraphStorageNode* qgraph_root = NULL;
-    GraphStorageNode* g_root = NULL;
-    GraphStorageNode* c_root = NULL;
-    
-    
-    qprior_root = avl_insert_gstor(qprior_root, );
-
-
-
-
-
-    // TODO
-    free_memory_list(memory_c_head);
-    free_memory_list(memory_g_head);
-    free_memory_list(memory_qgraph_head);
-    free_memory_list(memory_qprior_head);
-    free_memory_list_gstor(memory_list_head);
+    avl_free(avl_c);
+    avl_free(avl_g);
+    avl_free(avl_qgraph);
+    avl_free(avl_qprior);
+    avl_for_each(avl_graph_storage, free_graph_storage_unit);
+    avl_free(avl_graph_storage);
     return 1;
 }
 
@@ -189,3 +158,36 @@ A_alloc_failed:
 int main() {
     return EXIT_SUCCESS;
 }
+
+/*
+typedef struct MemoryNode_ {
+    AvlNode avlnode;
+    struct MemoryNode_* prev;
+    struct MemoryNode_* next;
+
+} MemoryNode;
+
+void free_memory_list(MemoryNode* node) {
+    while (!node) {
+        MemoryNode* next = node->next;
+        free(node);
+        node = next;
+    }
+}
+
+struct MemoryList {
+    MemoryNode* head;
+    MemoryNode* curr;
+};
+
+int memory_list_append() {
+    
+}
+
+int memory_list_remove() {
+
+}
+
+*/
+
+
