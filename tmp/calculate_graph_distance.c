@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <math.h>
 #include "avl.h"
+#include "heapsort.h"
 
 void swap_int_ptr(int** a, int** b) {
     int* tmp = *a;
