@@ -1,14 +1,14 @@
 name: C Build and Static Analysis
 
 on:
-    push:
-      branches:
-        - 'dev*'
-        - 'master*'
-    pull_request:
-      branches:
-        - 'dev*'
-        - 'master*'
+  push:
+    branches:
+      - 'dev*'
+      - 'master*'
+  pull_request:
+    branches:
+      - 'dev*'
+      - 'master*'
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y clang-tidy cppcheck make gcc
+          sudo apt install -y clang-tidy cppcheck make gcc libglib2.0-dev
 
       - name: Build with Makefile
         run: make
