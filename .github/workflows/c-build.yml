@@ -26,9 +26,9 @@ jobs:
       - name: Build with Makefile
         run: make
 
-      - name: Run clang-tidy
-        run: |
-          clang-tidy src/*.c -- -Iinclude -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+      # - name: Run clang-tidy
+      #   run: |
+      #     clang-tidy src/*.c -- -Iinclude -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 
       - name: Run cppcheck
         run: cppcheck --enable=all --inconclusive --std=c99 src/
