@@ -42,9 +42,10 @@ void analyze_multigraph(GraphInterface *multigraph) {
     printf("Hamiltonian cycles: %d\n", hamiltonian_cycles);
 
     GArray *metric = default_algorithm.calculate_metric(multigraph, multigraph->vertices);
-    printf("Metric values:\n");
-    for (int i = 0; i < metric->len; i++) {
-        printf("  Metric[%d] = %d\n", i, g_array_index(metric, int, i));
+    printf("Metric size: %d\n", metric->len);
+    printf("Smallest resolving set:\n");
+    for (int i = 1; i <= metric->len; i++) {
+        printf(" %d) = %d\n", i, g_array_index(metric, int, i));
     }
     g_array_free(metric, TRUE);
 

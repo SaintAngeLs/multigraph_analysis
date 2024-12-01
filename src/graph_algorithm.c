@@ -105,37 +105,132 @@ static int count_hamiltonian_cycles(void *graph, int vertices) {
     return count;
 }
 
-static GArray* calculate_metric(void *graph, int vertices) {
+static GArray* calculate_metric(void* graph, int vertices) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
-    int max_edge = 0;
-
-    for (int i = 0; i < context->vertices; i++) {
-        for (int j = 0; j < context->vertices; j++) {
-            int edge_weight = context->graph_interface->get_edge(graph, i, j);
-            if (edge_weight > max_edge) {
-                max_edge = edge_weight;
+    // Create a distance matrix
+    int distance_matrix[vertices][vertices];
+    for (int i = 0; i < vertices; i++) {
+        for (int j = 0; j < vertices; j++) {
+            if (i == j) {
+                distance_matrix[i][j] = 0;  // Distance to itself
+            } else {
+                // Assume get_edge returns INT_MAX if there is no edge
+                int edge_weight = context->graph_interface->get_edge(graph, i, j);
+                distance_matrix[i][j] = (edge_weight > 0) ? 1 : INT_MAX;
             }
         }
     }
 
-    GArray *metric = g_array_new(FALSE, FALSE, sizeof(int));
-    for (int k = 0; k <= max_edge; k++) {
-        int count = 0;
-        g_array_append_val(metric, count);
-    }
-
-    for (int i = 0; i < context->vertices; i++) {
-        for (int j = i + 1; j < context->vertices; j++) {
-            int edge_count = context->graph_interface->get_edge(graph, i, j);
-            if (edge_count > 0) {
-                int current_value = g_array_index(metric, int, edge_count);
-                g_array_index(metric, int, edge_count) = current_value + 1;
+    // Apply Floyd-Warshall algorithm to compute shortest paths
+    for (int k = 0; k < vertices; k++) {
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (distance_matrix[i][k] < INT_MAX && distance_matrix[k][j] < INT_MAX) {
+                    int new_distance = distance_matrix[i][k] + distance_matrix[k][j];
+                    if (new_distance < distance_matrix[i][j]) {
+                        distance_matrix[i][j] = new_distance;
+                    }
+                }
             }
         }
     }
 
-    destroy_context(context);
-    return metric;
+    // Function to check if a subset is a resolving set
+    bool is_resolving_set(GArray* subset) {
+        GHashTable* signatures = g_hash_table_new(g_direct_hash, g_direct_equal);
+
+        for (int v = 0; v < vertices; v++) {
+            GArray* signature = g_array_new(FALSE, FALSE, sizeof(int));
+            for (int i = 0; i < subset->len; i++) {
+                int s = g_array_index(subset, int, i);
+                g_array_append_val(signature, distance_matrix[v][s]);
+            }
+
+            // Check if this signature is unique
+            gpointer existing = g_hash_table_lookup(signatures, signature);
+            if (existing) {
+                g_hash_table_destroy(signatures);
+                g_array_free(signature, TRUE);
+                return FALSE;
+            }
+            g_hash_table_insert(signatures, signature, GINT_TO_POINTER(v));
+        }
+
+        g_hash_table_destroy(signatures);
+        return TRUE;
+    }
+
+    // void generate_subsets(int n, int a[n], int size, GArray* smallest_resolving_set) {
+    //     GArray *out = g_array_sized_new(FALSE, FALSE, sizeof(int), size);
+    //     GArray *level = g_array_sized_new(FALSE, FALSE, sizeof(int), size + 1);
+    //     GArray *index = g_array_sized_new(FALSE, FALSE, sizeof(int), size + 1);
+//
+    //     int sp = 0;
+    //     g_array_index(level, int, sp) = 0;
+    //     g_array_index(index, int, sp) = 0;
+//
+    //     redo:
+    //     while(g_array_index(index, int, sp) < n) {
+    //         g_array_index(out, int, g_array_index(level, int, sp)) = a[g_array_index(index, int, sp)];
+    //         g_array_index(level, int, sp + 1) = g_array_index(level, int, sp) + 1;
+    //         g_array_index(index, int, sp + 1) = g_array_index(index, int, sp) + 1;
+//
+    //         if (g_array_index(level, int, ++sp) == size) {
+    //             for(int i = 0; i < out->len; i++) {
+    //                 printf("Subset:\n");
+    //                 printf("%d ", g_array_index(out, int, i));
+    //             }
+    //             if(is_resolving_set(out)) {
+    //                 g_array_free(level, TRUE);
+    //                 g_array_free(index, TRUE);
+    //                 smallest_resolving_set = g_array_copy(out);
+    //                 g_array_free(out, TRUE);
+    //                 return;
+    //             }
+    //             --sp;
+    //         } else {
+    //             goto redo; // Simulate recursive call
+    //         }
+    //         g_array_index(index, int, sp)++;
+    //     }
+    //     if(sp>0) {
+    //         g_array_index(index, int, --sp)++;
+    //         goto redo;
+    //     }
+//
+    //     g_array_free(out, TRUE);
+    //     g_array_free(level, TRUE);
+    //     g_array_free(index, TRUE);
+    // }
+
+    void generate_subsets(int n, GArray* smallest_resolving_set) {
+        int totalSubsets = 1 << n;
+        GArray* subset = g_array_new(FALSE, FALSE, sizeof(int));
+
+        for (int i = 0; i < totalSubsets; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i & (1 << j)) {
+                    g_array_append_val(subset, j);
+                }
+            }
+            if (is_resolving_set(subset)) {
+                for(int i = 0; i < subset->len; i++) {
+                    printf("Subset:\n");
+                    printf("%d ", g_array_index(subset, int, i));
+                    smallest_resolving_set = g_array_copy(subset);
+                }
+                g_array_free(subset, TRUE);
+                return;
+            }
+            g_array_remove_range(subset, 0, subset->len);
+        }
+    }
+
+    // Find the smallest resolving set
+    GArray* smallest_resolving_set = g_array_new(FALSE, FALSE, sizeof(int));
+    generate_subsets(vertices, smallest_resolving_set);=
+
+    return smallest_resolving_set;
 }
 
 static int find_minimal_extension(void *graph, int vertices) {

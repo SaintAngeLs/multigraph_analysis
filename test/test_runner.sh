@@ -1,8 +1,8 @@
 #!/bin/bash
 
-EXECUTABLE=./multigraph_analysis
-DATA_DIR=./data
-RESULTS_DIR=./test/results
+EXECUTABLE=../multigraph_analysis
+DATA_DIR=../data
+RESULTS_DIR=./results
 
 mkdir -p $RESULTS_DIR
 
@@ -11,6 +11,9 @@ TEST_CASES=(
     "multiple_graphs_case2.txt"
     "multiple_graphs_case3.txt"
     "multiple_graphs_case4.txt"
+    "multiple_graphs_case5.txt"
+    "multiple_graphs_case6.txt"
+    "metric.txt"
 )
 
 echo "Running tests on data cases..."
