@@ -1,18 +1,99 @@
-\section{Deficje}
+\section{Definicje}
+
+\noindent \textbf{Definicja 1: Multigraf.} \\
+\emph{Multigraf} to uporządkowana para \( G = (V, E) \), gdzie:
+\begin{itemize}
+    \item \( V \) jest skończonym zbiorem wierzchołków,
+    \item \( E \) jest multizbiorem krawędzi, z których każda łączy parę wierzchołków z \( V \). Krawędzie mogą się powtarzać, co oznacza możliwość występowania wielokrotnych krawędzi między tą samą parą wierzchołków. Krawędzie mogą być również pętlami, tj. krawędziami w postaci \( (v, v) \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 2: Rozmiar multigrafu.} \\
+Rozmiar multigrafu \( G = (V, E) \), oznaczany \( |E| \), to całkowita liczba krawędzi w multigrafie, uwzględniająca wszystkie wielokrotne krawędzie oraz pętle. Formalnie:
+\[
+|E| = \sum_{(u, v) \in V \times V} \text{Liczność}((u, v), E),
+\]
+gdzie \( \text{Liczność}((u, v), E) \) to liczba wystąpień krawędzi \( (u, v) \) w \( E \).
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 3: Cykl w multigrafie.} \\
+\emph{Cykl} w multigrafie \( G = (V, E) \) to ciąg wierzchołków \( v_1, v_2, \dots, v_k, v_1 \), spełniający następujące warunki:
+\begin{itemize}
+    \item \( v_i \in V \) dla \( i = 1, 2, \dots, k \),
+    \item \( (v_i, v_{i+1}) \in E \) dla \( i = 1, 2, \dots, k-1 \), oraz \( (v_k, v_1) \in E \),
+    \item \( v_i \neq v_j \) dla \( 1 \leq i < j \leq k \), z wyjątkiem \( v_1 = v_k \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 4: Maksymalny cykl w multigrafie.} \\
+\emph{Maksymalny cykl} w multigrafie \( G \) to cykl, który zawiera największą liczbę wierzchołków spośród wszystkich cyklów w \( G \).
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 5: Cykl Hamiltona.} \\
+\emph{Cykl Hamiltona} w multigrafie \( G = (V, E) \) to cykl, który odwiedza każdy wierzchołek z \( V \) dokładnie raz i powraca do wierzchołka początkowego. Formalnie, jest to ciąg \( v_1, v_2, \dots, v_{|V|}, v_1 \), taki że:
+\begin{itemize}
+    \item \( v_i \in V \) dla \( i = 1, 2, \dots, |V| \),
+    \item \( (v_i, v_{i+1}) \in E \) dla \( i = 1, 2, \dots, |V|-1 \), oraz \( (v_{|V|}, v_1) \in E \),
+    \item \( v_i \neq v_j \) dla \( 1 \leq i < j \leq |V| \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 6: Minimalne rozszerzenie multigrafu.} \\
+\emph{Minimalne rozszerzenie multigrafu} \( G = (V, E) \) to najmniejsza liczba krawędzi, które należy dodać do \( G \), aby istniał w nim cykl Hamiltona.
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 7: Metryka w przestrzeni multigrafów.} \\
+Niech \( \mathcal{G} \) oznacza zbiór multigrafów. \emph{Metryka} \( d: \mathcal{G} \times \mathcal{G} \to \mathbb{R} \) to funkcja spełniająca następujące warunki:
+\begin{itemize}
+    \item \( d(G, H) \geq 0 \) dla wszystkich \( G, H \in \mathcal{G} \) (\emph{nieujemność}),
+    \item \( d(G, H) = 0 \iff G = H \) (\emph{tożsamość nierozróżnialnych}),
+    \item \( d(G, H) = d(H, G) \) (\emph{symetria}),
+    \item \( d(G, H) \leq d(G, K) + d(K, H) \) dla wszystkich \( G, H, K \in \mathcal{G} \) (\emph{nierówność trójkąta}).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 8: Minimalna odległość w przestrzeni multigrafów.} \\
+Dla dwóch multigrafów \( G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \), minimalna odległość \( d(G, H) \) to minimalna liczba operacji edycyjnych (dodania lub usunięcia krawędzi), aby przekształcić \( G \) w \( H \). Formalnie:
+\[
+d(G, H) = |E_G \setminus E_H| + |E_H \setminus E_G|,
+\]
+gdzie \( E_G \setminus E_H \) to krawędzie obecne w \( G \), ale nieobecne w \( H \), a \( E_H \setminus E_G \) to krawędzie obecne w \( H \), ale nieobecne w \( G \).
+
+\vspace{1em}
 
 
-\textbf{Multigraf} to uporządkowana para \( G = (V, E) \), gdzie \( V \) jest zbiorem wierzchołków, a \( E \) jest multizbiorem krawędzi, z których każda łączy parę wierzchołków z \( V \). \\
-% chyba nie rozważamy pętli w wierzchołku?
+latex
+Copy code
+\section{Przykłady}
 
-\noindent \textbf{Rozmiar multigrafu} to całkowita liczba krawędzi w multigrafie, w tym wszystkie wielokrotne krawędzie między tą samą parą wierzchołków. \\
+\noindent \textbf{Przykład 1: Multigraf bez pętli i bez hamiltona.} \\
+Przykłady śa z plików testowania programu...
 
-\noindent \textbf{Metryka w zbiorze grafów} to [Assigned-> PP] \\
+\vspace{1em}
 
-% to definicja dla current dev
-\noindent \textbf{Cykl w multigrafie} to zamknięta ścieżka w grafie gdzie żaden z wierzchołków się nie powtarza poza pierwszym i ostatnim. \\
+\noindent \textbf{Przykład 2: Multigraf z pętlami.} \\
 
-\noindent \textbf{Maksymalny cykl w multigrafie} to cykl zawierający największą liczbę wierzchołków spośród wszystkich cyklów w multigrafie. \\
 
-\noindent \textbf{Minimalne rozszerzenie w multigrafie} \\
+\vspace{1em}
 
-\noindent \textbf{Cykl Hamiltona w multigrafie} \\
+\noindent \textbf{Przykład 3: Minimalne rozszerzenie dla cyklu Hamiltona.} \\
+
+\vspace{1em}
+
+\noindent \textbf{Przykład 4: Metryka w przestrzeni multigrafów.} \\
+
+\vspace{1em}
+
+\noindent \textbf{Przykład 5: Cykl Hamiltona w multigrafie z wielokrotnymi krawędziami.} \\
+
+
+
+
+
