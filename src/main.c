@@ -28,9 +28,7 @@ FILE* open_file_with_retry(const char *filename) {
     return file;
 }
 
-void print_cycles(GArray *output_cycles) {
-    printf("Found %u cycles:\n", output_cycles->len);
-    
+void print_cycles(GArray *output_cycles) {    
     for (guint i = 0; i < output_cycles->len; i++) {
         GArray *cycle = g_array_index(output_cycles, GArray *, i);
         
@@ -55,11 +53,15 @@ void analyze_multigraph(GraphInterface *multigraph) {
 
     GArray *output_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
     default_algorithm.find_cycles(multigraph, multigraph->vertices, output_cycles);
+    printf("All cycles: %u\n", output_cycles->len);
     print_cycles(output_cycles);
     g_array_free(output_cycles, TRUE);
 
-    int hamiltonian_cycles = default_algorithm.count_hamiltonian_cycles(multigraph, multigraph->vertices);
-    printf("Hamiltonian cycles: %d\n", hamiltonian_cycles);
+    GArray *output_hamiltonian_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
+    default_algorithm.count_hamiltonian_cycles(multigraph, multigraph->vertices, output_hamiltonian_cycles);
+    printf("Hamiltonian cycles: %d\n", output_hamiltonian_cycles->len);
+    print_cycles(output_hamiltonian_cycles);
+    g_array_free(output_hamiltonian_cycles, TRUE);
 
     GArray *metric = default_algorithm.calculate_metric(multigraph, multigraph->vertices);
     printf("Metric size: %d\n", metric->len);

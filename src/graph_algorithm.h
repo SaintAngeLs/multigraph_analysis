@@ -25,7 +25,7 @@ typedef struct {
 
     int (*find_cycles)(void *graph, int vertices, GArray *output_cycles);
 
-    int (*count_hamiltonian_cycles)(void *graph, int vertices);
+    int (*count_hamiltonian_cycles)(void *graph, int vertices, GArray *output_cycles);
 
     GArray* (*calculate_metric)(void *graph, int vertices);
 

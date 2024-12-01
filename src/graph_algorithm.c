@@ -101,7 +101,7 @@ static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
 }
 
 
-static int count_hamiltonian_cycles(void *graph, int vertices) {
+static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int count = 0;
 
@@ -117,12 +117,18 @@ static int count_hamiltonian_cycles(void *graph, int vertices) {
         }
     }
 
+    void store_hamiltonian_cycle(GArray *path) {
+        GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
+        g_array_append_vals(stored_cycle, path->data, path->len);
+        g_array_append_val(stored_cycle, g_array_index(path, int, 0));
+        g_array_append_val(output_cycles, stored_cycle);
+    }
+
     void backtrack(int node, int start, int depth, GArray *path, GHashTable *visited) {
         g_array_append_val(path, node);
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         if (depth == context->vertices) {
-
             if (context->graph_interface->get_edge(graph, node, start) > 0) {
                 char cycle_str[512];
                 normalize_cycle(path, cycle_str);
@@ -130,6 +136,7 @@ static int count_hamiltonian_cycles(void *graph, int vertices) {
                 if (!g_hash_table_contains(unique_cycles, cycle_str)) {
                     g_hash_table_add(unique_cycles, strdup(cycle_str));
                     count++;
+                    store_hamiltonian_cycle(path);
                 }
             }
         } else {
