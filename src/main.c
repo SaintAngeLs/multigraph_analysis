@@ -41,14 +41,6 @@ void analyze_multigraph(GraphInterface *multigraph) {
     int hamiltonian_cycles = default_algorithm.count_hamiltonian_cycles(multigraph, multigraph->vertices);
     printf("Hamiltonian cycles: %d\n", hamiltonian_cycles);
 
-    GArray *metric = default_algorithm.calculate_metric(multigraph, multigraph->vertices);
-    printf("Metric size: %d\n", metric->len);
-    printf("Smallest resolving set:\n");
-    for (int i = 1; i <= metric->len; i++) {
-        printf(" %d) = %d\n", i, g_array_index(metric, int, i - 1));
-    }
-    g_array_free(metric, TRUE);
-
     int minimal_extension = default_algorithm.find_minimal_extension(multigraph, multigraph->vertices);
     printf("Minimal extension for Hamiltonian cycle: %d\n", minimal_extension);
 
@@ -77,6 +69,8 @@ int main(int argc, char *argv[]) {
     fscanf(file, "%d", &num_graphs);
     printf("Processing %d graphs.\n\n", num_graphs);
 
+    GArray *graphs = g_array_new(FALSE, FALSE, sizeof(GraphInterface *));
+
     for (int i = 0; i < num_graphs; i++) {
         printf("Graph %d:\n", i + 1);
 
@@ -99,9 +93,22 @@ int main(int argc, char *argv[]) {
             }
         }
 
+        g_array_append_val(graphs, multigraph);
         analyze_multigraph(multigraph);
+    }
+
+    for (int i = 1; i < graphs->len; i++) {
+        GraphInterface *multigraph_1 = g_array_index(graphs, GraphInterface *, i-1);
+        GraphInterface *multigraph_2 = g_array_index(graphs, GraphInterface *, i);
+        double metric = default_algorithm.calculate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices);
+        printf("Graph similarity metric between graph %d and graph %d: %.3f\n", i, i+1, metric);
+    }
+
+    for (int i = 0; i < graphs->len; i++) {
+        GraphInterface *multigraph = g_array_index(graphs, GraphInterface *, i);
         cleanup_resources(multigraph);
     }
+    g_array_free(graphs, TRUE);
 
     fclose(file);
     return EXIT_SUCCESS;
