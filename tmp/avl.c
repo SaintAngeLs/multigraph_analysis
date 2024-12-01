@@ -6,7 +6,6 @@ int_fast32_t height(AvlNode* node) {
     return node->height;
 }
 
-
 AvlNode* avl_create_node(AvlNode* alloc_mem, size_t key, size_t value) {
     AvlNode* newNode = alloc_mem;
     newNode->key = key;
@@ -24,36 +23,28 @@ static int_fast32_t max(int_fast32_t a, int_fast32_t b) {
 AvlNode* rightRotate(AvlNode* y) {
     AvlNode* x = y->left;
     AvlNode* T2 = x->right;
-
     
     x->right = y;
     y->left = T2;
-
     
     y->height = max(height(y->left), height(y->right)) + 1;
     x->height = max(height(x->left), height(x->right)) + 1;
-
     
     return x;
 }
 
-
 AvlNode* leftRotate(AvlNode* x) {
     AvlNode* y = x->right;
     AvlNode* T2 = y->left;
-
     
     y->left = x;
     x->right = T2;
-
     
     x->height = max(height(x->left), height(x->right)) + 1;
     y->height = max(height(y->left), height(y->right)) + 1;
-
     
     return y;
 }
-
 
 int_fast32_t getBalance(AvlNode* node) {
     if (node == NULL)
@@ -61,8 +52,7 @@ int_fast32_t getBalance(AvlNode* node) {
     return height(node->left) - height(node->right);
 }
 
-
-void insert(AvlNode** root_ptr, AvlNode* alloc_mem, size_t key, size_t value, int (*comp)(const void*, const void*)) {
+void avl_insert(AvlNode** root_ptr, AvlNode* alloc_mem, size_t key, size_t value, int (*comp)(size_t, size_t)) {
     
     if (*root_ptr == NULL) {
         *root_ptr = avl_create_node(alloc_mem, key, value);
@@ -86,22 +76,19 @@ void insert(AvlNode** root_ptr, AvlNode* alloc_mem, size_t key, size_t value, in
         *root_ptr = rightRotate(root);
         return;
     }
-
     
     if (balance < -1 && comp(key, root->right->key) > 0) {
         *root_ptr = leftRotate(root);
         return;
     }
-
     
     if (balance > 1 && comp(key, root->left->key) > 0) {
         root->left = leftRotate(root->left);
         *root_ptr = rightRotate(root);
         return;
     }
-
     
-    if (balance < -1 && comp(key, root->right->data) < 0) {
+    if (balance < -1 && comp(key, root->right->key) < 0) {
         root->right = rightRotate(root->right);
         *root_ptr = leftRotate(root);
         return;
@@ -110,7 +97,6 @@ void insert(AvlNode** root_ptr, AvlNode* alloc_mem, size_t key, size_t value, in
     *root_ptr = root;
 }
 
-
 AvlNode* avl_min_node(AvlNode* node) {
     AvlNode* current = node;
     while (current->left != NULL)
@@ -118,8 +104,7 @@ AvlNode* avl_min_node(AvlNode* node) {
     return current;
 }
 
-
-AvlNode* avl_delete_key(AvlNode** root_ptr, size_t key, int (*comp)(const void*, const void*)) {
+AvlNode* avl_delete_key(AvlNode** root_ptr, size_t key, int (*comp)(size_t, size_t)) {
     if (root_ptr == NULL)
         return NULL;
 
@@ -145,8 +130,9 @@ AvlNode* avl_delete_key(AvlNode** root_ptr, size_t key, int (*comp)(const void*,
         } else {
             
             AvlNode* temp = avl_min_node(root->right);
-            root->data = temp->data;
-            deleted_node = avl_delete_node(&root->right, temp->key, comp);
+            root->key = temp->key;
+            root->value = temp->key;
+            deleted_node = avl_delete_key(&root->right, temp->key, comp);
         }
     }
 
@@ -186,7 +172,7 @@ AvlNode* avl_delete_key(AvlNode** root_ptr, size_t key, int (*comp)(const void*,
     return deleted_node;
 }
 
-AvlNode* find_node(AvlNode* root, size_t key, int (*comp)(const void*, const void*)) {
+AvlNode* avl_find(AvlNode* root, size_t key, int (*comp)(size_t, size_t)) {
     if (!root) {
         return NULL;
     }
@@ -194,10 +180,10 @@ AvlNode* find_node(AvlNode* root, size_t key, int (*comp)(const void*, const voi
         return root;
     }
     if (comp(key, root->key) < 0) {
-        return find_node(root->left, key, comp);
+        return avl_find(root->left, key, comp);
     }
     if (comp(key, root->key) > 0) {
-        return find_node(root->right, key, comp);
+        return avl_find(root->right, key, comp);
     }
     return NULL;
 }

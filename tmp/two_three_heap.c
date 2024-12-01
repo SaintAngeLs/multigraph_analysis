@@ -1,11 +1,12 @@
-#include "two_tree_heap.h"
+#include "two_three_heap.h"
+#include <stdio.h>
 
 int tth_is_leaf(TwoThreeNode* node) {
     int result = node->left || node->mid || node->right;
     return !result;
 }
 
-int tth_2(TwoThreeNode* node) {
+int tth_has_2(TwoThreeNode* node) {
     int left = !!node->left;
     int mid = !!node->mid;
     int right = !!node->right;
@@ -15,7 +16,7 @@ int tth_2(TwoThreeNode* node) {
     return mid ^ right;
 }
 
-int tth_3(TwoThreeNode* node) {
+int tth_has_3(TwoThreeNode* node) {
     return node->left && node->mid && node->right;
 }
 
@@ -35,6 +36,8 @@ size_t tth_get_key_node(TwoThreeNode* node) {
 }
 
 TwoThreeNode* tth_get_rightest(TwoThreeNode* node) {
+    assert(node);
+    assert(node->left || node->mid || node->right);
     return (node->right ? node->right : (node->mid ? node->mid : node->left));
 }
 
@@ -63,7 +66,13 @@ TwoThreeNode** tth_get_parent_handle(TwoThreeNode* node) {
     return NULL;
 }
 
-void tth_update_min(TwoThreeNode* node, int (*comp)(const void*, const void*)) {
+size_t tth_nr(TwoThreeNode* root) {
+    if (!root) return 0;
+    if (root->h == 0) return 1;
+    return tth_nr(root->left) + tth_nr(root->mid) + tth_nr(root->right);
+}
+
+void tth_update_min(TwoThreeNode* node, int (*comp)(size_t, size_t)) {
     if (node->left) {
         TwoThreeNode* min_node = tth_get_key_node(node->left);
         if (node->mid && comp(tth_get_key(min_node), tth_get_key(node->mid)) > 0) min_node = tth_get_key_node(node->mid);
@@ -82,19 +91,20 @@ void tth_update_min(TwoThreeNode* node, int (*comp)(const void*, const void*)) {
     }
 }
 
-int tth_insert(TwoThreeNode** root_ptr, TwoThreeNode** out, size_t key, size_t value, TwoThreeNode* (*request_mem)(), int (*comp)(const void*, const void*)) {
+void tth_insert(TwoThreeNode** root_ptr, TwoThreeNode** out, size_t key, size_t value, TwoThreeNode* (*request_mem)(), int (*comp)(size_t, size_t)) {
     TwoThreeNode* mem = request_mem();
-    if (!mem) return 0;
     tth_create_node(mem, key, value);
     *out = mem;
-    return tth_union(root_ptr, mem, request_mem, comp);
+    tth_union(root_ptr, mem, request_mem, comp);
 }
 
-int tth_union(TwoThreeNode** dst_ptr, TwoThreeNode* src, TwoThreeNode* (*request_mem)(), int (*comp)(const void*, const void*)) {
+void tth_union(TwoThreeNode** dst_ptr, TwoThreeNode* src, TwoThreeNode* (*request_mem)(), int (*comp)(size_t, size_t)) {
     if (!*dst_ptr) {
         *dst_ptr = src;
-        return 1;
+        return;
     }
+
+    TwoThreeNode* dst = *dst_ptr;
 
     if (dst->h < src->h) {
         TwoThreeNode* tmp = dst;
@@ -102,10 +112,9 @@ int tth_union(TwoThreeNode** dst_ptr, TwoThreeNode* src, TwoThreeNode* (*request
         src = tmp;
     }
 
-    TwoThreeNode* dst = *dst_ptr;
-    TwoThreeNode* target = dst;
-
     if (dst->h != src->h) {
+        TwoThreeNode* target = dst; 
+        
         while (target->h != src->h + 1) {
             target = tth_get_rightest(target);
         }
@@ -122,13 +131,10 @@ int tth_union(TwoThreeNode** dst_ptr, TwoThreeNode* src, TwoThreeNode* (*request
                 } while (target);
         
                 *dst_ptr = dst;
-                return 1;
+                return;
             }
 
             TwoThreeNode* node_above = request_mem();
-            if (!node->above) {
-                return 0;
-            }
             memset(node_above, 0, sizeof(TwoThreeNode));
             node_above->left = target->right;
             node_above->left->parent = node_above;
@@ -147,7 +153,6 @@ int tth_union(TwoThreeNode** dst_ptr, TwoThreeNode* src, TwoThreeNode* (*request
 
     if (dst->h == src->h) {
         TwoThreeNode* mem = request_mem();
-        if (!mem) return 0;
         memset(mem, 0, sizeof(TwoThreeNode));
         mem->h = dst->h + 1;
         mem->left = dst;
@@ -155,9 +160,11 @@ int tth_union(TwoThreeNode** dst_ptr, TwoThreeNode* src, TwoThreeNode* (*request
         src->parent = mem;
         dst->parent = mem;
         tth_update_min(mem, comp);
+        dst = mem;
     }
 
-    return 1;
+    *dst_ptr = dst;
+    return;
 }
 
 TwoThreeNode* tth_min(TwoThreeNode* root) {
@@ -174,73 +181,78 @@ TwoThreeNode* tth_get_sibling(TwoThreeNode* node) {
              (node->parent->right && node->parent->right != node) ? node->parent->right : NULL));
 }
 
-void tth_delete(TwoThreeNode** root_ptr, void (*free_node)(TwoThreeNode*), TwoThreeNode* target, int (*comp)(const void*, const void*)) {
+void tth_delete(TwoThreeNode** root_ptr, void (*free_node)(TwoThreeNode*), TwoThreeNode* node_to_delete, int (*comp)(size_t, size_t)) {
     TwoThreeNode* root = *root_ptr;
-    
-    TwoThreeNode* next = target->parent;
-    if (next) *tth_get_parent_handle(target) = NULL;
+
+    TwoThreeNode* target = node_to_delete->parent;
+    assert(!target || target->h > 0);
+
+    if (target) *tth_get_parent_handle(node_to_delete) = NULL;
     else {
-        free_node(target);
+        free_node(node_to_delete);
         *root_ptr = NULL;
         return;
     }
 
-    free_node(target);
+    free_node(node_to_delete);
+    
 
-    if (tth_2(next)) {
-        TwoThreeNode* prev = next;
-        while (next) {
-            tth_update_min(next, comp);
-            prev = next;
-            next = next->parent;
+    if (tth_has_2(target)) {
+        TwoThreeNode* prev = target;
+        while (target) {
+            tth_update_min(target, comp);
+            prev = target;
+            target = target->parent;
         }
         *root_ptr = prev;
         return;
     }
 
-    while (next->parent) {
-        TwoThreeNode* sibling = tth_get_sibling(next);
-        if (tth_2(sibling)) {
+    while (target->parent) {
+        TwoThreeNode* sibling = tth_get_sibling(target);
+        if (tth_has_2(sibling)) {
+            // has 2
             TwoThreeNode* first = tth_get_rightest(sibling);
             *tth_get_parent_handle(first) = NULL;
             TwoThreeNode* second = tth_get_rightest(sibling);
-            first->parent = next;
-            second->parent = next;
-            *tth_empty_slot(next) = first;
-            *tth_empty_slot(next) = second;
-            tth_update_min(next, comp);
+            first->parent = target;
+            second->parent = target;
+            *tth_empty_slot(target) = first;
+            *tth_empty_slot(target) = second;
+            tth_update_min(target, comp);
             *tth_get_parent_handle(sibling) = NULL;
             free_node(sibling);
         } else {
+            // has 3
             TwoThreeNode* moved = tth_get_rightest(sibling);
             *tth_get_parent_handle(moved) = NULL;
             tth_update_min(sibling, comp);
-            *tth_empty_slot(next) = moved;
-            moved->parent = next;
-            tth_update_min(next, comp);
+            *tth_empty_slot(target) = moved;
+            moved->parent = target;
+            tth_update_min(target, comp);
         }
 
-        next = next->parent;
-        if (tth2(next) || tth_3(next)) {
-            TwoThreeNode* prev = next;
-            while (next) {
-                tth_update_min(next, comp);
-                prev = next;
-                next = next->parent;
+        target = target->parent;
+        if (tth_has_2(target) || tth_has_3(target)) {
+            TwoThreeNode* prev = target;
+            while (target) {
+                tth_update_min(target, comp);
+                prev = target;
+                target = target->parent;
             }
             *root_ptr = prev;
             return;
         }
     }
 
-    TwoThreeNode* child = tth_get_rightest(next);
+    TwoThreeNode* child = tth_get_rightest(target);
     child->parent = NULL;
-    free_node(next);
+    free_node(target);
     *root_ptr = child;
     return;
 }
 
-void tth_modify_key(TwoThreeNode* target, size_t key, int (*comp)(const void*, const void*)) {
+void tth_modify_key(TwoThreeNode* target, size_t key, int (*comp)(size_t, size_t)) {
     target->key = key;
     target = target->parent;
     while (target) {
@@ -248,5 +260,3 @@ void tth_modify_key(TwoThreeNode* target, size_t key, int (*comp)(const void*, c
         target = target->parent;
     }
 }
-
-#endif

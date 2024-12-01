@@ -9,19 +9,19 @@
 typedef struct AvlNode_ {
     size_t key;
     size_t value;
-    AvlNode_* left;
-    AvlNode_* right;
+    struct AvlNode_* left;
+    struct AvlNode_* right;
     int_fast32_t height; 
 } AvlNode;
 
 AvlNode* avl_create_node(AvlNode* alloc_mem, size_t key, size_t value);
 
-void avl_insert(AvlNode** root,  AvlNode* alloc_mem, size_t key, size_t value, int (*comp)(const void*, const void*));
+void avl_insert(AvlNode** root,  AvlNode* alloc_mem, size_t key, size_t value, int (*comp)(size_t, size_t));
 
 AvlNode* avl_min_node(AvlNode* node);
 
-AvlNode* avl_find_node(AvlNode* root, size_t key, int (*comp)(const void*, const void*));
+AvlNode* avl_find(AvlNode* root, size_t key, int (*comp)(size_t, size_t));
 
-AvlNode* avl_delete_key(AvlNode** root, size_t key, int (*comp)(const void*, const void*));
+AvlNode* avl_delete_key(AvlNode** root, size_t key, int (*comp)(size_t, size_t));
 
 #endif

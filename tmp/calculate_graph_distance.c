@@ -14,7 +14,7 @@
 #include <stddef.h>
 #include <math.h>
 #include "avl.h"
-#include "heapsort.h"
+#include "heap_sort.h"
 #include "two_three_heap.h"
 
 void swap_int_ptr(int** a, int** b) {
@@ -31,13 +31,14 @@ void swap_int(int* a, int* b) {
 
 void iter_swap(void* first, void* last, size_t size) {
     for (size_t i = 0; i < size; ++i) {
-        unsigned char tmp = *(unsigned char*)(first+i);
-        *(unsigned char*)(first+i) = *(unsigned char*)(last+i);
-        *(unsigned char*)(last+i) = tmp;
+        unsigned char tmp = ((unsigned char*)(first))[i];
+        ((unsigned char*)(first))[i] = ((unsigned char*)(last))[i];
+        ((unsigned char*)(last))[i] = tmp;
     }
 }
 
 void reverse(void* first, void* last, size_t size) {
+    last -= size;
     while (first < last) {
         iter_swap(first, last, size);
         first += size;
@@ -52,7 +53,7 @@ int next_permutation(void* first, void* last, size_t size, int (*comp)(const voi
     if (first == (i -= size)) return 0;
 
     while (1) {
-        void* i1, i2;
+        void* i1, *i2;
         i1 = i;
         if (comp(i -= size, i1) < 0) {
             i2 = last;
@@ -63,9 +64,37 @@ int next_permutation(void* first, void* last, size_t size, int (*comp)(const voi
             return 1;
         }
         if (i == first) {
-            reverse(first, last);
+            reverse(first, last, size);
             return 0;
         }
+    }
+}
+
+typedef struct MemoryNode_ {
+    void* mem;
+    struct MemoryNode_* prev;
+
+} MemoryNode;
+
+int bulk_alloc(MemoryNode** memnode, size_t size) {
+    MemoryNode* newmem = malloc(sizeof(MemoryNode));
+    if (!newmem) return 0;
+    newmem->mem = malloc(size);
+    if (!newmem->mem) {
+        free(newmem);
+        return 0;
+    }
+    newmem->prev = *memnode;
+    *memnode = newmem;
+    return 1;
+}
+
+void bulk_free(MemoryNode* memnode) {
+    while (memnode) {
+        free(memnode->mem);
+        MemoryNode* prev = memnode->prev;
+        free(memnode);
+        memnode = prev;
     }
 }
 
@@ -101,21 +130,29 @@ void free_graph(int* X, int* Xparam) {
     }
 }
 
-static int comp_graphs_n;
-int comp_graphs(const int* a, const int* b) {
-    for (int i = 0; i < comp_graphs_n*comp_graphs_n; ++i) {
+static int comp_graph_n;
+int comp_graph(size_t ap, size_t bp) {
+    int* a = (int*)ap;
+    int* b = (int*)bp;
+    for (int i = 0; i < comp_graph_n*comp_graph_n; ++i) {
         if ((a)[i] < (b)[i]) { return -1; }
         if ((a)[i] > (b)[i]) { return 1; }
     }
     return 0;
 }
 
+int comp_int_ptr(const void* ap, const void* bp) {
+    const int *a = ap;
+    const int *b = bp;
+    return (*a < *b) ? -1 : (*a > *b ? 1 : 0);
+}
+
 int comp_uint(size_t a, size_t b) {
     return (a < b) ? -1 : ((a > b) ? 1 : 0);
 }
 
-int comp_ptr(void* a, void* b) {
-    return (b - a) < 0 ? -1 : ((b - a) > 0 ? 1 : 0);
+int comp_ptr(size_t a, size_t b) {
+    return (a < b) ? -1 : ((a > b) ? 1 : 0);
 }
 
 void avl_for_each(AvlNode* root, void (*op)(AvlNode* node)) {
@@ -143,7 +180,7 @@ int h(int* G, int n, int* degs_self, int* degs_other) {
             degs_self[i] += G[n*i+j];
         }
     }
-    heapsort(degs_self, sizeof(int), n, comp_uint);
+    heapsort(degs_self, sizeof(int), n, comp_int_ptr);
     int sum = 0;
     for (int i = 0; i < n; ++i) {
         sum += abs(degs_self[i] - degs_other[i]);
@@ -151,7 +188,7 @@ int h(int* G, int n, int* degs_self, int* degs_other) {
     return sum;
 }
 
-struct NeighborFactory_ {
+typedef struct NeighborFactory_ {
     int* orig_graph;
     int n;
 
@@ -188,47 +225,51 @@ int nei_factory_init(NeighborFactory* f, int* graph, int n) {
 
 }
 
+
 // assume the graph has at least 2 vertices
 int next_neighbor(NeighborFactory* f, int** result) {
-    if (f->vertex_permutation_node) {
-        int perm = next_permutation(f->vertex_perm, f->vertex_perm + n);
+    if (f->vertex_permutation_mode) {
+        int perm = next_permutation(f->vertex_perm, f->vertex_perm + f->n, sizeof(int), comp_int_ptr);
         if (!perm) {
             *result = NULL;
             return 1;
         }
-        int* graph = malloc(sizeof(int)*n*n);
+        int* graph = malloc(sizeof(int)*f->n*f->n);
         if (!graph) return 0;
-        for (int i = 0; i < n; ++i) {
-            memcpy(&graph[f->vertex_perm[i]*n], &f->orig_graph[i*n], sizeof(int)*n);
+        for (int i = 0; i < f->n; ++i) {
+            for (int j = 0; j < f->n; ++j) {
+                graph[f->vertex_perm[i]*f->n + f->vertex_perm[j]] = f->orig_graph[i*f->n + j];
+            }
+            //memcpy(&graph[f->vertex_perm[i]*f->n], &f->orig_graph[i*f->n], sizeof(int)*f->n);
         }
         *result = graph;
     } else {
-        if (delete_edge_node) {
+        if (f->delete_edge_node) {
             if (f->orig_graph[f->n*f->curr_out + f->curr_in]) {
-                int* graph = malloc(sizeof(int)*n*n);
+                int* graph = malloc(sizeof(int)*f->n*f->n);
                 if (!graph) return 0;
-                memcpy(graph, f->orig_graph, sizeof(int)*n*n);
+                memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
                 --graph[f->n*f->curr_out + f->curr_in];
                 *result = graph;
             }
         } else {
-            int* graph = malloc(sizeof(int)*n*n);
+            int* graph = malloc(sizeof(int)*f->n*f->n);
             if (!graph) return 0;
-            memcpy(graph, f->orig_graph, sizeof(int)*n*n);
+            memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
             ++graph[f->n*f->curr_out + f->curr_in];
             *result = graph;
         }
-        if (delete_edge_node) {
+        if (f->delete_edge_node) {
             ++f->curr_in;
-            if (f->curr_in == n) {
+            if (f->curr_in == f->n) {
                 f->curr_in = 0;
                 ++f->curr_out;
-                if (f->curr_out == n) {
+                if (f->curr_out == f->n) {
                     f->vertex_permutation_mode = 1;
                 }
             }
         }
-        delete_edge_node = !delete_edge_node;
+        f->delete_edge_node = !f->delete_edge_node;
     }
 
     return 1;
@@ -238,40 +279,42 @@ void nei_factory_free(NeighborFactory* f) {
     free(f->vertex_perm);
 }
 
+static void* tth_mem_iter;
 TwoThreeNode* tth_request_mem() {
-    return malloc(sizeof(TwoThreeNode));
+    void* mem = tth_mem_iter;
+    tth_mem_iter += sizeof(TwoThreeNode);
+    return mem;
 }
 
 void tth_free_node(TwoThreeNode* node) {
-    free(node);
+}
+
+void print_tth(TwoThreeNode* root, int k) {
+    for (int i = 0; i < k; ++i) printf("\t");
+    if (!root) { printf("Empty\n"); return; }
+    
+    printf("%d\n", root->h);
+    print_tth(root->left, k+1);
+    print_tth(root->mid, k+1);
+    print_tth(root->right, k+1);
 }
 
 int a_star(int* start, int* goal, int n, int* result) {
-    /* put start and goal to the db */
-    comp_graphs_n = n;
-    
-    AvlNode* tmp_avl_alloc = malloc(sizeof(AvlNode));
-    //if (!tmp_avl_alloc) {
-        // 
-    //}
-    int* tmp_graph = malloc(sizeof(int)*n*n);
-    if (!tmp_graph) {
-    //    return 0; // 
-    }
-    memcpy(tmp_graph, start, sizeof(int)*n*n);
-    AvlNode* avl_graph_storage = avl_create_node(tmp_avl_alloc, tmp_graph, NULL);
-    
-    tmp_avl_alloc = malloc(sizeof(AvlNode));
-    if (!tmp_avl_alloc) {
-        // 
-    }
-    tmp_graph = malloc(sizeof(int)*n*n);
-    if (!tmp_graph) {
-    //    return 0; // 
-    }
-    memcpy(tmp_graph, goal, sizeof(int)*n*n);
-    avl_insert(&avl_graph_storage, tmp_avl_alloc, tmp_graph, NULL, comp_graphs);
+    comp_graph_n = n;
+   
+    MemoryNode* memlist = NULL;
 
+    AvlNode* tmp_avl_alloc = malloc(sizeof(AvlNode));
+    int* tmp_graph = malloc(sizeof(int)*n*n);
+    memcpy(tmp_graph, start, sizeof(int)*n*n);
+    AvlNode* avl_graph_storage = avl_create_node(tmp_avl_alloc, (size_t)tmp_graph, 0);
+    
+
+    tmp_avl_alloc = malloc(sizeof(AvlNode));
+    tmp_graph = malloc(sizeof(int)*n*n);
+    memcpy(tmp_graph, goal, sizeof(int)*n*n);
+    avl_insert(&avl_graph_storage, tmp_avl_alloc, (size_t)tmp_graph, 0, comp_graph);
+    
     //AvlNode* avl_qprior = NULL; // <priority, graph node>
     TwoThreeNode* tth_q = NULL;
     AvlNode* avl_qgraph = NULL; // <graph node, priority map node>
@@ -283,6 +326,7 @@ int a_star(int* start, int* goal, int n, int* result) {
     degs_goal = malloc(sizeof(int)*n); // 
     degs_curr = malloc(sizeof(int)*n); // 
     
+    
     // : dry
     for (int i = 0; i < n; ++i) {
         degs_goal[i] = 0;
@@ -290,103 +334,105 @@ int a_star(int* start, int* goal, int n, int* result) {
             degs_goal[i] += goal[n*i+j];
         }
     }
-    heapsort(degs_goal, sizeof(int), n, comp_uint);
+    heapsort(degs_goal, sizeof(int), n, comp_int_ptr);
 
     // insert start
-    TwoThreeNode* tmp_tth_alloc = malloc(sizeof(TwoThreeNode)); // 
-    AvlNode* start_graph_node = avl_find(avl_graph_storage, start, comp_graphs);
-    AvlNode* goal_graph_node = avl_find(avl_graph_storage, goal, comp_graphs);
-    
-    tth_create_node(tmp_tth_alloc, h(start, n, degs_curr, degs_goal), start_graph_node);
-    tth_q = tmp_tth_alloc;
-    TwoThreeNode* startPriorityNode = tmp_tth_alloc;
+    AvlNode* start_graph_node = avl_find(avl_graph_storage, (size_t)start, comp_graph);
+    AvlNode* goal_graph_node = avl_find(avl_graph_storage, (size_t)goal, comp_graph);
+   
+    bulk_alloc(&memlist, sizeof(TwoThreeNode));
+
+    tth_create_node(memlist->mem, h(start, n, degs_curr, degs_goal), (size_t)start_graph_node);
+    tth_q = memlist->mem;
+    TwoThreeNode* startPriorityNode = tth_q;
 
     tmp_avl_alloc = malloc(sizeof(AvlNode)); // 
-    avl_insert(&avl_g, tmp_avl_alloc, start_graph_node, 0, comp_ptr);
+    avl_insert(&avl_g, tmp_avl_alloc, (size_t)start_graph_node, 0, comp_ptr);
 
-    // 
     tmp_avl_alloc = malloc(sizeof(AvlNode));
-    avl_insert(&avl_qgraph, tmp_avl_alloc, start_graph_node, startPriorityNode, comp_ptr);
+    avl_insert(&avl_qgraph, tmp_avl_alloc, (size_t)start_graph_node, (size_t)startPriorityNode, comp_ptr);
     
     while (tth_q) {
         TwoThreeNode* min_priority_node = tth_min(tth_q);
-        AvlNode* current_node = min_priority_node->value;
+        AvlNode* current_node = (AvlNode*)min_priority_node->value;
+       
+        //printf("Height: %lu\n", tth_nr(tth_q));
+        //print_tth(tth_q, 0);
+
         tth_delete(&tth_q, tth_free_node, min_priority_node, comp_uint);
+        
         if (current_node == goal_graph_node) {
-            // 
-            return avl_find(avl_g, current_node, comp_ptr)->value;
+            *result = avl_find(avl_g, current_node, comp_ptr)->value;
+            return 1;
         }
+        
         tmp_avl_alloc = malloc(sizeof(AvlNode));
-        avl_insert(&avl_c, tmp_avl_alloc, current_node, NULL, comp_ptr);
+        avl_insert(&avl_c, tmp_avl_alloc, (size_t)current_node, 0, comp_ptr);
         NeighborFactory factory;
-        if (!nei_factory_init(&factory, current_node->key, n)) {
+        if (!nei_factory_init(&factory, (int*)current_node->key, n)) {
             // 
         }
 
         int* neighbor;
         while (1) {
-            int d = !factory->vertex_permutation_mode;
-
+            int d = !factory.vertex_permutation_mode;
             if (!next_neighbor(&factory, &neighbor)) {
                 break; // 
             }
-
             if (!neighbor) {
                 break;
             }
     
-            AvlNode* neighbor_node = avl_find(&avl_graph_storage, neighbor, comp_graph);
+            AvlNode* neighbor_node = avl_find(avl_graph_storage, neighbor, comp_graph);
             if (!neighbor_node) {
                 tmp_avl_alloc = malloc(sizeof(AvlNode));
                 if (!tmp_avl_alloc) {
                     // 
                 }
-                avl_insert(&avl_graph_storage, tmp_avl_alloc, neighbor, NULL, comp_graphs);
+                avl_insert(&avl_graph_storage, tmp_avl_alloc, (size_t)neighbor, 0, comp_graph);
                 neighbor_node = tmp_avl_alloc;
             }
-
+    
             if (avl_find(avl_c, neighbor_node, comp_ptr)) {
                 continue;
             }
-
-            int cost = d + avl_find(avl_g, current_node, comp_ptr)->value;
+    
+            size_t cost = d + avl_find(avl_g, current_node, comp_ptr)->value;
             AvlNode* g_nei_node = avl_find(avl_g, neighbor_node, comp_ptr);
             AvlNode* qg_nei_node = avl_find(avl_qgraph, neighbor_node, comp_ptr);
-
+    
             if (!g_nei_node || cost < g_nei_node->value) {
                 if (!g_nei_node) {
                     tmp_avl_alloc = malloc(sizeof(AvlNode));
-                    if (!tmp_avl_alloc) {
-
-                    }
-                    avl_insert(&avl_g, tmp_avl_alloc, neighbor_node, cost, comp_ptr);
+                    avl_insert(&avl_g, tmp_avl_alloc, (size_t)neighbor_node, cost, comp_ptr);
                 } else {
                     g_nei_node->value = cost;
                 }
                 if (!qg_nei_node) {
                     TwoThreeNode* priority_node;
-                    if (!tth_insert(&tth_q, &priority_node, cost + h(neighbor, n, degs_curr, degs_goal), neighbor_node, tth_request_mem, comp_uint)) {
-
-                    }
+                    bulk_alloc(&memlist, sizeof(TwoThreeNode) * ((tth_q ? tth_q->h : 0)+3));
+                    tth_mem_iter = memlist->mem;
+                    tth_insert(&tth_q, &priority_node, cost + h(neighbor, n, degs_curr, degs_goal), neighbor_node, tth_request_mem, comp_uint);
                     tmp_avl_alloc = malloc(sizeof(AvlNode));
-                    avl_insert(&avl_qgraph, tmp_avl_alloc, neighbor_node, priority_node, comp_ptr);
+                    avl_insert(&avl_qgraph, tmp_avl_alloc, neighbor_node, (size_t)priority_node, comp_ptr);
                 } else {
-                    tth_modify_key((TwoThreeHeap*)qg_nei_node->value, cost + h(neighbor, n, degs_curr, degs_goal), comp_uint);
+                    tth_modify_key((TwoThreeNode*)qg_nei_node->value, cost + h(neighbor, n, degs_curr, degs_goal), comp_uint);
                 }
             }
         }
-        
         nei_factory_free(&factory);
     }
 
-    free(degs_goat);
+    bulk_free(memlist);
+    free(degs_goal);
     free(degs_curr);
     avl_free(avl_c);
     avl_free(avl_g);
     avl_free(avl_qgraph);
-    avl_free(avl_qprior);
     avl_for_each(avl_graph_storage, free_graph_storage_unit);
     avl_free(avl_graph_storage);
+    
+    *result = -1;
     return 1;
 }
 
@@ -420,38 +466,44 @@ A_alloc_failed:
 }
 
 int main() {
+    /*
+    int A[] = {
+        0, 1, 0, 0, 0,
+        0, 0, 0, 1, 0,
+        0, 1, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 0, 0, 1,
+    };
+
+    int B[] = {
+        0, 0, 0, 0, 0,
+        0, 0, 0, 1, 0,
+        1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 1, 0, 0, 1,
+    };*/
+
+    int A[] = {
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0,
+        0, 100, 0, 0, 1,
+        1, 0, 0, 0, 0,
+    };
+
+    int B[] = {
+        0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        1, 0, 1, 0, 0,
+        0, 0, 0, 1, 0,
+    };
+
+    int result;
+    int success = calculate_graph_distance(A, 5, B, 5, &result);
+
+    if (!success) return EXIT_FAILURE;
+    printf("Result: %d\n", result);
+    
     return EXIT_SUCCESS;
 }
-
-/*
-typedef struct MemoryNode_ {
-    AvlNode avlnode;
-    struct MemoryNode_* prev;
-    struct MemoryNode_* next;
-
-} MemoryNode;
-
-void free_memory_list(MemoryNode* node) {
-    while (!node) {
-        MemoryNode* next = node->next;
-        free(node);
-        node = next;
-    }
-}
-
-struct MemoryList {
-    MemoryNode* head;
-    MemoryNode* curr;
-};
-
-int memory_list_append() {
-    
-}
-
-int memory_list_remove() {
-
-}
-
-*/
-
-
