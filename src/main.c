@@ -45,7 +45,7 @@ void analyze_multigraph(GraphInterface *multigraph) {
     printf("Metric size: %d\n", metric->len);
     printf("Smallest resolving set:\n");
     for (int i = 1; i <= metric->len; i++) {
-        printf(" %d) = %d\n", i, g_array_index(metric, int, i));
+        printf(" %d) = %d\n", i, g_array_index(metric, int, i - 1));
     }
     g_array_free(metric, TRUE);
 

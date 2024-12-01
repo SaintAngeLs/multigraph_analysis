@@ -105,33 +105,20 @@ static int count_hamiltonian_cycles(void *graph, int vertices) {
     return count;
 }
 
-static guint garray_hash(gconstpointer key) {
-    GArray* array = (GArray*)key;
-    guint hash = 0;
-    for (guint i = 0; i < array->len; i++) {
-        int value = g_array_index(array, int, i);
-        hash = g_int_hash(&value) ^ ((hash << 5) - hash);
-    }
-    return hash;
-}
-
-static gboolean garray_equal(gconstpointer a, gconstpointer b) {
-    GArray* array1 = (GArray*)a;
-    GArray* array2 = (GArray*)b;
-
+static bool are_arrays_equal(GArray *array1, GArray *array2) {
     if (array1->len != array2->len) {
-        return FALSE;
+        return false;
     }
 
     for (guint i = 0; i < array1->len; i++) {
-        int val1 = g_array_index(array1, int, i);
-        int val2 = g_array_index(array2, int, i);
-        if (val1 != val2) {
-            return FALSE;
+        int value1 = g_array_index(array1, int, i);
+        int value2 = g_array_index(array2, int, i);
+        if (value1 != value2) {
+            return false;
         }
     }
 
-    return TRUE;
+    return true;
 }
 
 static GArray* calculate_metric(void* graph, int vertices) {
@@ -167,7 +154,7 @@ static GArray* calculate_metric(void* graph, int vertices) {
             return FALSE;
         }
 
-        GHashTable* signatures = g_hash_table_new(garray_hash, garray_equal);
+        GArray *signatures = g_array_new(FALSE, FALSE, sizeof(GArray *));
 
         for (int v = 0; v < vertices; v++) {
             GArray* signature = g_array_new(FALSE, FALSE, sizeof(int));
@@ -176,16 +163,31 @@ static GArray* calculate_metric(void* graph, int vertices) {
                 g_array_append_val(signature, distance_matrix[v][s]);
             }
 
-            gpointer existing = g_hash_table_lookup(signatures, signature);
+            gboolean existing = FALSE;
+            for(int i = 0; i < signatures->len; i++) {
+                GArray *existing_array = g_array_index(signatures, GArray *, i);
+                if (are_arrays_equal(existing_array, signature)) {
+                    existing = TRUE;
+                    break;
+                }
+            }
             if (existing) {
-                g_hash_table_destroy(signatures);
+                for (int i = 0; i < signatures->len; i++) {
+                    GArray *inner_array = g_array_index(signatures, GArray *, i);
+                    g_array_free(inner_array, TRUE);
+                }
+                g_array_free(signatures, TRUE);
                 g_array_free(signature, TRUE);
                 return FALSE;
             }
-            g_hash_table_insert(signatures, signature, GINT_TO_POINTER(v));
+            g_array_append_val(signatures, signature);
         }
 
-        g_hash_table_destroy(signatures);
+        for (int i = 0; i < signatures->len; i++) {
+            GArray *inner_array = g_array_index(signatures, GArray *, i);
+            g_array_free(inner_array, TRUE);
+        }
+        g_array_free(signatures, TRUE);
         return TRUE;
     }
 
@@ -200,8 +202,6 @@ static GArray* calculate_metric(void* graph, int vertices) {
             }
         }
         if (is_resolving_set(subset)) {
-            for(int k = 0; k < subset->len; k++) {
-            }
             smallest_resolving_set = g_array_copy(subset);
             g_array_free(subset, TRUE);
             break;
