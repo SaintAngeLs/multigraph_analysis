@@ -346,33 +346,58 @@ static int count_maximal_cycles(void *graph, int vertices, GArray *output_cycles
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int max_cycle_count = 0;
 
+    GHashTable *unique_cycles = g_hash_table_new_full(g_str_hash, g_str_equal, free, NULL);
+
+    // Normalize a cycle for uniqueness (rotating to start from the smallest vertex)
+    void normalize_cycle(GArray *cycle, char *buffer) {
+        int *array = (int *)cycle->data;
+        int len = cycle->len;
+        int min_idx = 0;
+
+        // Find the smallest vertex in the cycle
+        for (int i = 1; i < len; i++) {
+            if (array[i] < array[min_idx]) {
+                min_idx = i;
+            }
+        }
+
+        // Rotate the cycle to start with the smallest vertex
+        int offset = 0;
+        for (int i = 0; i < len; i++) {
+            int idx = (min_idx + i) % len;
+            offset += sprintf(buffer + offset, "%d-", array[idx]);
+        }
+    }
+
+    // Store a unique maximal cycle in output_cycles
     void store_maximal_cycle(GArray *cycle) {
         GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
         g_array_append_vals(stored_cycle, cycle->data, cycle->len);
         g_array_append_val(output_cycles, stored_cycle);
     }
 
-    void dfs(int node, GHashTable *visited, GArray *current_cycle, int depth, int start) {
+    // Depth-First Search to find maximal cycles
+    void dfs(int node, int start, int depth, GArray *current_cycle, GHashTable *visited) {
         g_array_append_val(current_cycle, node);
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
-        bool has_children = FALSE;
         for (int i = 0; i < context->vertices; i++) {
             if (context->graph_interface->get_edge(graph, node, i) > 0) {
-                has_children = TRUE;
-                if (i == start && depth >= 3) {
-                    max_cycle_count++;
-                    store_maximal_cycle(current_cycle);
+                if (i == start && depth == context->vertices) { // A maximal cycle is found
+                    char cycle_str[512];
+                    normalize_cycle(current_cycle, cycle_str);
+
+                    if (!g_hash_table_contains(unique_cycles, cycle_str)) {
+                        g_hash_table_add(unique_cycles, strdup(cycle_str));
+                        g_array_append_val(current_cycle, start); // Close the cycle
+                        store_maximal_cycle(current_cycle);
+                        g_array_remove_index(current_cycle, current_cycle->len - 1); // Remove start
+                        max_cycle_count++;
+                    }
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
-                    dfs(i, visited, current_cycle, depth + 1, start);
+                    dfs(i, start, depth + 1, current_cycle, visited);
                 }
             }
-        }
-
-        // If the node has no unvisited children, this is a maximal cycle path
-        if (!has_children && depth > 2) {
-            max_cycle_count++;
-            store_maximal_cycle(current_cycle);
         }
 
         g_array_remove_index(current_cycle, current_cycle->len - 1);
@@ -382,12 +407,14 @@ static int count_maximal_cycles(void *graph, int vertices, GArray *output_cycles
     for (int i = 0; i < context->vertices; i++) {
         GArray *current_cycle = g_array_new(FALSE, FALSE, sizeof(int));
         GHashTable *visited = g_hash_table_new(g_direct_hash, g_direct_equal);
-        dfs(i, visited, current_cycle, 1, i);
+        dfs(i, i, 1, current_cycle, visited);
         g_array_free(current_cycle, TRUE);
         g_hash_table_destroy(visited);
     }
 
+    g_hash_table_destroy(unique_cycles);
     destroy_context(context);
+
     return max_cycle_count;
 }
 

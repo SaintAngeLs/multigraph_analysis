@@ -35,7 +35,7 @@ void print_cycles(GArray *output_cycles) {
         for (guint j = 0; j < cycle->len; j++) {
             printf("%d", g_array_index(cycle, int, j));
             if (j < cycle->len - 1) {
-                printf(" - ");
+                printf(" -> ");
             }
         }
         printf("\n");
