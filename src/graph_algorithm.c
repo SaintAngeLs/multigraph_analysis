@@ -342,35 +342,55 @@ static int find_maximal_cycles(void *graph, int vertices) {
     return max_cycle_length;
 }
 
-static int count_maximal_cycles(void *graph, int vertices) {
+static int count_maximal_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int max_cycle_count = 0;
 
-    void dfs(int node, GHashTable *visited, int depth, int start) {
+    void store_maximal_cycle(GArray *cycle) {
+        GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
+        g_array_append_vals(stored_cycle, cycle->data, cycle->len);
+        g_array_append_val(output_cycles, stored_cycle);
+    }
+
+    void dfs(int node, GHashTable *visited, GArray *current_cycle, int depth, int start) {
+        g_array_append_val(current_cycle, node);
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
+        bool has_children = FALSE;
         for (int i = 0; i < context->vertices; i++) {
             if (context->graph_interface->get_edge(graph, node, i) > 0) {
-                if (i == start && depth == context->vertices) {
+                has_children = TRUE;
+                if (i == start && depth >= 3) {
                     max_cycle_count++;
+                    store_maximal_cycle(current_cycle);
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
-                    dfs(i, visited, depth + 1, start);
+                    dfs(i, visited, current_cycle, depth + 1, start);
                 }
             }
         }
 
+        // If the node has no unvisited children, this is a maximal cycle path
+        if (!has_children && depth > 2) {
+            max_cycle_count++;
+            store_maximal_cycle(current_cycle);
+        }
+
+        g_array_remove_index(current_cycle, current_cycle->len - 1);
         g_hash_table_remove(visited, GINT_TO_POINTER(node));
     }
 
     for (int i = 0; i < context->vertices; i++) {
+        GArray *current_cycle = g_array_new(FALSE, FALSE, sizeof(int));
         GHashTable *visited = g_hash_table_new(g_direct_hash, g_direct_equal);
-        dfs(i, visited, 1, i);
+        dfs(i, visited, current_cycle, 1, i);
+        g_array_free(current_cycle, TRUE);
         g_hash_table_destroy(visited);
     }
 
     destroy_context(context);
     return max_cycle_count;
 }
+
 
 GraphAlgorithm default_algorithm = {
     .calculate_size = calculate_size,

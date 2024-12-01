@@ -77,8 +77,11 @@ void analyze_multigraph(GraphInterface *multigraph) {
     int maximal_cycle_length = default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices);
     printf("Maximal cycle length: %d\n", maximal_cycle_length);
 
-    int maximal_cycle_count = default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices);
-    printf("Number of maximal cycles: %d\n", maximal_cycle_count);
+    GArray *output_maximal_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
+    default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices, output_maximal_cycles);
+    printf("Maximal cycles: %u\n", output_maximal_cycles->len);
+    print_cycles(output_maximal_cycles);
+    g_array_free(output_maximal_cycles, TRUE);
 
     printf("------------------------------------------------\n\n");
 }
