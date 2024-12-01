@@ -39,7 +39,7 @@ int get_edge(const Graph *graph, int src, int dest) {
 int calculate_size(const Graph *graph) {
     int size = 0;
     for (int i = 0; i < graph->vertices; i++) {
-        for (int j = 0; j < graph->vertices; j++) {
+        for (int j = i; j < graph->vertices; j++) {
             size += graph->adjacency_matrix[i][j];
         }
     }
@@ -71,7 +71,7 @@ static int multigraph_calculate_size(void *self) {
     Multigraph *graph = (Multigraph *)self;
     int size = 0;
     for (int i = 0; i < graph->vertices; i++) {
-        for (int j = 0; j < graph->vertices; j++) {
+        for (int j = i; j < graph->vertices; j++) {
             size += graph->adjacency_matrix[i][j];
         }
     }

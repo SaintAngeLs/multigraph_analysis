@@ -41,6 +41,7 @@ TEST_CASES=(
     "multiple_graphs_case4.txt"
     "multiple_graphs_case5.txt"
     "multiple_graphs_case6.txt"
+    "multiple_graphs_case7.txt"
     "metric.txt"
 )
 
