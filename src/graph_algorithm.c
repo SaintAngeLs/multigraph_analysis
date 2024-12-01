@@ -110,12 +110,11 @@ static guint garray_hash(gconstpointer key) {
     guint hash = 0;
     for (guint i = 0; i < array->len; i++) {
         int value = g_array_index(array, int, i);
-        hash = g_int_hash(&value) ^ (hash << 5) - hash;
+        hash = g_int_hash(&value) ^ ((hash << 5) - hash);
     }
     return hash;
 }
 
-// Custom equality function for GArray
 static gboolean garray_equal(gconstpointer a, gconstpointer b) {
     GArray* array1 = (GArray*)a;
     GArray* array2 = (GArray*)b;
@@ -168,7 +167,7 @@ static GArray* calculate_metric(void* graph, int vertices) {
             return FALSE;
         }
 
-        GHashTable* signatures = g_hash_table_new(garray_hash, garray_hash);
+        GHashTable* signatures = g_hash_table_new(garray_hash, garray_equal);
 
         for (int v = 0; v < vertices; v++) {
             GArray* signature = g_array_new(FALSE, FALSE, sizeof(int));
