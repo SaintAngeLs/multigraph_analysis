@@ -22,7 +22,7 @@
 \Ensure Liczba cykli w \( G \)
 \State \( \text{cycle\_count} \gets 0 \)
 \State Utwórz pusty zbiór \( \text{visited} \)
-\Function{DFS}{\( u, start, path \)}
+\Function{DFS}{( u, start, path )}
     \If{\( \text{length}(path) > 2 \textbf{ and } u = \text{start} \)}
         \State \( \text{cycle\_count} \gets \text{cycle\_count} + 1 \)
         \State \Return
@@ -30,14 +30,14 @@
     \ForEach{\( v \) sąsiadujący z \( u \)}
         \If{\( v \notin \text{visited} \)}
             \State Dodaj \( v \) do \( \text{visited} \)
-            \State \Call{DFS}{\( v, start, path + [v] \)}
+            \State \Call{DFS}{( v, start, path + [v] )}
             \State Usuń \( v \) z \( \text{visited} \)
         \EndIf
     \EndFor
 \EndFunction
 \ForEach{wierzchołek \( u \in V \)}
     \State \( \text{visited} \gets \{u\} \)
-    \State \Call{DFS}{\( u, u, [u] \)}
+    \State \Call{DFS}{( u, u, [u] )}
 \EndFor
 \State \Return \( \text{cycle\_count} \)
 \end{algorithmic}
@@ -50,7 +50,7 @@
 \Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
 \Ensure Liczba cykli Hamiltona
 \State \( \text{count} \gets 0 \)
-\Function{HamiltonianBacktrack}{\( u, visited, depth \)}
+\Function{HamiltonianBacktrack}{( u, visited, depth )}
     \If{\( \text{depth} = |V| \textbf{ and } A[u][\text{start}] > 0 \)}
         \State \( \text{count} \gets \text{count} + 1 \)
         \State \Return
@@ -58,34 +58,22 @@
     \ForEach{\( v \) sąsiadujący z \( u \)}
         \If{\( v \notin \text{visited} \)}
             \State Dodaj \( v \) do \( \text{visited} \)
-            \State \Call{HamiltonianBacktrack}{\( v, visited, depth + 1 \)}
+            \State \Call{HamiltonianBacktrack}{( v, visited, depth + 1 )}
             \State Usuń \( v \) z \( \text{visited} \)
         \EndIf
     \EndFor
 \EndFunction
 \ForEach{wierzchołek \( u \in V \)}
     \State \( \text{visited} \gets \{u\} \)
-    \State \Call{HamiltonianBacktrack}{\( u, \text{visited}, 1 \)}
+    \State \Call{HamiltonianBacktrack}{( u, \text{visited}, 1 )}
 \EndFor
 \State \Return \( \text{count} \)
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Algorytm obliczania wymiaru metrycznego multigrafu}
-\begin{algorithm}[H]
-\caption{Obliczanie wymiaru metrycznego multigrafu}
-\begin{algorithmic}[1]
-\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz odległości \( D \)
-\Ensure Najmniejszy zbiór rozstrzygający
-\State \( \text{candidates} \gets \text{power\_set}(V) \) \Comment{Zbiór wszystkich podzbiorów \( V \)}
-\ForEach{\( S \in \text{candidates} \)}
-    \State Oblicz podpisy dla wszystkich wierzchołków względem \( S \)
-    \If{Podpisy są unikalne dla każdego wierzchołka}
-        \State \Return \( S \)
-    \EndIf
-\EndFor
-\end{algorithmic}
-\end{algorithm}
+\subsection{Algorytm obliczania metryki pomiędzy dwoma multigrafami}
+
+
 
 \subsection{Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}
 \begin{algorithm}[H]
@@ -94,7 +82,7 @@
 \Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
 \Ensure Minimalna liczba krawędzi do dodania
 \State \( \text{min\_edges} \gets \infty \)
-\Function{DFS}{\( u, visited, added\_edges \)}
+\Function{DFS}{( u, visited, added\_edges )}
     \If{\( \text{length}(visited) = |V| \textbf{ and } A[u][\text{start}] > 0 \)}
         \State \( \text{min\_edges} \gets \min(\text{min\_edges}, \text{added\_edges}) \)
         \State \Return
@@ -103,17 +91,17 @@
         \State Dodaj \( v \) do \( \text{visited} \)
         \If{\( A[u][v] = 0 \)}
             \State Dodaj krawędź \( (u, v) \)
-            \State \Call{DFS}{\( v, visited, added\_edges + 1 \)}
+            \State \Call{DFS}{( v, visited, added\_edges + 1 )}
             \State Usuń krawędź \( (u, v) \)
         \Else
-            \State \Call{DFS}{\( v, visited, added\_edges \)}
+            \State \Call{DFS}{( v, visited, added\_edges )}
         \EndIf
         \State Usuń \( v \) z \( \text{visited} \)
     \EndFor
 \EndFunction
 \ForEach{wierzchołek \( u \in V \)}
     \State \( \text{visited} \gets \{u\} \)
-    \State \Call{DFS}{\( u, \text{visited}, 0 \)}
+    \State \Call{DFS}{( u, \text{visited}, 0 )}
 \EndFor
 \State \Return \( \text{min\_edges} \)
 \end{algorithmic}
