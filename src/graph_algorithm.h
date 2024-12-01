@@ -23,7 +23,7 @@ typedef struct {
 
     int (*calculate_size)(void *graph);
 
-    int (*find_cycles)(void *graph, int vertices);
+    int (*find_cycles)(void *graph, int vertices, GArray *output_cycles);
 
     int (*count_hamiltonian_cycles)(void *graph, int vertices);
 

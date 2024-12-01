@@ -37,7 +37,7 @@ static int calculate_size(void *graph) {
 }
 
 
-static int find_cycles(void *graph, int vertices) {
+static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int cycle_count = 0;
 
@@ -51,6 +51,13 @@ static int find_cycles(void *graph, int vertices) {
         for (guint i = 0; i < cycle->len; i++) {
             offset += sprintf(buffer + offset, "%d-", array[i]);
         }
+    }
+
+    void store_cycle(GArray *cycle) {
+        GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
+        g_array_append_vals(stored_cycle, cycle->data, cycle->len);
+        g_array_append_val(stored_cycle, *(int *)cycle->data);
+        g_array_append_val(output_cycles, stored_cycle);
     }
 
     void dfs(int node, int start, GArray *stack, GHashTable *visited) {
@@ -67,6 +74,7 @@ static int find_cycles(void *graph, int vertices) {
                     if (!g_hash_table_contains(unique_cycles, cycle_str)) {
                         g_hash_table_add(unique_cycles, strdup(cycle_str));
                         cycle_count++;
+                        store_cycle(stack);
                     }
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
                     dfs(i, start, stack, visited);
@@ -91,7 +99,6 @@ static int find_cycles(void *graph, int vertices) {
 
     return cycle_count;
 }
-
 
 
 static int count_hamiltonian_cycles(void *graph, int vertices) {
