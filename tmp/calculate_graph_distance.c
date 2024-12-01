@@ -173,7 +173,17 @@ void free_graph_storage_unit(AvlNode* node) {
     free((void*)node->key);
 }
 
+
+const int permutation_cost = 0;
+const int swap_cost = 10000;
+const int add_remove_cost = 1;
+
+
 int h(int* G, int n, int* degs_self, int* degs_other) {
+    if (swap_cost < 2 * add_remove_cost) {
+        return 0;
+    }
+
     for (int i = 0; i < n; ++i) {
         degs_self[i] = 0;
         for (int j = 0; j < n; ++j) {
@@ -183,10 +193,19 @@ int h(int* G, int n, int* degs_self, int* degs_other) {
     heapsort(degs_self, sizeof(int), n, comp_int_ptr);
     int sum = 0;
     for (int i = 0; i < n; ++i) {
-        sum += abs(degs_self[i] - degs_other[i]);
+        sum += add_remove_cost * abs(degs_self[i] - degs_other[i]);
     }
     return sum;
 }
+
+enum NeighborFactoryMode {
+    NEI_BEGIN,
+    NEI_ADD = NEI_BEGIN,
+    NEI_REMOVE,
+    NEI_SWAP,
+    NEI_PERM,
+    NEI_END
+};
 
 typedef struct NeighborFactory_ {
     int* orig_graph;
@@ -195,10 +214,9 @@ typedef struct NeighborFactory_ {
     // insert/delete edge
     int curr_out;
     int curr_in;
-    int delete_edge_node;
 
     // perm
-    int vertex_permutation_mode;
+    enum NeighborFactoryMode mode;
     int* vertex_perm;
 
 } NeighborFactory;
@@ -206,7 +224,7 @@ typedef struct NeighborFactory_ {
 int nei_factory_init(NeighborFactory* f, int* graph, int n) {
     f->orig_graph = graph;
     f->n = n;
-    f->vertex_permutation_mode = 0;
+    f->mode = 0;
     f->vertex_perm = malloc(sizeof(int)*n);
     if (!f->vertex_perm) return 0;
     
@@ -220,15 +238,16 @@ int nei_factory_init(NeighborFactory* f, int* graph, int n) {
     //mcpy(f->graph, f->orig_graph, sizeof(int)*n*n);
     f->curr_out = 0;
     f->curr_in = 1;
-    f->delete_edge_node = 0;
+    f->mode = NEI_ADD;
     return 1;
 
 }
 
 
+
 // assume the graph has at least 2 vertices
 int next_neighbor(NeighborFactory* f, int** result) {
-    if (f->vertex_permutation_mode) {
+    if (f->mode == NEI_PERM) {
         int perm = next_permutation(f->vertex_perm, f->vertex_perm + f->n, sizeof(int), comp_int_ptr);
         if (!perm) {
             *result = NULL;
@@ -244,12 +263,22 @@ int next_neighbor(NeighborFactory* f, int** result) {
         }
         *result = graph;
     } else {
-        if (f->delete_edge_node) {
+        if (f->mode == NEI_REMOVE) {
             if (f->orig_graph[f->n*f->curr_out + f->curr_in]) {
                 int* graph = malloc(sizeof(int)*f->n*f->n);
                 if (!graph) return 0;
                 memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
                 --graph[f->n*f->curr_out + f->curr_in];
+                *result = graph;
+            }
+        } else if (f->mode == NEI_SWAP) {
+            if (f->orig_graph[f->n*f->curr_out + f->curr_in] !=
+                f->orig_graph[f->n*f->curr_in + f->curr_out]) {
+                
+                int* graph = malloc(sizeof(int)*f->n*f->n);
+                if (!graph) return 0;
+                memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
+                swap_int(&graph[f->n*f->curr_out + f->curr_in], &graph[f->n*f->curr_in + f->curr_out]);
                 *result = graph;
             }
         } else {
@@ -259,17 +288,30 @@ int next_neighbor(NeighborFactory* f, int** result) {
             ++graph[f->n*f->curr_out + f->curr_in];
             *result = graph;
         }
-        if (f->delete_edge_node) {
+        if (f->mode == NEI_REMOVE) {
             ++f->curr_in;
             if (f->curr_in == f->n) {
                 f->curr_in = 0;
                 ++f->curr_out;
                 if (f->curr_out == f->n) {
-                    f->vertex_permutation_mode = 1;
+                    f->mode = NEI_PERM;
                 }
             }
         }
-        f->delete_edge_node = !f->delete_edge_node;
+
+        switch (f->mode) {
+        case NEI_ADD:
+            f->mode = NEI_SWAP;
+            break;
+        case NEI_SWAP:
+            f->mode = NEI_REMOVE;
+            break;
+        case NEI_REMOVE:
+            f->mode = NEI_ADD;
+            break;
+        default:
+            break;
+        }
     }
 
     return 1;
@@ -289,6 +331,7 @@ TwoThreeNode* tth_request_mem() {
 void tth_free_node(TwoThreeNode* node) {
 }
 
+/*
 void print_tth(TwoThreeNode* root, int k) {
     for (int i = 0; i < k; ++i) printf("\t");
     if (!root) { printf("Empty\n"); return; }
@@ -298,6 +341,7 @@ void print_tth(TwoThreeNode* root, int k) {
     print_tth(root->mid, k+1);
     print_tth(root->right, k+1);
 }
+*/
 
 int a_star(int* start, int* goal, int n, int* result) {
     comp_graph_n = n;
@@ -375,7 +419,8 @@ int a_star(int* start, int* goal, int n, int* result) {
 
         int* neighbor;
         while (1) {
-            int d = !factory.vertex_permutation_mode;
+            int d = ((factory.mode == NEI_ADD || factory.mode == NEI_REMOVE) ? add_remove_cost : 
+                    (factory.mode == NEI_SWAP ? swap_cost : permutation_cost));
             if (!next_neighbor(&factory, &neighbor)) {
                 break; // 
             }
