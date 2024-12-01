@@ -105,6 +105,36 @@ static int count_hamiltonian_cycles(void *graph, int vertices) {
     return count;
 }
 
+static guint garray_hash(gconstpointer key) {
+    GArray* array = (GArray*)key;
+    guint hash = 0;
+    for (guint i = 0; i < array->len; i++) {
+        int value = g_array_index(array, int, i);
+        hash = g_int_hash(&value) ^ (hash << 5) - hash;
+    }
+    return hash;
+}
+
+// Custom equality function for GArray
+static gboolean garray_equal(gconstpointer a, gconstpointer b) {
+    GArray* array1 = (GArray*)a;
+    GArray* array2 = (GArray*)b;
+
+    if (array1->len != array2->len) {
+        return FALSE;
+    }
+
+    for (guint i = 0; i < array1->len; i++) {
+        int val1 = g_array_index(array1, int, i);
+        int val2 = g_array_index(array2, int, i);
+        if (val1 != val2) {
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
 static GArray* calculate_metric(void* graph, int vertices) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int distance_matrix[vertices][vertices];
@@ -134,7 +164,11 @@ static GArray* calculate_metric(void* graph, int vertices) {
     }
 
     bool is_resolving_set(GArray* subset) {
-        GHashTable* signatures = g_hash_table_new(g_direct_hash, g_direct_equal);
+        if (subset->len == 0) {
+            return FALSE;
+        }
+
+        GHashTable* signatures = g_hash_table_new(garray_hash, garray_hash);
 
         for (int v = 0; v < vertices; v++) {
             GArray* signature = g_array_new(FALSE, FALSE, sizeof(int));
@@ -203,19 +237,16 @@ static GArray* calculate_metric(void* graph, int vertices) {
     GArray* smallest_resolving_set = g_array_new(FALSE, FALSE, sizeof(int));
     int totalSubsets = 1 << vertices;
     GArray* subset = g_array_new(FALSE, FALSE, sizeof(int));
-
-    for (int i = 0; i < totalSubsets; i++) {
-        for (int j = 0; j < vertices; j++) {
-            if (i & (1 << j)) {
-                g_array_append_val(subset, j);
+    for (int it_i = 0; it_i < totalSubsets; it_i++) {
+        for (int it_j = 0; it_j < vertices; it_j++) {
+            if ((it_i >> it_j) & 1) {
+                g_array_append_val(subset, it_j);
             }
         }
         if (is_resolving_set(subset)) {
-            for(int k = 0; i < subset->len; i++) {
-                printf("Subset:\n");
-                printf("%d ", g_array_index(subset, int, k));
-                smallest_resolving_set = g_array_copy(subset);
+            for(int k = 0; k < subset->len; k++) {
             }
+            smallest_resolving_set = g_array_copy(subset);
             g_array_free(subset, TRUE);
             break;
         }
