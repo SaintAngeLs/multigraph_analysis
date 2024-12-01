@@ -3,21 +3,18 @@ Processing 1 graphs.
 Graph 1:
 Analyzing Multigraph:
 ------------------------------------------------
-Graph size (sum of edge weights): 271
-Cycle count: 32825
-Hamiltonian cycles: 28800
-Metric size: 8
+Graph size (sum of edge weights): 305
+Cycle count: 309883
+Hamiltonian cycles: 143820
+Metric size: 5
 Smallest resolving set:
  1) = 0
  2) = 1
- 3) = 2
- 4) = 3
- 5) = 5
- 6) = 6
- 7) = 7
- 8) = 8
+ 3) = 3
+ 4) = 5
+ 5) = 7
 Minimal extension for Hamiltonian cycle: 0
 Maximal cycle length: 10
-Number of maximal cycles: 28800
+Number of maximal cycles: 143820
 ------------------------------------------------
 

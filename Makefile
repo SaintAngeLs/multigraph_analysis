@@ -2,10 +2,12 @@ CC = gcc
 PKG_CONFIG_PATH = /usr/lib/x86_64-linux-gnu/pkgconfig
 CFLAGS = -Wall -Iinclude `pkg-config --cflags glib-2.0`
 LDFLAGS = `pkg-config --libs glib-2.0`
+
 BUILD_DIR = build
 SRC_DIR = src
 INCLUDE_DIR = include
 TEST_DIR = test
+
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/graph.c $(SRC_DIR)/utils.c $(SRC_DIR)/graph_factory.c $(SRC_DIR)/graph_algorithm.c $(INCLUDE_DIR)/config.c
 OBJ = $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRC)))
 TARGET = multigraph_analysis
@@ -49,8 +51,8 @@ test: all
 
 tests: $(TEST_TARGET)
 	@echo "Running graph generator tests..."
-	./$(TEST_TARGET) complete 1 10 10 ./data/test_complete_graph.txt
+	./$(TEST_TARGET) complete 1 10 10 ./data/test_complete_graph.txt 3
 	./$(TEST_TARGET) sparse 1 10 10 ./data/test_sparse_graph.txt 0.2
-	./$(TEST_TARGET) bipartite 1 10 10 ./data/test_bipartite_graph.txt
-	./$(TEST_TARGET) multigraph 1 10 10 ./data/test_multigraph.txt 3
+	./$(TEST_TARGET) bipartite 1 10 10 ./data/test_bipartite_graph.txt 3
+	./$(TEST_TARGET) complete 1 10 10 ./data/test_multigraph.txt 3
 	@echo "Test graphs generated in ./data directory."
