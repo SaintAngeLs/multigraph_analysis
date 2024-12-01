@@ -190,49 +190,6 @@ static GArray* calculate_metric(void* graph, int vertices) {
         return TRUE;
     }
 
-    // void generate_subsets(int n, int a[n], int size, GArray* smallest_resolving_set) {
-    //     GArray *out = g_array_sized_new(FALSE, FALSE, sizeof(int), size);
-    //     GArray *level = g_array_sized_new(FALSE, FALSE, sizeof(int), size + 1);
-    //     GArray *index = g_array_sized_new(FALSE, FALSE, sizeof(int), size + 1);
-//
-    //     int sp = 0;
-    //     g_array_index(level, int, sp) = 0;
-    //     g_array_index(index, int, sp) = 0;
-//
-    //     redo:
-    //     while(g_array_index(index, int, sp) < n) {
-    //         g_array_index(out, int, g_array_index(level, int, sp)) = a[g_array_index(index, int, sp)];
-    //         g_array_index(level, int, sp + 1) = g_array_index(level, int, sp) + 1;
-    //         g_array_index(index, int, sp + 1) = g_array_index(index, int, sp) + 1;
-//
-    //         if (g_array_index(level, int, ++sp) == size) {
-    //             for(int i = 0; i < out->len; i++) {
-    //                 printf("Subset:\n");
-    //                 printf("%d ", g_array_index(out, int, i));
-    //             }
-    //             if(is_resolving_set(out)) {
-    //                 g_array_free(level, TRUE);
-    //                 g_array_free(index, TRUE);
-    //                 smallest_resolving_set = g_array_copy(out);
-    //                 g_array_free(out, TRUE);
-    //                 return;
-    //             }
-    //             --sp;
-    //         } else {
-    //             goto redo; // Simulate recursive call
-    //         }
-    //         g_array_index(index, int, sp)++;
-    //     }
-    //     if(sp>0) {
-    //         g_array_index(index, int, --sp)++;
-    //         goto redo;
-    //     }
-//
-    //     g_array_free(out, TRUE);
-    //     g_array_free(level, TRUE);
-    //     g_array_free(index, TRUE);
-    // }
-
     // Find the smallest resolving set
     GArray* smallest_resolving_set = g_array_new(FALSE, FALSE, sizeof(int));
     int totalSubsets = 1 << vertices;
