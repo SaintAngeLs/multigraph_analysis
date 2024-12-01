@@ -1,180 +1,24 @@
-Processing 10 graphs.
+Processing 1 graphs.
 
 Graph 1:
 Analyzing Multigraph:
 ------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 0
+Graph size (sum of edge weights): 475
+Cycle count: 4932045
+Hamiltonian cycles: 3628800
+Metric size: 9
 Smallest resolving set:
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
-------------------------------------------------
-
-Graph 2:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 133
-Cycle count: 587
-Hamiltonian cycles: 384
-Metric size: 2
-Smallest resolving set:
- 1) = 2
- 2) = 0
+ 1) = 0
+ 2) = 1
+ 3) = 2
+ 4) = 3
+ 5) = 4
+ 6) = 5
+ 7) = 6
+ 8) = 7
+ 9) = 8
 Minimal extension for Hamiltonian cycle: 0
-Maximal cycle length: 6
-Number of maximal cycles: 384
-------------------------------------------------
-
-Graph 3:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 296
-Cycle count: 20244
-Hamiltonian cycles: 12608
-Metric size: 4
-Smallest resolving set:
- 1) = 1
- 2) = 3
- 3) = 4
- 4) = 0
-Minimal extension for Hamiltonian cycle: 0
-Maximal cycle length: 8
-Number of maximal cycles: 12608
-------------------------------------------------
-
-Graph 4:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 6
-Smallest resolving set:
- 1) = 2
- 2) = 3
- 3) = 4
- 4) = 5
- 5) = 6
- 6) = 0
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
-------------------------------------------------
-
-Graph 5:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 6
-Smallest resolving set:
- 1) = 2
- 2) = 3
- 3) = 4
- 4) = 5
- 5) = 6
- 6) = 0
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
-------------------------------------------------
-
-Graph 6:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 6
-Smallest resolving set:
- 1) = 2
- 2) = 3
- 3) = 4
- 4) = 5
- 5) = 6
- 6) = 0
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
-------------------------------------------------
-
-Graph 7:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 6
-Smallest resolving set:
- 1) = 2
- 2) = 3
- 3) = 4
- 4) = 5
- 5) = 6
- 6) = 0
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
-------------------------------------------------
-
-Graph 8:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 6
-Smallest resolving set:
- 1) = 2
- 2) = 3
- 3) = 4
- 4) = 5
- 5) = 6
- 6) = 0
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
-------------------------------------------------
-
-Graph 9:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 6
-Smallest resolving set:
- 1) = 2
- 2) = 3
- 3) = 4
- 4) = 5
- 5) = 6
- 6) = 0
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
-------------------------------------------------
-
-Graph 10:
-Analyzing Multigraph:
-------------------------------------------------
-Graph size (sum of edge weights): 0
-Cycle count: 0
-Hamiltonian cycles: 0
-Metric size: 6
-Smallest resolving set:
- 1) = 2
- 2) = 3
- 3) = 4
- 4) = 5
- 5) = 6
- 6) = 0
-Minimal extension for Hamiltonian cycle: 2147483647
-Maximal cycle length: 0
-Number of maximal cycles: 0
+Maximal cycle length: 10
+Number of maximal cycles: 3628800
 ------------------------------------------------
 
