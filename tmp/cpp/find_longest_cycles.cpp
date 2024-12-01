@@ -1,3 +1,5 @@
+// Converted from Java to C++
+
 // http://normalisiert.de/code/java/elementaryCycles.zip
 // http://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF
 // 27 Nov 2024
@@ -38,10 +40,17 @@ static std::vector<std::map<int, int>> getAdjList(const std::vector<std::vector<
 };
 
 struct SCCResult {
+    std::unordered_set<int> nodeIdsOfSCC;
     std::vector<std::map<int, int>> adjList;
     int lowestNodeId = -1;
 
     SCCResult(const std::vector<std::map<int, int>>& adjList, int lowestNodeId) : adjList(adjList), lowestNodeId(lowestNodeId) {
+        //if (adjList.size() > 0)
+        for (int i = lowestNodeId; i < adjList.size(); ++i) {
+            if (adjList[i].size() > 0) {
+                nodeIdsOfSCC.insert(i);
+            }
+        }
     }
 
     SCCResult() {
@@ -199,7 +208,7 @@ struct StrongConnectedComponents {
 
 
 struct ElementaryCyclesSearch {
-    int cycle_count = 0;
+    std::list<std::vector<int>> cycles;
     std::vector<std::map<int, int>> adjList;
     std::vector<int> graphNodes;
     std::vector<bool> blocked;
@@ -209,17 +218,13 @@ struct ElementaryCyclesSearch {
     int max_cycle_size = 0;
     int max_cycle_width = 0;
 
-    explicit ElementaryCyclesSearch(const std::vector<std::vector<int>>& matrix) :
-        graphNodes(matrix.size()) {
+    ElementaryCyclesSearch(const std::vector<std::vector<int>>& matrix, const std::vector<int>& graphNodes) :
+        graphNodes(graphNodes) {
         
         adjList = AdjacencyList::getAdjList(matrix);
-        for (int i = 0; i < matrix.size(); ++i) {
-            graphNodes[i] = i;
-        }
     }
 
-    void getElementaryCycles() {
-        //std::cerr << "E";
+    std::list<std::vector<int>> getElementaryCycles() {
         blocked.clear();
         blocked.resize(adjList.size());
         B.clear();
@@ -245,6 +250,9 @@ struct ElementaryCyclesSearch {
                 break;
             }
         }
+
+
+        return cycles;
     }
 
     bool findCycles(int v, int s, const std::vector<std::map<int, int>>& adjList) {
@@ -256,35 +264,35 @@ struct ElementaryCyclesSearch {
             // force the algorithm not to count smaller cycles
             if (w.first == s) {
                 if (stack.size() >= max_cycle_size) {
-
+                
                 // indent
                 if (stack.size() > max_cycle_size) {
-                    cycle_count = 0;
+                    cycles.clear();
                     max_cycle_size = stack.size();
                     max_cycle_width = 0;
                 }
 
-                bool found_cycle = true;
+                std::vector<int> cycle;
                 int prev = stack.back();
                 int curr_min_width = INT_MAX;
                 for (int now : stack) {
                     curr_min_width = std::min(curr_min_width, adjList[prev].find(now)->second);
                     if (curr_min_width < max_cycle_width) {
-                        found_cycle = false;
+                        cycle.clear();
                         break;
                     }
+                    cycle.push_back(graphNodes[now]);
                     prev = now;
                 }
 
                 if (curr_min_width > max_cycle_width) {
-                    cycle_count = 0;
+                    cycles.clear();
                     max_cycle_width = curr_min_width;
                 }
 
-                if (found_cycle)
-                    ++cycle_count;
+                if (!cycle.empty())
+                    cycles.push_back(cycle);
                 // !indent
-
                 }
 
                 f = true;
@@ -306,6 +314,7 @@ struct ElementaryCyclesSearch {
         }
 
         stack.erase(std::find(stack.begin(), stack.end(), v));
+        //stack.pop_back();
         return f;
     }
 
@@ -321,118 +330,6 @@ struct ElementaryCyclesSearch {
         }
     }
 };
-
-struct MinExtensionSearch {
-    std::list<std::vector<int>> cycles;
-    std::size_t cycle_count = 0;
-
-    std::vector<bool> blocked;
-    std::vector<std::vector<int>> B;
-    std::list<int> stack;
-
-    int nr_lacking = 0;
-    int min_nr_lacking;
-
-    int max_nr_ham_cycles = 0;
-
-    explicit MinExtensionSearch(int n) :
-        blocked(n), B(n), min_nr_lacking(n*n) {}
-
-    bool findCycles(int v, int s, int n, const std::vector<std::vector<int>>& adjMatrix, bool second_stage) {
-        bool f = false;
-
-
-        int prev_stack_back = stack.empty() ? 0 : stack.back();
-        if (!stack.empty() && !adjMatrix[prev_stack_back][v]) {
-            ++nr_lacking;
-        }
-
-        if (nr_lacking > min_nr_lacking) {
-            --nr_lacking;
-            return true;
-        }
-
-        stack.push_back(v);
-        blocked[v] = true;
-
-        for (int w = 0; w < n; ++w) {
-            // force the algorithm to process full cycles
-            if (w == s && stack.size() == n) {
-
-                if (!adjMatrix[stack.back()][w]) {
-                    ++nr_lacking;
-                }
-
-                if (nr_lacking < min_nr_lacking) {
-                    //cycles.clear();
-                    cycle_count = 0;
-                    min_nr_lacking = nr_lacking;
-                }
-                if (nr_lacking <= min_nr_lacking && second_stage) {
-                    //std::cerr << "L";
-                    std::vector<std::vector<int>> adjMatrixExtended{ adjMatrix };
-                    int prev = stack.back();
-                    for (int now : stack) {
-                        if (!adjMatrixExtended[prev][now]) {
-                            adjMatrixExtended[prev][now] = 1;
-                        }
-                        prev = now;
-                    }
-
-                    ElementaryCyclesSearch hamSearch{ adjMatrixExtended };
-                    hamSearch.getElementaryCycles();
-                    if (hamSearch.cycle_count >= max_nr_ham_cycles) {
-                        if (hamSearch.cycle_count > max_nr_ham_cycles) {
-                            cycle_count = 0;
-                            max_nr_ham_cycles = hamSearch.cycle_count;
-                        }
-                        ++cycle_count;
-                    }
-                }
-
-                if (!adjMatrix[stack.back()][w]) {
-                    --nr_lacking;
-                }
-
-                f = true;
-            } else if (!blocked[w]) {
-                if (findCycles(w, s, n, adjMatrix, second_stage)) {
-                    f = true;
-                }
-            }
-        }
-
-        if (f) {
-            unblock(v);
-        } else {
-            for (int w = 0; w < n; ++w) {
-                if (std::find(B[w].begin(), B[w].end(), v) == B[w].end()) {
-                    B[w].push_back(v);
-                }
-            }
-        }
-
-        if (stack.size() > 1 && !adjMatrix[prev_stack_back][stack.back()]) {
-            --nr_lacking;
-        }
-
-        stack.pop_back();
-        return f;
-    }
-
-    void unblock(int node) {
-        blocked[node] = false;
-        auto& Bnode = B[node];
-        while (Bnode.size() > 0) {
-            int w = Bnode[0];
-            Bnode.erase(Bnode.begin());
-            if (blocked[w]) {
-                unblock(w);
-            }
-        }
-    }
-};
-
 
 int main() {
 
@@ -465,16 +362,24 @@ int main() {
     adjMatrix[5][7] = 1;
     adjMatrix[7][5] = 1;
     adjMatrix[5][6] = 1;
-    adjMatrix[6][5] = 1;
+    adjMatrix[7][4] = 1;
 
-    MinExtensionSearch ecs(N);
-    ecs.findCycles(0, 0, N, adjMatrix, false);
-    ecs.cycle_count = 0;
-    ecs.B.clear(); ecs.B.resize(N); ecs.blocked.clear(); ecs.blocked.resize(N);
-    std::cerr << "Second stage: min nr lacking = " << ecs.min_nr_lacking << std::endl;
-    ecs.findCycles(0, 0, N, adjMatrix, true);
-    std::cout << "cycle count: " << ecs.cycle_count << std::endl;
-    std::cout << "max ham cycles: " << ecs.max_nr_ham_cycles << std::endl;
+    adjMatrix[3][5] = 1;
+    adjMatrix[4][2] = 1;
+
+    ElementaryCyclesSearch ecs(adjMatrix, nodes);
+    std::list<std::vector<int>> cycles = ecs.getElementaryCycles();
+    int i;
+    std::list<std::vector<int>>::iterator it;
+    std::cout << cycles.size() << std::endl;
+    for (i = 0, it = cycles.begin(); i < cycles.size(); ++i, ++it) {
+        std::vector<int> cycle = *it;
+        for (int j = 0; j < cycle.size(); ++j) {
+            int node = cycle[j];
+            std::cout << node << " -> ";
+        }
+        std::cout << std::endl;
+    }
 
     return 0;
 }

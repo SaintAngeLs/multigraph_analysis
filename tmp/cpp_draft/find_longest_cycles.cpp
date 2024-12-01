@@ -366,11 +366,11 @@ int main() {
     adjMatrix[5][6] = 1;
     adjMatrix[7][4] = 1;
 
-    //adjMatrix[3][5] = 1;
-    //adjMatrix[4][2] = 1;
+    adjMatrix[3][5] = 1;
+    adjMatrix[4][2] = 1;
 
-    adjMatrix[4][1] = 1;
-    adjMatrix[3][6] = 1;
+    //adjMatrix[4][1] = 1;
+    //adjMatrix[3][6] = 1;
 
     //std::fill(adjMatrix[1].begin(), adjMatrix[1].end(), false);
 

@@ -1,3 +1,5 @@
+// Converted from Java to C++
+
 // http://normalisiert.de/code/java/elementaryCycles.zip
 // http://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF
 // 27 Nov 2024
@@ -38,10 +40,17 @@ static std::vector<std::map<int, int>> getAdjList(const std::vector<std::vector<
 };
 
 struct SCCResult {
+    std::unordered_set<int> nodeIdsOfSCC;
     std::vector<std::map<int, int>> adjList;
     int lowestNodeId = -1;
 
     SCCResult(const std::vector<std::map<int, int>>& adjList, int lowestNodeId) : adjList(adjList), lowestNodeId(lowestNodeId) {
+        //if (adjList.size() > 0)
+        for (int i = lowestNodeId; i < adjList.size(); ++i) {
+            if (adjList[i].size() > 0) {
+                nodeIdsOfSCC.insert(i);
+            }
+        }
     }
 
     SCCResult() {
@@ -248,6 +257,10 @@ struct ElementaryCyclesSearch {
     }
 
     bool findCycles(int v, int s, const std::vector<std::map<int, int>>& adjList) {
+        //std::cerr << "F\n";
+        //std::cerr << stack.size() << "\n";
+        //std::cerr << std::count_if(blocked.begin(), blocked.end(), [](auto in){ return in; }) << "\n";
+
         bool f = false;
         stack.push_back(v);
         blocked[v] = true;
@@ -388,6 +401,11 @@ struct MinExtensionSearch {
                         }
                         ++cycle_count;
                     }
+                    //std::vector<int> cycle;
+                    //for (int now : stack) {
+                    //    cycle.push_back(now);
+                    //}
+                    //cycles.push_back(cycle);
                 }
 
                 if (!adjMatrix[stack.back()][w]) {
@@ -438,6 +456,8 @@ int main() {
 
     // more than 11 takes too much RAM
     int N = 8;
+    //std::cerr << "Enter N: ";
+    //std::cin >> N;
 
     std::vector<int> nodes(N);
     for (int i = 0; i < N; ++i) {
@@ -467,6 +487,23 @@ int main() {
     adjMatrix[5][6] = 1;
     adjMatrix[6][5] = 1;
 
+    //std::fill(adjMatrix[1].begin(), adjMatrix[1].end(), false);
+
+    /*
+    adjMatrix[0][1] = true;
+    adjMatrix[1][2] = true;
+    adjMatrix[2][0] = true;
+    adjMatrix[3][4] = true;
+    adjMatrix[2][6] = true;
+    adjMatrix[4][5] = true;
+    adjMatrix[4][6] = true;
+    adjMatrix[5][3] = true;
+    adjMatrix[6][7] = true;
+    adjMatrix[7][8] = true;
+    adjMatrix[8][6] = true;
+    adjMatrix[6][1] = true;
+    */
+
     MinExtensionSearch ecs(N);
     ecs.findCycles(0, 0, N, adjMatrix, false);
     ecs.cycle_count = 0;
@@ -475,6 +512,19 @@ int main() {
     ecs.findCycles(0, 0, N, adjMatrix, true);
     std::cout << "cycle count: " << ecs.cycle_count << std::endl;
     std::cout << "max ham cycles: " << ecs.max_nr_ham_cycles << std::endl;
+
+    /*
+    int i;
+    std::list<std::vector<int>>::iterator it;
+    std::cout << cycles.size() << std::endl;
+    for (i = 0, it = cycles.begin(); i < cycles.size(); ++i, ++it) {
+        std::vector<int> cycle = *it;
+        for (int j = 0; j < cycle.size(); ++j) {
+            int node = cycle[j];
+            std::cout << node << " -> ";
+        }
+        std::cout << std::endl;
+    }*/
 
     return 0;
 }
