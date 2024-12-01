@@ -33,7 +33,7 @@ void analyze_multigraph(GraphInterface *multigraph) {
     printf("------------------------------------------------\n");
 
     int graph_size = multigraph->calculate_size(multigraph);
-    printf("Graph size (sum of edge weights): %d\n", graph_size);
+    printf("Graph size (number of edges): %d\n", graph_size);
 
     int cycle_count = default_algorithm.find_cycles(multigraph, multigraph->vertices);
     printf("Cycle count: %d\n", cycle_count);
