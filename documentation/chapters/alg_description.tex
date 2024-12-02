@@ -79,7 +79,7 @@ Złożoność obliczeniowa algorytmu liczenia cykli Hamiltona wynosi \( O(V!) \)
 
 \subsection{Algorytm obliczania metryki pomiędzy dwoma multigrafami}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Obliczanie rozkładu stopni wierzchołków - CalculateDegreeDistribution()}
 \label{alg:degree_distribution}
 \begin{algorithmic}[1]
@@ -106,7 +106,7 @@ Złożoność obliczeniowa algorytmu liczenia cykli Hamiltona wynosi \( O(V!) \)
 
 Złożoność obliczania rozkładu stopni wierzchołków wynosi \( O(n^2) \), gdzie \( n \) to liczba wierzchołków w multigrafie. Wynika to z iteracji po całej macierzy sąsiedztwa \( A \) o wymiarach \( n \times n \).
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Oblicz Earth Mover's Distance (EMD) - CalculateEMD()}
 \label{alg:calculate_emd}
 \begin{algorithmic}[1]
@@ -131,7 +131,7 @@ Złożoność obliczania rozkładu stopni wierzchołków wynosi \( O(n^2) \), gd
 \end{algorithmic}
 \end{algorithm}
 
-Liczba różnych stopni wierzchołków w multigrafie jest ograniczona przez liczbę wierzchołków w grafie, więc złożoność obliczeniowa metryki EMD dla dwóch multigrafów wynosi \( O(n \log n) \), gdzie \( n \) to liczba wierzchołków w obu multigrafach. Wynika to z sortowania listy \textit{all\_degrees}. \\
+Liczba różnych stopni wierzchołków w multigrafie jest ograniczona przez liczbę wierzchołków w grafie, więc złożoność obliczeniowa metryki EMD dla dwóch multigrafów wynosi \( O(n \log n) \), gdzie \( n \) to liczba wierzchołków w obu multigrafach. Wynika to z sortowania listy \textit{all\_degrees}.
 
 \begin{algorithm}[H]
 \caption{Obliczanie metryki pomiędzy dwoma multigrafami}
