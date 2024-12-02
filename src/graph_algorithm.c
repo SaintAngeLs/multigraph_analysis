@@ -2,6 +2,7 @@
 #include <glib.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <math.h>
 #include "graph_algorithm.h"
 #include "graph_interface.h"
 
@@ -170,111 +171,109 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
 }
 
 
-static bool are_arrays_equal(GArray *array1, GArray *array2) {
-    if (array1->len != array2->len) {
-        return false;
-    }
+static GHashTable *calculate_degree_distribution(void* graph, int n) {
+    GraphAlgorithmContext *context = create_context(graph, n);
+    GHashTable *degree_count = g_hash_table_new(g_int_hash, g_int_equal);
 
-    for (guint i = 0; i < array1->len; i++) {
-        int value1 = g_array_index(array1, int, i);
-        int value2 = g_array_index(array2, int, i);
-        if (value1 != value2) {
-            return false;
+    // Calculate degrees for each node
+    for (int i = 0; i < n; i++) {
+        int degree = 0;
+        for (int j = 0; j < n; j++) {
+            degree += context->graph_interface->get_edge(graph, i, j);
+        }
+
+        int *key = g_new(int, 1);
+        *key = degree;
+        int *value = g_hash_table_lookup(degree_count, key);
+        if (value == NULL) {
+            int *new_value = g_new(int, 1);
+            *new_value = 1;
+            g_hash_table_insert(degree_count, key, new_value);
+        } else {
+            (*value)++;
+            g_free(key);
         }
     }
 
-    return true;
+    // Normalize the degree distribution
+    int total_nodes = n;
+    GHashTableIter iter;
+    gpointer key, value;
+    g_hash_table_iter_init(&iter, degree_count);
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        double *normalized_value = g_new(double, 1);
+        *normalized_value = *((int *)value) / (double)total_nodes;
+        g_hash_table_insert(degree_count, key, normalized_value);
+        g_free(value);
+    }
+
+    return degree_count;
 }
 
-static GArray* calculate_metric(void* graph, int vertices) {
-    GraphAlgorithmContext *context = create_context(graph, vertices);
-    int distance_matrix[vertices][vertices];
-    for (int i = 0; i < vertices; i++) {
-        for (int j = 0; j < vertices; j++) {
-            if (i == j) {
-                distance_matrix[i][j] = 0;
-            } else {
-                int edge_weight = context->graph_interface->get_edge(graph, i, j);
-                distance_matrix[i][j] = (edge_weight > 0) ? 1 : INT_MAX;
+static gint g_int_compare(gconstpointer a, gconstpointer b) {
+    return *((int *)a) - *((int *)b);
+}
+
+static double calculate_emd(GHashTable *dist1, GHashTable *dist2) {
+    // Combine keys from both distributions
+    GHashTableIter iter;
+    gpointer key, value;
+
+    GList *all_degrees = NULL;
+    g_hash_table_iter_init(&iter, dist1);
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        all_degrees = g_list_append(all_degrees, key);
+    }
+    g_hash_table_iter_init(&iter, dist2);
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        gboolean exists = FALSE;
+        for (GList *node = all_degrees; node != NULL; node = node->next) {
+            if (*((int *)node->data) == *((int *)key)) {
+                exists = TRUE;
+                break;
             }
+        }
+        if (!exists) {
+            all_degrees = g_list_append(all_degrees, key);
         }
     }
 
-    // Change to better algorithm
-    for (int k = 0; k < vertices; k++) {
-        for (int i = 0; i < vertices; i++) {
-            for (int j = 0; j < vertices; j++) {
-                if (distance_matrix[i][k] < INT_MAX && distance_matrix[k][j] < INT_MAX) {
-                    int new_distance = distance_matrix[i][k] + distance_matrix[k][j];
-                    if (new_distance < distance_matrix[i][j]) {
-                        distance_matrix[i][j] = new_distance;
-                    }
-                }
-            }
+    all_degrees = g_list_sort(all_degrees, (GCompareFunc)g_int_compare);
+
+    double cumulative_dist1 = 0, cumulative_dist2 = 0;
+    double emd = 0;
+
+    for (GList *node = all_degrees; node != NULL; node = node->next) {
+        int *degree = (int *)node->data;
+        double prob1 = 0, prob2 = 0;
+
+        if (g_hash_table_contains(dist1, degree)) {
+            prob1 = *((double *)g_hash_table_lookup(dist1, degree));
         }
+        if (g_hash_table_contains(dist2, degree)) {
+            prob2 = *((double *)g_hash_table_lookup(dist2, degree));
+        }
+
+        cumulative_dist1 += prob1;
+        cumulative_dist2 += prob2;
+
+        emd += fabs(cumulative_dist1 - cumulative_dist2);
     }
 
-    bool is_resolving_set(GArray* subset) {
-        if (subset->len == 0) {
-            return FALSE;
-        }
+    g_list_free(all_degrees);
+    return emd;
+}
 
-        GArray *signatures = g_array_new(FALSE, FALSE, sizeof(GArray *));
+static double calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
+    GHashTable *dist1 = calculate_degree_distribution(graph_1, vertices_1);
+    GHashTable *dist2 = calculate_degree_distribution(graph_2, vertices_2);
 
-        for (int v = 0; v < vertices; v++) {
-            GArray* signature = g_array_new(FALSE, FALSE, sizeof(int));
-            for (int i = 0; i < subset->len; i++) {
-                int s = g_array_index(subset, int, i);
-                g_array_append_val(signature, distance_matrix[v][s]);
-            }
+    double emd = calculate_emd(dist1, dist2);
 
-            gboolean existing = FALSE;
-            for(int i = 0; i < signatures->len; i++) {
-                GArray *existing_array = g_array_index(signatures, GArray *, i);
-                if (are_arrays_equal(existing_array, signature)) {
-                    existing = TRUE;
-                    break;
-                }
-            }
-            if (existing) {
-                for (int i = 0; i < signatures->len; i++) {
-                    GArray *inner_array = g_array_index(signatures, GArray *, i);
-                    g_array_free(inner_array, TRUE);
-                }
-                g_array_free(signatures, TRUE);
-                g_array_free(signature, TRUE);
-                return FALSE;
-            }
-            g_array_append_val(signatures, signature);
-        }
+    g_hash_table_destroy(dist1);
+    g_hash_table_destroy(dist2);
 
-        for (int i = 0; i < signatures->len; i++) {
-            GArray *inner_array = g_array_index(signatures, GArray *, i);
-            g_array_free(inner_array, TRUE);
-        }
-        g_array_free(signatures, TRUE);
-        return TRUE;
-    }
-
-    // Find the smallest resolving set
-    GArray* smallest_resolving_set = g_array_new(FALSE, FALSE, sizeof(int));
-    int totalSubsets = 1 << vertices;
-    GArray* subset = g_array_new(FALSE, FALSE, sizeof(int));
-    for (int it_i = 0; it_i < totalSubsets; it_i++) {
-        for (int it_j = 0; it_j < vertices; it_j++) {
-            if ((it_i >> it_j) & 1) {
-                g_array_append_val(subset, it_j);
-            }
-        }
-        if (is_resolving_set(subset)) {
-            smallest_resolving_set = g_array_copy(subset);
-            g_array_free(subset, TRUE);
-            break;
-        }
-        g_array_remove_range(subset, 0, subset->len);
-    }
-
-    return smallest_resolving_set;
+    return emd;
 }
 
 static int find_minimal_extension(void *graph, int vertices) {
