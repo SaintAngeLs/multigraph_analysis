@@ -3,30 +3,32 @@ Processing 2 graphs.
 Graph 1:
 Analyzing Multigraph:
 ------------------------------------------------
-Graph size (sum of edge weights): 4
-Cycle count: 2
-Hamiltonian cycles: 0
-Metric size: 2
+Graph size (sum of edge weights): 24
+Cycle count: 81
+Hamiltonian cycles: 72
+Metric size: 3
 Smallest resolving set:
- 1) = 1
- 2) = 0
+ 1) = 2
+ 2) = 3
+ 3) = 0
 Minimal extension for Hamiltonian cycle: 0
-Maximal cycle length: 2
-Number of maximal cycles: 0
+Maximal cycle length: 6
+Number of maximal cycles: 72
 ------------------------------------------------
 
 Graph 2:
 Analyzing Multigraph:
 ------------------------------------------------
-Graph size (sum of edge weights): 10
-Cycle count: 8
-Hamiltonian cycles: 8
-Metric size: 2
+Graph size (sum of edge weights): 28
+Cycle count: 442
+Hamiltonian cycles: 144
+Metric size: 3
 Smallest resolving set:
- 1) = 1
- 2) = 0
+ 1) = 2
+ 2) = 3
+ 3) = 0
 Minimal extension for Hamiltonian cycle: 0
-Maximal cycle length: 4
-Number of maximal cycles: 8
+Maximal cycle length: 8
+Number of maximal cycles: 144
 ------------------------------------------------
 
