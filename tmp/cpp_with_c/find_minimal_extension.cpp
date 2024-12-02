@@ -19,28 +19,9 @@
 #include <cassert>
 #include <climits>
 
-struct AdjacencyList {
-
-static std::vector<std::map<int, int>> getAdjList(const std::vector<std::vector<int>>& adjMatrix) {
-    std::vector<std::map<int, int>> list(adjMatrix.size());
-
-    for (int i = 0; i < adjMatrix.size(); ++i) {
-        for (int j = 0; j < adjMatrix[i].size(); ++j) {
-            if (adjMatrix[i][j]) {
-                list[i].insert(std::pair<int,int>(j, adjMatrix[i][j]));
-            }
-        }
-    }
-
-    return list;
-}
-
-};
-
-
 struct ElementaryCyclesSearch {
     int cycle_count = 0;
-    std::vector<std::map<int, int>> adjList;
+    std::vector<std::vector<int>> adjMatrix;
     std::vector<int> graphNodes;
     std::vector<bool> blocked;
     std::vector<std::vector<int>> B;
@@ -51,8 +32,8 @@ struct ElementaryCyclesSearch {
 
     explicit ElementaryCyclesSearch(const std::vector<std::vector<int>>& matrix) :
         graphNodes(matrix.size()) {
-        
-        adjList = AdjacencyList::getAdjList(matrix);
+       
+        adjMatrix = matrix;
         for (int i = 0; i < matrix.size(); ++i) {
             graphNodes[i] = i;
         }
@@ -61,22 +42,25 @@ struct ElementaryCyclesSearch {
     void getElementaryCycles() {
         //std::cerr << "E";
         blocked.clear();
-        blocked.resize(adjList.size());
+        blocked.resize(adjMatrix.size());
         B.clear();
-        B.resize(adjList.size());
+        B.resize(adjMatrix.size());
         int s = 0;
 
-        findCycles(s, s, adjList);
+        findCycles(s, s, adjMatrix);
     }
 
-    bool findCycles(int v, int s, const std::vector<std::map<int, int>>& adjList) {
+    bool findCycles(int v, int s, const std::vector<std::vector<int>>& adjMatrix) {
         bool f = false;
         stack.push_back(v);
         blocked[v] = true;
 
-        for (auto w : adjList[v]) {
+        for (int w = 0; w < adjMatrix.size(); ++w) {
+            int ww = adjMatrix[v][w];
+            if (!ww) continue;
+
             // force the algorithm not to count smaller cycles
-            if (w.first == s) {
+            if (w == s) {
                 if (stack.size() >= max_cycle_size) {
 
                 // indent
@@ -90,7 +74,7 @@ struct ElementaryCyclesSearch {
                 int prev = stack.back();
                 int curr_min_width = INT_MAX;
                 for (int now : stack) {
-                    curr_min_width = std::min(curr_min_width, adjList[prev].find(now)->second);
+                    curr_min_width = std::min(curr_min_width, adjMatrix[prev][now]);
                     if (curr_min_width < max_cycle_width) {
                         found_cycle = false;
                         break;
@@ -110,8 +94,8 @@ struct ElementaryCyclesSearch {
                 }
 
                 f = true;
-            } else if (!blocked[w.first]) {
-                if (findCycles(w.first, s, adjList)) {
+            } else if (!blocked[w]) {
+                if (findCycles(w, s, adjMatrix)) {
                     f = true;
                 }
             }
@@ -120,9 +104,11 @@ struct ElementaryCyclesSearch {
         if (f) {
             unblock(v);
         } else {
-            for (auto w : adjList[v]) {
-                if (std::find(B[w.first].begin(), B[w.first].end(), v) == B[w.first].end()) {
-                    B[w.first].push_back(v);
+            for (int w = 0; w < adjMatrix.size(); ++w) {
+                int ww = adjMatrix[v][w];
+                if (!ww) continue;
+                if (std::find(B[w].begin(), B[w].end(), v) == B[w].end()) {
+                    B[w].push_back(v);
                 }
             }
         }
@@ -186,12 +172,10 @@ struct MinExtensionSearch {
                 }
 
                 if (nr_lacking < min_nr_lacking) {
-                    //cycles.clear();
                     cycle_count = 0;
                     min_nr_lacking = nr_lacking;
                 }
                 if (nr_lacking <= min_nr_lacking && second_stage) {
-                    //std::cerr << "L";
                     std::vector<std::vector<int>> adjMatrixExtended{ adjMatrix };
                     int prev = stack.back();
                     for (int now : stack) {
