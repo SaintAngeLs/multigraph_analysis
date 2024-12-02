@@ -28,6 +28,22 @@ FILE* open_file_with_retry(const char *filename) {
     return file;
 }
 
+void print_cycles(GArray *output_cycles) {    
+    for (guint i = 0; i < output_cycles->len; i++) {
+        GArray *cycle = g_array_index(output_cycles, GArray *, i);
+        
+        for (guint j = 0; j < cycle->len; j++) {
+            printf("%d", g_array_index(cycle, int, j));
+            if (j < cycle->len - 1) {
+                printf(" -> ");
+            }
+        }
+        printf("\n");
+        
+        g_array_free(cycle, TRUE);
+    }
+}
+
 void analyze_multigraph(GraphInterface *multigraph) {
     printf("Analyzing Multigraph:\n");
     printf("------------------------------------------------\n");
@@ -35,20 +51,29 @@ void analyze_multigraph(GraphInterface *multigraph) {
     int graph_size = multigraph->calculate_size(multigraph);
     printf("Graph size (number of edges): %d\n", graph_size);
 
-    int cycle_count = default_algorithm.find_cycles(multigraph, multigraph->vertices);
-    printf("Cycle count: %d\n", cycle_count);
+    GArray *output_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
+    default_algorithm.find_cycles(multigraph, multigraph->vertices, output_cycles);
+    printf("All cycles: %u\n", output_cycles->len);
+    print_cycles(output_cycles);
+    g_array_free(output_cycles, TRUE);
 
-    int hamiltonian_cycles = default_algorithm.count_hamiltonian_cycles(multigraph, multigraph->vertices);
-    printf("Hamiltonian cycles: %d\n", hamiltonian_cycles);
+    GArray *output_hamiltonian_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
+    default_algorithm.count_hamiltonian_cycles(multigraph, multigraph->vertices, output_hamiltonian_cycles);
+    printf("Hamiltonian cycles: %d\n", output_hamiltonian_cycles->len);
+    print_cycles(output_hamiltonian_cycles);
+    g_array_free(output_hamiltonian_cycles, TRUE);
 
     int minimal_extension = default_algorithm.find_minimal_extension(multigraph, multigraph->vertices);
     printf("Minimal extension for Hamiltonian cycle: %d\n", minimal_extension);
 
-    int maximal_cycle_length = default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices);
+    int maximal_cycle_length = default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices);
     printf("Maximal cycle length: %d\n", maximal_cycle_length);
 
-    int maximal_cycle_count = default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices);
-    printf("Number of maximal cycles: %d\n", maximal_cycle_count);
+    GArray *output_maximal_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
+    default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices, output_maximal_cycles);
+    printf("Maximal cycles: %u\n", output_maximal_cycles->len);
+    print_cycles(output_maximal_cycles);
+    g_array_free(output_maximal_cycles, TRUE);
 
     printf("------------------------------------------------\n\n");
 }

@@ -39,7 +39,7 @@ int get_edge(const Graph *graph, int src, int dest) {
 int calculate_size(const Graph *graph) {
     int size = 0;
     for (int i = 0; i < graph->vertices; i++) {
-        for (int j = i + 1; j < graph->vertices; j++) {
+        for (int j = 0; j < graph->vertices; j++) {
             size += graph->adjacency_matrix[i][j];
         }
     }
