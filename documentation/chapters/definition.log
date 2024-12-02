@@ -1,0 +1,3872 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2024.10.17)  2 DEC 2024 16:16
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**definition.tex
+(./definition.tex
+LaTeX2e <2024-06-01> patch level 2
+L3 programming layer <2024-05-27>
+! Undefined control sequence.
+l.1 \section
+            {Definicje}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \section{D
+              efinicje}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no D in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1--2
+[] 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 \noindent
+              \textbf{Definicja 1: Multigraf.} \\
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \emph{Multigraf} to uporzą
+                               dkowana para \( G = (V, E) \), gdzie:
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 4.
+Missing character: There is no , in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no : in font nullfont!
+
+Overfull \hbox (44.27753pt too wide) in paragraph at lines 3--5
+\OT1/cmr/bx/n/10 Definicja
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 3--5
+\OT1/cmr/bx/n/10 1:
+ []
+
+
+Overfull \hbox (31.99983pt too wide) in paragraph at lines 3--5
+\OT1/cmr/bx/n/10 Multi-
+ []
+
+
+Overfull \hbox (22.78459pt too wide) in paragraph at lines 3--5
+\OT1/cmr/bx/n/10 graf. 
+ []
+
+
+Overfull \hbox (39.76083pt too wide) in paragraph at lines 3--5
+\OT1/cmr/m/it/10 Multigraf
+ []
+
+
+Overfull \hbox (18.418pt too wide) in paragraph at lines 3--5
+\OML/cmm/m/it/10 G \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (26.56941pt too wide) in paragraph at lines 3--5
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V; E\OT1/cmr/m/n/10 )$ 
+ []
+
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+LaTeX Font Info:    Trying to load font information for +cmr on input line 6.
+LaTeX Font Info:    No file cmr.fd. on input line 6.
+
+LaTeX Font Warning: Font shape `/cmr/m/n' undefined
+(Font)              using `/cmr/m/n' instead on input line 6.
+
+! Corrupted NFSS tables.
+wrong@fontshape ...message {Corrupted NFSS tables}
+                                                  error@fontshape else let f...
+l.6     \item \( V \) jest skoń
+                                czonym zbiorem wierzchołków,
+This error message was generated by an \errmessage
+command, so I can't give any explicit help.
+Pretend that you're Hercule Poirot: Examine all clues,
+and deduce the truth by order and method.
+
+
+LaTeX Font Warning: Font shape `/cmr/m/n' undefined
+(Font)              using `OT1/cmr/m/n' instead on input line 6.
+
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no , in font nullfont!
+
+Overfull \hbox (8.05556pt too wide) in paragraph at lines 6--7
+\OML/cmm/m/it/10 V$
+ []
+
+
+Overfull \hbox (10.55559pt too wide) in paragraph at lines 6--7
+\/cmr/m/n/10 ^^Sn
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 6--7
+\/cmr/m/n/10  l^^So 
+ []
+
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7     \item \( E \) jest multizbiorem krawę
+                                              dzi, z których każda łączy...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no a in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...tizbiorem krawędzi, z których każda łą
+                                                  czy parę wierzchołków z...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ... krawędzi, z których każda łączy parę
+                                                   wierzchołków z \( V \)....
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no K in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...�czy parę wierzchołków z \( V \). Krawę
+                                                  dzie mogą się powtarzać...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no g in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ... wierzchołków z \( V \). Krawędzie mogą
+                                                   się powtarzać, co oznac...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...zchołków z \( V \). Krawędzie mogą się
+                                                   powtarzać, co oznacza mo...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ... powtarzać, co oznacza możliwość wystę
+                                                  powania wielokrotnych kraw...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...liwość występowania wielokrotnych krawę
+                                                  dzi między tą samą par�...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ... występowania wielokrotnych krawędzi mię
+                                                  dzy tą samą parą wierzc...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no t in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...powania wielokrotnych krawędzi między tą
+                                                   samą parą wierzchołkó...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...a wielokrotnych krawędzi między tą samą
+                                                   parą wierzchołków. Kra...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...okrotnych krawędzi między tą samą parą
+                                                   wierzchołków. Krawędzi...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no K in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...�dzy tą samą parą wierzchołków. Krawę
+                                                  dzie mogą być również ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no g in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...amą parą wierzchołków. Krawędzie mogą
+                                                   być również pętlami, ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...łków. Krawędzie mogą być również pę
+                                                  tlami, tj. krawędziami w ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...e mogą być również pętlami, tj. krawę
+                                                  dziami w postaci \( (v, v)...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (7.95831pt too wide) in paragraph at lines 7--8
+\OML/cmm/m/it/10 E$
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10 _z
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10  l^^So
+ []
+
+
+Overfull \hbox (8.05556pt too wide) in paragraph at lines 7--8
+\OML/cmm/m/it/10 V$
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10 ^^Sc
+ []
+
+
+Overfull \hbox (12.83333pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10 _z^^Ss^^Sc
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10  l^^So
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10 ^^Sc
+ []
+
+
+Overfull \hbox (9.44446pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10 ^^So_z
+ []
+
+
+Overfull \hbox (22.63423pt too wide) in paragraph at lines 7--8
+\/cmr/m/n/10 (\OML/cmm/m/it/10 v; v\/cmr/m/n/10 )$ 
+ []
+
+Missing character: There is no R in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...any \( |E| \), to całkowita liczba krawę
+                                                  dzi w multigrafie, uwzglę...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no l in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...ta liczba krawędzi w multigrafie, uwzglę
+                                                  dniająca wszystkie wielok...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no j in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...ba krawędzi w multigrafie, uwzględniają
+                                                  ca wszystkie wielokrotne k...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ...ględniająca wszystkie wielokrotne krawę
+                                                  dzie oraz pętle. Formalnie:
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no p in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 ... wszystkie wielokrotne krawędzie oraz pę
+                                                  tle. Formalnie:
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no : in font nullfont!
+
+Overfull \hbox (44.27753pt too wide) in paragraph at lines 12--14
+\OT1/cmr/bx/n/10 Definicja
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 12--14
+\OT1/cmr/bx/n/10 2:
+ []
+
+
+Overfull \hbox (42.59004pt too wide) in paragraph at lines 12--14
+\OT1/cmr/bx/n/10 Rozmiar
+ []
+
+
+Overfull \hbox (30.34706pt too wide) in paragraph at lines 12--14
+\OT1/cmr/bx/n/10 multi-
+ []
+
+
+Overfull \hbox (29.17345pt too wide) in paragraph at lines 12--14
+\OT1/cmr/bx/n/10 grafu. 
+ []
+
+
+Overfull \hbox (18.418pt too wide) in paragraph at lines 12--14
+\OML/cmm/m/it/10 G \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (26.56941pt too wide) in paragraph at lines 12--14
+\/cmr/m/n/10 (\OML/cmm/m/it/10 V; E\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (13.51389pt too wide) in paragraph at lines 12--14
+\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 E\OMS/cmsy/m/n/10 j$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 12--14
+\/cmr/m/n/10  l
+ []
+
+! Undefined control sequence.
+l.15 |E| = \sum_{(u, v) \in V \times V} \text
+                                             {Liczność}((u, v), E),
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 15.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 15.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.15 ...sum_{(u, v) \in V \times V} \text{Licznoś
+                                                  ć}((u, v), E),
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \edef 
+l.15 ...sum_{(u, v) \in V \times V} \text{Licznoś
+                                                  ć}((u, v), E),
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 15.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.15 ...m_{(u, v) \in V \times V} \text{Liczność
+                                                  }((u, v), E),
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 \]
+       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 gdzie \(
+              \text{Liczność}((u, v), E) \) to liczba wystąpień krawędz...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.17 gdzie \( \text
+                   {Liczność}((u, v), E) \) to liczba wystąpień krawędz...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 17.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 17.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.17 gdzie \( \text{Licznoś
+                            ć}((u, v), E) \) to liczba wystąpień krawędz...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \edef 
+l.17 gdzie \( \text{Licznoś
+                            ć}((u, v), E) \) to liczba wystąpień krawędz...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 17.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.17 gdzie \( \text{Liczność
+                              }((u, v), E) \) to liczba wystąpień krawędz...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.17 gdzie \( \text{Liczność}((u, v), E) \)
+                                              to liczba wystąpień krawędz...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.17 gdzie \( \text{Liczność}((u, v), E) \)
+                                              to liczba wystąpień krawędz...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                    
+l.17 gdzie \( \text{Liczność}((u, v), E) \) 
+                                              to liczba wystąpień krawędz...
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+
+Overfull \hbox (264.34837pt too wide) detected at line 17
+\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 E\OMS/cmsy/m/n/10 j \/cmr/m/n/10 = [] []
+ []
+
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 ...Liczność}((u, v), E) \) to liczba wystą
+                                                  pień krawędzi \( (u, v) ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 ...(u, v), E) \) to liczba wystąpień krawę
+                                                  dzi \( (u, v) \) w \( E \).
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (5.55557pt too wide) in paragraph at lines 17--18
+  \/cmr/m/n/10 ^^Sn
+ []
+
+
+Overfull \hbox (23.1528pt too wide) in paragraph at lines 17--18
+\/cmr/m/n/10 (\OML/cmm/m/it/10 u; v\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (7.95831pt too wide) in paragraph at lines 17--18
+\OML/cmm/m/it/10 E$ 
+ []
+
+Missing character: There is no w in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 ...kl} w multigrafie \( G = (V, E) \) to cią
+                                                  g wierzchołków \( v_1, v...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no j in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 ... v_1, v_2, \dots, v_k, v_1 \), spełniają
+                                                  cy następujące warunki:
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 ..., \dots, v_k, v_1 \), spełniający nastę
+                                                  pujące warunki:
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no j in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 ...ts, v_k, v_1 \), spełniający następują
+                                                  ce warunki:
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no : in font nullfont!
+
+Overfull \hbox (44.27753pt too wide) in paragraph at lines 21--23
+\OT1/cmr/bx/n/10 Definicja
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 21--23
+\OT1/cmr/bx/n/10 3:
+ []
+
+
+Overfull \hbox (23.63876pt too wide) in paragraph at lines 21--23
+\OT1/cmr/bx/n/10 Cykl
+ []
+
+
+Overfull \hbox (8.30551pt too wide) in paragraph at lines 21--23
+\OT1/cmr/bx/n/10 w
+ []
+
+
+Overfull \hbox (30.34706pt too wide) in paragraph at lines 21--23
+\OT1/cmr/bx/n/10 multi-
+ []
+
+
+Overfull \hbox (30.93039pt too wide) in paragraph at lines 21--23
+\OT1/cmr/bx/n/10 grafie. 
+ []
+
+
+Overfull \hbox (19.16652pt too wide) in paragraph at lines 21--23
+\OT1/cmr/m/it/10 Cykl
+ []
+
+
+Overfull \hbox (18.418pt too wide) in paragraph at lines 21--23
+\OML/cmm/m/it/10 G \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (26.56941pt too wide) in paragraph at lines 21--23
+\/cmr/m/n/10 (\OML/cmm/m/it/10 V; E\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 21--23
+\/cmr/m/n/10  l^^So
+ []
+
+
+Overfull \hbox (68.87836pt too wide) in paragraph at lines 21--23
+\OML/cmm/m/it/10 v[]; v[]; [] ; v[]; v[]$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 21--23
+\/cmr/m/n/10  l
+ []
+
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no , in font nullfont!
+
+Overfull \hbox (17.62091pt too wide) in paragraph at lines 24--25
+\OML/cmm/m/it/10 v[] \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (8.05556pt too wide) in paragraph at lines 24--25
+\OML/cmm/m/it/10 V$
+ []
+
+
+Overfull \hbox (14.00064pt too wide) in paragraph at lines 24--25
+\OML/cmm/m/it/10 i \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (42.18735pt too wide) in paragraph at lines 24--25
+\/cmr/m/n/10 1\OML/cmm/m/it/10 ; \/cmr/m/n/10 2\OML/cmm/m/it/10 ; [] ; k$ 
+ []
+
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no , in font nullfont!
+
+Overfull \hbox (48.14468pt too wide) in paragraph at lines 25--26
+\/cmr/m/n/10 (\OML/cmm/m/it/10 v[]; v[]\/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (7.95831pt too wide) in paragraph at lines 25--26
+\OML/cmm/m/it/10 E$
+ []
+
+
+Overfull \hbox (14.00064pt too wide) in paragraph at lines 25--26
+\OML/cmm/m/it/10 i \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (49.96515pt too wide) in paragraph at lines 25--26
+\/cmr/m/n/10 1\OML/cmm/m/it/10 ; \/cmr/m/n/10 2\OML/cmm/m/it/10 ; [] ; k \OMS/c
+msy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 25--26
+\/cmr/m/n/10 1$
+ []
+
+
+Overfull \hbox (40.76736pt too wide) in paragraph at lines 25--26
+\/cmr/m/n/10 (\OML/cmm/m/it/10 v[]; v[]\/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (7.95831pt too wide) in paragraph at lines 25--26
+\OML/cmm/m/it/10 E$ 
+ []
+
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no j in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.26 ... \) dla \( 1 \leq i < j \leq k \), z wyją
+                                                  tkiem \( v_1 = v_k \).
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (18.73203pt too wide) in paragraph at lines 26--27
+\OML/cmm/m/it/10 v[] \OMS/cmsy/m/n/10 6\/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (9.06079pt too wide) in paragraph at lines 26--27
+\OML/cmm/m/it/10 v[]$
+ []
+
+
+Overfull \hbox (15.55553pt too wide) in paragraph at lines 26--27
+\/cmr/m/n/10 1 \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (14.00064pt too wide) in paragraph at lines 26--27
+\OML/cmm/m/it/10 i <
+ []
+
+
+Overfull \hbox (15.246pt too wide) in paragraph at lines 26--27
+\OML/cmm/m/it/10 j \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (5.52084pt too wide) in paragraph at lines 26--27
+\OML/cmm/m/it/10 k$
+ []
+
+
+Overfull \hbox (19.88887pt too wide) in paragraph at lines 26--27
+\OML/cmm/m/it/10 v[] \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (9.7674pt too wide) in paragraph at lines 26--27
+\OML/cmm/m/it/10 v[]$ 
+ []
+
+Missing character: There is no w in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 ...ie \( G \) to cykl, który zawiera najwię
+                                                  kszą liczbę wierzchołk�...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 ... G \) to cykl, który zawiera największą
+                                                   liczbę wierzchołków sp...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no b in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 ... cykl, który zawiera największą liczbę
+                                                   wierzchołków spośród ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (44.27753pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 Definicja
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 4:
+ []
+
+
+Overfull \hbox (37.01505pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 Maksy-
+ []
+
+
+Overfull \hbox (30.50676pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 malny
+ []
+
+
+Overfull \hbox (20.44434pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 cykl
+ []
+
+
+Overfull \hbox (8.30551pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 w
+ []
+
+
+Overfull \hbox (30.34706pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 multi-
+ []
+
+
+Overfull \hbox (30.93039pt too wide) in paragraph at lines 31--33
+\OT1/cmr/bx/n/10 grafie. 
+ []
+
+
+Overfull \hbox (53.9441pt too wide) in paragraph at lines 31--33
+\OT1/cmr/m/it/10 Maksymalny
+ []
+
+
+Overfull \hbox (16.61098pt too wide) in paragraph at lines 31--33
+\OT1/cmr/m/it/10 cykl
+ []
+
+
+Overfull \hbox (7.86249pt too wide) in paragraph at lines 31--33
+\OML/cmm/m/it/10 G$
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 31--33
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 31--33
+\/cmr/m/n/10  l^^So
+ []
+
+
+Overfull \hbox (8.94446pt too wide) in paragraph at lines 31--33
+\/cmr/m/n/10 ^^Ss^^So
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 31--33
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (7.86249pt too wide) in paragraph at lines 31--33
+\OML/cmm/m/it/10 G$ 
+ []
+
+Missing character: There is no w in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37 ...adnie raz i powraca do wierzchołka począ
+                                                  tkowego. Formalnie, jest t...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37 ...�ka początkowego. Formalnie, jest to cią
+                                                  g \( v_1, v_2, \dots, v_{|...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no : in font nullfont!
+
+Overfull \hbox (44.27753pt too wide) in paragraph at lines 36--38
+\OT1/cmr/bx/n/10 Definicja
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 36--38
+\OT1/cmr/bx/n/10 5:
+ []
+
+
+Overfull \hbox (23.63876pt too wide) in paragraph at lines 36--38
+\OT1/cmr/bx/n/10 Cykl
+ []
+
+
+Overfull \hbox (34.39563pt too wide) in paragraph at lines 36--38
+\OT1/cmr/bx/n/10 Hamil-
+ []
+
+
+Overfull \hbox (25.39568pt too wide) in paragraph at lines 36--38
+\OT1/cmr/bx/n/10 tona. 
+ []
+
+
+Overfull \hbox (19.16652pt too wide) in paragraph at lines 36--38
+\OT1/cmr/m/it/10 Cykl
+ []
+
+
+Overfull \hbox (29.92204pt too wide) in paragraph at lines 36--38
+\OT1/cmr/m/it/10 Hamil-
+ []
+
+
+Overfull \hbox (19.16655pt too wide) in paragraph at lines 36--38
+\OT1/cmr/m/it/10 tona
+ []
+
+
+Overfull \hbox (18.418pt too wide) in paragraph at lines 36--38
+\OML/cmm/m/it/10 G \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (26.56941pt too wide) in paragraph at lines 36--38
+\/cmr/m/n/10 (\OML/cmm/m/it/10 V; E\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 36--38
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 36--38
+\/cmr/m/n/10 _z
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 36--38
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (8.05556pt too wide) in paragraph at lines 36--38
+\OML/cmm/m/it/10 V$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 36--38
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 36--38
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (75.65266pt too wide) in paragraph at lines 36--38
+\OML/cmm/m/it/10 v[]; v[]; [] ; v[]; v[]$
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 36--38
+\/cmr/m/n/10 _z 
+ []
+
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no , in font nullfont!
+
+Overfull \hbox (17.62091pt too wide) in paragraph at lines 39--40
+\OML/cmm/m/it/10 v[] \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (8.05556pt too wide) in paragraph at lines 39--40
+\OML/cmm/m/it/10 V$
+ []
+
+
+Overfull \hbox (14.00064pt too wide) in paragraph at lines 39--40
+\OML/cmm/m/it/10 i \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (50.27763pt too wide) in paragraph at lines 39--40
+\/cmr/m/n/10 1\OML/cmm/m/it/10 ; \/cmr/m/n/10 2\OML/cmm/m/it/10 ; [] ; \OMS/cms
+y/m/n/10 j\OML/cmm/m/it/10 V\OMS/cmsy/m/n/10 j$ 
+ []
+
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no , in font nullfont!
+
+Overfull \hbox (48.14468pt too wide) in paragraph at lines 40--41
+\/cmr/m/n/10 (\OML/cmm/m/it/10 v[]; v[]\/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (7.95831pt too wide) in paragraph at lines 40--41
+\OML/cmm/m/it/10 E$
+ []
+
+
+Overfull \hbox (14.00064pt too wide) in paragraph at lines 40--41
+\OML/cmm/m/it/10 i \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (58.05544pt too wide) in paragraph at lines 40--41
+\/cmr/m/n/10 1\OML/cmm/m/it/10 ; \/cmr/m/n/10 2\OML/cmm/m/it/10 ; [] ; \OMS/cms
+y/m/n/10 j\OML/cmm/m/it/10 V\OMS/cmsy/m/n/10 j ^^@
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 40--41
+\/cmr/m/n/10 1$
+ []
+
+
+Overfull \hbox (47.54167pt too wide) in paragraph at lines 40--41
+\/cmr/m/n/10 (\OML/cmm/m/it/10 v[]; v[]\/cmr/m/n/10 ) \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (7.95831pt too wide) in paragraph at lines 40--41
+\OML/cmm/m/it/10 E$ 
+ []
+
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (18.73203pt too wide) in paragraph at lines 41--42
+\OML/cmm/m/it/10 v[] \OMS/cmsy/m/n/10 6\/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (9.06079pt too wide) in paragraph at lines 41--42
+\OML/cmm/m/it/10 v[]$
+ []
+
+
+Overfull \hbox (15.55553pt too wide) in paragraph at lines 41--42
+\/cmr/m/n/10 1 \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (14.00064pt too wide) in paragraph at lines 41--42
+\OML/cmm/m/it/10 i <
+ []
+
+
+Overfull \hbox (15.246pt too wide) in paragraph at lines 41--42
+\OML/cmm/m/it/10 j \OMS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (13.61113pt too wide) in paragraph at lines 41--42
+\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 V\OMS/cmsy/m/n/10 j$ 
+ []
+
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.47 ...G = (V, E) \) to najmniejsza liczba krawę
+                                                  dzi, które należy dodać...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no H in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (44.27753pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 Definicja
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 6:
+ []
+
+
+Overfull \hbox (24.3332pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 Min-
+ []
+
+
+Overfull \hbox (7.02774pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 i-
+ []
+
+
+Overfull \hbox (30.0276pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 malne
+ []
+
+
+Overfull \hbox (29.07762pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 rozsz-
+ []
+
+
+Overfull \hbox (24.22212pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 erze-
+ []
+
+
+Overfull \hbox (14.8541pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 nie
+ []
+
+
+Overfull \hbox (30.34706pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 multi-
+ []
+
+
+Overfull \hbox (29.17345pt too wide) in paragraph at lines 46--48
+\OT1/cmr/bx/n/10 grafu. 
+ []
+
+
+Overfull \hbox (46.78862pt too wide) in paragraph at lines 46--48
+\OT1/cmr/m/it/10 Minimalne
+ []
+
+
+Overfull \hbox (24.66093pt too wide) in paragraph at lines 46--48
+\OT1/cmr/m/it/10 rozsz-
+ []
+
+
+Overfull \hbox (21.08316pt too wide) in paragraph at lines 46--48
+\OT1/cmr/m/it/10 erze-
+ []
+
+
+Overfull \hbox (13.2888pt too wide) in paragraph at lines 46--48
+\OT1/cmr/m/it/10 nie
+ []
+
+
+Overfull \hbox (26.0665pt too wide) in paragraph at lines 46--48
+\OT1/cmr/m/it/10 multi-
+ []
+
+
+Overfull \hbox (21.84984pt too wide) in paragraph at lines 46--48
+\OT1/cmr/m/it/10 grafu
+ []
+
+
+Overfull \hbox (18.418pt too wide) in paragraph at lines 46--48
+\OML/cmm/m/it/10 G \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (26.56941pt too wide) in paragraph at lines 46--48
+\/cmr/m/n/10 (\OML/cmm/m/it/10 V; E\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 46--48
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 46--48
+\/cmr/m/n/10 _z
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 46--48
+\/cmr/m/n/10 ^^Sc
+ []
+
+
+Overfull \hbox (7.86249pt too wide) in paragraph at lines 46--48
+\OML/cmm/m/it/10 G$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 46--48
+\/cmr/m/n/10  l
+ []
+
+
+
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.48 
+     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Missing character: There is no N in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no b in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 Niech $G_1$ i $G_2$ bę
+                            dą dwoma multigrafami o rozkładzie stopni wier...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.52 Niech $G_1$ i $G_2$ będą
+                                dwoma multigrafami o rozkładzie stopni wier...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no R in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no : in font nullfont!
+
+! LaTeX Error: Environment align* undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.53 \begin{align*}
+                   
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no D in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.54     D_
+           i = \frac{\text{Liczba wierzchołków o stopniu k w} \ G_i}{\text...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Undefined control sequence.
+<argument> \text 
+                 {Liczba wierzchołków o stopniu k w} \ G_i
+l.54 ...G_i}{\text{Liczba wierzchołków w} \ G_i}
+                                                  .
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Command \l invalid in math mode on input line 54.
+
+
+LaTeX Warning: Command \l invalid in math mode on input line 54.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 54.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 54.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.54 ...G_i}{\text{Liczba wierzchołków w} \ G_i}
+                                                  .
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \edef 
+l.54 ...G_i}{\text{Liczba wierzchołków w} \ G_i}
+                                                  .
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.54 ...G_i}{\text{Liczba wierzchołków w} \ G_i}
+                                                  .
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Undefined control sequence.
+<argument> \text 
+                 {Liczba wierzchołków w} \ G_i
+l.54 ...G_i}{\text{Liczba wierzchołków w} \ G_i}
+                                                  .
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Command \l invalid in math mode on input line 54.
+
+
+LaTeX Warning: Command \l invalid in math mode on input line 54.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 54.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 54.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.54 ...G_i}{\text{Liczba wierzchołków w} \ G_i}
+                                                  .
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \edef 
+l.54 ...G_i}{\text{Liczba wierzchołków w} \ G_i}
+                                                  .
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+! LaTeX Error: \begin{document} ended by \end{align*}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.55 \end{align*}
+                 
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.55 \end{align*}
+                 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.55 \end{align*}
+                 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (44.27753pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 Definicja
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 7:
+ []
+
+
+Overfull \hbox (20.02074pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 Me-
+ []
+
+
+Overfull \hbox (26.29846pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 tryka
+ []
+
+
+Overfull \hbox (8.30551pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 w
+ []
+
+
+Overfull \hbox (55.2164pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 przestrzeni
+ []
+
+
+Overfull \hbox (30.34706pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 multi-
+ []
+
+
+Overfull \hbox (36.84007pt too wide) in paragraph at lines 51--56
+\OT1/cmr/bx/n/10 graf^^Sow. 
+ []
+
+
+Overfull \hbox (12.34862pt too wide) in paragraph at lines 51--56
+\OML/cmm/m/it/10 G[]$
+ []
+
+
+Overfull \hbox (12.34862pt too wide) in paragraph at lines 51--56
+\OML/cmm/m/it/10 G[]$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 51--56
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 51--56
+\/cmr/m/n/10  l^^So
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 51--56
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 51--56
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 51--56
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 51--56
+\/cmr/m/n/10  l^^So
+ []
+
+
+Overfull \hbox (13.8848pt too wide) in paragraph at lines 51--56
+[] \/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (127.09688pt too wide) in paragraph at lines 51--56
+[]$ 
+ []
+
+Missing character: There is no M in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no E in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no M in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no v in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no ' in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no D in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no E in font nullfont!
+Missing character: There is no M in font nullfont!
+Missing character: There is no D in font nullfont!
+Missing character: There is no ) in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58 Metryka Earth Mover's Distance (EMD) pomię
+                                                dzy $D_1$ i $D_2$ to minimal...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no , in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no M in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no E in font nullfont!
+Missing character: There is no M in font nullfont!
+Missing character: There is no D in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58 ...$d_j$ wynosi $|i - j|$. Metryka EMD pomię
+                                                  dzy $D_1$ i $D_2$ to suma ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no : in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 58--59
+[]
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 58--59
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 58--59
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (8.53415pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 d[]$
+ []
+
+
+Overfull \hbox (9.41843pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 d[]$
+ []
+
+
+Overfull \hbox (14.00072pt too wide) in paragraph at lines 58--59
+\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 i \OMS/cmsy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (7.46828pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 j\OMS/cmsy/m/n/10 j$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 58--59
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 58--59
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (8.33336pt too wide) in paragraph at lines 58--59
+\/cmr/m/n/10  l^^Sn
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 58--59
+\/cmr/m/n/10  l^^So 
+ []
+
+
+Overfull \hbox (206.64777pt too wide) detected at line 61
+\OML/cmm/m/it/10 EMD\/cmr/m/n/10 (\OML/cmm/m/it/10 D[]; D[]\/cmr/m/n/10 ) = [] 
+[] [] \OML/cmm/m/it/10 F\/cmr/m/n/10 (\OML/cmm/m/it/10 k[]; k[]\/cmr/m/n/10 ) \
+OMS/cmsy/m/n/10 ^^A j\OML/cmm/m/it/10 k[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10
+ k[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 ;
+ []
+
+Missing character: There is no g in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (39.42601pt too wide) in paragraph at lines 64--65
+\OML/cmm/m/it/10 F\/cmr/m/n/10 (\OML/cmm/m/it/10 k[]; k[]\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (37.18309pt too wide) in paragraph at lines 64--65
+\OT1/cmr/m/it/10 przep lyw
+ []
+
+
+Overfull \hbox (5.55557pt too wide) in paragraph at lines 64--65
+\/cmr/m/n/10 ^^Sn
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 64--65
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 64--65
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 64--65
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 64--65
+\OML/cmm/m/it/10 D[]$ 
+ []
+
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no ( in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.65 ...1 - k_2|$ jest kosztem (lub odległością
+                                                  ) przeniesienia jednej jed...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no ) in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (20.24776pt too wide) in paragraph at lines 65--66
+\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 k[] \OMS/cmsy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (12.46996pt too wide) in paragraph at lines 65--66
+\OML/cmm/m/it/10 k[]\OMS/cmsy/m/n/10 j$
+ []
+
+
+Overfull \hbox (6.72223pt too wide) in paragraph at lines 65--66
+\/cmr/m/n/10  l^^Ss
+ []
+
+
+Overfull \hbox (5.55557pt too wide) in paragraph at lines 65--66
+\/cmr/m/n/10 ^^Sn
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 65--66
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 65--66
+\OML/cmm/m/it/10 k[]$ 
+ []
+
+Missing character: There is no , in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (70.85776pt too wide) in paragraph at lines 66--67
+[][] \OML/cmm/m/it/10 F\/cmr/m/n/10 (\OML/cmm/m/it/10 k[]; k[]\/cmr/m/n/10 ) \O
+MS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (30.23526pt too wide) in paragraph at lines 66--67
+\OML/cmm/m/it/10 D[]\/cmr/m/n/10 (\OML/cmm/m/it/10 k[]\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 66--67
+\/cmr/m/n/10 _z
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 66--67
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 66--67
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 66--67
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 66--67
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 66--67
+\/cmr/m/n/10 _z
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 66--67
+\/cmr/m/n/10 ^^Sc
+ []
+
+
+Overfull \hbox (5.55557pt too wide) in paragraph at lines 66--67
+\/cmr/m/n/10 ^^Sn
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 66--67
+\OML/cmm/m/it/10 k[]$ 
+ []
+
+Missing character: There is no , in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no : in font nullfont!
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (70.85776pt too wide) in paragraph at lines 67--68
+[][] \OML/cmm/m/it/10 F\/cmr/m/n/10 (\OML/cmm/m/it/10 k[]; k[]\/cmr/m/n/10 ) \O
+MS/cmsy/m/n/10 ^^T
+ []
+
+
+Overfull \hbox (30.23526pt too wide) in paragraph at lines 67--68
+\OML/cmm/m/it/10 D[]\/cmr/m/n/10 (\OML/cmm/m/it/10 k[]\/cmr/m/n/10 )$
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 67--68
+\/cmr/m/n/10 _z
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 67--68
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 67--68
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 67--68
+\OML/cmm/m/it/10 k[]$
+ []
+
+
+Overfull \hbox (12.76529pt too wide) in paragraph at lines 67--68
+\OML/cmm/m/it/10 D[]$
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 67--68
+\/cmr/m/n/10 _z
+ []
+
+
+Overfull \hbox (4.44444pt too wide) in paragraph at lines 67--68
+\/cmr/m/n/10 ^^Sc
+ []
+
+
+Overfull \hbox (5.55557pt too wide) in paragraph at lines 67--68
+\/cmr/m/n/10 ^^Sn
+ []
+
+
+Overfull \hbox (9.69217pt too wide) in paragraph at lines 67--68
+\OML/cmm/m/it/10 k[]$ 
+ []
+
+
+Overfull \hbox (91.734pt too wide) in paragraph at lines 68--69
+[][] [][] \OML/cmm/m/it/10 F\/cmr/m/n/10 (\OML/cmm/m/it/10 k[]; k[]\/cmr/m/n/10
+ ) =
+ []
+
+
+Overfull \hbox (134.16747pt too wide) in paragraph at lines 68--69
+[] []$ 
+ []
+
+Missing character: There is no M in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.71 Metryką
+              w przestrzeni multigrafów nazwiemy odległość EMD pomiędzy...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no E in font nullfont!
+Missing character: There is no M in font nullfont!
+Missing character: There is no D in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+
+! LaTeX Error: Command \k unavailable in encoding .
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.71 ...tigrafów nazwiemy odległość EMD pomię
+                                                  dzy rozkładami stopni wie...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 71--72
+[]
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 71--72
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (11.16667pt too wide) in paragraph at lines 71--72
+\/cmr/m/n/10  l^^Ss^^Sc
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 71--72
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 71--72
+\/cmr/m/n/10  l^^So
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 71--72
+\/cmr/m/n/10 ^^So
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 71--72
+\/cmr/m/n/10 ^^So 
+ []
+
+! Undefined control sequence.
+l.75 \section
+             {Przykłady}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no y in font nullfont!
+
+Overfull \hbox (22.77779pt too wide) in paragraph at lines 75--76
+[]\/cmr/m/n/10  l 
+ []
+
+
+! LaTeX Error: Command \k unavailable in encoding OT1.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.77 ... 1: Multigraf bez pętli i bez hamiltona.}
+                                                   \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no y in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no z in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no . in font nullfont!
+
+Overfull \hbox (45.02058pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 Przyk lad
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 1:
+ []
+
+
+Overfull \hbox (31.99983pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 Multi-
+ []
+
+
+Overfull \hbox (19.59016pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 graf
+ []
+
+
+Overfull \hbox (17.0902pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 bez
+ []
+
+
+Overfull \hbox (22.52072pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 petli
+ []
+
+
+Overfull \hbox (3.19443pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 i
+ []
+
+
+Overfull \hbox (17.0902pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 bez
+ []
+
+
+Overfull \hbox (31.78453pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 hamil-
+ []
+
+
+Overfull \hbox (25.39568pt too wide) in paragraph at lines 77--79
+\OT1/cmr/bx/n/10 tona. 
+ []
+
+
+Overfull \hbox (2.77779pt too wide) in paragraph at lines 77--79
+\/cmr/m/n/10  l
+ []
+
+
+Overfull \hbox (3.94444pt too wide) in paragraph at lines 77--79
+\/cmr/m/n/10 ^^Ss
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 77--79
+\/cmr/m/n/10 ^^So
+ []
+
+
+! LaTeX Error: Command \k unavailable in encoding OT1.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 ...textbf{Przykład 2: Multigraf z pętlami.}
+                                                   \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (45.02058pt too wide) in paragraph at lines 82--83
+\OT1/cmr/bx/n/10 Przyk lad
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 82--83
+\OT1/cmr/bx/n/10 2:
+ []
+
+
+Overfull \hbox (31.99983pt too wide) in paragraph at lines 82--83
+\OT1/cmr/bx/n/10 Multi-
+ []
+
+
+Overfull \hbox (19.59016pt too wide) in paragraph at lines 82--83
+\OT1/cmr/bx/n/10 graf
+ []
+
+
+Overfull \hbox (5.11108pt too wide) in paragraph at lines 82--83
+\OT1/cmr/bx/n/10 z
+ []
+
+
+Overfull \hbox (20.28462pt too wide) in paragraph at lines 82--83
+\OT1/cmr/bx/n/10 pet-
+ []
+
+
+Overfull \hbox (24.75679pt too wide) in paragraph at lines 82--83
+\OT1/cmr/bx/n/10 lami. 
+ []
+
+
+Overfull \hbox (45.02058pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 Przyk lad
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 3:
+ []
+
+
+Overfull \hbox (24.3332pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 Min-
+ []
+
+
+Overfull \hbox (7.02774pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 i-
+ []
+
+
+Overfull \hbox (30.0276pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 malne
+ []
+
+
+Overfull \hbox (29.07762pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 rozsz-
+ []
+
+
+Overfull \hbox (24.22212pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 erze-
+ []
+
+
+Overfull \hbox (14.8541pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 nie
+ []
+
+
+Overfull \hbox (15.17351pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 dla
+ []
+
+
+Overfull \hbox (26.83319pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 cyklu
+ []
+
+
+Overfull \hbox (34.39563pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 Hamil-
+ []
+
+
+Overfull \hbox (25.39568pt too wide) in paragraph at lines 87--88
+\OT1/cmr/bx/n/10 tona. 
+ []
+
+
+Overfull \hbox (45.02058pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 Przyk lad
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 4:
+ []
+
+
+Overfull \hbox (20.02074pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 Me-
+ []
+
+
+Overfull \hbox (26.29846pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 tryka
+ []
+
+
+Overfull \hbox (8.30551pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 w
+ []
+
+
+Overfull \hbox (55.2164pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 przestrzeni
+ []
+
+
+Overfull \hbox (30.34706pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 multi-
+ []
+
+
+Overfull \hbox (36.84007pt too wide) in paragraph at lines 91--92
+\OT1/cmr/bx/n/10 graf^^Sow. 
+ []
+
+
+! LaTeX Error: Command \k unavailable in encoding OT1.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.95 ...multigrafie z wielokrotnymi krawędziami.}
+                                                   \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (45.02058pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 Przyk lad
+ []
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 5:
+ []
+
+
+Overfull \hbox (23.63876pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 Cykl
+ []
+
+
+Overfull \hbox (34.39563pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 Hamil-
+ []
+
+
+Overfull \hbox (22.20125pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 tona
+ []
+
+
+Overfull \hbox (8.30551pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 w
+ []
+
+
+Overfull \hbox (30.34706pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 multi-
+ []
+
+
+Overfull \hbox (27.73596pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 grafie
+ []
+
+
+Overfull \hbox (5.11108pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 z
+ []
+
+
+Overfull \hbox (50.57614pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 wielokrot-
+ []
+
+
+Overfull \hbox (24.91653pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 nymi
+ []
+
+
+Overfull \hbox (47.86086pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 krawedzi-
+ []
+
+
+Overfull \hbox (21.56236pt too wide) in paragraph at lines 95--96
+\OT1/cmr/bx/n/10 ami. 
+ []
+
+)
+! Emergency stop.
+<*> definition.tex
+                  
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 47 strings out of 475509
+ 743 string characters out of 5776864
+ 1936905 words of memory out of 5000000
+ 22785 multiletter control sequences out of 15000+600000
+ 558723 words of font info for 38 fonts, out of 8000000 for 9000
+ 34 hyphenation exceptions out of 8191
+ 24i,6n,32p,373b,140s stack positions out of 10000i,1000n,20000p,200000b,200000s
+!  ==> Fatal error occurred, no output PDF file produced!

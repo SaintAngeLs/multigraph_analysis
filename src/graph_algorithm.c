@@ -37,21 +37,41 @@ static int calculate_size(void *graph) {
     return graph_interface->calculate_size(graph);
 }
 
+static void normalize_cycle(GArray *cycle, char *buffer) {
+    int *array = (int *)cycle->data;
+    int len = cycle->len;
+    int *sorted_array = malloc(len * sizeof(int));
 
-static int find_cycles(void *graph, int vertices) {
+    memcpy(sorted_array, array, len * sizeof(int));
+    qsort(sorted_array, len, sizeof(int), int_cmp);
+
+    int min_idx = 0;
+    for (int i = 1; i < len; i++) {
+        if (sorted_array[i] < sorted_array[min_idx]) {
+            min_idx = i;
+        }
+    }
+
+    int offset = 0;
+    for (int i = 0; i < len; i++) {
+        int idx = (min_idx + i) % len;
+        offset += sprintf(buffer + offset, "%d-", sorted_array[idx]);
+    }
+
+    free(sorted_array);
+}
+
+static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int cycle_count = 0;
 
     GHashTable *unique_cycles = g_hash_table_new_full(g_str_hash, g_str_equal, free, NULL);
 
-    void normalize_cycle(GArray *cycle, char *buffer) {
-        int *array = (int *)cycle->data;
-        qsort(array, cycle->len, sizeof(int), int_cmp);
-
-        int offset = 0;
-        for (guint i = 0; i < cycle->len; i++) {
-            offset += sprintf(buffer + offset, "%d-", array[i]);
-        }
+    void store_cycle(GArray *cycle) {
+        GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
+        g_array_append_vals(stored_cycle, cycle->data, cycle->len);
+        g_array_append_val(stored_cycle, *(int *)cycle->data);
+        g_array_append_val(output_cycles, stored_cycle);
     }
 
     void dfs(int node, int start, GArray *stack, GHashTable *visited) {
@@ -61,13 +81,14 @@ static int find_cycles(void *graph, int vertices) {
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) { // Valid cycle found
+                if (i == start && stack->len > 2) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 
                     if (!g_hash_table_contains(unique_cycles, cycle_str)) {
                         g_hash_table_add(unique_cycles, strdup(cycle_str));
                         cycle_count++;
+                        store_cycle(stack);
                     }
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
                     dfs(i, start, stack, visited);
@@ -94,21 +115,17 @@ static int find_cycles(void *graph, int vertices) {
 }
 
 
-
-static int count_hamiltonian_cycles(void *graph, int vertices) {
+static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int count = 0;
 
     GHashTable *unique_cycles = g_hash_table_new_full(g_str_hash, g_str_equal, free, NULL);
 
-    void normalize_cycle(GArray *path, char *buffer) {
-        int *array = (int *)path->data;
-        qsort(array, path->len, sizeof(int), int_cmp);
-
-        int offset = 0;
-        for (guint i = 0; i < path->len; i++) {
-            offset += sprintf(buffer + offset, "%d-", array[i]);
-        }
+    void store_hamiltonian_cycle(GArray *cycle) {
+        GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
+        g_array_append_vals(stored_cycle, cycle->data, cycle->len);
+        g_array_append_val(stored_cycle, g_array_index(cycle, int, 0));
+        g_array_append_val(output_cycles, stored_cycle);
     }
 
     void backtrack(int node, int start, int depth, GArray *path, GHashTable *visited) {
@@ -116,7 +133,6 @@ static int count_hamiltonian_cycles(void *graph, int vertices) {
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         if (depth == context->vertices) {
-
             if (context->graph_interface->get_edge(graph, node, start) > 0) {
                 char cycle_str[512];
                 normalize_cycle(path, cycle_str);
@@ -124,6 +140,7 @@ static int count_hamiltonian_cycles(void *graph, int vertices) {
                 if (!g_hash_table_contains(unique_cycles, cycle_str)) {
                     g_hash_table_add(unique_cycles, strdup(cycle_str));
                     count++;
+                    store_hamiltonian_cycle(path);
                 }
             }
         } else {
@@ -263,41 +280,43 @@ static int find_minimal_extension(void *graph, int vertices) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int min_edges_needed = INT_MAX;
 
-    void dfs(int node, GHashTable *visited, int depth, int *lacking_edges) {
-        g_hash_table_add(visited, GINT_TO_POINTER(node));
+    bool has_hamiltonian_cycle(void *graph, int vertices) {
+        GArray *hamiltonian_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
+        int count = default_algorithm.count_hamiltonian_cycles(graph, vertices, hamiltonian_cycles);
+        g_array_free(hamiltonian_cycles, TRUE);
+        return count > 0;
+    }
 
-        if (depth == context->vertices) {
-            if (context->graph_interface->get_edge(graph, node, 
-                GPOINTER_TO_INT(g_hash_table_lookup(visited, GINT_TO_POINTER(0)))) == 0) {
-                (*lacking_edges)++;
-            }
-            if (*lacking_edges < min_edges_needed) {
-                min_edges_needed = *lacking_edges;
-            }
-        } else {
-            for (int i = 0; i < context->vertices; i++) {
-                if (context->graph_interface->get_edge(graph, node, i) > 0 &&
-                    !g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
-                    dfs(i, visited, depth + 1, lacking_edges);
+    void explore_extensions(void *graph, int added_edges) {
+        if (added_edges >= min_edges_needed) {
+            return;
+        }
+
+        if (has_hamiltonian_cycle(graph, vertices)) {
+            min_edges_needed = added_edges;
+            return;
+        }
+
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (i != j && context->graph_interface->get_edge(graph, i, j) == 0) {
+                    context->graph_interface->add_edge(graph, i, j, 1);
+
+                    explore_extensions(graph, added_edges + 1);
+
+                    context->graph_interface->add_edge(graph, i, j, -1);
                 }
             }
         }
-
-        g_hash_table_remove(visited, GINT_TO_POINTER(node));
     }
 
-    for (int i = 0; i < context->vertices; i++) {
-        GHashTable *visited = g_hash_table_new(g_direct_hash, g_direct_equal);
-        int lacking_edges = 0;
-        dfs(i, visited, 1, &lacking_edges);
-        g_hash_table_destroy(visited);
-    }
+    explore_extensions(graph, 0);
 
     destroy_context(context);
-    return min_edges_needed;
+    return min_edges_needed == INT_MAX ? 0 : min_edges_needed;
 }
 
-static int find_maximal_cycles(void *graph, int vertices) {
+static int count_maximal_cycles(void *graph, int vertices) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int max_cycle_length = 0;
 
@@ -327,35 +346,69 @@ static int find_maximal_cycles(void *graph, int vertices) {
     return max_cycle_length;
 }
 
-static int count_maximal_cycles(void *graph, int vertices) {
+static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
-    int max_cycle_count = 0;
+    int max_cycle_length = 0;
+    int cycle_count = 0;
 
-    void dfs(int node, GHashTable *visited, int depth, int start) {
+    GHashTable *unique_cycles = g_hash_table_new_full(g_str_hash, g_str_equal, free, NULL);
+
+    void store_cycle(GArray *cycle) {
+        GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
+        g_array_append_vals(stored_cycle, cycle->data, cycle->len);
+        g_array_append_val(stored_cycle, *(int *)cycle->data);
+        g_array_append_val(output_cycles, stored_cycle);
+    }
+
+    void dfs(int node, int start, GArray *stack, GHashTable *visited) {
+        g_array_append_val(stack, node);
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         for (int i = 0; i < context->vertices; i++) {
-            if (context->graph_interface->get_edge(graph, node, i) > 0) {
-                if (i == start && depth == context->vertices) {
-                    max_cycle_count++;
+            int edge_weight = context->graph_interface->get_edge(graph, node, i);
+            if (edge_weight > 0) {
+                if (i == start && stack->len > 2) {
+                    char cycle_str[512];
+                    normalize_cycle(stack, cycle_str);
+
+                    if (!g_hash_table_contains(unique_cycles, cycle_str)) {
+                        g_hash_table_add(unique_cycles, strdup(cycle_str));
+                        
+                        if (stack->len > max_cycle_length) {
+                            max_cycle_length = stack->len;
+                            g_array_set_size(output_cycles, 0);
+                            cycle_count = 0;
+                            store_cycle(stack);
+                            cycle_count++;
+                        } else if (stack->len == max_cycle_length) {
+                            store_cycle(stack);
+                            cycle_count++;
+                        }
+                    }
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
-                    dfs(i, visited, depth + 1, start);
+                    dfs(i, start, stack, visited);
                 }
             }
         }
 
+        g_array_remove_index(stack, stack->len - 1);
         g_hash_table_remove(visited, GINT_TO_POINTER(node));
     }
 
     for (int i = 0; i < context->vertices; i++) {
+        GArray *stack = g_array_new(FALSE, FALSE, sizeof(int));
         GHashTable *visited = g_hash_table_new(g_direct_hash, g_direct_equal);
-        dfs(i, visited, 1, i);
+        dfs(i, i, stack, visited);
+        g_array_free(stack, TRUE);
         g_hash_table_destroy(visited);
     }
 
+    g_hash_table_destroy(unique_cycles);
     destroy_context(context);
-    return max_cycle_count;
+
+    return cycle_count;
 }
+
 
 GraphAlgorithm default_algorithm = {
     .calculate_size = calculate_size,

@@ -11,17 +11,25 @@ TEST_DIR = test
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/graph.c $(SRC_DIR)/utils.c $(SRC_DIR)/graph_factory.c $(SRC_DIR)/graph_algorithm.c $(INCLUDE_DIR)/config.c
 OBJ = $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRC)))
 TARGET = multigraph_analysis
+TARGET_EXE = $(TARGET).exe
 
 TEST_SRC = $(TEST_DIR)/graph_gen.c
 TEST_OBJ = $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(TEST_SRC)))
 TEST_TARGET = graph_gen
+TEST_TARGET_EXE = $(TEST_TARGET).exe
 
-all: $(TARGET) $(TEST_TARGET)
+all: $(TARGET) $(TEST_TARGET) $(TARGET_EXE) $(TEST_TARGET_EXE)
 
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(addprefix $(BUILD_DIR)/, $(notdir $(OBJ))) $(LDFLAGS)
 
+$(TARGET_EXE): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $(addprefix $(BUILD_DIR)/, $(notdir $(OBJ))) $(LDFLAGS)
+
 $(TEST_TARGET): $(TEST_OBJ)
+	$(CC) $(CFLAGS) -o $@ $(addprefix $(BUILD_DIR)/, $(notdir $(TEST_OBJ)))
+
+$(TEST_TARGET_EXE): $(TEST_OBJ)
 	$(CC) $(CFLAGS) -o $@ $(addprefix $(BUILD_DIR)/, $(notdir $(TEST_OBJ)))
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
@@ -37,7 +45,7 @@ $(BUILD_DIR)/%.o: $(TEST_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BUILD_DIR) $(TARGET) $(TEST_TARGET)
+	rm -rf $(BUILD_DIR) $(TARGET) $(TEST_TARGET) $(TARGET_EXE) $(TEST_TARGET_EXE)
 
 debug: CFLAGS += -g
 debug: clean all
