@@ -4,13 +4,13 @@
 \emph{Multigraf} to uporządkowana para \( G = (V, E) \), gdzie:
 \begin{itemize}
     \item \( V \) jest skończonym zbiorem wierzchołków,
-    \item \( E \) jest multizbiorem krawędzi, z których każda łączy parę wierzchołków z \( V \). Krawędzie mogą się powtarzać, co oznacza możliwość występowania wielokrotnych krawędzi między tą samą parą wierzchołków. Krawędzie mogą być również pętlami, tj. krawędziami w postaci \( (v, v) \).
+    \item \( E \) jest multizbiorem krawędzi, z których każda łączy parę wierzchołków z \( V \). Krawędzie mogą się powtarzać, co oznacza możliwość występowania wielokrotnych krawędzi między tą samą parą wierzchołków. Nie rozważamy krawędzi w postaci pętli tj. krawędzie \( (v, v) \).
 \end{itemize}
 
 \vspace{1em}
 
 \noindent \textbf{Definicja 2: Rozmiar multigrafu.} \\
-Rozmiar multigrafu \( G = (V, E) \), oznaczany \( |E| \), to całkowita liczba krawędzi w multigrafie, uwzględniająca wszystkie wielokrotne krawędzie oraz pętle. Formalnie:
+Rozmiar multigrafu \( G = (V, E) \), oznaczany \( |E| \), to całkowita liczba krawędzi w multigrafie, uwzględniająca wszystkie wielokrotne krawędzie. Formalnie:
 \[
 |E| = \sum_{(u, v) \in V \times V} \text{Liczność}((u, v), E),
 \]
