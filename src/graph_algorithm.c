@@ -36,22 +36,35 @@ static int calculate_size(void *graph) {
     return graph_interface->calculate_size(graph);
 }
 
+static void normalize_cycle(GArray *cycle, char *buffer) {
+    int *array = (int *)cycle->data;
+    int len = cycle->len;
+    int *sorted_array = malloc(len * sizeof(int));
+
+    memcpy(sorted_array, array, len * sizeof(int));
+    qsort(sorted_array, len, sizeof(int), int_cmp);
+
+    int min_idx = 0;
+    for (int i = 1; i < len; i++) {
+        if (sorted_array[i] < sorted_array[min_idx]) {
+            min_idx = i;
+        }
+    }
+
+    int offset = 0;
+    for (int i = 0; i < len; i++) {
+        int idx = (min_idx + i) % len;
+        offset += sprintf(buffer + offset, "%d-", sorted_array[idx]);
+    }
+
+    free(sorted_array);
+}
 
 static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int cycle_count = 0;
 
     GHashTable *unique_cycles = g_hash_table_new_full(g_str_hash, g_str_equal, free, NULL);
-
-    void normalize_cycle(GArray *cycle, char *buffer) {
-        int *array = (int *)cycle->data;
-        qsort(array, cycle->len, sizeof(int), int_cmp);
-
-        int offset = 0;
-        for (guint i = 0; i < cycle->len; i++) {
-            offset += sprintf(buffer + offset, "%d-", array[i]);
-        }
-    }
 
     void store_cycle(GArray *cycle) {
         GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
@@ -67,7 +80,7 @@ static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) { // Valid cycle found
+                if (i == start && stack->len > 2) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 
@@ -106,16 +119,6 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
     int count = 0;
 
     GHashTable *unique_cycles = g_hash_table_new_full(g_str_hash, g_str_equal, free, NULL);
-
-    void normalize_cycle(GArray *path, char *buffer) {
-        int *array = (int *)path->data;
-        qsort(array, path->len, sizeof(int), int_cmp);
-
-        int offset = 0;
-        for (guint i = 0; i < path->len; i++) {
-            offset += sprintf(buffer + offset, "%d-", array[i]);
-        }
-    }
 
     void store_hamiltonian_cycle(GArray *path) {
         GArray *stored_cycle = g_array_new(FALSE, FALSE, sizeof(int));
