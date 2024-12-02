@@ -102,6 +102,8 @@ Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku mult
 \end{algorithmic}
 \end{algorithm}
 
+Złożoność obliczania rozkładu stopni wierzchołków wynosi \( O(n^2) \), gdzie \( n \) to liczba wierzchołków w multigrafie. Wynika to z iteracji po całej macierzy sąsiedztwa \( A \) o wymiarach \( n \times n \).
+
 \begin{algorithm}
 \caption{Oblicz Earth Mover's Distance (EMD)}
 \label{alg:calculate_emd}
@@ -127,6 +129,8 @@ Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku mult
 \end{algorithmic}
 \end{algorithm}
 
+Liczba różnych stopni wierzchołków w multigrafie jest ograniczona przez liczbę wierzchołków w grafie, więc złożoność obliczeniowa metryki EMD dla dwóch multigrafów wynosi \( O(n \log n) \), gdzie \( n \) to liczba wierzchołków w obu multigrafach. Wynika to z sortowania listy \textit{all\_degrees}. \\
+
 \begin{algorithm}[H]
 \caption{Obliczanie metryki pomiędzy dwoma multigrafami}
 \begin{algorithmic}[1]
@@ -139,6 +143,7 @@ Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku mult
 \end{algorithmic}
 \end{algorithm}
 
+Złożoność algorytmu obliczania metryki dla grafów \(G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) wynosi \( O(V_G^2 + V_H ^2) \), jako połączenie złożoności dwóch poprzednich algorytmów.
 
 
 \subsection{Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}
