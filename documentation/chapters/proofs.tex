@@ -1,3 +1,294 @@
 \section{Dowód poprawności algorytmów}
 
-\subsection{Algorytm obliczania metryki pomiędzy grafami}
+\subsection{Dowód poprawności algorytmu obliczania rozmiaru multigrafu}
+
+Aby formalnie udowodnić poprawność algorytmu \textsc{ObliczRozmiarMultigrafu} (Algorytm 1), wykorzystamy indukcję matematyczną.
+
+\paragraph{Teza:}
+Dla dowolnej macierzy sąsiedztwa \( A \) grafu \( G = (V, E) \), algorytm poprawnie oblicza liczbę krawędzi \( |E| = \sum_{i=1}^{n} \sum_{j=1}^{n} A[i][j] \), gdzie \( n = |V| \).
+
+\paragraph{Podstawa indukcji:} 
+Rozważmy graf o \( n = 1 \) wierzchołku. Macierz sąsiedztwa \( A \) ma wymiar \( 1 \times 1 \) i zawiera jedną wartość \( A[1][1] \), która reprezentuje liczbę pętli w grafie.
+
+Dla \( n = 1 \), algorytm:
+1. Inicjalizuje \( |E| \gets 0 \).
+2. Iteruje po macierzy \( A \), która zawiera jedynie \( A[1][1] \).
+3. Dodaje \( A[1][1] \) do \( |E| \).
+
+Po zakończeniu iteracji algorytm zwraca \( |E| = A[1][1] \), co jest zgodne z definicją liczby krawędzi grafu. Podstawa indukcji została zatem wykazana.
+
+\paragraph{Krok indukcyjny:} 
+Załóżmy, że algorytm poprawnie oblicza liczbę krawędzi dla dowolnego grafu o \( n = k \) wierzchołkach. Udowodnijmy, że algorytm działa poprawnie dla \( n = k+1 \) wierzchołków.
+
+\textbf{Założenie indukcyjne:} 
+Dla grafu \( G_k = (V_k, E_k) \) o \( k \) wierzchołkach macierz sąsiedztwa \( A_k \) jest rozmiaru \( k \times k \), a algorytm zwraca poprawną wartość:
+\[
+|E_k| = \sum_{i=1}^{k} \sum_{j=1}^{k} A_k[i][j].
+\]
+
+\textbf{Dowód dla \( n = k+1 \):} 
+Rozważmy graf \( G_{k+1} = (V_{k+1}, E_{k+1}) \) z macierzą sąsiedztwa \( A_{k+1} \), która jest rozmiaru \( (k+1) \times (k+1) \). Macierz \( A_{k+1} \) można przedstawić jako:
+\[
+A_{k+1} =
+\begin{bmatrix}
+A_k & b \\
+c^\top & d
+\end{bmatrix},
+\]
+gdzie:
+- \( A_k \) jest podmacierzą \( k \times k \) dla grafu \( G_k \),
+- \( b \) i \( c^\top \) to wektory krawędzi pomiędzy nowym wierzchołkiem a istniejącymi \( k \) wierzchołkami,
+- \( d \) to liczba pętli w nowym wierzchołku.
+
+Algorytm iteruje po wszystkich \( (k+1)^2 \) elementach macierzy \( A_{k+1} \). W trakcie iteracji:
+1. Sumuje wszystkie elementy \( A_k[i][j] \) z podmacierzy \( A_k \), zgodnie z założeniem indukcyjnym.
+2. Dodaje wartości z wektorów \( b \), \( c^\top \), oraz \( d \).
+
+Łączna suma, jaką zwraca algorytm, wynosi:
+\[
+|E_{k+1}| = \sum_{i=1}^{k} \sum_{j=1}^{k} A_k[i][j] + \sum_{i=1}^{k} b[i] + \sum_{j=1}^{k} c[j] + d.
+\]
+
+Jest to zgodne z definicją liczby krawędzi w grafie o \( k+1 \) wierzchołkach:
+\[
+|E_{k+1}| = \sum_{i=1}^{k+1} \sum_{j=1}^{k+1} A_{k+1}[i][j].
+\]
+
+\paragraph{Wniosek:}
+Na mocy zasady indukcji matematycznej algorytm \textsc{ObliczRozmiarMultigrafu} działa poprawnie dla dowolnej macierzy sąsiedztwa \( A \) grafu \( G \).
+
+
+\subsection{Dowód poprawności algorytmu wyszukiwania cykli w multigrafie}
+
+Aby udowodnić poprawność algorytmu \textsc{ZnajdźCykle} (Algorytm 2), wykorzystamy indukcję matematyczną w oparciu o liczbę wierzchołków \( n = |V| \).
+
+\paragraph{Teza:}
+Dla grafu \( G = (V, E) \) reprezentowanego przez macierz sąsiedztwa \( A \), algorytm \textsc{ZnajdźCykle} poprawnie identyfikuje wszystkie cykle, przy czym cykle są definiowane jako zamknięte ścieżki w grafie, w których każdy wierzchołek poza punktem początkowym jest odwiedzany najwyżej raz.
+
+\paragraph{Podstawa indukcji:} 
+Rozważmy graf o \( n = 1 \) wierzchołku. Macierz sąsiedztwa \( A \) ma wymiar \( 1 \times 1 \), a jedyną potencjalną krawędzią jest pętla \( A[1][1] \), która tworzy cykl o długości 1.
+
+Algorytm:
+1. Inicjalizuje \( \text{cycle\_count} \gets 0 \).
+2. Rozpoczyna przeszukiwanie w głąb (DFS) od wierzchołka \( u = 1 \).
+3. Sprawdza, czy długość aktualnej ścieżki \( \text{path} \) wynosi co najmniej 3 (co jest niemożliwe dla \( n = 1 \)).
+4. Kończy działanie, zwracając \( \text{cycle\_count} = 0 \), co jest poprawne.
+
+Podstawa indukcji została wykazana, ponieważ graf o jednym wierzchołku nie zawiera cykli o długości większej niż 2.
+
+\paragraph{Krok indukcyjny:}
+Załóżmy, że algorytm poprawnie identyfikuje wszystkie cykle w dowolnym grafie \( G_k = (V_k, E_k) \) o \( n = k \) wierzchołkach. Udowodnijmy, że działa poprawnie dla grafu \( G_{k+1} = (V_{k+1}, E_{k+1}) \) o \( n = k+1 \) wierzchołkach.
+
+\textbf{Założenie indukcyjne:} 
+Dla dowolnego grafu \( G_k \), algorytm identyfikuje wszystkie cykle \( C \subseteq G_k \), przy czym każdy cykl spełnia warunek:
+\[
+C = \{v_1, v_2, \dots, v_m\}, \quad v_1 = v_m, \quad v_i \neq v_j \ \text{dla} \ i \neq j.
+\]
+
+\textbf{Dowód dla \( n = k+1 \):}
+Rozważmy graf \( G_{k+1} = (V_{k+1}, E_{k+1}) \) o \( k+1 \) wierzchołkach. Algorytm rozpoczyna przeszukiwanie w głąb (DFS) od każdego wierzchołka \( u \) i wykonuje następujące kroki:
+1. Dodaje \( u \) do aktualnej ścieżki \( \text{path} \) i oznacza jako odwiedzony w zbiorze \( \text{visited} \).
+2. Rekurencyjnie eksploruje wszystkich sąsiadów \( v \), którzy nie należą do \( \text{visited} \).
+3. Jeżeli wierzchołek startowy \( u \) zostanie osiągnięty po co najmniej dwóch krokach (\( \text{length}(\text{path}) > 2 \)), algorytm zlicza cykl.
+
+Każdy potencjalny cykl w \( G_{k+1} \) należy do jednej z dwóch kategorii:
+- \( C \subseteq G_k \): Cykl istnieje wyłącznie w podgrafie \( G_k \), a poprawność jego detekcji wynika z założenia indukcyjnego.
+- \( C \not\subseteq G_k \): Cykl obejmuje nowy wierzchołek \( v_{k+1} \).
+
+Dla \( C \not\subseteq G_k \), algorytm identyfikuje cykl \( C \) w sposób następujący:
+- Przeszukiwanie w głąb obejmuje wszystkie sąsiadujące wierzchołki \( v \in V_k \), które mają krawędź do \( v_{k+1} \) (czyli \( A[v][v_{k+1}] > 0 \)).
+- Warunek \( u = \text{start} \) po powrocie do wierzchołka początkowego \( u \) gwarantuje, że cykl został zamknięty.
+
+Złożoność rekurencji wynosi \( O(k+1 + E_{k+1}) \) dla każdego wierzchołka \( u \), co zapewnia, że wszystkie krawędzie są odwiedzone dokładnie raz.
+
+\paragraph{Wniosek:}
+Na mocy zasady indukcji matematycznej algorytm \textsc{ZnajdźCykle} poprawnie identyfikuje wszystkie cykle w grafie o dowolnej liczbie wierzchołków \( n \).
+
+
+\subsection{Dowód poprawności algorytmu liczenia cykli Hamiltona}
+
+Udowodnijmy poprawność algorytmu \textsc{PoliczCykleHamiltona} (Algorytm 3), który wykorzystuje technikę rekurencyjnego backtrackingu, aby znaleźć wszystkie cykle Hamiltona w grafie \( G = (V, E) \).
+
+\paragraph{Teza:}
+Algorytm \textsc{PoliczCykleHamiltona} poprawnie identyfikuje wszystkie cykle Hamiltona w grafie \( G \), czyli wszystkie permutacje wierzchołków \( \pi \in V \) spełniające warunek:
+\[
+\forall i \ (1 \leq i < n): \ (v_i, v_{i+1}) \in E \ \text{oraz} \ (v_n, v_1) \in E.
+\]
+
+\paragraph{Podstawa indukcji:}
+Rozważmy graf \( G_1 \) o \( n = 1 \) wierzchołku. Macierz sąsiedztwa \( A \) jest macierzą \( 1 \times 1 \), a jedyną potencjalną krawędzią jest pętla \( A[1][1] \). Algorytm:
+1. Inicjalizuje \( \text{count} \gets 0 \).
+2. Rozpoczyna przeszukiwanie w głąb (DFS) od \( u = 1 \).
+3. Osiąga głębokość \( \text{depth} = |V| = 1 \), sprawdza \( A[1][1] \) i jeśli \( A[1][1] > 0 \), zlicza cykl Hamiltona.
+
+Dla \( G_1 \), istnieje dokładnie jeden cykl Hamiltona (pętla wierzchołka na sobie), jeśli \( A[1][1] > 0 \). Algorytm zwraca poprawny wynik, \( \text{count} = 1 \), lub \( \text{count} = 0 \) w przypadku \( A[1][1] = 0 \).
+
+\paragraph{Krok indukcyjny:}
+Załóżmy, że algorytm działa poprawnie dla grafu \( G_k = (V_k, E_k) \) o \( n = k \) wierzchołkach. Udowodnijmy, że działa poprawnie dla \( G_{k+1} = (V_{k+1}, E_{k+1}) \).
+
+\textbf{Założenie indukcyjne:} Algorytm identyfikuje wszystkie cykle Hamiltona w \( G_k \), tj. każdą permutację \( \pi \) wierzchołków w \( V_k \), spełniającą warunek:
+\[
+\forall i \ (1 \leq i < k): \ (v_i, v_{i+1}) \in E_k \ \text{oraz} \ (v_k, v_1) \in E_k.
+\]
+
+\textbf{Dowód dla \( G_{k+1} \):}
+Rozważmy graf \( G_{k+1} \), gdzie dodano wierzchołek \( v_{k+1} \) oraz potencjalne krawędzie \( (v_{k+1}, v_i) \) dla \( v_i \in V_k \). Algorytm:
+1. Rozpoczyna DFS od każdego \( u \in V_{k+1} \).
+2. Dodaje \( u \) do zbioru \( \text{visited} \) i ścieżki \( \text{path} \).
+3. Rekurencyjnie eksploruje sąsiadów \( v \), które nie znajdują się w \( \text{visited} \).
+4. W głębokości \( \text{depth} = |V| = k+1 \) sprawdza, czy istnieje krawędź powrotna \( A[v_{k+1}][v_1] \).
+
+\textbf{Analiza poprawności:}
+1. Dla każdego \( v \in V_{k+1} \), rekurencja odwiedza dokładnie \( k+1 \) wierzchołków w grafie.
+2. Warunek zakończenia rekurencji (\( \text{depth} = |V| \) i \( A[u][\text{start}] > 0 \)) gwarantuje, że algorytm rozpoznaje tylko cykle Hamiltona.
+3. Wszystkie potencjalne permutacje odwiedzenia wierzchołków \( \pi \) są eksplorowane dzięki iteracji \( \forall v \in V_{k+1} \) oraz śledzeniu odwiedzonych wierzchołków w \( \text{visited} \).
+
+\paragraph{Redukcja do przestrzeni języków formalnych:}
+Cykl Hamiltona można opisać w języku formalnym \( L_H \):
+\[
+L_H = \{\pi \in \Sigma^n : \forall i \ (1 \leq i < n) \ (v_i, v_{i+1}) \in E \ \text{oraz} \ (v_n, v_1) \in E\}.
+\]
+Algorytm można zredukować do maszyny Turinga \( M_H \), która generuje wszystkie permutacje \( \pi \in \Sigma^n \) i akceptuje je, jeśli \( \pi \in L_H \). Maszyna \( M_H \) działa w czasie \( O(n!) \) na wejściu długości \( n \).
+
+\paragraph{Złożoność:}
+Dla każdego podzbioru odwiedzonych wierzchołków \( S \subseteq V \), DFS wykonuje \( O(n) \) kroków w celu eksploracji sąsiadów i \( O(n^2) \) operacji w sprawdzaniu warunku zakończenia rekurencji. Łączna liczba podzbiorów wynosi \( 2^n \), co prowadzi do złożoności \( O(2^n \cdot n^2) \).
+
+\paragraph{Wniosek:}
+Na mocy indukcji matematycznej oraz zgodności z językiem \( L_H \), algorytm \textsc{PoliczCykleHamiltona} poprawnie identyfikuje wszystkie cykle Hamiltona w grafie \( G \).
+
+
+\subsection{Dowód poprawności algorytmu obliczania metryki pomiędzy dwoma multigrafami}
+
+Algorytm obliczania metryki pomiędzy dwoma multigrafami (\textsc{ObliczMetrykę}, Algorytm 5) opiera się na dwóch kluczowych krokach:
+1. Obliczeniu i normalizacji rozkładu stopni wierzchołków.
+2. Zastosowaniu metryki Earth Mover's Distance (EMD) do porównania znormalizowanych rozkładów.
+
+Przeprowadzimy formalny dowód poprawności algorytmu, wykorzystując indukcję matematyczną, teorię maszyn Turinga oraz przestrzeń języków formalnych.
+
+\paragraph{Teza:}
+Algorytm \textsc{ObliczMetrykę} poprawnie oblicza metrykę EMD między dwoma grafami \( G = (V_G, E_G) \) i \( H = (V_H, E_H) \), spełniając:
+\[
+\text{metric}(G, H) = \sum_{d \in D} \left| F_G(d) - F_H(d) \right|,
+\]
+gdzie \( F_G(d) \) oraz \( F_H(d) \) są skumulowanymi rozkładami stopni dla \( G \) i \( H \), a \( D \) to zbiór możliwych stopni.
+
+\paragraph{Dowód krokowy:}
+\textbf{1. Obliczenie rozkładu stopni:}  
+Dla każdego wierzchołka \( v \in V \), algorytm oblicza stopień \( \deg(v) = \sum_{j=1}^n A[v][j] \). Rozkład \( \text{dist}(d) \) przypisuje liczbie \( d \) liczność wierzchołków \( |V_d| \) o tym stopniu:
+\[
+\text{dist}(d) = |\{v \in V : \deg(v) = d\}|.
+\]
+Złożoność czasowa wynosi \( O(n^2) \), ponieważ algorytm iteruje przez macierz sąsiedztwa \( A \) dla \( n \) wierzchołków. Normalizacja rozkładu dzieli liczność każdego stopnia \( d \) przez \( n \), co zapewnia, że:
+\[
+\sum_{d} \text{dist}(d) = 1.
+\]
+
+\textbf{2. Zastosowanie metryki EMD:}  
+EMD oblicza minimalny koszt transportu między dwoma znormalizowanymi rozkładami \( \text{dist1} \) i \( \text{dist2} \). Skumulowany rozkład \( F(d) \) jest zdefiniowany jako:
+\[
+F(d) = \sum_{k \leq d} \text{dist}(k),
+\]
+a metryka jest dana przez:
+\[
+\text{metric} = \sum_{d \in D} \left| F_G(d) - F_H(d) \right|.
+\]
+Algorytm iteruje po \( D \), wykonując \( O(D) \) operacji.
+
+\textbf{3. Dowód poprawności przez indukcję:}  
+
+\textit{Podstawa indukcji:}  
+Dla \( G \) i \( H \) składających się z jednego wierzchołka (\( n = 1 \)), macierz sąsiedztwa to \( A_G[1][1] \) i \( A_H[1][1] \). Rozkład stopni wynosi:
+\[
+\text{dist}_G(d) = \begin{cases} 
+1 & \text{jeśli } d = A_G[1][1], \\
+0 & \text{w przeciwnym razie}.
+\end{cases}
+\]
+Podobnie dla \( H \). Metryka EMD wynosi \( |F_G(d) - F_H(d)| = |A_G[1][1] - A_H[1][1]| \), co algorytm poprawnie oblicza w \( O(1) \).
+
+\textit{Krok indukcyjny:}  
+Załóżmy, że algorytm działa poprawnie dla grafów \( G_k = (V_k, E_k) \) i \( H_k = (V_k, E_k) \), gdzie \( |V_k| = k \). Pokażemy poprawność dla \( G_{k+1} \) i \( H_{k+1} \) o \( |V| = k+1 \).
+
+Dodanie wierzchołka \( v_{k+1} \) do \( G_k \) oraz \( H_k \) wpływa na rozkład \( \text{dist}(d) \) przez:
+\[
+\text{dist}_G'(d) = \text{dist}_G(d) + \delta(d, \deg(v_{k+1})),
+\]
+gdzie \( \delta(x, y) = 1 \) jeśli \( x = y \), w przeciwnym razie \( 0 \). Skumulowany rozkład \( F(d) \) zmienia się zgodnie z definicją, a algorytm poprawnie uwzględnia nowe wierzchołki, aktualizując skumulowane różnice \( F_G(d) - F_H(d) \) w \( O(D) \).
+
+\textbf{4. Redukcja do maszyny Turinga:}  
+Rozkład stopni wierzchołków można opisać w języku formalnym:
+\[
+L_\text{dist} = \{\text{dist}(d) \mid \text{dist}(d) \text{ jest znormalizowanym rozkładem stopni}\}.
+\]
+Maszyna Turinga \( M_\text{dist} \) generuje rozkład \( \text{dist}(d) \) w czasie \( O(n^2) \) oraz iteruje po stopniach \( D \), obliczając \( \text{metric} \) w czasie \( O(D) \).
+
+\textbf{5. Złożoność:}  
+Łączna złożoność algorytmu wynosi \( O(n^2 + D) \), co jest ograniczone przez liczby wierzchołków \( n \) i maksymalny stopień \( D \).
+
+\paragraph{Wniosek:}  
+Na mocy indukcji matematycznej oraz definicji maszyn Turinga, algorytm \textsc{ObliczMetrykę} poprawnie oblicza metrykę EMD między dwoma grafami \( G \) i \( H \).
+
+
+\subsection{Dowód poprawności algorytmu minimalnego rozszerzenia dla cyklu Hamiltona}
+
+Algorytm minimalnego rozszerzenia dla cyklu Hamiltona (\textsc{MinimalneRozszerzenie}, Algorytm \ref{alg:minimal_extension}) znajduje minimalną liczbę krawędzi, które należy dodać do grafu \( G \), aby uzyskać graf zawierający cykl Hamiltona. Dowód poprawności algorytmu opiera się na kilku elementach teorii grafów, przestrzeni języków formalnych oraz maszyn Turinga. Zastosujemy także indukcję matematyczną i analizę przestrzeni poszukiwań.
+
+\paragraph{Teza:}
+Algorytm \textsc{MinimalneRozszerzenie} poprawnie oblicza minimalną liczbę krawędzi \( k \), które należy dodać do grafu \( G = (V, E) \), aby uzyskać cykl Hamiltona.
+
+\paragraph{Dowód:}
+\textbf{1. Konstrukcja algorytmu:}
+
+Algorytm działa w sposób rekurencyjny. Dla każdego grafu \( G' \), uzyskanego przez dodanie \( k \) krawędzi do \( G \), algorytm:
+1. Sprawdza, czy \( G' \) zawiera cykl Hamiltona, korzystając z funkcji pomocniczej \textsc{HasHamiltonianCycle}.
+2. Jeśli \( G' \) zawiera cykl Hamiltona, zapisuje \( k \) jako kandydat na minimalną wartość i kończy dalsze eksplorowanie dla tej ścieżki.
+3. W przeciwnym razie rekurencyjnie generuje wszystkie możliwe rozszerzenia \( G' \) przez dodanie kolejnych krawędzi.
+
+\textbf{2. Redukcja do przestrzeni języków:}
+
+Każdy graf \( G \) można opisać w języku formalnym jako zbiór jego krawędzi:
+\[
+L_G = \{(u, v) \mid (u, v) \in E \}.
+\]
+Dodanie \( k \) krawędzi do \( G \) można zinterpretować jako generowanie nowego języka \( L_{G'} \):
+\[
+L_{G'} = L_G \cup \{(u, v) \mid (u, v) \notin E, \, |L_{G'}| = |L_G| + k \}.
+\]
+Język \( L_\text{Hamiltonian} \) zawiera wszystkie grafy z cyklem Hamiltona:
+\[
+L_\text{Hamiltonian} = \{G' \mid G' \text{ zawiera cykl Hamiltona} \}.
+\]
+Zadaniem algorytmu jest znalezienie najmniejszego \( k \), dla którego \( L_{G'} \cap L_\text{Hamiltonian} \neq \emptyset \).
+
+\textbf{3. Dowód poprawności przez indukcję:}
+
+\textit{Podstawa indukcji:}  
+Dla grafu \( G \) o \( |V| = 1 \), cykl Hamiltona istnieje wtedy, gdy nie ma potrzeby dodawania krawędzi (\( k = 0 \)). Algorytm poprawnie zwraca \( k = 0 \), ponieważ \( \textsc{HasHamiltonianCycle}(G) \) jest prawdziwe dla grafu o pojedynczym wierzchołku.
+
+\textit{Krok indukcyjny:}  
+Załóżmy, że algorytm działa poprawnie dla grafów o \( |V| = n \). Rozważmy graf \( G \) o \( |V| = n+1 \).
+
+Dodanie krawędzi do \( G \) jest równoważne rozszerzeniu języka \( L_G \). Algorytm generuje wszystkie \( \binom{n+1}{2} - |E| \) możliwe krawędzie w sposób rekurencyjny. Dla każdej generowanej krawędzi:
+1. Funkcja \textsc{HasHamiltonianCycle} sprawdza, czy nowy graf \( G' \) zawiera cykl Hamiltona.
+2. Jeśli tak, algorytm aktualizuje minimalną liczbę dodanych krawędzi \( k \) i kończy dalsze rekurencje dla tego rozszerzenia.
+
+Indukcyjnie, dla każdego \( k \), algorytm eksploruje wszystkie możliwe rozszerzenia \( G' \), co zapewnia, że minimalny \( k \) zostanie znaleziony. 
+
+\textbf{4. Analiza na maszynie Turinga:}
+
+Operację dodania krawędzi do grafu \( G \) można zrealizować na maszynie Turinga \( M \), która iteruje przez przestrzeń \( 2^m \), gdzie \( m \) to liczba brakujących krawędzi w grafie:
+1. Maszyna \( M \) generuje każdą możliwą kombinację \( k \) dodanych krawędzi.
+2. Dla każdego grafu \( G' \), podjęta jest decyzja, czy \( G' \) zawiera cykl Hamiltona, co jest decyzyjne w czasie \( O(n!) \) (lub \( O(2^n) \) dla zoptymalizowanych algorytmów).
+3. Wynik jest minimalnym \( k \), dla którego \( G' \) spełnia warunek cyklu Hamiltona.
+
+\textbf{5. Złożoność:}
+
+Całkowita liczba konfiguracji wynosi \( O(2^m) \), a dla każdego grafu sprawdzenie cyklu Hamiltona zajmuje \( O(n!) \). Łączna złożoność wynosi:
+\[
+O(2^m \cdot n!),
+\]
+gdzie \( m = \binom{n}{2} - |E| \).
+
+\paragraph{Wniosek:}
+Na mocy indukcji matematycznej oraz redukcji do języków formalnych, algorytm \textsc{MinimalneRozszerzenie} poprawnie oblicza minimalną liczbę krawędzi \( k \), które należy dodać, aby uzyskać cykl Hamiltona w \( G \).
+

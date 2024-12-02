@@ -1,14 +1,44 @@
 \babel@toc {polish}{}\relax 
 \contentsline {section}{\numberline {1}Definicje}{1}{section.1}%
-\contentsline {section}{\numberline {2}Przykłady}{3}{section.2}%
-\contentsline {section}{\numberline {3}Opis algorytmów}{3}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Algorytm obliczania rozmiaru multigrafu}{3}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Algorytm wyszukiwania cykli w multigrafie}{4}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Algorytm liczenia cykli Hamiltona}{4}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Algorytm obliczania metryki pomiędzy dwoma multigrafami}{5}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}{6}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Dowód poprawności algorytmów}{6}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Algorytm obliczania wymiaru metrycznego multigrafu}{6}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Analiza złożoności algorytmów}{6}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Algorytm obliczania wymiaru metrycznego multigrafu}{6}{subsection.5.1}%
-\contentsline {section}{\numberline {6}Wstęp}{6}{section.6}%
+\contentsline {section}{\numberline {2}Przykłady działania programu}{3}{section.2}%
+\contentsline {section}{\numberline {3}Opis algorytmów}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Algorytm obliczania rozmiaru multigrafu}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Algorytm wyszukiwania cykli w multigrafie}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Algorytm liczenia cykli Hamiltona}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Algorytm obliczania metryki pomiędzy dwoma multigrafami}{8}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}{10}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Dowód poprawności algorytmów}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Dowód poprawności algorytmu obliczania rozmiaru multigrafu}{10}{subsection.4.1}%
+\contentsline {paragraph}{Teza:}{10}{section*.2}%
+\contentsline {paragraph}{Podstawa indukcji:}{10}{section*.3}%
+\contentsline {paragraph}{Krok indukcyjny:}{10}{section*.4}%
+\contentsline {paragraph}{Wniosek:}{11}{section*.5}%
+\contentsline {subsection}{\numberline {4.2}Dowód poprawności algorytmu wyszukiwania cykli w multigrafie}{11}{subsection.4.2}%
+\contentsline {paragraph}{Teza:}{11}{section*.6}%
+\contentsline {paragraph}{Podstawa indukcji:}{11}{section*.7}%
+\contentsline {paragraph}{Krok indukcyjny:}{11}{section*.8}%
+\contentsline {paragraph}{Wniosek:}{12}{section*.9}%
+\contentsline {subsection}{\numberline {4.3}Dowód poprawności algorytmu liczenia cykli Hamiltona}{12}{subsection.4.3}%
+\contentsline {paragraph}{Teza:}{12}{section*.10}%
+\contentsline {paragraph}{Podstawa indukcji:}{12}{section*.11}%
+\contentsline {paragraph}{Krok indukcyjny:}{12}{section*.12}%
+\contentsline {paragraph}{Redukcja do przestrzeni języków formalnych:}{12}{section*.13}%
+\contentsline {paragraph}{Złożoność:}{12}{section*.14}%
+\contentsline {paragraph}{Wniosek:}{13}{section*.15}%
+\contentsline {subsection}{\numberline {4.4}Dowód poprawności algorytmu obliczania metryki pomiędzy dwoma multigrafami}{13}{subsection.4.4}%
+\contentsline {paragraph}{Teza:}{13}{section*.16}%
+\contentsline {paragraph}{Dowód krokowy:}{13}{section*.17}%
+\contentsline {paragraph}{Wniosek:}{14}{section*.18}%
+\contentsline {subsection}{\numberline {4.5}Dowód poprawności algorytmu minimalnego rozszerzenia dla cyklu Hamiltona}{14}{subsection.4.5}%
+\contentsline {paragraph}{Teza:}{14}{section*.19}%
+\contentsline {paragraph}{Dowód:}{14}{section*.20}%
+\contentsline {paragraph}{Wniosek:}{15}{section*.21}%
+\contentsline {section}{\numberline {5}Instrukcja obsługi}{15}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Struktura projektu}{15}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Kompilacja projektu}{15}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Uruchamianie programu głównego}{16}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Opis funkcji programu głównego}{16}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Uruchamianie generatora grafów}{17}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Przykłady użycia generatora grafów}{17}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}Uruchamianie testów}{17}{subsection.5.7}%
+\contentsline {section}{\numberline {6}Wstęp}{17}{section.6}%

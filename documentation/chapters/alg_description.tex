@@ -144,31 +144,33 @@ Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku mult
 \subsection{Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}
 \begin{algorithm}[H]
 \caption{Minimalne rozszerzenie dla cyklu Hamiltona}
+\label{alg:minimal_extension}
 \begin{algorithmic}[1]
 \Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
-\Ensure Minimalna liczba krawędzi do dodania
+\Ensure Minimalna liczba krawędzi do dodania, aby uzyskać cykl Hamiltona
 \State \( \text{min\_edges} \gets \infty \)
-\Function{DFS}{( u, visited, added\_edges )}
-    \If{\( \text{length}(visited) = |V| \textbf{ and } A[u][\text{start}] > 0 \)}
-        \State \( \text{min\_edges} \gets \min(\text{min\_edges}, \text{added\_edges}) \)
+\Function{HasHamiltonianCycle}{G, V}
+    \State \( \text{cycle\_count} \gets \textsc{CountHamiltonianCycles}(G, V) \)
+    \State \Return \( \text{cycle\_count} > 0 \)
+\EndFunction
+\Function{ExtendGraph}{G, added\_edges}
+    \If{\( \text{added\_edges} \geq \text{min\_edges} \)}
         \State \Return
     \EndIf
-    \ForEach{\( v \) sąsiadujący z \( u \)}
-        \State Dodaj \( v \) do \( \text{visited} \)
-        \If{\( A[u][v] = 0 \)}
-            \State Dodaj krawędź \( (u, v) \)
-            \State \Call{DFS}{( v, visited, added\_edges + 1 )}
-            \State Usuń krawędź \( (u, v) \)
-        \Else
-            \State \Call{DFS}{( v, visited, added\_edges )}
+    \If{\Call{HasHamiltonianCycle}{G, V}}
+        \State \( \text{min\_edges} \gets \text{added\_edges} \)
+        \State \Return
+    \EndIf
+    \ForEach{\( u, v \in V \)}
+        \If{\( u \neq v \textbf{ i } A[u][v] = 0 \)}
+            \State Dodaj krawędź \( (u, v) \) do \( A \)
+            \State \Call{ExtendGraph}{G, added\_edges + 1}
+            \State Usuń krawędź \( (u, v) \) z \( A \)
         \EndIf
-        \State Usuń \( v \) z \( \text{visited} \)
     \EndFor
 \EndFunction
-\ForEach{wierzchołek \( u \in V \)}
-    \State \( \text{visited} \gets \{u\} \)
-    \State \Call{DFS}{( u, \text{visited}, 0 )}
-\EndFor
+\State \Call{ExtendGraph}{G, 0}
 \State \Return \( \text{min\_edges} \)
 \end{algorithmic}
 \end{algorithm}
+
