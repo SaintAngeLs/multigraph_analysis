@@ -75,10 +75,12 @@ Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku mult
 \end{algorithmic}
 \end{algorithm}
 
+Złożoność obliczeniowa algorytmu liczenia cykli Hamiltona wynosi \( O(V!) \). Wynika to z wykonywania funkcji rekurencyjnej do znajdowania wszystkich ścieżek. Z każdym poziomem głębokości funkcji rekurencyjnej mamy o jeden mniej wierzchołek do wyboru, co daje \( V! \) możliwości.
+
 \subsection{Algorytm obliczania metryki pomiędzy dwoma multigrafami}
 
 \begin{algorithm}
-\caption{Obliczanie rozkładu stopni wierzchołków}
+\caption{Obliczanie rozkładu stopni wierzchołków - CalculateDegreeDistribution()}
 \label{alg:degree_distribution}
 \begin{algorithmic}[1]
 \Require Macierz sąsiedztwa \textit{adj\_matrix}, Liczba wierzchołków $n$
@@ -105,7 +107,7 @@ Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku mult
 Złożoność obliczania rozkładu stopni wierzchołków wynosi \( O(n^2) \), gdzie \( n \) to liczba wierzchołków w multigrafie. Wynika to z iteracji po całej macierzy sąsiedztwa \( A \) o wymiarach \( n \times n \).
 
 \begin{algorithm}
-\caption{Oblicz Earth Mover's Distance (EMD)}
+\caption{Oblicz Earth Mover's Distance (EMD) - CalculateEMD()}
 \label{alg:calculate_emd}
 \begin{algorithmic}[1]
 \Require Rozkłady stopni wierzchołków dla dwóch grafów \textit{dist1}, \textit{dist2}
