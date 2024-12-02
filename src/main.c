@@ -74,11 +74,11 @@ void analyze_multigraph(GraphInterface *multigraph) {
     int minimal_extension = default_algorithm.find_minimal_extension(multigraph, multigraph->vertices);
     printf("Minimal extension for Hamiltonian cycle: %d\n", minimal_extension);
 
-    int maximal_cycle_length = default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices);
+    int maximal_cycle_length = default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices);
     printf("Maximal cycle length: %d\n", maximal_cycle_length);
 
     GArray *output_maximal_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
-    default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices, output_maximal_cycles);
+    default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices, output_maximal_cycles, maximal_cycle_length);
     printf("Maximal cycles: %u\n", output_maximal_cycles->len);
     print_cycles(output_maximal_cycles);
     g_array_free(output_maximal_cycles, TRUE);
