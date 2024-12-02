@@ -49,28 +49,29 @@ gdzie \( \text{Liczność}((u, v), E) \) to liczba wystąpień krawędzi \( (u, 
 \vspace{1em}
 
 \noindent \textbf{Definicja 7: Metryka w przestrzeni multigrafów.} \\
-Niech \( \mathcal{G} \) oznacza zbiór multigrafów. \emph{Metryka} \( d: \mathcal{G} \times \mathcal{G} \to \mathbb{R} \) to funkcja spełniająca następujące warunki:
+Niech $G_1$ i $G_2$ będą dwoma multigrafami o rozkładzie stopni wierzchołków $D_1$ i $D_2$. Rozkład stopni wierzchołków to funkcja:
+\begin{align*}
+    D_i = \frac{\text{Liczba wierzchołków o stopniu k w} \ G_i}{\text{Liczba wierzchołków w} \ G_i}.
+\end{align*}
+
+
+Metryka Earth Mover's Distance (EMD) pomiędzy $D_1$ i $D_2$ to minimalny koszt przekształcenia $D_1$ w $D_2$, gdzie koszt przekształcenia stopnia $d_i$ w $d_j$ wynosi $|i - j|$. Metryka EMD pomiędzy $D_1$ i $D_2$ to suma kosztów przekształceń dla wszystkich par stopni wierzchołków:
+\[
+    EMD(D_1, D_2) = \min_{F} \sum_{k_1} \sum_{k_2} F(k_1, k_2) \cdot |k_1 - k_2|,
+\]
+gdzie:
 \begin{itemize}
-    \item \( d(G, H) \geq 0 \) dla wszystkich \( G, H \in \mathcal{G} \) (\emph{nieujemność}),
-    \item \( d(G, H) = 0 \iff G = H \) (\emph{tożsamość nierozróżnialnych}),
-    \item \( d(G, H) = d(H, G) \) (\emph{symetria}),
-    \item \( d(G, H) \leq d(G, K) + d(K, H) \) dla wszystkich \( G, H, K \in \mathcal{G} \) (\emph{nierówność trójkąta}).
+    \item $F(k_1, k_2)$ reprezentuje \textit{przepływ} masy prawdopodobieństwa z stopnia $k_1$ w $D_1$ do stopnia $k_2$ w $D_2$.
+    \item $|k_1 - k_2|$ jest kosztem (lub odległością) przeniesienia jednej jednostki masy prawdopodobieństwa z $k_1$ do $k_2$.
+    \item $\sum_{k_2} F(k_1, k_2) \leq D_1(k_1)$, dla każdego $k_1$: Przepływ z stopnia $k_1$ in $D_1$ nie może przekroczyć prawdopodobieństwa w $k_1$.
+    \item $\sum_{k_1} F(k_1, k_2) \leq D_2(k_2)$, dla każdego $k_2$: Przepływ do stopnia $k_2$ in $D_2$ nie może przekroczyć prawdopodobieństwa w $k_2$.
+    \item $\sum_{k_1} \sum_{k_2} F(k_1, k_2) = \min\left(\sum_{k_1} D_1(k_1), \sum_{k_2} D_2(k_2)\right)$
 \end{itemize}
 
-\vspace{1em}
-
-\noindent \textbf{Definicja 8: Minimalna odległość w przestrzeni multigrafów.} \\
-Dla dwóch multigrafów \( G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \), minimalna odległość \( d(G, H) \) to minimalna liczba operacji edycyjnych (dodania lub usunięcia krawędzi), aby przekształcić \( G \) w \( H \). Formalnie:
-\[
-d(G, H) = |E_G \setminus E_H| + |E_H \setminus E_G|,
-\]
-gdzie \( E_G \setminus E_H \) to krawędzie obecne w \( G \), ale nieobecne w \( H \), a \( E_H \setminus E_G \) to krawędzie obecne w \( H \), ale nieobecne w \( G \).
+Metryką w przestrzeni multigrafów nazwiemy odległość EMD pomiędzy rozkładami stopni wierzchołków dwóch multigrafów.
 
 \vspace{1em}
 
-
-latex
-Copy code
 \section{Przykłady}
 
 \noindent \textbf{Przykład 1: Multigraf bez pętli i bez hamiltona.} \\
