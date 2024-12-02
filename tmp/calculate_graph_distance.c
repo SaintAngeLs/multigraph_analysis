@@ -247,70 +247,77 @@ int nei_factory_init(NeighborFactory* f, int* graph, int n) {
 
 // assume the graph has at least 2 vertices
 int next_neighbor(NeighborFactory* f, int** result) {
-    if (f->mode == NEI_PERM) {
-        int perm = next_permutation(f->vertex_perm, f->vertex_perm + f->n, sizeof(int), comp_int_ptr);
-        if (!perm) {
-            *result = NULL;
-            return 1;
-        }
-        int* graph = malloc(sizeof(int)*f->n*f->n);
-        if (!graph) return 0;
-        for (int i = 0; i < f->n; ++i) {
-            for (int j = 0; j < f->n; ++j) {
-                graph[f->vertex_perm[i]*f->n + f->vertex_perm[j]] = f->orig_graph[i*f->n + j];
+    int done = 0;
+    while (!done) {
+        if (f->mode == NEI_PERM) {
+            int perm = next_permutation(f->vertex_perm, f->vertex_perm + f->n, sizeof(int), comp_int_ptr);
+            if (!perm) {
+                *result = NULL;
+                return 1;
             }
-            //memcpy(&graph[f->vertex_perm[i]*f->n], &f->orig_graph[i*f->n], sizeof(int)*f->n);
-        }
-        *result = graph;
-    } else {
-        if (f->mode == NEI_REMOVE) {
-            if (f->orig_graph[f->n*f->curr_out + f->curr_in]) {
-                int* graph = malloc(sizeof(int)*f->n*f->n);
-                if (!graph) return 0;
-                memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
-                --graph[f->n*f->curr_out + f->curr_in];
-                *result = graph;
-            }
-        } else if (f->mode == NEI_SWAP) {
-            if (f->orig_graph[f->n*f->curr_out + f->curr_in] !=
-                f->orig_graph[f->n*f->curr_in + f->curr_out]) {
-                
-                int* graph = malloc(sizeof(int)*f->n*f->n);
-                if (!graph) return 0;
-                memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
-                swap_int(&graph[f->n*f->curr_out + f->curr_in], &graph[f->n*f->curr_in + f->curr_out]);
-                *result = graph;
-            }
-        } else {
             int* graph = malloc(sizeof(int)*f->n*f->n);
             if (!graph) return 0;
-            memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
-            ++graph[f->n*f->curr_out + f->curr_in];
+            for (int i = 0; i < f->n; ++i) {
+                for (int j = 0; j < f->n; ++j) {
+                    graph[f->vertex_perm[i]*f->n + f->vertex_perm[j]] = f->orig_graph[i*f->n + j];
+                }
+                //memcpy(&graph[f->vertex_perm[i]*f->n], &f->orig_graph[i*f->n], sizeof(int)*f->n);
+            }
             *result = graph;
-        }
-        if (f->mode == NEI_REMOVE) {
-            ++f->curr_in;
-            if (f->curr_in == f->n) {
-                f->curr_in = 0;
-                ++f->curr_out;
-                if (f->curr_out == f->n) {
-                    f->mode = NEI_PERM;
+            done = 1;
+        } else {
+            if (f->mode == NEI_REMOVE) {
+                if (f->orig_graph[f->n*f->curr_out + f->curr_in]) {
+                    int* graph = malloc(sizeof(int)*f->n*f->n);
+                    if (!graph) return 0;
+                    memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
+                    --graph[f->n*f->curr_out + f->curr_in];
+                    *result = graph;
+                    done = 1;
+                }
+            } else if (f->mode == NEI_SWAP) {
+                if (f->orig_graph[f->n*f->curr_out + f->curr_in] !=
+                    f->orig_graph[f->n*f->curr_in + f->curr_out]) {
+                
+                    int* graph = malloc(sizeof(int)*f->n*f->n);
+                    if (!graph) return 0;
+                    memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
+                    swap_int(&graph[f->n*f->curr_out + f->curr_in], &graph[f->n*f->curr_in + f->curr_out]);
+                    *result = graph;
+                    done = 1;
+                }
+            } else {
+                int* graph = malloc(sizeof(int)*f->n*f->n);
+                if (!graph) return 0;
+                memcpy(graph, f->orig_graph, sizeof(int)*f->n*f->n);
+                ++graph[f->n*f->curr_out + f->curr_in];
+                *result = graph;
+                done = 1;
+            }
+            if (f->mode == NEI_REMOVE) {
+                ++f->curr_in;
+                if (f->curr_in == f->n) {
+                    f->curr_in = 0;
+                    ++f->curr_out;
+                    if (f->curr_out == f->n) {
+                        f->mode = NEI_PERM;
+                    }
                 }
             }
-        }
 
-        switch (f->mode) {
-        case NEI_ADD:
-            f->mode = NEI_SWAP;
-            break;
-        case NEI_SWAP:
-            f->mode = NEI_REMOVE;
-            break;
-        case NEI_REMOVE:
-            f->mode = NEI_ADD;
-            break;
-        default:
-            break;
+            switch (f->mode) {
+            case NEI_ADD:
+                f->mode = NEI_SWAP;
+                break;
+            case NEI_SWAP:
+                f->mode = NEI_REMOVE;
+                break;
+            case NEI_REMOVE:
+                f->mode = NEI_ADD;
+                break;
+            default:
+                break;
+            }
         }
     }
 
@@ -329,6 +336,7 @@ TwoThreeNode* tth_request_mem() {
 }
 
 void tth_free_node(TwoThreeNode* node) {
+    // no op
 }
 
 /*
@@ -344,32 +352,53 @@ void print_tth(TwoThreeNode* root, int k) {
 */
 
 int a_star(int* start, int* goal, int n, int* result) {
+    int memory_success = 0;
     comp_graph_n = n;
    
     MemoryNode* memlist = NULL;
 
-    AvlNode* tmp_avl_alloc = malloc(sizeof(AvlNode));
-    int* tmp_graph = malloc(sizeof(int)*n*n);
-    memcpy(tmp_graph, start, sizeof(int)*n*n);
-    AvlNode* avl_graph_storage = avl_create_node(tmp_avl_alloc, (size_t)tmp_graph, 0);
-    
-
-    tmp_avl_alloc = malloc(sizeof(AvlNode));
-    tmp_graph = malloc(sizeof(int)*n*n);
-    memcpy(tmp_graph, goal, sizeof(int)*n*n);
-    avl_insert(&avl_graph_storage, tmp_avl_alloc, (size_t)tmp_graph, 0, comp_graph);
-    
     //AvlNode* avl_qprior = NULL; // <priority, graph node>
     TwoThreeNode* tth_q = NULL;
     AvlNode* avl_qgraph = NULL; // <graph node, priority map node>
     AvlNode* avl_g = NULL;      // <graph node, cost>
     AvlNode* avl_c = NULL;      // <graph node>
+    int *degs_goal = NULL, *degs_curr = NULL;
+    NeighborFactory factory;
+
+    AvlNode* tmp_avl_alloc = malloc(sizeof(AvlNode));
+    if (!tmp_avl_alloc) {
+        goto FAIL;
+    }
+    int* tmp_graph = malloc(sizeof(int)*n*n);
+    if (!tmp_graph) {
+        free(tmp_avl_alloc);
+        goto FAIL;
+    }
+
+    memcpy(tmp_graph, start, sizeof(int)*n*n);
+    AvlNode* avl_graph_storage = avl_create_node(tmp_avl_alloc, (size_t)tmp_graph, 0); 
+
+    tmp_avl_alloc = malloc(sizeof(AvlNode));
+    if (!tmp_avl_alloc) {
+        goto FAIL;
+    }
+    tmp_graph = malloc(sizeof(int)*n*n);
+    if (!tmp_graph) {
+        free(tmp_avl_alloc);
+        goto FAIL;
+    }
+    memcpy(tmp_graph, goal, sizeof(int)*n*n);
+    avl_insert(&avl_graph_storage, tmp_avl_alloc, (size_t)tmp_graph, 0, comp_graph);
     
     // calculate degs
-    int *degs_goal, *degs_curr;
     degs_goal = malloc(sizeof(int)*n); // 
+    if (!degs_goal) {
+        goto FAIL;
+    }
     degs_curr = malloc(sizeof(int)*n); // 
-    
+    if (!degs_curr) {
+        goto FAIL;
+    }
     
     // : dry
     for (int i = 0; i < n; ++i) {
@@ -384,82 +413,110 @@ int a_star(int* start, int* goal, int n, int* result) {
     AvlNode* start_graph_node = avl_find(avl_graph_storage, (size_t)start, comp_graph);
     AvlNode* goal_graph_node = avl_find(avl_graph_storage, (size_t)goal, comp_graph);
    
-    bulk_alloc(&memlist, sizeof(TwoThreeNode));
+    if (!bulk_alloc(&memlist, sizeof(TwoThreeNode))) {
+        goto FAIL;
+    }
 
     tth_create_node(memlist->mem, h(start, n, degs_curr, degs_goal), (size_t)start_graph_node);
     tth_q = memlist->mem;
     TwoThreeNode* startPriorityNode = tth_q;
 
     tmp_avl_alloc = malloc(sizeof(AvlNode)); // 
+    if (!tmp_avl_alloc) {
+        goto FAIL;
+    }
     avl_insert(&avl_g, tmp_avl_alloc, (size_t)start_graph_node, 0, comp_ptr);
 
     tmp_avl_alloc = malloc(sizeof(AvlNode));
+    if (!tmp_avl_alloc) {
+        goto FAIL;
+    }
     avl_insert(&avl_qgraph, tmp_avl_alloc, (size_t)start_graph_node, (size_t)startPriorityNode, comp_ptr);
-    
+
     while (tth_q) {
         TwoThreeNode* min_priority_node = tth_min(tth_q);
         AvlNode* current_node = (AvlNode*)min_priority_node->value;
-       
+
         //printf("Height: %lu\n", tth_nr(tth_q));
         //print_tth(tth_q, 0);
 
         tth_delete(&tth_q, tth_free_node, min_priority_node, comp_uint);
         
         if (current_node == goal_graph_node) {
-            *result = avl_find(avl_g, current_node, comp_ptr)->value;
-            return 1;
+            *result = avl_find(avl_g, (size_t)current_node, comp_ptr)->value;
+            goto SUCCESS;
         }
         
         tmp_avl_alloc = malloc(sizeof(AvlNode));
+        if (!tmp_avl_alloc) {
+            goto FAIL;
+        }
         avl_insert(&avl_c, tmp_avl_alloc, (size_t)current_node, 0, comp_ptr);
-        NeighborFactory factory;
         if (!nei_factory_init(&factory, (int*)current_node->key, n)) {
-            // 
+            goto FAIL;
         }
 
-        int* neighbor;
+        int* neighbor = NULL;
         while (1) {
             int d = ((factory.mode == NEI_ADD || factory.mode == NEI_REMOVE) ? add_remove_cost : 
                     (factory.mode == NEI_SWAP ? swap_cost : permutation_cost));
             if (!next_neighbor(&factory, &neighbor)) {
-                break; // 
+                nei_factory_free(&factory);
+                goto FAIL; 
             }
             if (!neighbor) {
                 break;
-            }
-    
-            AvlNode* neighbor_node = avl_find(avl_graph_storage, neighbor, comp_graph);
+            } 
+
+            AvlNode* neighbor_node = avl_find(avl_graph_storage, (size_t)neighbor, comp_graph);
+
             if (!neighbor_node) {
                 tmp_avl_alloc = malloc(sizeof(AvlNode));
                 if (!tmp_avl_alloc) {
-                    // 
+                    nei_factory_free(&factory);
+                    free(neighbor);
+                    goto FAIL; 
                 }
                 avl_insert(&avl_graph_storage, tmp_avl_alloc, (size_t)neighbor, 0, comp_graph);
                 neighbor_node = tmp_avl_alloc;
+            } else {
+                free(neighbor);
+                neighbor = (int*)neighbor_node->key;
             }
-    
-            if (avl_find(avl_c, neighbor_node, comp_ptr)) {
+
+            if (avl_find(avl_c, (size_t)neighbor_node, comp_ptr)) {
                 continue;
             }
     
-            size_t cost = d + avl_find(avl_g, current_node, comp_ptr)->value;
-            AvlNode* g_nei_node = avl_find(avl_g, neighbor_node, comp_ptr);
-            AvlNode* qg_nei_node = avl_find(avl_qgraph, neighbor_node, comp_ptr);
+            size_t cost = d + avl_find(avl_g, (size_t)current_node, comp_ptr)->value;
+            AvlNode* g_nei_node = avl_find(avl_g, (size_t)neighbor_node, comp_ptr);
+            AvlNode* qg_nei_node = avl_find(avl_qgraph, (size_t)neighbor_node, comp_ptr);
     
             if (!g_nei_node || cost < g_nei_node->value) {
                 if (!g_nei_node) {
                     tmp_avl_alloc = malloc(sizeof(AvlNode));
+                    if (!tmp_avl_alloc) {
+                        nei_factory_free(&factory);
+                        goto FAIL;
+                    }
                     avl_insert(&avl_g, tmp_avl_alloc, (size_t)neighbor_node, cost, comp_ptr);
                 } else {
                     g_nei_node->value = cost;
                 }
                 if (!qg_nei_node) {
                     TwoThreeNode* priority_node;
-                    bulk_alloc(&memlist, sizeof(TwoThreeNode) * ((tth_q ? tth_q->h : 0)+3));
+                    if (!bulk_alloc(&memlist, sizeof(TwoThreeNode) * ((tth_q ? tth_q->h : 0)+3))) {
+                        nei_factory_free(&factory);
+                        goto FAIL;
+                    }
                     tth_mem_iter = memlist->mem;
-                    tth_insert(&tth_q, &priority_node, cost + h(neighbor, n, degs_curr, degs_goal), neighbor_node, tth_request_mem, comp_uint);
+                    tth_insert(&tth_q, &priority_node, cost + h(neighbor, n, degs_curr, degs_goal), (size_t)neighbor_node, tth_request_mem, comp_uint);
                     tmp_avl_alloc = malloc(sizeof(AvlNode));
-                    avl_insert(&avl_qgraph, tmp_avl_alloc, neighbor_node, (size_t)priority_node, comp_ptr);
+                    if (!tmp_avl_alloc) {
+                        nei_factory_free(&factory);
+                        goto FAIL;
+                    }
+                    avl_insert(&avl_qgraph, tmp_avl_alloc, (size_t)neighbor_node, (size_t)priority_node, comp_ptr);
                 } else {
                     tth_modify_key((TwoThreeNode*)qg_nei_node->value, cost + h(neighbor, n, degs_curr, degs_goal), comp_uint);
                 }
@@ -467,7 +524,11 @@ int a_star(int* start, int* goal, int n, int* result) {
         }
         nei_factory_free(&factory);
     }
-
+    
+    *result = -1;
+SUCCESS:
+    memory_success = 1;
+FAIL:
     bulk_free(memlist);
     free(degs_goal);
     free(degs_curr);
@@ -476,9 +537,7 @@ int a_star(int* start, int* goal, int n, int* result) {
     avl_free(avl_qgraph);
     avl_for_each(avl_graph_storage, free_graph_storage_unit);
     avl_free(avl_graph_storage);
-    
-    *result = -1;
-    return 1;
+    return memory_success;
 }
 
 /* A and B pointers are not the same! */

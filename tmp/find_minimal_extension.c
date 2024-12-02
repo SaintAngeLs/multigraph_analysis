@@ -55,10 +55,36 @@ typedef struct ElementaryCyclesSearch_ {
 
 } ElementaryCyclesSearch;
 
-void ecs_init(ElementaryCyclesSearch* e, int n, int* adjMatrix) {
+int ecs_init(ElementaryCyclesSearch* e, int n, int* adjMatrix) {
     memset(e, 0, sizeof(ElementaryCyclesSearch));
     e->n = n;
     e->adjMatrix = adjMatrix;
+
+    e->blocked = calloc(e->n, sizeof(int));
+    if (!e->blocked) goto BLOCKED_FAIL;
+
+    e->B = malloc(e->n*e->n * sizeof(int));
+    if (!e->B) goto B_FAIL;
+
+    e->B_n = calloc(e->n, sizeof(size_t));
+    if (!e->B_n) goto B_N_FAIL;
+
+    e->stack = malloc((e->n+1) * sizeof(int)); 
+    if (!e->stack) goto STACK_FAIL;
+
+    return 1;
+
+STACK_FAIL:
+    free(e->B_n);
+
+B_N_FAIL:
+    free(e->B);
+
+B_FAIL:
+    free(e->blocked);
+
+BLOCKED_FAIL:
+    return 0;
 }
 
 int ecs_findCycles(ElementaryCyclesSearch* e, int v, int s, int* adjMatrix) {
@@ -130,15 +156,14 @@ int ecs_findCycles(ElementaryCyclesSearch* e, int v, int s, int* adjMatrix) {
 }
 
 void ecs_getElementaryCycles(ElementaryCyclesSearch* e) {
-    e->blocked = calloc(e->n, sizeof(int));
-    e->B = malloc(e->n*e->n * sizeof(int));
-    e->B_n = calloc(e->n, sizeof(size_t));
-    e->stack = malloc((e->n+1) * sizeof(int));
     ecs_findCycles(e, 0, 0, e->adjMatrix);
 }
 
 void ecs_free(ElementaryCyclesSearch* e) {
-
+    free(e->stack);
+    free(e->B_n);
+    free(e->B);
+    free(e->blocked);
 }
 
 typedef struct MinExtensionSearch_ {
@@ -159,18 +184,53 @@ typedef struct MinExtensionSearch_ {
 
 } MinExtensionSearch;
 
-void mxs_init(MinExtensionSearch* e, int n, int* adjMatrix) {
+int mxs_init(MinExtensionSearch* e, int n, int* adjMatrix) {
     memset(e, 0, sizeof(MinExtensionSearch));
     e->n = n;
-    e->blocked = calloc(e->n, sizeof(int));
-    e->B = malloc(e->n*e->n * sizeof(int));
-    e->B_n = calloc(e->n, sizeof(size_t));
-    e->stack = malloc((e->n+1) * sizeof(int));
-    e->adjMatrixExtended = malloc(e->n*e->n*sizeof(int));
     e->min_nr_lacking = n*n;
+    
+    e->blocked = calloc(e->n, sizeof(int));
+    if (!e->blocked) goto BLOCKED_FAIL;
+    
+    e->B = malloc(e->n*e->n * sizeof(int));
+    if (!e->B) goto B_FAIL;
+
+    e->B_n = calloc(e->n, sizeof(size_t));
+    if (!e->B_n) goto B_N_FAIL;
+
+    e->stack = malloc((e->n+1) * sizeof(int));
+    if (!e->stack) goto STACK_FAIL;
+
+    e->adjMatrixExtended = malloc(e->n*e->n*sizeof(int));
+    if (!e->adjMatrixExtended) goto ADJ_FAIL;
+
+    return 1;
+
+ADJ_FAIL:
+    free(e->stack);
+
+STACK_FAIL:
+    free(e->B_n);
+
+B_N_FAIL:
+    free(e->B);
+    
+B_FAIL:
+    free(e->blocked);
+
+BLOCKED_FAIL:
+    return 0;
 }
 
-int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int second_stage) {
+void mxs_free(MinExtensionSearch* e) {
+    free(e->blocked);
+    free(e->B);
+    free(e->B_n);
+    free(e->stack);
+    free(e->adjMatrixExtended);
+}
+
+int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int second_stage, int* result) {
     int n = e->n;
     int f = 0;
 
@@ -181,6 +241,7 @@ int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int seco
 
     if (e->nr_lacking > e->min_nr_lacking) {
         --e->nr_lacking;
+        *result = 1;
         return 1;
     }
 
@@ -211,7 +272,9 @@ int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int seco
                 }
             
                 ElementaryCyclesSearch hamSearch;
-                ecs_init(&hamSearch, n, e->adjMatrixExtended);
+                if (!ecs_init(&hamSearch, n, e->adjMatrixExtended)) {
+                    return 0;
+                }
                 ecs_getElementaryCycles(&hamSearch);
                 
                 //printf("Ham cycle nr: %d\n", hamSearch.cycle_count);
@@ -233,7 +296,11 @@ int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int seco
 
             f = 1;
         } else if (!e->blocked[w]) {
-            if (mxs_findCycles(e, w, s, adjMatrix, second_stage)) {
+            int res;
+            if (!mxs_findCycles(e, w, s, adjMatrix, second_stage, &res)) {
+                return 0;
+            }
+            if (res) {
                 f = 1;
             }
         }
@@ -256,7 +323,8 @@ int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int seco
 
     //erase(e->stack, e->stack_n, v);
     --e->stack_n;
-    return f;
+    *result = f;
+    return 1;
 }
 
 int main() {
@@ -287,18 +355,31 @@ int main() {
     adjMatrix[6*N+5] = 1;
 
     MinExtensionSearch ecs;
-    mxs_init(&ecs, N, adjMatrix);
-    mxs_findCycles(&ecs, 0, 0, adjMatrix, 0);
+    
+    if (!mxs_init(&ecs, N, adjMatrix)) {
+        return EXIT_FAILURE;
+    }
+    
+    int dummy;
+    if (!mxs_findCycles(&ecs, 0, 0, adjMatrix, 0, &dummy)) {
+        goto FAIL;
+    }
     ecs.cycle_count = 0;
     memset(ecs.B_n, 0, N*sizeof(size_t));
     memset(ecs.blocked, 0, N*sizeof(int));
     fprintf(stdout, "Second stage: min nr lacking = %d\n", ecs.min_nr_lacking);
-    mxs_findCycles(&ecs, 0, 0, adjMatrix, 1);
+    if (!mxs_findCycles(&ecs, 0, 0, adjMatrix, 1, &dummy)) {
+        goto FAIL;
+    }
     printf("Cycle count: %d\n", ecs.cycle_count);
     printf("Max ham cycles: %d\n", ecs.max_nr_ham_cycles);
 
-    return 0;
+    mxs_free(&ecs);
+    return EXIT_SUCCESS;
 
+FAIL:
+    mxs_free(&ecs);
+    return EXIT_FAILURE;
 }
 
 

@@ -41,22 +41,32 @@ int arr_find(int* arr, int n, int v) {
     return n;
 }
 
-float ant_algo(int* graph, int n, int N1, float p_nondistinct, float ph_att, float Q, float a, float b, float c, float d, float e, int is_min_ext) {
-    float* curr_prob = malloc(sizeof(float)*n);
-    if (!curr_prob) return 0;
+int ant_algo(float* res, int* graph, int n, int N1, float p_nondistinct, float ph_att, float Q, float a, float b, float c, float d, float e, int is_min_ext) {
+    int memory_success = 0;
     
-    int* sequence = malloc(sizeof(float)*n*(n+1));
-    if (!sequence) return 0;
-    
-    int* seq_size = malloc(sizeof(int)*n);
-    if (!seq_size) return 0;
+    float* curr_prob = 0;
+    int* sequence = 0; 
+    int* seq_size = 0;
+    float* seq_value = 0;
+    float* pheromone = 0;
 
-    float* seq_value = malloc(sizeof(int)*n);
-    if (!seq_value) return 0;
-
-    float* pheromone = malloc(sizeof(float)*n*n);
-    if (!pheromone) return 0;
+    curr_prob = malloc(sizeof(float)*n);
+    if (!curr_prob) goto FAIL;
     
+    sequence = malloc(sizeof(float)*n*(n+1));
+    if (!sequence) goto FAIL;
+    
+    seq_size = malloc(sizeof(int)*n);
+    if (!seq_size) goto FAIL;
+
+    seq_value = malloc(sizeof(int)*n);
+    if (!seq_value) goto FAIL;
+
+    pheromone = malloc(sizeof(float)*n*n);
+    if (!pheromone) goto FAIL;
+
+    memory_success = 1;
+
     for (int i = 0; i < n*n; ++i) {
         pheromone[i] = 1;
     }
@@ -149,7 +159,14 @@ float ant_algo(int* graph, int n, int N1, float p_nondistinct, float ph_att, flo
             result *= t2 / t / t / deg;
     }
 
-    return result;
+    *res = result;
+FAIL:
+    free(curr_prob);
+    free(sequence);
+    free(seq_size);
+    free(seq_value);
+    free(pheromone);
+    return memory_success;
 }
 
 int main() {
@@ -163,8 +180,18 @@ int main() {
         0,0,0,0,2,0,
     };
 
-    printf("Nr of longest cycles: %f\n", ant_algo(graph, N, 20, 0.1f, 0.5f, 1, 0.2f, 1, 1, 0.5f, 1, 0));
-    printf("Nr of Hamiltonian cycles in min ext: %f\n", ant_algo(graph, N, 20, 0.1f, 0.5f, 1, 0.2f, 1, 1, 0.5f, 1, 1));
+    float res1;
+    float res2;
 
-    return 0;
+    if (!ant_algo(&res1, graph, N, 20, 0.1f, 0.5f, 1, 0.2f, 1, 1, 0.5f, 1, 0)) {
+        return EXIT_FAILURE;
+    }
+    if (!ant_algo(&res2, graph, N, 20, 0.1f, 0.5f, 1, 0.2f, 1, 1, 0.5f, 1, 1)) {
+        return EXIT_FAILURE;
+    }
+
+    printf("Nr of longest cycles: %f\n", res1);
+    printf("Nr of Hamiltonian cycles in min ext: %f\n", res2); 
+
+    return EXIT_SUCCESS;
 }
