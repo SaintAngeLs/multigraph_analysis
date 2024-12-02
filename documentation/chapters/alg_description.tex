@@ -45,6 +45,8 @@ Złożoność obliczeniowa algorytmu wynosi \( O(n^2) \), gdzie \( n \) to liczb
 \end{algorithmic}
 \end{algorithm}
 
+Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku multigrafu, gdzie \( V \) może być większe niż \( E \), złożoność obliczeniowa wynosi \( O(V^2) \). Ponieważ algorytm DFS jest wywoływany dla każdego wierzchołka, złożoność obliczeniowa całego algorytmu wynosi \( O(V^2 + E) \) lub \( O(V^3) \) dla przytoczonego drugiego przypadku.
+
 \subsection{Algorytm liczenia cykli Hamiltona}
 \begin{algorithm}[H]
 \caption{Liczenie cykli Hamiltona w multigrafie}
