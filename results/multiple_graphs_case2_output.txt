@@ -6,7 +6,7 @@ Analyzing Multigraph:
 Graph size (number of edges): 2
 All cycles: 0
 Hamiltonian cycles: 0
-Minimal extension for Hamiltonian cycle: 0
+Minimal extension for Hamiltonian cycle: 1
 Maximal cycle length: 2
 Maximal cycles: 0
 ------------------------------------------------

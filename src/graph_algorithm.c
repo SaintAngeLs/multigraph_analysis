@@ -280,38 +280,40 @@ static int find_minimal_extension(void *graph, int vertices) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int min_edges_needed = INT_MAX;
 
-    void dfs(int node, GHashTable *visited, int depth, int *lacking_edges) {
-        g_hash_table_add(visited, GINT_TO_POINTER(node));
+    bool has_hamiltonian_cycle(void *graph, int vertices) {
+        GArray *hamiltonian_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
+        int count = default_algorithm.count_hamiltonian_cycles(graph, vertices, hamiltonian_cycles);
+        g_array_free(hamiltonian_cycles, TRUE);
+        return count > 0;
+    }
 
-        if (depth == context->vertices) {
-            if (context->graph_interface->get_edge(graph, node, 
-                GPOINTER_TO_INT(g_hash_table_lookup(visited, GINT_TO_POINTER(0)))) == 0) {
-                (*lacking_edges)++;
-            }
-            if (*lacking_edges < min_edges_needed) {
-                min_edges_needed = *lacking_edges;
-            }
-        } else {
-            for (int i = 0; i < context->vertices; i++) {
-                if (context->graph_interface->get_edge(graph, node, i) > 0 &&
-                    !g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
-                    dfs(i, visited, depth + 1, lacking_edges);
+    void explore_extensions(void *graph, int added_edges) {
+        if (added_edges >= min_edges_needed) {
+            return;
+        }
+
+        if (has_hamiltonian_cycle(graph, vertices)) {
+            min_edges_needed = added_edges;
+            return;
+        }
+
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (i != j && context->graph_interface->get_edge(graph, i, j) == 0) {
+                    context->graph_interface->add_edge(graph, i, j, 1);
+
+                    explore_extensions(graph, added_edges + 1);
+
+                    context->graph_interface->add_edge(graph, i, j, -1);
                 }
             }
         }
-
-        g_hash_table_remove(visited, GINT_TO_POINTER(node));
     }
 
-    for (int i = 0; i < context->vertices; i++) {
-        GHashTable *visited = g_hash_table_new(g_direct_hash, g_direct_equal);
-        int lacking_edges = 0;
-        dfs(i, visited, 1, &lacking_edges);
-        g_hash_table_destroy(visited);
-    }
+    explore_extensions(graph, 0);
 
     destroy_context(context);
-    return min_edges_needed;
+    return min_edges_needed == INT_MAX ? 0 : min_edges_needed;
 }
 
 static int count_maximal_cycles(void *graph, int vertices) {
