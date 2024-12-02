@@ -4,52 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-int comp(size_t a, size_t b) {
-    return (a < b) ? -1 : ((a > b) ? 1 : 0);
-}
-
-typedef struct Node_ {
-    struct Node_* prev;
-    struct Node_* next;
-    size_t data;
-} ListNode;
-
-typedef struct Vector_ {
-    void* data;
-    size_t size;
-} Vector;
-
-int il_push(ListNode** top, size_t data) {
-    ListNode* p = malloc(sizeof(ListNode));
-    if (!p) return 0;
-    p->data = data;
-    p->next = NULL;
-    p->prev = *top;
-    p->prev->next = p;
-    *top = p;
-    return 1;
-}
-
-void il_pop(ListNode** top) {
-    ListNode* prev = (*top)->prev;
-    free(*top);
-    *top = prev;
-}
-
-void il_free(ListNode* top) {
-    while (top) {
-        ListNode* prev = top->prev;
-        free(top);
-        top = prev;
-    }
-}
-
-void vector_bulk_free(Vector* arr, int n) {
-    for (int i = 0; i < n; ++i) {
-        free(arr[i].data);
-    }
-}
-
 int exists(int* arr, int n, int v) {
     while (n) {
         if (arr[--n] == v)
@@ -119,7 +73,7 @@ int ecs_findCycles(ElementaryCyclesSearch* e, int v, int s, int* adjMatrix) {
         if (!ww) continue;
 
         if (w == s) {
-            if (n == e->max_cycle_size) {
+            if (e->stack_n >= e->max_cycle_size) {
                 if (e->stack_n > e->max_cycle_size) {
                     e->cycle_count = 0;
                     e->max_cycle_size = e->stack_n;
@@ -136,6 +90,7 @@ int ecs_findCycles(ElementaryCyclesSearch* e, int v, int s, int* adjMatrix) {
                         found_cycle = 0;
                         break;
                     }
+                    prev = *now;
                 }
 
                 if (curr_min_width > e->max_cycle_width) {
@@ -177,8 +132,8 @@ int ecs_findCycles(ElementaryCyclesSearch* e, int v, int s, int* adjMatrix) {
 void ecs_getElementaryCycles(ElementaryCyclesSearch* e) {
     e->blocked = calloc(e->n, sizeof(int));
     e->B = malloc(e->n*e->n * sizeof(int));
-    e->B_n = calloc(e->n, sizeof(int));
-    e->stack = malloc(e->n * sizeof(int));
+    e->B_n = calloc(e->n, sizeof(size_t));
+    e->stack = malloc((e->n+1) * sizeof(int));
     ecs_findCycles(e, 0, 0, e->adjMatrix);
 }
 
@@ -209,9 +164,10 @@ void mxs_init(MinExtensionSearch* e, int n, int* adjMatrix) {
     e->n = n;
     e->blocked = calloc(e->n, sizeof(int));
     e->B = malloc(e->n*e->n * sizeof(int));
-    e->B_n = calloc(e->n, sizeof(int));
-    e->stack = malloc(e->n * sizeof(int));
+    e->B_n = calloc(e->n, sizeof(size_t));
+    e->stack = malloc((e->n+1) * sizeof(int));
     e->adjMatrixExtended = malloc(e->n*e->n*sizeof(int));
+    e->min_nr_lacking = n*n;
 }
 
 int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int second_stage) {
@@ -257,6 +213,9 @@ int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int seco
                 ElementaryCyclesSearch hamSearch;
                 ecs_init(&hamSearch, n, e->adjMatrixExtended);
                 ecs_getElementaryCycles(&hamSearch);
+                
+                //printf("Ham cycle nr: %d\n", hamSearch.cycle_count);
+
                 if (hamSearch.cycle_count >= e->max_nr_ham_cycles) {
                     if (hamSearch.cycle_count > e->max_nr_ham_cycles) {
                         e->cycle_count = 0;
@@ -289,6 +248,10 @@ int mxs_findCycles(MinExtensionSearch* e, int v, int s, int* adjMatrix, int seco
                 ++e->B_n[w];
             }
         }
+    }
+
+    if (e->stack_n > 1 && !adjMatrix[prev_stack_back*n + e->stack[e->stack_n-1]]) {
+        --e->nr_lacking;
     }
 
     //erase(e->stack, e->stack_n, v);

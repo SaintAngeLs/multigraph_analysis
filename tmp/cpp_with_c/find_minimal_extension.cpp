@@ -22,7 +22,6 @@
 struct ElementaryCyclesSearch {
     int cycle_count = 0;
     std::vector<std::vector<int>> adjMatrix;
-    std::vector<int> graphNodes;
     std::vector<bool> blocked;
     std::vector<std::vector<int>> B;
     std::list<int> stack;
@@ -30,13 +29,8 @@ struct ElementaryCyclesSearch {
     int max_cycle_size = 0;
     int max_cycle_width = 0;
 
-    explicit ElementaryCyclesSearch(const std::vector<std::vector<int>>& matrix) :
-        graphNodes(matrix.size()) {
-       
+    explicit ElementaryCyclesSearch(const std::vector<std::vector<int>>& matrix) {
         adjMatrix = matrix;
-        for (int i = 0; i < matrix.size(); ++i) {
-            graphNodes[i] = i;
-        }
     }
 
     void getElementaryCycles() {
@@ -162,6 +156,8 @@ struct MinExtensionSearch {
 
         stack.push_back(v);
         blocked[v] = true;
+
+        //std::cout << stack.size() << std::endl ;
 
         for (int w = 0; w < n; ++w) {
             // force the algorithm to process full cycles
