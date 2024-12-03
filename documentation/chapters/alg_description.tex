@@ -49,7 +49,7 @@ Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku mult
 
 \subsection{Algorytm liczenia cykli Hamiltona}
 \begin{algorithm}[H]
-\caption{Liczenie cykli Hamiltona w multigrafie}
+\caption{Liczenie cykli Hamiltona w multigrafie}\label{alg:count_hamiltonian_cycles}
 \begin{algorithmic}[1]
 \Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
 \Ensure Liczba cykli Hamiltona
@@ -181,4 +181,4 @@ Złożoność algorytmu obliczania metryki dla grafów \(G = (V_G, E_G) \) oraz 
 \end{algorithmic}
 \end{algorithm}
 
-Złożoność algorytmu analogicznie do algorytmu~\ref{alg:find_cycles} wynosi  \( O(V(V + E)) \) lub \( O(V^3) \) dla multigrafów o mniejszej liczbie krawędzi niż wierzchołków.
+Złożoność algorytmu wynosi \( O(2^m \cdot n!) \), gdzie \( n \) to liczba wierzchołków, a \(m = {n\choose 2} - \left| E \right|\). Wynika to z tego, że tworzymy grafy poprzez dodanie jeszcze nie istniejących krawędzi, i dla każdego takiego grafu wykonujemy algorytm ~\ref{alg:count_hamiltonian_cycles}.
