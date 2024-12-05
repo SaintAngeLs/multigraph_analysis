@@ -1,0 +1,207 @@
+\section{Przykłady działania programu}
+
+\noindent \textbf{Przykład 1: Multigraf bez pętli i z cyklem Hamiltona} \\
+
+\noindent \textbf{Argumenty wejściowe:}
+\begin{itemize}
+    \item Liczba grafów: \(1\)
+    \item Liczba wierzchołków w grafie: \(3\)
+    \item Macierz sąsiedztwa:
+    \[
+    A = \begin{bmatrix}
+    0 & 2 & 1 \\
+    2 & 0 & 1 \\
+    1 & 1 & 0 \\
+    \end{bmatrix}
+    \]
+    gdzie \(A[i][j]\) oznacza liczbę krawędzi pomiędzy wierzchołkiem \(i\) a \(j\).
+\end{itemize}
+
+\noindent \textbf{Wynik:}
+\begin{itemize}
+    \item Rozmiar grafu (liczba krawędzi): \(4\)
+    \item Wszystkie cykle: \(0 \to 1 \to 2 \to 0\)
+    \item Cykl Hamiltona: Tak (\(0 \to 1 \to 2 \to 0\))
+    \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
+    \item Maksymalna długość cyklu: \(3\)
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Przykład 2: Multigraf z pętlami i cyklami różnej długości} \\
+
+\noindent \textbf{Argumenty wejściowe:}
+\begin{itemize}
+    \item Liczba grafów: \(2\)
+    \item Graf 1: \(3\) wierzchołki, macierz sąsiedztwa:
+    \[
+    A_1 = \begin{bmatrix}
+    0 & 1 & 1 \\
+    1 & 0 & 0 \\
+    1 & 0 & 0 \\
+    \end{bmatrix}
+    \]
+    \item Graf 2: \(4\) wierzchołki, macierz sąsiedztwa:
+    \[
+    A_2 = \begin{bmatrix}
+    0 & 2 & 0 & 1 \\
+    2 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 1 \\
+    1 & 0 & 1 & 0 \\
+    \end{bmatrix}
+    \]
+\end{itemize}
+
+\noindent \textbf{Wynik:}
+\begin{itemize}
+    \item \textbf{Graf 1:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(2\)
+        \item Wszystkie cykle: Brak
+        \item Cykl Hamiltona: Nie
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(1\)
+        \item Maksymalna długość cyklu: \(2\)
+    \end{itemize}
+    \item \textbf{Graf 2:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(5\)
+        \item Wszystkie cykle: \(0 \to 1 \to 2 \to 3 \to 0\)
+        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 2 \to 3 \to 0\))
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
+        \item Maksymalna długość cyklu: \(4\)
+    \end{itemize}
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(1.167\)
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Przykład 3: Minimalne rozszerzenie dla cyklu Hamiltona} \\
+
+\noindent \textbf{Argumenty wejściowe:}
+\begin{itemize}
+    \item Liczba grafów: \(3\)
+    \item Graf 1: \(3\) wierzchołki, macierz sąsiedztwa:
+    \[
+    A_1 = \begin{bmatrix}
+    0 & 2 & 1 \\
+    2 & 0 & 1 \\
+    1 & 1 & 0 \\
+    \end{bmatrix}
+    \]
+    \item Graf 2: \(4\) wierzchołki, macierz sąsiedztwa:
+    \[
+    A_2 = \begin{bmatrix}
+    0 & 3 & 1 & 0 \\
+    3 & 0 & 0 & 2 \\
+    1 & 0 & 0 & 1 \\
+    0 & 2 & 1 & 0 \\
+    \end{bmatrix}
+    \]
+    \item Graf 3: \(4\) wierzchołki, macierz sąsiedztwa:
+    \[
+    A_3 = \begin{bmatrix}
+    0 & 2 & 0 & 0 \\
+    2 & 0 & 1 & 2 \\
+    0 & 1 & 0 & 1 \\
+    0 & 2 & 1 & 0 \\
+    \end{bmatrix}
+    \]
+\end{itemize}
+
+\noindent \textbf{Wynik:}
+\begin{itemize}
+    \item \textbf{Graf 1:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(4\)
+        \item Wszystkie cykle: \(0 \to 1 \to 2 \to 0\)
+        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 2 \to 0\))
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
+        \item Maksymalna długość cyklu: \(3\)
+    \end{itemize}
+    \item \textbf{Graf 2:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(7\)
+        \item Wszystkie cykle: \(0 \to 1 \to 3 \to 2 \to 0\)
+        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 3 \to 2 \to 0\))
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
+        \item Maksymalna długość cyklu: \(4\)
+    \end{itemize}
+    \item \textbf{Graf 3:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(6\)
+        \item Wszystkie cykle: \(1 \to 2 \to 3 \to 1\)
+        \item Cykl Hamiltona: Nie
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(1\)
+        \item Maksymalna długość cyklu: \(3\)
+    \end{itemize}
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(0.833\)
+    \item Metryka podobieństwa pomiędzy grafem 2 i grafem 3: \(0.500\)
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Przykład 4: Metryka w przestrzeni multigrafów} \\
+
+\noindent \textbf{Argumenty wejściowe:}
+\begin{itemize}
+    \item Liczba grafów: \(3\)
+    \item Graf 1: \(3\) wierzchołki, macierz sąsiedztwa:
+    \[
+    A_1 = \begin{bmatrix}
+    0 & 0 & 0 \\
+    0 & 0 & 0 \\
+    0 & 0 & 0 \\
+    \end{bmatrix}
+    \]
+    \item Graf 2: \(2\) wierzchołki, macierz sąsiedztwa:
+    \[
+    A_2 = \begin{bmatrix}
+    0 & 1 \\
+    1 & 0 \\
+    \end{bmatrix}
+    \]
+    \item Graf 3: \(5\) wierzchołków, macierz sąsiedztwa:
+    \[
+    A_3 = \begin{bmatrix}
+    0 & 1 & 1 & 1 & 0 \\
+    1 & 0 & 0 & 2 & 1 \\
+    1 & 0 & 0 & 0 & 1 \\
+    1 & 2 & 0 & 0 & 1 \\
+    0 & 1 & 1 & 1 & 0 \\
+    \end{bmatrix}
+    \]
+\end{itemize}
+
+\noindent \textbf{Wynik:}
+\begin{itemize}
+    \item \textbf{Graf 1:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(0\)
+        \item Wszystkie cykle: Brak
+        \item Cykl Hamiltona: Nie
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(3\)
+        \item Maksymalna długość cyklu: \(0\)
+    \end{itemize}
+    \item \textbf{Graf 2:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(1\)
+        \item Wszystkie cykle: Brak
+        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 0\))
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
+        \item Maksymalna długość cyklu: \(2\)
+    \end{itemize}
+    \item \textbf{Graf 3:}
+    \begin{itemize}
+        \item Rozmiar grafu: \(8\)
+        \item Wszystkie cykle: \(6\)
+        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 3 \to 4 \to 2 \to 0\))
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
+        \item Maksymalna długość cyklu: \(5\)
+    \end{itemize}
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(1.000\)
+    \item Metryka podobieństwa pomiędzy grafem 2 i grafem 3: \(2.200\)
+\end{itemize}
+
+
+
+

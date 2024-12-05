@@ -1,0 +1,135 @@
+\section{Instrukcja obsługi}
+
+\subsection{Struktura projektu}
+
+Projekt składa się z kilku kluczowych katalogów i plików:
+
+\begin{itemize}
+    \item \textbf{src/} - Katalog zawierający kody źródłowe programu głównego.
+    \item \textbf{data/} - Przykładowe pliki wejściowe z danymi grafów.
+    \item \textbf{results/} - Katalog, w którym zapisywane są wyniki analizy grafów.
+    \item \textbf{documentation/} - Pliki dokumentacji projektu, w tym opis algorytmów, dowody i przykłady użycia.
+    \item \textbf{graph\_gen} - Program generujący przykładowe grafy o różnych strukturach.
+    \item \textbf{Makefile} - Plik automatyzujący kompilację projektu.
+    \item \textbf{test/} - Testy projektu wraz ze skryptem \texttt{test\_runner.sh} do uruchamiania testów automatycznych.
+\end{itemize}
+
+\subsection{Kompilacja projektu}
+
+Do kompilacji programu i generatora grafów należy użyć polecenia:
+
+\begin{verbatim}
+make all
+\end{verbatim}
+
+Po zakończeniu kompilacji zostaną utworzone dwa pliki wykonywalne:
+\begin{itemize}
+    \item \texttt{multigraph\_analysis.exe} - Program główny do analizy grafów.
+    \item \texttt{graph\_gen.exe} - Program do generowania przykładowych grafów.
+\end{itemize}
+
+\subsection{Uruchamianie programu głównego}
+
+Program główny \texttt{multigraph\_analysis.exe} wymaga pliku wejściowego z opisem grafów. Plik wejściowy powinien mieć format:
+
+\begin{verbatim}
+<number_of_graphs>
+<number_of_vertices_for_graph_1>
+<adjacency_matrix_for_graph_1>
+<number_of_vertices_for_graph_2>
+<adjacency_matrix_for_graph_2>
+...
+\end{verbatim}
+
+Przykład pliku wejściowego:
+\begin{verbatim}
+2
+3
+0 1 1
+1 0 1
+1 1 0
+4
+0 2 0 1
+2 0 1 0
+0 1 0 1
+1 0 1 0
+\end{verbatim}
+
+Uruchomienie programu:
+\begin{verbatim}
+./multigraph_analysis.exe <input_file>
+\end{verbatim}
+
+Przykład:
+\begin{verbatim}
+./multigraph_analysis.exe data/input.txt
+\end{verbatim}
+
+Program przyjmuje jedynie jeden argument, jednak obsługuje wiele grafów w jednym pliku wejściowym. W celu obliczenia metryki pomiędzy grafami, należy umieścić je w jednym pliku, jeden pod drugim. Wyniki analizy grafów zostaną wyświetlone w terminalu i mogą być przekierowane do pliku wyjściowego.
+
+\subsection{Opis funkcji programu głównego}
+
+\begin{itemize}
+    \item \texttt{handle\_arguments(int argc, char *argv[], Config *config)} - Przetwarza argumenty wiersza poleceń. Oczekuje podania pliku wejściowego.
+    \item \texttt{open\_file\_with\_retry(const char *filename)} - Otwiera plik wejściowy z danymi grafów, obsługując ponowne próby w przypadku zakłóceń systemowych.
+    \item \texttt{print\_cycles(GArray *output\_cycles)} - Wyświetla cykle znalezione w grafie.
+    \item \texttt{analyze\_multigraph(GraphInterface *multigraph)} - Wykonuje analizę pojedynczego grafu, w tym:
+    \begin{itemize}
+        \item Liczenie rozmiaru grafu.
+        \item Znajdowanie wszystkich cykli.
+        \item Znajdowanie cykli Hamiltona.
+        \item Obliczanie minimalnego rozszerzenia dla cyklu Hamiltona.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Uruchamianie generatora grafów}
+
+Program \texttt{graph\_gen.exe} pozwala generować grafy o różnej strukturze. Wywołanie:
+\begin{verbatim}
+./graph_gen.exe <graph_type> <num_graphs> <vertices> <max_weight> <output_file>
+<extra_parameter>
+\end{verbatim}
+
+\begin{itemize}
+    \item \texttt{<graph\_type>} - Typ grafu:
+    \begin{itemize}
+        \item \texttt{complete} - Pełny graf skierowany.
+        \item \texttt{sparse} - Rzadki graf skierowany.
+        \item \texttt{bipartite} - Dwudzielny graf skierowany.
+    \end{itemize}
+    \item \texttt{<num\_graphs>} - Liczba grafów do wygenerowania.
+    \item \texttt{<vertices>} - Liczba wierzchołków.
+    \item \texttt{<max\_weight>} - Maksymalna waga krawędzi.
+    \item \texttt{<output\_file>} - Nazwa pliku wyjściowego.
+    \item \texttt{<extra\_parameter>} - Dodatkowy parametr:
+    \begin{itemize}
+        \item Dla \texttt{sparse}: Prawdopodobieństwo krawędzi (\texttt{$0.0 < p \leq 1.0$}).
+        \item Dla \texttt{complete} i \texttt{bipartite}: Maksymalna liczba krawędzi między parami wierzchołków.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Przykłady użycia generatora grafów}
+
+\textbf{Generowanie pełnego grafu:}
+\begin{verbatim}
+./graph_gen.exe complete 1 5 10 data/complete_graph.txt 3
+\end{verbatim}
+
+\textbf{Generowanie rzadkiego grafu:}
+\begin{verbatim}
+./graph_gen.exe sparse 1 5 10 data/sparse_graph.txt 0.2
+\end{verbatim}
+
+\textbf{Generowanie grafu dwudzielnego:}
+\begin{verbatim}
+./graph_gen.exe bipartite 1 10 10 data/bipartite_graph.txt 3
+\end{verbatim}
+
+\subsection{Uruchamianie testów}
+
+Testy można uruchomić za pomocą skryptu \texttt{test\_runner.sh}:
+\begin{verbatim}
+bash test/test_runner.sh
+\end{verbatim}
+
+Skrypt wykonuje analizę predefiniowanych przypadków testowych oraz generuje dodatkowe testy za pomocą programu \texttt{graph\_gen.exe}. Wyniki testów są zapisywane w katalogu \texttt{results/}.

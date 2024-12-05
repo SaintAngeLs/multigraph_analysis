@@ -1,0 +1,74 @@
+\section{Definicje}
+
+\noindent \textbf{Definicja 1: Multigraf.} \\
+\emph{Multigraf} to uporządkowana para \( G = (V, E) \), gdzie:
+\begin{itemize}
+    \item \( V \) jest skończonym zbiorem wierzchołków,
+    \item \( E \) jest multizbiorem krawędzi, z których każda łączy parę wierzchołków z \( V \). Krawędzie mogą się powtarzać, co oznacza możliwość występowania wielokrotnych krawędzi między tą samą parą wierzchołków. Nie rozważamy krawędzi w postaci pętli tj. krawędzie \( (v, v) \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 2: Rozmiar multigrafu.} \\
+Rozmiar multigrafu \( G = (V, E) \), oznaczany \( |E| \), to całkowita liczba krawędzi w multigrafie, uwzględniająca wszystkie wielokrotne krawędzie. Formalnie:
+\[
+|E| = \sum_{(u, v) \in V \times V} \text{Liczność}((u, v), E),
+\]
+gdzie \( \text{Liczność}((u, v), E) \) to liczba wystąpień krawędzi \( (u, v) \) w \( E \).
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 3: Cykl w multigrafie.} \\
+\emph{Cykl} w multigrafie \( G = (V, E) \) to ciąg wierzchołków \( v_1, v_2, \dots, v_k, v_1 \), spełniający następujące warunki:
+\begin{itemize}
+    \item \( v_i \in V \) dla \( i = 1, 2, \dots, k \),
+    \item \( (v_i, v_{i+1}) \in E \) dla \( i = 1, 2, \dots, k-1 \), oraz \( (v_k, v_1) \in E \),
+    \item \( v_i \neq v_j \) dla \( 1 \leq i < j \leq k \), z wyjątkiem \( v_1 = v_k \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 4: Maksymalny cykl w multigrafie.} \\
+\emph{Maksymalny cykl} w multigrafie \( G \) to cykl, który zawiera największą liczbę wierzchołków spośród wszystkich cykli w \( G \).
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 5: Cykl Hamiltona.} \\
+\emph{Cykl Hamiltona} w multigrafie \( G = (V, E) \) to cykl, który odwiedza każdy wierzchołek z \( V \) dokładnie raz i powraca do wierzchołka początkowego. Formalnie, jest to ciąg \( v_1, v_2, \dots, v_{|V|}, v_1 \), taki że:
+\begin{itemize}
+    \item \( v_i \in V \) dla \( i = 1, 2, \dots, |V| \),
+    \item \( (v_i, v_{i+1}) \in E \) dla \( i = 1, 2, \dots, |V|-1 \), oraz \( (v_{|V|}, v_1) \in E \),
+    \item \( v_i \neq v_j \) dla \( 1 \leq i < j \leq |V| \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 6: Minimalne rozszerzenie multigrafu.} \\
+\emph{Minimalne rozszerzenie multigrafu} \( G = (V, E) \) to najmniejsza liczba krawędzi, które należy dodać do \( G \), aby istniał w nim cykl Hamiltona.
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 7: Metryka w przestrzeni multigrafów.} \\
+Niech $G_1$ i $G_2$ będą dwoma multigrafami o rozkładzie stopni wierzchołków $D_1$ i $D_2$. Rozkład stopni wierzchołków to funkcja:
+\begin{align*}
+    D_i = \frac{\text{Liczba wierzchołków o stopniu k w} \ G_i}{\text{Liczba wierzchołków w} \ G_i}.
+\end{align*}
+
+
+Metryka Earth Mover's Distance (EMD) pomiędzy $D_1$ i $D_2$ to minimalny koszt przekształcenia $D_1$ w $D_2$, gdzie koszt przekształcenia stopnia $d_i$ w $d_j$ wynosi $|d_i - d_j|$. Metryka EMD pomiędzy $D_1$ i $D_2$ to suma kosztów przekształceń dla wszystkich par stopni wierzchołków:
+\[
+    EMD(D_1, D_2) = \min_{F} \sum_{k_1} \sum_{k_2} F(k_1, k_2) \cdot |k_1 - k_2|,
+\]
+gdzie:
+\begin{itemize}
+    \item $F(k_1, k_2)$ reprezentuje \textit{przepływ} masy prawdopodobieństwa z stopnia $k_1$ w $D_1$ do stopnia $k_2$ w $D_2$.
+    \item $|k_1 - k_2|$ jest kosztem (lub odległością) przeniesienia jednej jednostki masy prawdopodobieństwa z $k_1$ do $k_2$.
+    \item $\sum_{k_2} F(k_1, k_2) \leq D_1(k_1)$, dla każdego $k_1$: Przepływ z stopnia $k_1$ in $D_1$ nie może przekroczyć prawdopodobieństwa w $k_1$.
+    \item $\sum_{k_1} F(k_1, k_2) \leq D_2(k_2)$, dla każdego $k_2$: Przepływ do stopnia $k_2$ in $D_2$ nie może przekroczyć prawdopodobieństwa w $k_2$.
+    \item $\sum_{k_1} \sum_{k_2} F(k_1, k_2) = \min\left(\sum_{k_1} D_1(k_1), \sum_{k_2} D_2(k_2)\right)$
+\end{itemize}
+
+Metryką w przestrzeni multigrafów nazwiemy odległość EMD pomiędzy rozkładami stopni wierzchołków dwóch multigrafów.
+
+\vspace{1em}
+
