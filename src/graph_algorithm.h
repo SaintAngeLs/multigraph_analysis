@@ -1,8 +1,11 @@
 #ifndef GRAPH_ALGORITHM_H
 #define GRAPH_ALGORITHM_H
 
+#include <stdio.h>
 #include <glib.h>
 #include "graph_interface.h"
+#include <stdbool.h>
+#include <stdlib.h>
 
 
 typedef struct {
