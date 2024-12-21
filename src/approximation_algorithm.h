@@ -8,13 +8,17 @@
 #include <math.h>
 #include "graph_algorithm.h"
 
-// #include <glib.h>
 
 int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles);
+
 int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cycles);
+
 double approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2);
+
 int approximate_find_minimal_extension(void *graph, int vertices);
+
 int approximate_count_maximal_cycles(void *graph, int vertices);
+
 int approximate_find_maximal_cycles(void *graph, int vertices, GArray *output_cycles);
 
 #endif // APPROXIMATION_ALGORITHM_H

@@ -1,13 +1,5 @@
-#include <stdio.h>
-#include <glib.h>
-#include <stdbool.h>
-#include <limits.h>
-#include <math.h>
 #include "graph_algorithm.h"
-#include "graph_interface.h"
-#include "approximation_algorithm.h"
 
-#define THRESHOLD 10 
 
 GraphAlgorithmContext* create_context(void *graph, int vertices) {
     GraphAlgorithmContext *context = malloc(sizeof(GraphAlgorithmContext));
@@ -23,7 +15,6 @@ void destroy_context(GraphAlgorithmContext *context) {
 int int_cmp(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
-
 
 static int calculate_size(void *graph) {
     if (!graph) {
@@ -142,8 +133,6 @@ static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
 //     destroy_context(context);
 //     return approximate_cycle_count;
 // }
-
-
 
 static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cycles) {
     if (vertices >= THRESHOLD) {
@@ -374,7 +363,6 @@ static double calculate_metric(void *graph_1, int vertices_1, void *graph_2, int
 //     return fabs(avg_degree_1 - avg_degree_2);
 // }
 
-
 static int find_minimal_extension(void *graph, int vertices) {
     if (vertices >= THRESHOLD) {
         return approximate_find_minimal_extension(graph, vertices);
@@ -437,7 +425,6 @@ static int find_minimal_extension(void *graph, int vertices) {
 //     destroy_context(context);
 //     return edge_additions;
 // }
-
 
 static int count_maximal_cycles(void *graph, int vertices) {
     if (vertices >= THRESHOLD) {
@@ -505,7 +492,6 @@ static int count_maximal_cycles(void *graph, int vertices) {
 //     destroy_context(context);
 //     return approximate_max_cycle_length;
 // }
-
 
 static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles) {
     if (vertices >= THRESHOLD) {
@@ -614,7 +600,6 @@ static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles)
 //     destroy_context(context);
 //     return approximate_max_cycle_length;
 // }
-
 
 GraphAlgorithm default_algorithm = {
     .calculate_size = calculate_size,

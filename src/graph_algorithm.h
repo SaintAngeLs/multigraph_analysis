@@ -3,10 +3,13 @@
 
 #include <stdio.h>
 #include <glib.h>
-#include "graph_interface.h"
 #include <stdbool.h>
-#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+#include "graph_interface.h"
+#include "approximation_algorithm.h"
 
+#define THRESHOLD 10 // Threshold for switching to approximate algorithms
 
 typedef struct {
 

@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+
+#include "utils.h"
 #include "graph.h"
 #include "graph_interface.h"
-#include "utils.h"
 
 
 Graph* create_graph(int vertices) {

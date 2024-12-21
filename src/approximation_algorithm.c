@@ -1,5 +1,5 @@
-
 #include "approximation_algorithm.h"
+
 
 int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
