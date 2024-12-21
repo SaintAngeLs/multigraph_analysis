@@ -9,4 +9,4 @@ typedef enum { SIMPLE_GRAPH, MULTIGRAPH } GraphType;
 
 GraphInterface* create_graph_with_type(GraphType type, int vertices);
 
-#endif
+#endif // GRAPH_FACTORY_H

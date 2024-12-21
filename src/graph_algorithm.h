@@ -43,4 +43,4 @@ typedef struct {
 
 extern GraphAlgorithm default_algorithm;
 
-#endif
+#endif // GRAPH_ALGORITHM_H

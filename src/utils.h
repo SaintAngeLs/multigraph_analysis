@@ -11,4 +11,4 @@ void free_matrix(int **matrix, int size);
 
 GraphInterface* load_multigraph_from_file(const char *filename);
 
-#endif
+#endif // UTILS_H

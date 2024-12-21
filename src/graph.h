@@ -37,4 +37,4 @@ void destroy_graph(Graph *graph);
 
 GraphInterface* create_multigraph(int vertices);
 
-#endif
+#endif // GRAPH_H
