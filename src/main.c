@@ -88,7 +88,7 @@ void cleanup_resources(GraphInterface *multigraph) {
     }
 }
 
-void process_multigraphs(const char* file_name) {
+void process_multigraphs(const char* file_name, GArray* multigraphs_to_compare) {
     FILE *file = open_file_with_retry(file_name);
     static int file_counter = 0;
     printf("Processing file %d: %s\n", ++file_counter, file_name);
@@ -109,6 +109,10 @@ void process_multigraphs(const char* file_name) {
             continue;
         }
 
+        if(i == 0){
+            g_array_append_val(multigraphs_to_compare, multigraph);
+        }
+
         for (int j = 0; j < vertices; j++) {
             for (int k = 0; k < vertices; k++) {
                 int weight;
@@ -125,14 +129,31 @@ void process_multigraphs(const char* file_name) {
     fclose(file);
 }
 
+void process_metrics(GraphInterface* multigraph_1, GraphInterface* multigraph_2){
+    printf("Comparing graphs:\n");
+    printf("------------------------------------------------\n");
+
+    printf("First graph with '%d' vertices and '%d' edges\n", multigraph_1->vertices, multigraph_1->calculate_size(multigraph_1));
+    printf("Second graph with '%d' vertices and '%d' edges\n", multigraph_2->vertices, multigraph_2->calculate_size(multigraph_2));
+
+    double metric = default_algorithm.calculate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices);
+    printf("Graph similarity metric between graphs: %.3f\n",metric);
+
+    printf("------------------------------------------------\n\n");
+}
+
 int main(int argc, char *argv[]) {
     Config *config = get_config();
     handle_arguments(argc, argv, config);
 
-    process_multigraphs(config->input_file);
+    GArray *multigraphs_to_compare = g_array_new(FALSE, FALSE, sizeof(GraphInterface *));
+
+    process_multigraphs(config->input_file, multigraphs_to_compare);
     if(config->metric_optional_file){
-        process_multigraphs(config->metric_optional_file);
+        process_multigraphs(config->metric_optional_file, multigraphs_to_compare);
+        process_metrics(g_array_index(multigraphs_to_compare, GraphInterface *, 0), g_array_index(multigraphs_to_compare, GraphInterface *, 1));
     }
 
+    g_array_free(multigraphs_to_compare, TRUE);
     return EXIT_SUCCESS;
 }
