@@ -42,13 +42,31 @@ TEST_CASES=(
     "multiple_graphs_case5.txt"
     "multiple_graphs_case6.txt"
     "multiple_graphs_case7.txt"
-    "metric.txt"
+)
+
+METRIC_PAIR_CASES=(
+    "metric_1.txt"
+    "metric_2.txt"
 )
 
 echo "Running predefined test cases..."
-for ((i=0; i<${#TEST_CASES[@]}-1; i+=2)); do
-    TEST_FILE_1="${TEST_CASES[$i]}"
-    TEST_FILE_2="${TEST_CASES[$i+1]}"
+for TEST_FILE in "${TEST_CASES[@]}"; do
+    INPUT_FILE="$DATA_DIR/$TEST_FILE"
+    OUTPUT_FILE="$RESULTS_DIR/${TEST_FILE%.txt}_output.txt"
+
+    if [[ -f $INPUT_FILE ]]; then
+        echo "Processing $INPUT_FILE..."
+        $EXECUTABLE $INPUT_FILE > $OUTPUT_FILE
+        echo "Results saved to $OUTPUT_FILE"
+    else
+        echo "Test file $INPUT_FILE not found, skipping."
+    fi
+done
+
+echo "Running predefined metric cases..."
+for ((i=0; i<${#METRIC_PAIR_CASES[@]}-1; i+=2)); do
+    TEST_FILE_1="${METRIC_PAIR_CASES[$i]}"
+    TEST_FILE_2="${METRIC_PAIR_CASES[$i+1]}"
 
     INPUT_FILE_1="$DATA_DIR/$TEST_FILE_1"
     INPUT_FILE_2="$DATA_DIR/$TEST_FILE_2"
