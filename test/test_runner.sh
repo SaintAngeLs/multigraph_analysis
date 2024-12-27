@@ -46,16 +46,25 @@ TEST_CASES=(
 )
 
 echo "Running predefined test cases..."
-for TEST_FILE in "${TEST_CASES[@]}"; do
-    INPUT_FILE="$DATA_DIR/$TEST_FILE"
-    OUTPUT_FILE="$RESULTS_DIR/${TEST_FILE%.txt}_output.txt"
+for ((i=0; i<${#TEST_CASES[@]}-1; i+=2)); do
+    TEST_FILE_1="${TEST_CASES[$i]}"
+    TEST_FILE_2="${TEST_CASES[$i+1]}"
 
-    if [[ -f $INPUT_FILE ]]; then
-        echo "Processing $INPUT_FILE..."
-        $EXECUTABLE $INPUT_FILE > $OUTPUT_FILE
+    INPUT_FILE_1="$DATA_DIR/$TEST_FILE_1"
+    INPUT_FILE_2="$DATA_DIR/$TEST_FILE_2"
+    OUTPUT_FILE="$RESULTS_DIR/${TEST_FILE_1%.txt}_${TEST_FILE_2%.txt}_output.txt"
+
+    if [[ -f $INPUT_FILE_1 && -f $INPUT_FILE_2 ]]; then
+        echo "Processing $INPUT_FILE_1 and $INPUT_FILE_2..."
+        $EXECUTABLE $INPUT_FILE_1 $INPUT_FILE_2 > $OUTPUT_FILE
         echo "Results saved to $OUTPUT_FILE"
     else
-        echo "Test file $INPUT_FILE not found, skipping."
+        if [[ ! -f $INPUT_FILE_1 ]]; then
+            echo "Test file $INPUT_FILE_1 not found, skipping."
+        fi
+        if [[ ! -f $INPUT_FILE_2 ]]; then
+            echo "Test file $INPUT_FILE_2 not found, skipping."
+        fi
     fi
 done
 

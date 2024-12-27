@@ -90,6 +90,8 @@ void cleanup_resources(GraphInterface *multigraph) {
 
 void process_multigraphs(const char* file_name) {
     FILE *file = open_file_with_retry(file_name);
+    static int file_counter = 0;
+    printf("Processing file %d: %s\n", ++file_counter, file_name);
 
     int num_graphs;
     fscanf(file, "%d", &num_graphs);
@@ -128,6 +130,9 @@ int main(int argc, char *argv[]) {
     handle_arguments(argc, argv, config);
 
     process_multigraphs(config->input_file);
+    if(config->metric_optional_file){
+        process_multigraphs(config->metric_optional_file);
+    }
 
     return EXIT_SUCCESS;
 }
