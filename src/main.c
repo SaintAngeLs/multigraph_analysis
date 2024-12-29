@@ -13,6 +13,10 @@ void handle_arguments(int argc, char *argv[], Config *config) {
         exit(EXIT_FAILURE);
     }
     config->input_file = argv[1];
+
+    if(argc == 3){
+        config->metric_optional_file = argv[2];
+    }
 }
 
 FILE* open_file_with_retry(const char *filename) {
@@ -84,17 +88,14 @@ void cleanup_resources(GraphInterface *multigraph) {
     }
 }
 
-int main(int argc, char *argv[]) {
-    Config *config = get_config();
-    handle_arguments(argc, argv, config);
-
-    FILE *file = open_file_with_retry(config->input_file);
+void process_multigraphs(const char* file_name, GArray* multigraphs_to_compare) {
+    FILE *file = open_file_with_retry(file_name);
+    static int file_counter = 0;
+    printf("Processing file %d: %s\n", ++file_counter, file_name);
 
     int num_graphs;
     fscanf(file, "%d", &num_graphs);
     printf("Processing %d graphs.\n\n", num_graphs);
-
-    GArray *graphs = g_array_new(FALSE, FALSE, sizeof(GraphInterface *));
 
     for (int i = 0; i < num_graphs; i++) {
         printf("Graph %d:\n", i + 1);
@@ -108,33 +109,51 @@ int main(int argc, char *argv[]) {
             continue;
         }
 
+        if(i == 0){
+            g_array_append_val(multigraphs_to_compare, multigraph);
+        }
+
         for (int j = 0; j < vertices; j++) {
             for (int k = 0; k < vertices; k++) {
                 int weight;
                 fscanf(file, "%d", &weight);
-                if (weight > 0) { 
+                if (weight > 0) {
                     multigraph->add_edge(multigraph, j, k, weight);
                 }
             }
         }
 
-        g_array_append_val(graphs, multigraph);
         analyze_multigraph(multigraph);
     }
 
-    for (int i = 1; i < graphs->len; i++) {
-        GraphInterface *multigraph_1 = g_array_index(graphs, GraphInterface *, i-1);
-        GraphInterface *multigraph_2 = g_array_index(graphs, GraphInterface *, i);
-        double metric = default_algorithm.calculate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices);
-        printf("Graph similarity metric between graph %d and graph %d: %.3f\n", i, i+1, metric);
-    }
-
-    for (int i = 0; i < graphs->len; i++) {
-        GraphInterface *multigraph = g_array_index(graphs, GraphInterface *, i);
-        cleanup_resources(multigraph);
-    }
-    g_array_free(graphs, TRUE);
-
     fclose(file);
+}
+
+void process_metrics(GraphInterface* multigraph_1, GraphInterface* multigraph_2){
+    printf("Comparing graphs:\n");
+    printf("------------------------------------------------\n");
+
+    printf("First graph with '%d' vertices and '%d' edges\n", multigraph_1->vertices, multigraph_1->calculate_size(multigraph_1));
+    printf("Second graph with '%d' vertices and '%d' edges\n", multigraph_2->vertices, multigraph_2->calculate_size(multigraph_2));
+
+    double metric = default_algorithm.calculate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices);
+    printf("Graph similarity metric between graphs: %.3f\n",metric);
+
+    printf("------------------------------------------------\n\n");
+}
+
+int main(int argc, char *argv[]) {
+    Config *config = get_config();
+    handle_arguments(argc, argv, config);
+
+    GArray *multigraphs_to_compare = g_array_new(FALSE, FALSE, sizeof(GraphInterface *));
+
+    process_multigraphs(config->input_file, multigraphs_to_compare);
+    if(config->metric_optional_file){
+        process_multigraphs(config->metric_optional_file, multigraphs_to_compare);
+        process_metrics(g_array_index(multigraphs_to_compare, GraphInterface *, 0), g_array_index(multigraphs_to_compare, GraphInterface *, 1));
+    }
+
+    g_array_free(multigraphs_to_compare, TRUE);
     return EXIT_SUCCESS;
 }
