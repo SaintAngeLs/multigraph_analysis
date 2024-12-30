@@ -49,26 +49,18 @@ gdzie \( \text{Liczność}((u, v), E) \) to liczba wystąpień krawędzi \( (u, 
 \vspace{1em}
 
 \noindent \textbf{Definicja 7: Metryka w przestrzeni multigrafów.} \\
-Niech $G_1$ i $G_2$ będą dwoma multigrafami o rozkładzie stopni wierzchołków $D_1$ i $D_2$. Rozkład stopni wierzchołków to funkcja:
-\begin{align*}
-    D_i = \frac{\text{Liczba wierzchołków o stopniu k w} \ G_i}{\text{Liczba wierzchołków w} \ G_i}.
-\end{align*}
 
-
-Metryka Earth Mover's Distance (EMD) pomiędzy $D_1$ i $D_2$ to minimalny koszt przekształcenia $D_1$ w $D_2$, gdzie koszt przekształcenia stopnia $d_i$ w $d_j$ wynosi $|d_i - d_j|$. Metryka EMD pomiędzy $D_1$ i $D_2$ to suma kosztów przekształceń dla wszystkich par stopni wierzchołków:
-\[
-    EMD(D_1, D_2) = \min_{F} \sum_{k_1} \sum_{k_2} F(k_1, k_2) \cdot |k_1 - k_2|,
-\]
-gdzie:
+Metryką w przestrzeni multigrafów nazwiemy minimalną liczbą operacji potrzebnych do przekształcenia jednego grafu w drugi. Do operacji zaliczamy:
 \begin{itemize}
-    \item $F(k_1, k_2)$ reprezentuje \textit{przepływ} masy prawdopodobieństwa z stopnia $k_1$ w $D_1$ do stopnia $k_2$ w $D_2$.
-    \item $|k_1 - k_2|$ jest kosztem (lub odległością) przeniesienia jednej jednostki masy prawdopodobieństwa z $k_1$ do $k_2$.
-    \item $\sum_{k_2} F(k_1, k_2) \leq D_1(k_1)$, dla każdego $k_1$: Przepływ z stopnia $k_1$ in $D_1$ nie może przekroczyć prawdopodobieństwa w $k_1$.
-    \item $\sum_{k_1} F(k_1, k_2) \leq D_2(k_2)$, dla każdego $k_2$: Przepływ do stopnia $k_2$ in $D_2$ nie może przekroczyć prawdopodobieństwa w $k_2$.
-    \item $\sum_{k_1} \sum_{k_2} F(k_1, k_2) = \min\left(\sum_{k_1} D_1(k_1), \sum_{k_2} D_2(k_2)\right)$
+    \item dodanie krawędzi (również wielokrotnie),
+    \item usunięcie krawędzi,
+    \item dodanie wierzchołka.
+    \item usunięcie wierzchołka.
 \end{itemize}
-
-Metryką w przestrzeni multigrafów nazwiemy odległość EMD pomiędzy rozkładami stopni wierzchołków dwóch multigrafów.
+\[
+    d(G_1, G_2) = \min_{wszystkie \ sekwencje \ edycji} \sum_{operacje \ edycji \ grafu} f_{cost}(operacja),
+\]
+Przyjmujemy koszt wszystkich operacji edycji jako 1.
 
 \vspace{1em}
 
