@@ -33,7 +33,7 @@ typedef struct {
 
     int (*count_hamiltonian_cycles)(void *graph, int vertices, GArray *output_cycles);
 
-    double (*calculate_metric)(void *graph_1, int vertices_1, void *graph_2, int vertices_2);
+    int (*calculate_metric)(void *graph_1, int vertices_1, void *graph_2, int vertices_2);
 
     int (*find_minimal_extension)(void *graph, int vertices);
 

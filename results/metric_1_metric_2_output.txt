@@ -151,6 +151,6 @@ Comparing graphs:
 ------------------------------------------------
 First graph with '4' vertices and '4' edges
 Second graph with '3' vertices and '4' edges
-Graph similarity metric between graphs: 0.667
+Graph similarity metric between graphs: 5
 ------------------------------------------------
 
