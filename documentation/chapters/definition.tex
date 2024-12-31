@@ -54,13 +54,14 @@ Metryką w przestrzeni multigrafów nazwiemy minimalną liczbą operacji potrzeb
 \begin{itemize}
     \item dodanie krawędzi (również wielokrotnie),
     \item usunięcie krawędzi,
-    \item dodanie wierzchołka.
-    \item usunięcie wierzchołka.
+    \item dodanie wierzchołka,
+    \item usunięcie wierzchołka,
+    \item zamianę wierzchołków.
 \end{itemize}
 \[
-    d(G_1, G_2) = \min_{wszystkie \ sekwencje \ edycji} \sum_{operacje \ edycji \ grafu} f_{cost}(operacja),
+    d(G, H) = \min_{wszystkie \ sekwencje \ edycji} \sum_{operacje \ edycji \ grafu} f_{cost}(operacja),
 \]
-Przyjmujemy koszt wszystkich operacji edycji jako 1.
+Przyjmujemy koszt wszystkich operacji edycji jako 1, oprócz zamiany wierzchołków, która ma koszt 0.
 
 \vspace{1em}
 
