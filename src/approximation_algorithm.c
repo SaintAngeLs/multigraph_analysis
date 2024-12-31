@@ -1,5 +1,7 @@
 #include "approximation_algorithm.h"
 
+#include "common_utils.h"
+
 
 int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
@@ -54,30 +56,52 @@ int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *outp
 }
 
 
-double approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
+static int approximate_required_operations(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int *arr, int n, int smaller_n) {
+    int required_operations = n - smaller_n;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i >= smaller_n || j >= smaller_n) {
+                required_operations += context_1->graph_interface->get_edge(context_1->graph_interface, arr[i] - 1, arr[j] - 1);
+                continue;
+            }
+
+            int edge_1 = context_1->graph_interface->get_edge(context_1->graph_interface, arr[i] - 1, arr[j] - 1);
+            int edge_2 = context_2->graph_interface->get_edge(context_2->graph_interface, i, j);
+
+            required_operations += abs(edge_1 - edge_2);
+        }
+    }
+
+    return required_operations;
+}
+
+int approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
     GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
     GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
 
-    double avg_degree_1 = 0, avg_degree_2 = 0;
-
+    int arr[vertices_1];
     for (int i = 0; i < vertices_1; i++) {
-        for (int j = 0; j < vertices_1; j++) {
-            avg_degree_1 += context_1->graph_interface->get_edge(graph_1, i, j);
-        }
+        arr[i] = i + 1;
     }
-    avg_degree_1 /= vertices_1;
 
-    for (int i = 0; i < vertices_2; i++) {
-        for (int j = 0; j < vertices_2; j++) {
-            avg_degree_2 += context_2->graph_interface->get_edge(graph_2, i, j);
+    int min_operations = INT_MAX;
+    const int NUM_SAMPLES = 100;
+
+    for (int sample = 0; sample < NUM_SAMPLES; sample++) {
+        for (int i = vertices_1 - 1; i > 0; i--) {
+            int j = rand() % (i + 1);
+            swap(&arr[i], &arr[j]);
         }
+
+        int tmp = approximate_required_operations(context_1, context_2, arr, vertices_1, vertices_2);
+        min_operations = min(min_operations, tmp);
     }
-    avg_degree_2 /= vertices_2;
 
     destroy_context(context_1);
     destroy_context(context_2);
 
-    return fabs(avg_degree_1 - avg_degree_2);
+    return min_operations;
 }
 
 int approximate_find_minimal_extension(void *graph, int vertices) {

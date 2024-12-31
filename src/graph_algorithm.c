@@ -1,5 +1,6 @@
 #include "graph_algorithm.h"
 
+#include "common_utils.h"
 
 GraphAlgorithmContext* create_context(void *graph, int vertices) {
     GraphAlgorithmContext *context = malloc(sizeof(GraphAlgorithmContext));
@@ -226,20 +227,6 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
 //     return approximate_count;
 // }
 
-static int min(int a, int b) {
-    return (a < b) ? a : b;
-}
-
-static int max(int a, int b) {
-    return (a > b) ? a : b;
-}
-
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
 bool nextPermutation(int *arr, int n) {
     int i = n - 2;
     // Find the first index `i` such that arr[i] < arr[i+1]
@@ -292,9 +279,9 @@ static int calculate_required_operations(GraphAlgorithmContext *context_1, Graph
 }
 
 static int calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
-    // if (vertices_1 > THRESHOLD || vertices_2 > THRESHOLD) {
-    //    return approximate_calculate_metric(graph_1, vertices_1, graph_2, vertices_2);
-    // }
+    if (vertices_1 > THRESHOLD || vertices_2 > THRESHOLD) {
+        return approximate_calculate_metric(graph_1, vertices_1, graph_2, vertices_2);
+    }
 
     if (max(vertices_1, vertices_2) == vertices_2) {
         void *temp = graph_1;

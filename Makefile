@@ -8,7 +8,7 @@ SRC_DIR = src
 INCLUDE_DIR = include
 TEST_DIR = test
 
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/graph.c $(SRC_DIR)/utils.c $(SRC_DIR)/graph_factory.c $(SRC_DIR)/graph_algorithm.c $(SRC_DIR)/approximation_algorithm.c $(INCLUDE_DIR)/config.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/graph.c $(SRC_DIR)/utils.c $(SRC_DIR)/common_utils.c $(SRC_DIR)/graph_factory.c $(SRC_DIR)/graph_algorithm.c $(SRC_DIR)/approximation_algorithm.c $(INCLUDE_DIR)/config.c
 OBJ = $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRC)))
 TARGET = multigraph_analysis
 TARGET_EXE = $(TARGET).exe

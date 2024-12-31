@@ -94,6 +94,3 @@ GraphInterface* load_multigraph_from_file(const char *filename) {
     fprintf(stdout, "File closed successfully.\n");
     return multigraph_interface;
 }
-
-
-
