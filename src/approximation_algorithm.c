@@ -86,7 +86,7 @@ int approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, i
     }
 
     int min_operations = INT_MAX;
-    const int NUM_SAMPLES = 100;
+    const int NUM_SAMPLES = max(vertices_1, vertices_2) * max(vertices_1, vertices_2);
 
     for (int sample = 0; sample < NUM_SAMPLES; sample++) {
         for (int i = vertices_1 - 1; i > 0; i--) {

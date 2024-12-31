@@ -138,6 +138,8 @@ void process_metrics(GraphInterface* multigraph_1, GraphInterface* multigraph_2)
 
     int metric = default_algorithm.calculate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices);
     printf("Graph similarity metric between graphs: %d\n",metric);
+    int approximate_metric = default_algorithm.approximate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices);
+    printf("Approximate graph similarity metric between graphs: %d\n",approximate_metric);
 
     printf("------------------------------------------------\n\n");
 }

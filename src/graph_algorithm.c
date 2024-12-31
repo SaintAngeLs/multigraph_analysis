@@ -278,9 +278,13 @@ static int calculate_required_operations(GraphAlgorithmContext *context_1, Graph
     return required_operations;
 }
 
+static int approximate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
+    return approximate_calculate_metric(graph_1, vertices_1, graph_2, vertices_2);
+}
+
 static int calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
     if (vertices_1 > THRESHOLD || vertices_2 > THRESHOLD) {
-        return approximate_calculate_metric(graph_1, vertices_1, graph_2, vertices_2);
+        return approximate_metric(graph_1, vertices_1, graph_2, vertices_2);
     }
 
     if (max(vertices_1, vertices_2) == vertices_2) {
