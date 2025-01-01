@@ -3,6 +3,12 @@
 #include "common_utils.h"
 #include "graph_interface.h"
 
+#include <time.h>
+
+#define MAX_ITER 10000
+#define INITIAL_TEMP 100.0
+#define COOLING_RATE 0.99
+
 
 int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
@@ -56,6 +62,12 @@ int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *outp
     return approximate_count;
 }
 
+void generate_random_permutation(int *arr, int n) {
+    for (int i = 0; i < n; i++) {
+        int j = rand() % n;
+        swap(&arr[i], &arr[j]);
+    }
+}
 
 static int approximate_required_operations(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int *arr, int n, int smaller_n) {
     int required_operations = n - smaller_n;
@@ -76,27 +88,44 @@ static int approximate_required_operations(GraphAlgorithmContext *context_1, Gra
     return required_operations;
 }
 
-int approximate_calculate_metric(GraphAlgorithmContext *context_1,  GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
+int calculate_metric(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int *arr, int n, int smaller_n) {
+    return approximate_required_operations(context_1, context_2, arr, n, smaller_n);
+}
 
+int approximate_calculate_metric(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
     int arr[vertices_1];
     for (int i = 0; i < vertices_1; i++) {
         arr[i] = i + 1;
     }
 
-    int min_operations = INT_MAX;
-    const int NUM_SAMPLES = max(vertices_1, vertices_2) * max(vertices_1, vertices_2);
+    srand(time(NULL));
 
-    for (int sample = 0; sample < NUM_SAMPLES; sample++) {
-        for (int i = vertices_1 - 1; i > 0; i--) {
-            int j = rand() % (i + 1);
+    generate_random_permutation(arr, vertices_1);
+    int current_metric = calculate_metric(context_1, context_2, arr, vertices_1, vertices_2);
+    int best_metric = current_metric;
+
+    double temperature = INITIAL_TEMP;
+
+    for (int iter = 0; iter < MAX_ITER; iter++) {
+        int i = rand() % vertices_1;
+        int j = rand() % vertices_1;
+        swap(&arr[i], &arr[j]);
+
+        int new_metric = calculate_metric(context_1, context_2, arr, vertices_1, vertices_2);
+
+        if (new_metric < current_metric || (exp((current_metric - new_metric) / temperature) > (rand() / (double)RAND_MAX))) {
+            current_metric = new_metric;
+            if (new_metric < best_metric) {
+                best_metric = new_metric;
+            }
+        } else {
             swap(&arr[i], &arr[j]);
         }
 
-        int tmp = approximate_required_operations(context_1, context_2, arr, vertices_1, vertices_2);
-        min_operations = min(min_operations, tmp);
+        temperature *= COOLING_RATE;
     }
 
-    return min_operations;
+    return best_metric;
 }
 
 int approximate_find_minimal_extension(void *graph, int vertices) {
