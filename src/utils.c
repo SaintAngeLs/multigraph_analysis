@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "utils.h"
-#include "graph.h"
 
 int** allocate_matrix(int vertices) {
     int **matrix = (int **)malloc(vertices * sizeof(int *));

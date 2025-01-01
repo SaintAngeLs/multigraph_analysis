@@ -1,3 +1,4 @@
+Processing file 1: ./data/metric_1.txt
 Processing 5 graphs.
 
 Graph 1:
@@ -129,7 +130,27 @@ Maximal cycles: 1
 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11
 ------------------------------------------------
 
-Graph similarity metric between graph 1 and graph 2: 0.000
-Graph similarity metric between graph 2 and graph 3: 0.500
-Graph similarity metric between graph 3 and graph 4: 1.000
-Graph similarity metric between graph 4 and graph 5: 5.750
+Processing file 2: ./data/metric_2.txt
+Processing 1 graphs.
+
+Graph 1:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size (number of edges): 4
+All cycles: 1
+0 -> 1 -> 2 -> 0
+Hamiltonian cycles: 1
+0 -> 1 -> 2 -> 0
+Minimal extension for Hamiltonian cycle: 0
+Maximal cycle length: 3
+Maximal cycles: 1
+0 -> 1 -> 2 -> 0
+------------------------------------------------
+
+Comparing graphs:
+------------------------------------------------
+First graph with '4' vertices and '4' edges
+Second graph with '3' vertices and '4' edges
+Graph similarity metric between graphs: 0.667
+------------------------------------------------
+

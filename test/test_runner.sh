@@ -42,7 +42,11 @@ TEST_CASES=(
     "multiple_graphs_case5.txt"
     "multiple_graphs_case6.txt"
     "multiple_graphs_case7.txt"
-    "metric.txt"
+)
+
+METRIC_PAIR_CASES=(
+    "metric_1.txt"
+    "metric_2.txt"
 )
 
 echo "Running predefined test cases..."
@@ -56,6 +60,29 @@ for TEST_FILE in "${TEST_CASES[@]}"; do
         echo "Results saved to $OUTPUT_FILE"
     else
         echo "Test file $INPUT_FILE not found, skipping."
+    fi
+done
+
+echo "Running predefined metric cases..."
+for ((i=0; i<${#METRIC_PAIR_CASES[@]}-1; i+=2)); do
+    TEST_FILE_1="${METRIC_PAIR_CASES[$i]}"
+    TEST_FILE_2="${METRIC_PAIR_CASES[$i+1]}"
+
+    INPUT_FILE_1="$DATA_DIR/$TEST_FILE_1"
+    INPUT_FILE_2="$DATA_DIR/$TEST_FILE_2"
+    OUTPUT_FILE="$RESULTS_DIR/${TEST_FILE_1%.txt}_${TEST_FILE_2%.txt}_output.txt"
+
+    if [[ -f $INPUT_FILE_1 && -f $INPUT_FILE_2 ]]; then
+        echo "Processing $INPUT_FILE_1 and $INPUT_FILE_2..."
+        $EXECUTABLE $INPUT_FILE_1 $INPUT_FILE_2 > $OUTPUT_FILE
+        echo "Results saved to $OUTPUT_FILE"
+    else
+        if [[ ! -f $INPUT_FILE_1 ]]; then
+            echo "Test file $INPUT_FILE_1 not found, skipping."
+        fi
+        if [[ ! -f $INPUT_FILE_2 ]]; then
+            echo "Test file $INPUT_FILE_2 not found, skipping."
+        fi
     fi
 done
 

@@ -1,6 +1,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "graph_interface.h"
 
 
@@ -37,4 +39,4 @@ void destroy_graph(Graph *graph);
 
 GraphInterface* create_multigraph(int vertices);
 
-#endif
+#endif // GRAPH_H

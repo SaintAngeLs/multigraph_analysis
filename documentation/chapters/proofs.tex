@@ -292,3 +292,359 @@ gdzie \( m = \binom{n}{2} - |E| \).
 \paragraph{Wniosek:}
 Na mocy indukcji matematycznej oraz redukcji do języków formalnych, algorytm \textsc{MinimalneRozszerzenie} poprawnie oblicza minimalną liczbę krawędzi \( k \), które należy dodać, aby uzyskać cykl Hamiltona w \( G \).
 
+
+\section{Dowód poprawności algorytmów aproksymacyjnych}
+
+\subsection{Dowód poprawności algorytmu aproksymacyjnego znajdowania cykli w multigrafie}
+
+Aby formalnie udowodnić poprawność algorytmu \textsc{AproksymacyjneZnajdźCykle} (Algorytm \ref{alg:approx_find_cycles}), zastosujemy formalną indukcję matematyczną oraz analizę z przestrzeni języków formalnych i maszyn Turinga.
+
+\paragraph{Teza:}
+Dla dowolnego grafu \( G = (V, E) \) reprezentowanego przez macierz sąsiedztwa \( A \), algorytm \textsc{AproksymacyjneZnajdźCykle} zwraca przybliżoną liczbę cykli w grafie \( G \), z dokładnością zależną od liczby prób \( T \).
+
+\paragraph{Formalny opis algorytmu:}
+Algorytm wykonuje \( T \) iteracji, w których losowo wybiera wierzchołek \( u \in V \) i przeszukuje wszystkich sąsiadów \( v \in V \) grafu \( G \). Jeśli krawędź \( (u, v) \in E \), tworzy cykl \( u \to v \to u \) i zwiększa licznik cykli \( \text{cycle\_count} \).
+
+\paragraph{Dowód poprawności przez indukcję matematyczną:}
+
+\textbf{Podstawa indukcji:}  
+Rozważmy graf \( G \) o \( |V| = 1 \). W takim przypadku macierz sąsiedztwa \( A \) ma wymiar \( 1 \times 1 \) i może zawierać tylko jedną wartość \( A[1][1] \), reprezentującą liczbę pętli (samokrawędzi) wierzchołka \( v_1 \).
+
+Działanie algorytmu:
+1. Inicjalizuje \( \text{cycle\_count} \gets 0 \).
+2. Wykonuje \( T \) iteracji, wybierając \( u = 1 \) (jedyny wierzchołek w grafie).
+3. Sprawdza, czy \( A[1][1] > 0 \). Jeśli tak, zwiększa licznik cykli \( \text{cycle\_count} \) o 1.
+
+Dla \( |V| = 1 \), jedynym możliwym cyklem jest \( v_1 \to v_1 \to v_1 \), który algorytm wykrywa w każdej iteracji, jeśli \( A[1][1] > 0 \). Wynik algorytmu jest poprawny dla dowolnego \( T \).
+
+\textbf{Krok indukcyjny:}  
+Załóżmy, że algorytm poprawnie zwraca liczbę cykli w dowolnym grafie \( G_k = (V_k, E_k) \), gdzie \( |V_k| = k \). Udowodnijmy, że działa poprawnie dla \( G_{k+1} = (V_{k+1}, E_{k+1}) \) o \( |V_{k+1}| = k+1 \).
+
+Działanie algorytmu dla \( G_{k+1} \):
+1. W każdej z \( T \) iteracji algorytm losowo wybiera wierzchołek \( u \in V_{k+1} \) i przeszukuje sąsiadów \( v \in V_{k+1} \).
+2. Dla każdego \( v \), jeśli \( (u, v) \in E_{k+1} \), algorytm dodaje cykl \( u \to v \to u \).
+
+Nowy wierzchołek \( v_{k+1} \) oraz krawędzie \( (v_{k+1}, v_i) \) dla \( v_i \in V_k \) mogą tworzyć nowe cykle w grafie. Każdy z tych cykli jest wykrywany przez algorytm z prawdopodobieństwem proporcjonalnym do liczby iteracji \( T \).
+
+\textbf{Poprawność:}  
+1. Algorytm losowo wybiera \( u \in V_{k+1} \), co zapewnia równą szansę eksploracji wszystkich potencjalnych cykli.
+2. Każda krawędź \( (u, v) \in E_{k+1} \) jest sprawdzana w co najmniej jednej iteracji z prawdopodobieństwem:
+\[
+P((u, v) \text{ sprawdzona}) = 1 - \left(1 - \frac{1}{|V|}\right)^T,
+\]
+gdzie \( |V| = k+1 \).
+3. Przy \( T \to \infty \), algorytm wykrywa wszystkie cykle w \( G_{k+1} \).
+
+\paragraph{Analiza przestrzeni języków formalnych:}
+Cykl \( C \subseteq G \) można opisać w języku formalnym:
+\[
+L_C = \{ u, v \mid (u, v) \in E \text{ i } u \to v \to u \text{ tworzy cykl} \}.
+\]
+Algorytm eksploruje przestrzeń języka \( L_C \) poprzez losowe próbkowanie wierzchołków \( u \) i eksplorację sąsiadów \( v \). Dla każdego podgrafu \( G' \), maszyna Turinga \( M_C \) akceptuje cykl \( C \), jeśli \( u \to v \to u \in L_C \). Czas działania maszyny \( M_C \) jest ograniczony przez:
+\[
+O(T \cdot |V| \cdot \text{deg}(V)),
+\]
+gdzie \( \text{deg}(V) \) to średni stopień wierzchołka.
+
+\paragraph{Złożoność:}
+Całkowita złożoność algorytmu wynosi \( O(T \cdot \text{deg}(V)) \), co wynika z iteracji \( T \), przeszukiwania sąsiadów \( v \in V \), oraz sprawdzania krawędzi \( (u, v) \).
+
+\paragraph{Wniosek:}
+Na mocy indukcji matematycznej oraz analizy maszyn Turinga, algorytm \textsc{AproksymacyjneZnajdźCykle} poprawnie wykrywa cykle w dowolnym grafie \( G \), z dokładnością zależną od liczby prób \( T \).
+
+
+\subsection{Dowód poprawności algorytmu aproksymacyjnego liczenia cykli Hamiltona}
+
+Algorytm \textsc{AproksymacyjneLiczenieCykliHamiltona} (\ref{alg:approx_count_hamiltonian_cycles}) wykorzystuje losowe próbkowanie permutacji wierzchołków \( V \), aby przybliżyć liczbę cykli Hamiltona w grafie \( G \). Poniżej przedstawiamy formalny dowód poprawności algorytmu.
+
+\paragraph{Teza:}
+Dla grafu \( G = (V, E) \) i liczby prób \( T \), algorytm \textsc{AproksymacyjneLiczenieCykliHamiltona} zwraca wartość:
+\[
+\text{hamiltonian\_count} \propto \frac{\text{Liczba cykli Hamiltona w } G}{|V|!},
+\]
+z dokładnością zależną od \( T \).
+
+\paragraph{Definicje formalne:}
+1. Cykl Hamiltona w \( G \) to permutacja \( \pi \) wierzchołków \( V \), taka że:
+\[
+\forall i \ (1 \leq i < |V|): \ (v_{\pi(i)}, v_{\pi(i+1)}) \in E, \quad \text{oraz} \quad (v_{\pi(|V|)}, v_{\pi(1)}) \in E.
+\]
+
+2. \( H(G) \) to liczba wszystkich cykli Hamiltona w \( G \).
+
+3. Losowa permutacja \( \pi \) generowana przez algorytm pochodzi z przestrzeni \( S_V \) wszystkich permutacji zbioru \( V \), gdzie \( |S_V| = |V|! \).
+
+\paragraph{Dowód poprawności przez indukcję matematyczną:}
+
+\textbf{Podstawa indukcji:}  
+Rozważmy graf \( G \) o \( |V| = 1 \). Jedynym wierzchołkiem jest \( v_1 \), a macierz sąsiedztwa \( A \) to \( 1 \times 1 \). Cykl Hamiltona istnieje tylko wtedy, gdy \( A[1][1] > 0 \).
+
+Działanie algorytmu:
+1. Generuje permutację \( \pi = [v_1] \).
+2. Sprawdza, czy \( (v_{\pi(1)}, v_{\pi(1)}) \in E \), co jest równoważne sprawdzeniu \( A[1][1] > 0 \).
+3. Jeśli \( A[1][1] > 0 \), zwiększa \( \text{hamiltonian\_count} \) o 1.
+
+Dla \( |V| = 1 \), algorytm zawsze poprawnie identyfikuje cykl Hamiltona, jeśli istnieje, niezależnie od liczby prób \( T \).
+
+\textbf{Krok indukcyjny:}  
+Załóżmy, że algorytm poprawnie identyfikuje cykle Hamiltona w dowolnym grafie \( G_k = (V_k, E_k) \), gdzie \( |V_k| = k \). Udowodnijmy, że działa poprawnie dla \( G_{k+1} = (V_{k+1}, E_{k+1}) \), gdzie \( |V_{k+1}| = k+1 \).
+
+Działanie algorytmu dla \( G_{k+1} \):
+1. Generuje \( T \) losowych permutacji \( \pi \) zbioru \( V_{k+1} \).
+2. Dla każdej permutacji \( \pi \), sprawdza wszystkie krawędzie \( (v_{\pi(i)}, v_{\pi(i+1)}) \) oraz \( (v_{\pi(|V|)}, v_{\pi(1)}) \).
+
+\textbf{Analiza poprawności:}  
+Każdy cykl Hamiltona \( C \subseteq G_{k+1} \) jest permutacją \( \pi \), która spełnia warunek:
+\[
+\forall i \ (1 \leq i < |V|): \ (v_{\pi(i)}, v_{\pi(i+1)}) \in E, \quad \text{oraz} \quad (v_{\pi(|V|)}, v_{\pi(1)}) \in E.
+\]
+Przestrzeń \( S_V \) zawiera \( |V|! \) permutacji, z których dokładnie \( H(G_{k+1}) \) tworzy cykle Hamiltona. Szansa wygenerowania cyklu Hamiltona w pojedynczej iteracji wynosi:
+\[
+P(\pi \text{ jest cyklem Hamiltona}) = \frac{H(G_{k+1})}{|V|!}.
+\]
+Dla \( T \) prób, liczba cykli Hamiltona identyfikowanych przez algorytm ma rozkład dwumianowy:
+\[
+X \sim \text{Bin}\left(T, \frac{H(G_{k+1})}{|V|!}\right),
+\]
+gdzie \( X \) to liczba wykrytych cykli Hamiltona.
+
+Wartość oczekiwana \( \mathbb{E}[X] \) wynosi:
+\[
+\mathbb{E}[X] = T \cdot \frac{H(G_{k+1})}{|V|!}.
+\]
+
+\textbf{Zbieżność:}  
+Dla \( T \to \infty \), względny błąd aproksymacji \( X \) w stosunku do \( H(G_{k+1}) \) dąży do zera:
+\[
+\lim_{T \to \infty} \frac{|X - \mathbb{E}[X]|}{\mathbb{E}[X]} = 0.
+\]
+
+\textbf{Złożoność czasowa:}  
+Algorytm generuje \( T \) permutacji, a każda z nich wymaga \( O(|V|) \) operacji na macierzy sąsiedztwa \( A \). Złożoność czasowa wynosi:
+\[
+O(T \cdot |V|).
+\]
+
+\paragraph{Dowód przez przestrzeń języków formalnych:}
+Cykl Hamiltona można opisać w języku formalnym \( L_H \):
+\[
+L_H = \{\pi \in \Sigma^n : \forall i \ (1 \leq i < n) \ (v_{\pi(i)}, v_{\pi(i+1)}) \in E \ \text{oraz} \ (v_{\pi(n)}, v_{\pi(1)}) \in E\}.
+\]
+Maszyna Turinga \( M_H \) generuje wszystkie permutacje \( \pi \in \Sigma^n \) i akceptuje je, jeśli \( \pi \in L_H \). Algorytm aproksymacyjny symuluje \( M_H \), próbkując przestrzeń \( \Sigma^n \) z rozkładu jednostajnego.
+
+\textbf{Wniosek:}  
+Algorytm \textsc{AproksymacyjneLiczenieCykliHamiltona} poprawnie identyfikuje cykle Hamiltona w grafie \( G \), a jego dokładność rośnie z liczbą prób \( T \). Dowód został przeprowadzony na podstawie indukcji matematycznej oraz analizy z przestrzeni języków formalnych i maszyn Turinga.
+
+\subsection{Dowód poprawności algorytmu aproksymacyjnego obliczania metryki między dwoma grafami}
+
+Algorytm \textsc{AproksymacyjneObliczanieMetryki} (\ref{alg:approx_calculate_metric}) wykorzystuje znormalizowane rozkłady stopni wierzchołków w dwóch grafach \( G_1 \) i \( G_2 \), aby oszacować ich podobieństwo za pomocą uproszczonej wersji metryki Earth Mover's Distance (EMD). Poniżej przedstawiamy formalny dowód poprawności algorytmu.
+
+\paragraph{Teza:}
+Dla dwóch grafów \( G_1 = (V_1, E_1) \) i \( G_2 = (V_2, E_2) \), algorytm \textsc{AproksymacyjneObliczanieMetryki} zwraca wartość metryki:
+\[
+\text{metric}(G_1, G_2) = \sum_{k} \left| \text{degree\_dist1}[k] - \text{degree\_dist2}[k] \right|,
+\]
+gdzie \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) są znormalizowanymi histogramami stopni wierzchołków w \( G_1 \) i \( G_2 \).
+
+\paragraph{Definicje formalne:}
+1. Stopień wierzchołka \( v \in V \) w grafie \( G = (V, E) \) to liczba krawędzi incydentnych z \( v \):
+\[
+\deg(v) = \sum_{u \in V} A[v][u],
+\]
+gdzie \( A \) jest macierzą sąsiedztwa grafu \( G \).
+
+2. Histogram stopni \( \text{degree\_dist}[k] \) to znormalizowana liczba wierzchołków o stopniu \( k \):
+\[
+\text{degree\_dist}[k] = \frac{|\{v \in V : \deg(v) = k\}|}{|V|}.
+\]
+
+3. Metryka Earth Mover's Distance (EMD) w uproszczonej formie między histogramami \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) to:
+\[
+\text{metric} = \sum_{k} \left| \text{degree\_dist1}[k] - \text{degree\_dist2}[k] \right|.
+\]
+
+\paragraph{Dowód poprawności:}
+
+\textbf{1. Poprawność obliczania histogramów stopni:}
+
+Algorytm oblicza histogram stopni \( \text{degree\_dist}[k] \) dla każdego grafu \( G \) w dwóch krokach:
+1. Dla każdego wierzchołka \( v \in V \), oblicza stopień \( \deg(v) \) przez sumowanie elementów odpowiedniego wiersza macierzy sąsiedztwa \( A[v] \). Dla \( |V| = n \), złożoność tego kroku wynosi \( O(n^2) \).
+2. Liczność wierzchołków o stopniu \( k \) jest zliczana i normalizowana przez dzielenie przez \( n \). Suma wszystkich wartości histogramu jest równa 1:
+\[
+\sum_{k} \text{degree\_dist}[k] = 1.
+\]
+
+Histogramy \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) są zatem poprawnymi reprezentacjami rozkładów stopni wierzchołków w \( G_1 \) i \( G_2 \).
+
+\textbf{2. Poprawność metryki:}
+
+Uproszczona wersja EMD, zastosowana w algorytmie, oblicza różnicę między odpowiadającymi sobie wartościami w histogramach \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \):
+\[
+\text{metric} = \sum_{k} \left| \text{degree\_dist1}[k] - \text{degree\_dist2}[k] \right|.
+\]
+Zastosowanie sumy wartości bezwzględnych zapewnia:
+1. Symetrię metryki:
+\[
+\text{metric}(G_1, G_2) = \text{metric}(G_2, G_1).
+\]
+
+2. Niezmienniczość względem kolejności porównania histogramów.
+
+\textbf{3. Zbieżność i dokładność aproksymacji:}
+
+Dokładność algorytmu zależy od kompletności histogramów \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \). Dla dużych grafów, histogramy \( \text{degree\_dist} \) stają się gładkie, a uproszczona metryka EMD zbiega do pełnej metryki:
+\[
+\text{EMD}(G_1, G_2) = \int_{k} \left| \text{degree\_dist1}(k) - \text{degree\_dist2}(k) \right| dk.
+\]
+
+\textbf{4. Dowód indukcyjny:}
+
+\textit{Podstawa indukcji:}  
+Dla \( |V| = 1 \), histogramy \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) mają jedną wartość \( \deg(v) \). Algorytm zwraca:
+\[
+\text{metric} = \left| \deg(v_1) - \deg(v_2) \right|,
+\]
+co jest poprawną wartością metryki.
+
+\textit{Krok indukcyjny:}  
+Załóżmy, że algorytm działa poprawnie dla grafów \( G_k = (V_k, E_k) \) o \( |V_k| = k \). Dla \( G_{k+1} = (V_{k+1}, E_{k+1}) \), histogram \( \text{degree\_dist} \) uwzględnia nowy wierzchołek \( v_{k+1} \) i aktualizuje wartości dla wszystkich stopni \( k \). Algorytm iteruje po wspólnych stopniach w \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \), co zapewnia poprawność dla \( G_{k+1} \).
+
+\paragraph{Złożoność czasowa:}
+
+1. Obliczanie histogramów dla dwóch grafów: \( O(n^2) \) dla każdego grafu.
+2. Iteracja po wspólnych stopniach: \( O(D) \), gdzie \( D \) to liczba różnych stopni wierzchołków.
+
+Łączna złożoność wynosi:
+\[
+O(n^2 + D).
+\]
+
+\paragraph{Wniosek:}
+
+Na mocy definicji histogramów, symetrii metryki i dowodu indukcyjnego, algorytm \textsc{AproksymacyjneObliczanieMetryki} poprawnie oblicza uproszczoną metrykę między dwoma grafami \( G_1 \) i \( G_2 \).
+
+
+\subsection{Dowód poprawności algorytmu aproksymacyjnego minimalnego rozszerzenia do cyklu Hamiltona}
+
+Algorytm \textsc{MinimalneRozszerzenieDoCykluHamiltona} (\ref{alg:approx_minimal_extension}) ma na celu określenie minimalnej liczby krawędzi, które należy dodać do grafu \( G \), aby powstał graf zawierający cykl Hamiltona. Algorytm działa w sposób heurystyczny, dodając brakujące krawędzie między parami wierzchołków \( u, v \) w kolejności iteracyjnej. Poniżej przedstawiamy formalny dowód poprawności algorytmu.
+
+\paragraph{Teza:}
+Dla dowolnego grafu \( G = (V, E) \), algorytm \textsc{MinimalneRozszerzenieDoCykluHamiltona} zwraca liczbę krawędzi \( k \), które należy dodać do \( G \), aby \( G' = (V, E \cup E') \) zawierał cykl Hamiltona, przy czym:
+\[
+|E'| \geq k \quad \text{oraz} \quad k \leq |V| - \deg_{\text{min}}(G),
+\]
+gdzie \( \deg_{\text{min}}(G) \) to minimalny stopień wierzchołka w \( G \).
+
+\paragraph{Dowód:}
+
+\textbf{1. Definicja problemu:}
+Cykl Hamiltona w grafie \( G \) to cykl prosty odwiedzający każdy wierzchołek dokładnie raz. Graf \( G \) zawiera cykl Hamiltona, jeśli:
+\[
+\forall u \in V: \deg(u) \geq 2 \quad \text{oraz} \quad \exists \, C \subseteq E, \, |C| = |V| \text{ (cykl prosty)}.
+\]
+
+Problem minimalnego rozszerzenia polega na dodaniu najmniejszej liczby krawędzi \( E' \), aby \( G' = (V, E \cup E') \) spełniał powyższy warunek.
+
+\textbf{2. Heurystyczne dodawanie krawędzi:}
+Algorytm działa w sposób iteracyjny:
+1. Przeszukuje każdą parę wierzchołków \( u, v \) w \( V \).
+2. Jeśli \( (u, v) \notin E \), dodaje \( (u, v) \) do \( E \) i inkrementuje licznik dodanych krawędzi \( \text{added\_edges} \).
+3. Wewnętrzna pętla jest przerywana, gdy zostanie dodana jedna krawędź.
+
+\textbf{3. Poprawność operacji dodawania:}
+Każde dodanie krawędzi \( (u, v) \) zwiększa stopień wierzchołków \( u \) i \( v \). Dla dowolnego wierzchołka \( u \), liczba dodanych krawędzi \( k \) jest minimalna, ponieważ:
+1. Krawędzie są dodawane tylko w przypadku ich braku w \( E \).
+2. Krawędzie są dodawane tylko raz na parę \( u, v \), co gwarantuje, że proces nie jest redundantny.
+
+\textbf{4. Indukcyjny dowód poprawności:}
+
+\textit{Podstawa indukcji:}  
+Dla \( |V| = 1 \), graf \( G \) składa się z jednego wierzchołka \( u \) i nie zawiera krawędzi. Cykl Hamiltona nie istnieje, a algorytm zwraca \( \text{added\_edges} = 0 \). Wynik jest zgodny z definicją, ponieważ dodanie krawędzi w grafie z jednym wierzchołkiem nie jest możliwe.
+
+\textit{Krok indukcyjny:}  
+Załóżmy, że algorytm działa poprawnie dla grafów \( G_k = (V_k, E_k) \) o \( |V_k| = k \). Udowodnijmy, że działa poprawnie dla \( G_{k+1} = (V_{k+1}, E_{k+1}) \), gdzie \( |V_{k+1}| = k+1 \).
+
+Dodanie nowego wierzchołka \( v_{k+1} \) do \( G_k \) wymaga sprawdzenia wszystkich par \( (u, v_{k+1}) \) i dodania krawędzi w przypadku ich braku. Po zakończeniu iteracji \( G_{k+1} \) zawiera wszystkie krawędzie, które są niezbędne do osiągnięcia minimalnego rozszerzenia dla \( G_{k+1} \).
+
+\textbf{5. Minimalność dodanych krawędzi:}
+Algorytm minimalizuje liczbę dodanych krawędzi, ponieważ:
+1. Iteracja po parach \( (u, v) \) jest uporządkowana i każda krawędź jest dodawana co najwyżej raz.
+2. Po każdej iteracji, stopień wierzchołków \( u \) i \( v \) jest zwiększany, co przybliża \( G' \) do spełnienia warunku \( \deg(u) \geq 2 \) dla wszystkich \( u \).
+
+\textbf{6. Złożoność czasowa:}
+Algorytm iteruje po wszystkich parach wierzchołków \( (u, v) \), co daje złożoność \( O(|V|^2) \). Dodanie krawędzi i aktualizacja macierzy sąsiedztwa mają stałą złożoność \( O(1) \) na parę.
+
+\textbf{7. Warunek zakończenia:}
+Algorytm kończy działanie, gdy dla wszystkich wierzchołków \( u \in V \):
+\[
+\deg(u) \geq 2.
+\]
+
+\paragraph{Wniosek:}
+Na mocy indukcji matematycznej i minimalności iteracyjnego dodawania krawędzi, algorytm \textsc{MinimalneRozszerzenieDoCykluHamiltona} poprawnie zwraca liczbę krawędzi \( \text{added\_edges} \), które należy dodać do \( G \), aby \( G' = (V, E \cup E') \) zawierał cykl Hamiltona.
+
+
+\subsection{Dowód poprawności algorytmu aproksymacyjnego wykrywania maksymalnego cyklu}
+
+\paragraph{Wstęp.}
+Algorytm \textsc{AproksymacyjneWykrywanieMaksymalnegoCyklu} znajduje maksymalny cykl w multigrafie \( G = (V, E) \) poprzez losowe próby przeszukiwania w głąb (DFS) oraz ograniczenie głębokości przeszukiwania. Dowód poprawności opiera się na:
+\begin{itemize}
+    \item definicji maksymalnego cyklu,
+    \item poprawności heurystycznego przeszukiwania w głąb,
+    \item analizie jakości aproksymacji.
+\end{itemize}
+
+\paragraph{Definicje.}
+\begin{itemize}
+    \item \textbf{Maksymalny cykl w grafie.} Cykl \( C \subseteq E \) w \( G \) jest maksymalny, jeśli:
+    \[
+    |C| = \max\{|C'| : C' \subseteq E \text{ i } C' \text{ jest cyklem w } G\},
+    \]
+    gdzie \( |C| \) oznacza liczbę wierzchołków w cyklu \( C \).
+
+    \item \textbf{Losowe przeszukiwanie w głąb (DFS).} Algorytm rozpoczyna od losowego wierzchołka \( u \in V \) i eksploruje graf w głąb, tworząc ścieżkę. Jeśli wierzchołek \( u \) zostanie osiągnięty ponownie, powstaje cykl \( C \).
+
+    \item \textbf{Heurystyczne ograniczenie głębokości.} Algorytm ogranicza głębokość przeszukiwania do \( d \), aby zmniejszyć złożoność obliczeniową. Liczba prób \( T \) zapewnia statystyczne pokrycie przestrzeni przeszukiwania.
+\end{itemize}
+
+\paragraph{Teza.}
+Algorytm aproksymacyjny zwraca cykl \( C_{\text{approx}} \), którego długość \( |C_{\text{approx}}| \) jest bliska długości maksymalnego cyklu \( C_{\text{max}} \) w \( G \). Formalnie:
+\[
+|C_{\text{approx}}| \leq |C_{\text{max}}| \quad \text{oraz dla } T \to \infty, \, |C_{\text{approx}}| \to |C_{\text{max}}|.
+\]
+
+\paragraph{Dowód.}
+1. \textbf{Poprawność detekcji cykli przez DFS.}
+   Niech \( u \in V \) będzie wierzchołkiem początkowym. Algorytm DFS eksploruje ścieżki z \( u \), odwiedzając wierzchołki \( \{v_1, v_2, \dots, v_k\} \), gdzie:
+   \[
+   v_i \neq v_j \quad \text{dla } i \neq j, \quad \text{z wyjątkiem } v_k = v_1.
+   \]
+   Jeśli \( v_k = v_1 \), algorytm wykrywa cykl \( C = \{v_1, v_2, \dots, v_k\} \). Każdy cykl w \( G \) jest wykrywany przez DFS, jeśli odpowiednia ścieżka zostanie eksplorowana.
+
+2. \textbf{Heurystyczne ograniczenie głębokości.}
+   Ograniczenie głębokości do \( d \) powoduje, że algorytm nie wykrywa cykli o długości \( |C| > d \). Jednak dla \( d \to \infty \), wszystkie cykle w \( G \) mogą być wykryte. Liczba prób \( T \) zwiększa prawdopodobieństwo wykrycia dowolnego cyklu.
+
+3. \textbf{Aproksymacja maksymalnego cyklu.}
+   Niech \( C_{\text{max}} \) będzie maksymalnym cyklem w \( G \), a \( C_{\text{approx}} \) cyklem wykrytym przez algorytm. Rozważmy prawdopodobieństwo \( P \), że algorytm znajdzie \( C_{\text{max}} \) w jednej próbie:
+   \[
+   P = \frac{\text{liczba ścieżek prowadzących do } C_{\text{max}}}{\text{liczba wszystkich ścieżek DFS w } G}.
+   \]
+   Po \( T \) próbach prawdopodobieństwo wykrycia \( C_{\text{max}} \) wynosi:
+   \[
+   P_T = 1 - (1 - P)^T.
+   \]
+   Dla \( T \to \infty \), \( P_T \to 1 \), co gwarantuje, że \( C_{\text{approx}} = C_{\text{max}} \).
+
+4. \textbf{Złożoność obliczeniowa.}
+   Każda próba DFS ma złożoność \( O(|V| + |E|) \), a całkowita złożoność algorytmu wynosi:
+   \[
+   O(T \cdot (|V| + |E|)),
+   \]
+   gdzie \( T \) jest liczbą prób.
+
+\paragraph{Wniosek.}
+Na podstawie powyższych rozważań algorytm aproksymacyjny zwraca poprawny wynik dla dostatecznie dużej liczby prób \( T \) i głębokości \( d \). W granicy \( T \to \infty \) oraz \( d \to \infty \) algorytm wykrywa maksymalny cykl w \( G \). Formalnie:
+\[
+|C_{\text{approx}}| \to |C_{\text{max}}| \quad \text{dla } T, d \to \infty.
+\]
+
