@@ -2,6 +2,8 @@
 
 #include "common_utils.h"
 
+#include <time.h>
+
 GraphAlgorithmContext* create_context(void *graph, int vertices) {
     GraphAlgorithmContext *context = malloc(sizeof(GraphAlgorithmContext));
     context->graph_interface = (GraphInterface *)graph;
@@ -280,6 +282,7 @@ static int calculate_required_operations(GraphAlgorithmContext *context_1, Graph
 
 static int calculate_graph_metric(GraphAlgorithmContext *context_1,  GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
     if (vertices_1 > THRESHOLD || vertices_2 > THRESHOLD) {
+        printf("Using approximate algorithm for large graphs (approximate algorithm is used twice).\n");
         return approximate_calculate_metric(context_1, context_2, vertices_1, vertices_2);
     }
 
@@ -311,8 +314,20 @@ static void calculate_metric(void *graph_1, int vertices_1, void *graph_2, int v
     GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
     GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
 
+    clock_t start, end;
+    double cpu_time_used;
+
+    start = clock();
     *exact_metric = calculate_graph_metric(context_1, context_2, vertices_1, vertices_2);
+    end = clock();
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Time taken for exact function: %f seconds\n", cpu_time_used);
+
+    start = clock();
     *approximate_metric = approximate_calculate_metric(context_1, context_2, vertices_1, vertices_2);
+    end = clock();
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Time taken for approximate function: %f seconds\n", cpu_time_used);
 }
 
 static int find_minimal_extension(void *graph, int vertices) {
