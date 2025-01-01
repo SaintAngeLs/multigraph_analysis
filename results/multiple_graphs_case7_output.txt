@@ -1,3 +1,4 @@
+Processing file 1: ./data/multiple_graphs_case7.txt
 Processing 1 graphs.
 
 Graph 1:

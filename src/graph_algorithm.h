@@ -1,9 +1,15 @@
 #ifndef GRAPH_ALGORITHM_H
 #define GRAPH_ALGORITHM_H
 
+#include <stdio.h>
 #include <glib.h>
+#include <stdbool.h>
+#include <limits.h>
+#include <math.h>
 #include "graph_interface.h"
+#include "approximation_algorithm.h"
 
+#define THRESHOLD 10 // Threshold for switching to approximate algorithms
 
 typedef struct {
 
@@ -40,4 +46,4 @@ typedef struct {
 
 extern GraphAlgorithm default_algorithm;
 
-#endif
+#endif // GRAPH_ALGORITHM_H

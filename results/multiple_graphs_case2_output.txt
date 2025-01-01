@@ -1,3 +1,4 @@
+Processing file 1: ./data/multiple_graphs_case2.txt
 Processing 2 graphs.
 
 Graph 1:
@@ -25,4 +26,3 @@ Maximal cycles: 1
 0 -> 1 -> 2 -> 3 -> 0
 ------------------------------------------------
 
-Graph similarity metric between graph 1 and graph 2: 1.167

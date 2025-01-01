@@ -6,18 +6,6 @@
 #include "graph_interface.h"
 #include "utils.h"
 
-// void* create_graph_with_type(GraphType type, int vertices) {
-//     if (type == SIMPLE_GRAPH) {
-//         // return create_graph(vertices);  
-//         return create_multigraph(vertices);
-//     } else if (type == MULTIGRAPH) {
-//         return create_multigraph(vertices);
-//     }
-
-//     fprintf(stderr, "Invalid graph type specified.\n");
-//     return NULL; 
-// }
-
 
 GraphInterface* create_graph_with_type(GraphType type, int vertices) {
     if (type == SIMPLE_GRAPH) {

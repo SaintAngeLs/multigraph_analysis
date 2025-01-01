@@ -29,4 +29,4 @@ typedef struct GraphInterface {
 
 } GraphInterface;
 
-#endif
+#endif // GRAPH_INTERFACE_H
