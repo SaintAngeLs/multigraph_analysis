@@ -119,7 +119,7 @@ W ramach implementacji, duże grafy mogą być reprezentowane jako:
 Dla grafów spełniających powyższe kryteria, algorytmy deterministyczne są zastępowane przez metody aproksymacyjne w celu redukcji złożoności obliczeniowej. Przykłady takich algorytmów to:
 \begin{itemize}
     \item Losowe próbkowanie wierzchołków lub krawędzi w celu znalezienia cykli.
-    \item Przybliżone obliczenia metryki Earth Mover's Distance (\( \text{EMD} \)).
+    \item Przybliżone obliczenia metryki odległości grafów za pomocą algorytmu symulowanego wyżarzania (Simulated Annealing).
     \item Heurystyczne dodawanie krawędzi w procesie rozszerzenia grafu do posiadania cyklu Hamiltona.
 \end{itemize}
 
@@ -155,14 +155,8 @@ Złożoność redukowana jest przez ograniczenie liczby prób \( |T| \ll |V|! \)
 
 \subsection{Obliczanie metryki między grafami}
 
-Niech \( G_1 = (V_1, E_1) \) oraz \( G_2 = (V_2, E_2) \) będą multigrafami o rozkładach stopni \( D_1 \) i \( D_2 \). Rozkład stopni definiujemy jako funkcję:
-\[
-D_i(k) = \frac{\text{liczba wierzchołków o stopniu } k \text{ w } G_i}{|V_i|}.
-\]
-Metryka między \( G_1 \) a \( G_2 \) jest aproksymowana za pomocą uproszczonego obliczenia Earth Mover's Distance:
-\[
-EMD(D_1, D_2) \approx \sum_{k \in \mathbb{Z}} |D_1(k) - D_2(k)|.
-\]
+W celu znalezienia metryki między dwoma grafami \( G_1 = (V_1, E_1) \) i \( G_2 = (V_2, E_2) \) generujemy wszystkie możliwe permutacje wierzchołków grafu o większej liczbie wierzchołków. Dla każdej permutacji \( \pi \) obliczamy metrykę \( d(G_1, G_2) \) jako minimalną liczbę operacji edycji, które przekształcają graf \( G_1 \) w graf \( G_2 \). Metryka jest minimalizowana poprzez wybór permutacji, która daje najmniejszą wartość metryki. Wiąże się to jednak z dużą złożonością obliczeniową, dlatego wykorzystywane są również metody aproksymacyjne. \\
+Symulowane wyżarzanie to probabilistyczna technika optymalizacji, która pozwala aproksymować globalne optimum funkcji, dzięki czemu doskonale nadaje się do aproksymacji odległości grafów. Proces rozpoczyna się od inicjalizacji losowej permutacji wierzchołków grafu i obliczenia początkowej metryki \texttt{required\_operations}. Na każdym kroku generowana jest sąsiednia permutacja poprzez zamianę dwóch wierzchołków. Jeśli nowa permutacja daje niższą wartość \texttt{required\_operations}, jest akceptowana. W przeciwnym razie może być zaakceptowana z pewnym prawdopodobieństwem, które maleje wraz z upływem czasu, co pozwala algorytmowi unikać lokalnych minimów. Harmonogram chłodzenia stopniowo zmniejsza prawdopodobieństwo akceptacji gorszych rozwiązań, zapewniając zbieżność. Algorytm kończy działanie po ustalonej liczbie iteracji lub gdy temperatura osiągnie określony niski próg.
 
 \subsection{Rozszerzenie do cyklu Hamiltona}
 

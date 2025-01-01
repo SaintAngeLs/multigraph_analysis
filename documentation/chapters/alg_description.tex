@@ -85,13 +85,13 @@ Złożoność obliczeniowa algorytmu liczenia cykli Hamiltona wynosi \( O(V!) \)
 \Require \( G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) - dwa multigrafy reprezentowane przez macierze sąsiedztwa \( A_G \) i \( A_H \) oraz $\left| V_G \right| \geq \left| V_H \right|$.
 \Ensure Metryka pomiędzy \( G \) i \( H \)
 \State \( \text{metric} \gets \infty \)
-\ForEach{permutacja p wierzchołków $V_G$}
+\ForEach{permutacja $\pi$ wierzchołków $V_G$}
     \State \( \text{tmp} \gets 0 \)
     \ForEach{wierzchołki \( i, j \) w \( V_H \)}
         \If {\(\ i \geq V_H \ \text{OR} \ j \geq V_H \)}
-            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[p[i]][p[j]] \right| \)
+            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[\pi[i]][\pi[j]] \right| \)
         \ElsIf{}
-            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[p[i]][p[j]] - A_H[i][j] \right| \)
+            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[\pi[i]][\pi[j]] - A_H[i][j] \right| \)
         \EndIf
     \EndFor
 \EndFor
@@ -100,7 +100,7 @@ Złożoność obliczeniowa algorytmu liczenia cykli Hamiltona wynosi \( O(V!) \)
 \end{algorithmic}
 \end{algorithm}
 
-Złożoność algorytmu obliczania metryki dla grafów \(G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) wynosi \( O(V_G!) \), gdzie graf G ma większą liczbę wierzchołków niż H.
+Złożoność algorytmu obliczania metryki dla grafów \(G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) wynosi \( O(\left| V_G \right| !) \), gdzie graf G ma większą liczbę wierzchołków niż H.
 
 
 \subsection{Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}
