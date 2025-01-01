@@ -1,7 +1,7 @@
 CC = gcc
 PKG_CONFIG_PATH = /usr/lib/x86_64-linux-gnu/pkgconfig
 CFLAGS = -Wall -Iinclude `pkg-config --cflags glib-2.0`
-LDFLAGS = `pkg-config --libs glib-2.0`
+LDFLAGS = `pkg-config --libs glib-2.0` -lm
 
 BUILD_DIR = build
 SRC_DIR = src
