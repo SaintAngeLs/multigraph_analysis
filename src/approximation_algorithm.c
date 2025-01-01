@@ -1,6 +1,7 @@
 #include "approximation_algorithm.h"
 
 #include "common_utils.h"
+#include "graph_interface.h"
 
 
 int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles) {
@@ -68,7 +69,6 @@ static int approximate_required_operations(GraphAlgorithmContext *context_1, Gra
 
             int edge_1 = context_1->graph_interface->get_edge(context_1->graph_interface, arr[i] - 1, arr[j] - 1);
             int edge_2 = context_2->graph_interface->get_edge(context_2->graph_interface, i, j);
-
             required_operations += abs(edge_1 - edge_2);
         }
     }
@@ -76,9 +76,7 @@ static int approximate_required_operations(GraphAlgorithmContext *context_1, Gra
     return required_operations;
 }
 
-int approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
-    GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
-    GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
+int approximate_calculate_metric(GraphAlgorithmContext *context_1,  GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
 
     int arr[vertices_1];
     for (int i = 0; i < vertices_1; i++) {
@@ -97,9 +95,6 @@ int approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, i
         int tmp = approximate_required_operations(context_1, context_2, arr, vertices_1, vertices_2);
         min_operations = min(min_operations, tmp);
     }
-
-    destroy_context(context_1);
-    destroy_context(context_2);
 
     return min_operations;
 }

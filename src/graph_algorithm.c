@@ -278,27 +278,10 @@ static int calculate_required_operations(GraphAlgorithmContext *context_1, Graph
     return required_operations;
 }
 
-static int approximate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
-    return approximate_calculate_metric(graph_1, vertices_1, graph_2, vertices_2);
-}
-
-static int calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
+static int calculate_graph_metric(GraphAlgorithmContext *context_1,  GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
     if (vertices_1 > THRESHOLD || vertices_2 > THRESHOLD) {
-        return approximate_metric(graph_1, vertices_1, graph_2, vertices_2);
+        return approximate_calculate_metric(context_1, context_2, vertices_1, vertices_2);
     }
-
-    if (max(vertices_1, vertices_2) == vertices_2) {
-        void *temp = graph_1;
-        graph_1 = graph_2;
-        graph_2 = temp;
-
-        int temp_vertices = vertices_1;
-        vertices_1 = vertices_2;
-        vertices_2 = temp_vertices;
-    }
-
-    GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
-    GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
 
     int arr[vertices_1];
     for (int i = 0; i < vertices_1; i++) {
@@ -312,6 +295,24 @@ static int calculate_metric(void *graph_1, int vertices_1, void *graph_2, int ve
     } while (nextPermutation(arr, vertices_1));
 
     return min_operations;
+}
+
+static void calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2, int *exact_metric, int *approximate_metric){
+    if (max(vertices_1, vertices_2) == vertices_2) {
+        void *temp = graph_1;
+        graph_1 = graph_2;
+        graph_2 = temp;
+
+        int temp_vertices = vertices_1;
+        vertices_1 = vertices_2;
+        vertices_2 = temp_vertices;
+    }
+
+    GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
+    GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
+
+    *exact_metric = calculate_graph_metric(context_1, context_2, vertices_1, vertices_2);
+    *approximate_metric = approximate_calculate_metric(context_1, context_2, vertices_1, vertices_2);
 }
 
 static int find_minimal_extension(void *graph, int vertices) {
@@ -343,7 +344,6 @@ static int find_minimal_extension(void *graph, int vertices) {
             for (int j = 0; j < vertices; j++) {
                 if (i != j && context->graph_interface->get_edge(graph, i, j) == 0) {
                     context->graph_interface->add_edge(graph, i, j, 1);
-
                     explore_extensions(graph, added_edges + 1);
 
                     context->graph_interface->add_edge(graph, i, j, -1);
