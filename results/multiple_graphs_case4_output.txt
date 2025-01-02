@@ -19,7 +19,7 @@ Graph size (number of edges): 1
 All cycles: 0
 Hamiltonian cycles: 0
 Minimal extension for Hamiltonian cycle: 0
-Maximal cycle length: 2
+Maximal cycle length: 0
 Maximal cycles: 0
 ------------------------------------------------
 

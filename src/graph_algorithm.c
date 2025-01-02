@@ -439,8 +439,9 @@ static int count_maximal_cycles(void *graph, int vertices) {
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         for (int i = 0; i < context->vertices; i++) {
-            if (context->graph_interface->get_edge(graph, node, i) > 0) {
-                if (i == start && depth > max_cycle_length) {
+            int edge_weight = context->graph_interface->get_edge(graph, node, i);
+            if (edge_weight > 0) {
+                if (i == start && depth > max_cycle_length && (edge_weight > 1 || depth > 2)) {
                     max_cycle_length = depth;
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
                     dfs(i, visited, depth + 1, start);
