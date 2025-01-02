@@ -80,75 +80,31 @@ Złożoność obliczeniowa algorytmu liczenia cykli Hamiltona wynosi \( O(V!) \)
 \subsection{Algorytm obliczania metryki pomiędzy dwoma multigrafami}
 
 \begin{algorithm}[H]
-\caption{Obliczanie rozkładu stopni wierzchołków - CalculateDegreeDistribution()}
-\label{alg:degree_distribution}
-\begin{algorithmic}[1]
-\Require Macierz sąsiedztwa \textit{adj\_matrix}, Liczba wierzchołków $n$
-\Ensure Rozkład stopni wierzchołków \textit{degree\_count}
-
-\State Inicjalizacja pustej tablicy z haszowaniem \textit{degree\_count}
-\ForEach{wierzchołek $i$ w grafie}
-\State Set \textit{degree} $\gets 0$
-\ForEach{sąsiad $j$ wierzchołka $i$}
-\State \( \textit{degree} \gets \text{degree} + \textit{adj\_matrix[$i$][$j$]}\)
-\EndFor
-\If{\textit{degree} nie występuje w  \textit{degree\_count}}
-\State Dodaj \textit{degree} do \textit{degree\_count} jako klucz z wartością 1
-\Else
-\State Inkrementuj wartość dla klucza \textit{degree} w \textit{degree\_count}
-\EndIf
-\EndFor
-
-\State Znormalizuj \textit{degree\_count} dzieląc każdą wartość przez $n$
-\Return \textit{degree\_count}
-\end{algorithmic}
-\end{algorithm}
-
-Złożoność obliczania rozkładu stopni wierzchołków wynosi \( O(n^2) \), gdzie \( n \) to liczba wierzchołków w multigrafie. Wynika to z iteracji po całej macierzy sąsiedztwa \( A \) o wymiarach \( n \times n \).
-
-\begin{algorithm}[H]
-\caption{Oblicz Earth Mover's Distance (EMD) - CalculateEMD()}
-\label{alg:calculate_emd}
-\begin{algorithmic}[1]
-\Require Rozkłady stopni wierzchołków dla dwóch grafów \textit{dist1}, \textit{dist2}
-\Ensure Wartość EMD
-
-\State Inicjalizacja pustej listy \textit{all\_degrees}
-\State Znalezienie sumy zbiorów kluczy \textit{dist1} and \textit{dist2} jako \textit{all\_degrees}
-\State Posortowanie rosnąco \textit{all\_degrees}
-
-\State \textit{cumulative\_dist1} $\gets 0$ i \textit{cumulative\_dist2} $\gets 0$
-\State \textit{emd} $\gets 0$
-
-\ForEach{degree in \textit{all\_degrees}}
-\State \textit{prob1} $\gets  \textit{dist1}[degree]$, \textit{prob2} $\gets \textit{dist2}[degree]$ ($0$ w przypadku braku klucza)
-\State \textit{cumulative\_dist1} $\gets$ \textit{cumulative\_dist1} $+$ \textit{prob1}
-\State \textit{cumulative\_dist2} $\gets$ \textit{cumulative\_dist2} $+$ \textit{prob2}
-\State \textit{emd} $\gets \textit{emd} + \left| \textit{cumulative\_dist1} - \textit{cumulative\_dist2} \right|$
-\EndFor
-\State \Return \textit{emd}
-
-\end{algorithmic}
-\end{algorithm}
-
-Liczba różnych stopni wierzchołków w multigrafie jest ograniczona przez liczbę wierzchołków w grafie, więc złożoność obliczeniowa metryki EMD dla dwóch multigrafów wynosi \( O(n \log n) \), gdzie \( n \) to liczba wierzchołków w obu multigrafach. Wynika to z sortowania listy \textit{all\_degrees}.
-
-\begin{algorithm}[H]
 \caption{Obliczanie metryki pomiędzy dwoma multigrafami}
 \begin{algorithmic}[1]
-\Require \( G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) - dwa multigrafy reprezentowane przez macierze sąsiedztwa \( A_G \) i \( A_H \)
+\Require \( G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) - dwa multigrafy reprezentowane przez macierze sąsiedztwa \( A_G \) i \( A_H \) oraz $\left| V_G \right| \geq \left| V_H \right|$.
 \Ensure Metryka pomiędzy \( G \) i \( H \)
-\State $dist1 \gets \textsc{CalculateDegreeDistribution}(A_G, \left| V_G \right|)$
-\State $dist2 \gets \textsc{CalculateDegreeDistribution}(A_H, \left| V_H \right|)$
-\State $metric \gets \textsc{CalculateEMD}(dist1, dist2)$
+\State \( \text{metric} \gets \infty \)
+\ForEach{permutacja $\pi$ wierzchołków $V_G$}
+    \State \( \text{tmp} \gets 0 \)
+    \ForEach{wierzchołki \( i, j \) w \( V_H \)}
+        \If {\(\ i \geq V_H \ \text{OR} \ j \geq V_H \)}
+            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[\pi[i]][\pi[j]] \right| \)
+        \ElsIf{}
+            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[\pi[i]][\pi[j]] - A_H[i][j] \right| \)
+        \EndIf
+    \EndFor
+\EndFor
+\State $\text{metric} \gets \text{metric} + \left| V_G \right| - \left| V_H \right|$
 \State \Return \( \text{metric} \)
 \end{algorithmic}
 \end{algorithm}
 
-Złożoność algorytmu obliczania metryki dla grafów \(G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) wynosi \( O(V_G^2 + V_H ^2) \), jako połączenie złożoności dwóch poprzednich algorytmów.
+Złożoność algorytmu obliczania metryki dla grafów \(G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) wynosi \( O(\left| V_G \right| !) \), gdzie graf G ma większą liczbę wierzchołków niż H.
 
 
 \subsection{Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}
+
 \begin{algorithm}[H]
 \caption{Minimalne rozszerzenie dla cyklu Hamiltona}
 \label{alg:minimal_extension}

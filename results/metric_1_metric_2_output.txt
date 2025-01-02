@@ -151,6 +151,9 @@ Comparing graphs:
 ------------------------------------------------
 First graph with '4' vertices and '4' edges
 Second graph with '3' vertices and '4' edges
-Graph similarity metric between graphs: 0.667
+Time taken for exact function: 0.000005 seconds
+Time taken for approximate function: 0.003491 seconds
+Graph similarity metric between graphs: 5
+Approximate graph similarity metric between graphs: 5
 ------------------------------------------------
 
