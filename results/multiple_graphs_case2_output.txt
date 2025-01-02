@@ -16,26 +16,26 @@ Graph 2:
 Analyzing Multigraph:
 ------------------------------------------------
 Graph size (number of edges): 5
-All cycles: 2
+All cycles: 3
 0 -> 1 -> 0
 0 -> 1 -> 2 -> 3 -> 0
-Hamiltonian cycles: 1
+0 -> 3 -> 2 -> 1 -> 0
+Hamiltonian cycles: 2
 0 -> 1 -> 2 -> 3 -> 0
+0 -> 3 -> 2 -> 1 -> 0
 Minimal extension for Hamiltonian cycle: 0
 Maximal cycle length: 4
-Maximal cycles: 1
+Maximal cycles: 2
 0 -> 1 -> 2 -> 3 -> 0
+0 -> 3 -> 2 -> 1 -> 0
 ------------------------------------------------
 
 Graph 3:
 Analyzing Multigraph:
 ------------------------------------------------
-Graph size (number of edges): 6
-All cycles: 4
-0 -> 1 -> 2 -> 0
+Graph size (number of edges): 4
+All cycles: 1
 0 -> 1 -> 2 -> 3 -> 0
-0 -> 2 -> 3 -> 0
-2 -> 3 -> 2
 Hamiltonian cycles: 1
 0 -> 1 -> 2 -> 3 -> 0
 Minimal extension for Hamiltonian cycle: 0

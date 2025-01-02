@@ -4,17 +4,14 @@ Processing 1 graphs.
 Graph 1:
 Analyzing Multigraph:
 ------------------------------------------------
-Graph size (number of edges): 181
-All cycles: 17
+Graph size (number of edges): 174
+All cycles: 13
 1 -> 0 -> 1
 1 -> 1 -> 1
 1 -> 2 -> 1
 1 -> 3 -> 1
 1 -> 4 -> 1
 2 -> 0 -> 2
-2 -> 1 -> 2
-2 -> 2 -> 2
-2 -> 3 -> 2
 3 -> 0 -> 3
 3 -> 1 -> 3
 3 -> 2 -> 3
@@ -22,7 +19,6 @@ All cycles: 17
 3 -> 4 -> 3
 4 -> 0 -> 4
 4 -> 1 -> 4
-4 -> 2 -> 4
 Hamiltonian cycles: 6
 0 -> 5 -> 0 -> 5 -> 0 -> 5 -> 0 -> 5 -> 0 -> 5
 5 -> 0 -> 5 -> 0 -> 5 -> 0 -> 5 -> 0 -> 5 -> 0

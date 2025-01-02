@@ -32,27 +32,36 @@ static int calculate_size(void *graph) {
 }
 
 static void normalize_cycle(GArray *cycle, char *buffer) {
-    int *array = (int *)cycle->data;
     int len = cycle->len;
-    int *sorted_array = malloc(len * sizeof(int));
+    int *array = (int *)cycle->data;
 
-    memcpy(sorted_array, array, len * sizeof(int));
-    qsort(sorted_array, len, sizeof(int), int_cmp);
+    int *extended_array = malloc(2 * len * sizeof(int));
+    memcpy(extended_array, array, len * sizeof(int));
+    memcpy(extended_array + len, array, len * sizeof(int));
 
     int min_idx = 0;
     for (int i = 1; i < len; i++) {
-        if (sorted_array[i] < sorted_array[min_idx]) {
+        int is_smaller = 0;
+        for (int j = 0; j < len; j++) {
+            if (extended_array[i + j] < extended_array[min_idx + j]) {
+                is_smaller = 1;
+                break;
+            } else if (extended_array[i + j] > extended_array[min_idx + j]) {
+                is_smaller = 0;
+                break;
+            }
+        }
+        if (is_smaller) {
             min_idx = i;
         }
     }
 
     int offset = 0;
     for (int i = 0; i < len; i++) {
-        int idx = (min_idx + i) % len;
-        offset += sprintf(buffer + offset, "%d-", sorted_array[idx]);
+        offset += sprintf(buffer + offset, "%d-", extended_array[min_idx + i]);
     }
 
-    free(sorted_array);
+    free(extended_array);
 }
 
 static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
