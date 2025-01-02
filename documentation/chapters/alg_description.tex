@@ -201,19 +201,30 @@ Złożoność obliczeniowa wynosi \( O(T \cdot |V|) \), gdzie \( T \) to liczba 
 \caption{Aproksymacyjne obliczanie metryki między dwoma grafami}
 \label{alg:approx_calculate_metric}
 \begin{algorithmic}[1]
-\Require \( G_1 = (V_1, E_1) \), \( G_2 = (V_2, E_2) \) - dwa multigrafy reprezentowane przez macierze sąsiedztwa
+\Require \( G_1 = (V_1, E_1) \), \( G_2 = (V_2, E_2) \) - dwa multigrafy reprezentowane przez macierze sąsiedztwa, gdzie \( |V_1| \geq |V_2| \), \( T \) - liczba prób, \( InitialTemperature \) - początkowa temperatura, \( CoolingRate \) - współczynnik chłodzenia (w implementacji \( CoolingRate = 0.99 \))
 \Ensure Przybliżona wartość metryki między \( G_1 \) a \( G_2 \)
-\State \( \text{degree\_dist1} \gets \textsc{CalculateDegreeDistribution}(G_1) \)
-\State \( \text{degree\_dist2} \gets \textsc{CalculateDegreeDistribution}(G_2) \)
-\State \( \text{metric} \gets 0 \)
-\ForEach{\( k \) wspólny stopień w \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \)}
-    \State \( \text{metric} \gets \text{metric} + \left| \text{degree\_dist1}[k] - \text{degree\_dist2}[k] \right| \)
+\State Wygeneruj losową permutację \( \pi \) zbioru \( V_1 \)
+\State Oblicz początkową metrykę \( \textbf{metric} \) dla \( \pi \)
+\State \( \text{best\_metric} \gets \text{metric} \)
+\State \( \text{temperature} \gets InitialTemperature \)
+\For{\( t = 1 \) do \( T \)}
+    \State Zamień losowe wierzchołki \( u, v \in V_1 \) w permutacji \( \pi \)
+    \State Oblicz metrykę \( \text{metric}' \) dla nowego \( \pi \)
+    \If{\( \text{metric}' < \text{metric} \) OR \( \text{rand}(0, 1) < \exp(\frac{\text{metric} - \text{metric}'}{t}) \)}
+        \State \( \text{metric} \gets \text{metric}' \)
+        \If{\( \text{metric} < \text{best\_metric} \)}
+            \State \( \text{best\_metric} \gets \text{metric} \)
+        \ElsIf{}
+            \State Przywróć poprzednią permutację
+        \EndIf
+    \EndIf
+    \State \( \text{temperature} \gets \text{temperature} \times CoolingRate \)
 \EndFor
-\State \Return \( \text{metric} \)
+\State \Return \( \text{best\_metric} \)
 \end{algorithmic}
 \end{algorithm}
 
-Złożoność obliczeniowa wynosi \( O(n \log n) \), gdzie \( n = \max(|V_1|, |V_2|) \).
+Złożoność obliczeniowa wynosi \( O(T \cdot n) \), gdzie \( n = \max(|V_1|, |V_2|) \). Wykonujemy T iteracji, a w każdej z nich zamieniamy wierzchołki w permutacji, co wiąże się z liniową złożonością obliczeniową.
 
 \subsection{Minimalne rozszerzenie do cyklu Hamiltona}
 
