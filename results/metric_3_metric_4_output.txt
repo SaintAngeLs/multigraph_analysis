@@ -412,9 +412,9 @@ Comparing graphs:
 ------------------------------------------------
 First graph with '9' vertices and '30' edges
 Second graph with '9' vertices and '32' edges
-Time taken for exact function: 0.274581 seconds
-Time taken for approximate function: 0.007822 seconds
+Time taken for exact function: 0.276455 seconds
+Time taken for approximate function: 0.015715 seconds
 Graph similarity metric between graphs: 43
-Approximate graph similarity metric between graphs: 51
+Approximate graph similarity metric between graphs: 43
 ------------------------------------------------
 

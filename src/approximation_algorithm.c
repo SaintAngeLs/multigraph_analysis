@@ -5,8 +5,8 @@
 
 #include <time.h>
 
-#define MAX_ITER 10000
-#define INITIAL_TEMP 100.0
+#define MAX_ITER 20000
+#define INITIAL_TEMP 200.0
 #define COOLING_RATE 0.99
 
 
