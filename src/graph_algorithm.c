@@ -79,7 +79,7 @@ static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) {
+                if (i == start && (edge_weight > 1 || stack->len > 2)) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 
@@ -157,7 +157,8 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         if (depth == context->vertices) {
-            if (context->graph_interface->get_edge(graph, node, start) > 0) {
+            int edge_weight = context->graph_interface->get_edge(graph, node, start);
+            if (edge_weight > 0 && (edge_weight > 1 || path->len > 2)) {
                 char cycle_str[512];
                 normalize_cycle(path, cycle_str);
 
@@ -518,7 +519,7 @@ static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles)
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) {
+                if (i == start && (edge_weight > 1 || stack->len > 2)) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 

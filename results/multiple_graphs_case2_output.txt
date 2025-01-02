@@ -1,5 +1,5 @@
 Processing file 1: ./data/multiple_graphs_case2.txt
-Processing 2 graphs.
+Processing 3 graphs.
 
 Graph 1:
 Analyzing Multigraph:
@@ -16,8 +16,26 @@ Graph 2:
 Analyzing Multigraph:
 ------------------------------------------------
 Graph size (number of edges): 5
-All cycles: 1
+All cycles: 2
+0 -> 1 -> 0
 0 -> 1 -> 2 -> 3 -> 0
+Hamiltonian cycles: 1
+0 -> 1 -> 2 -> 3 -> 0
+Minimal extension for Hamiltonian cycle: 0
+Maximal cycle length: 4
+Maximal cycles: 1
+0 -> 1 -> 2 -> 3 -> 0
+------------------------------------------------
+
+Graph 3:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size (number of edges): 6
+All cycles: 4
+0 -> 1 -> 2 -> 0
+0 -> 1 -> 2 -> 3 -> 0
+0 -> 2 -> 3 -> 0
+2 -> 3 -> 2
 Hamiltonian cycles: 1
 0 -> 1 -> 2 -> 3 -> 0
 Minimal extension for Hamiltonian cycle: 0

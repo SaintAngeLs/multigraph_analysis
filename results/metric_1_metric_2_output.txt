@@ -126,7 +126,7 @@ Hamiltonian cycles: 12
 11 -> 0 -> 1 -> 0 -> 1 -> 0 -> 1 -> 0 -> 1 -> 0 -> 1 -> 0
 Minimal extension for Hamiltonian cycle: 5
 Maximal cycle length: 12
-Maximal cycles: 1
+Maximal cycles: 12
 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11
 ------------------------------------------------
 
@@ -137,7 +137,8 @@ Graph 1:
 Analyzing Multigraph:
 ------------------------------------------------
 Graph size (number of edges): 4
-All cycles: 1
+All cycles: 2
+0 -> 1 -> 0
 0 -> 1 -> 2 -> 0
 Hamiltonian cycles: 1
 0 -> 1 -> 2 -> 0
