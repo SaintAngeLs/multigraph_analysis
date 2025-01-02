@@ -437,92 +437,57 @@ Algorytm \textsc{AproksymacyjneLiczenieCykliHamiltona} poprawnie identyfikuje cy
 
 \subsection{Dowód poprawności algorytmu aproksymacyjnego obliczania metryki między dwoma grafami}
 
-Algorytm \textsc{AproksymacyjneObliczanieMetryki} (\ref{alg:approx_calculate_metric}) wykorzystuje znormalizowane rozkłady stopni wierzchołków w dwóch grafach \( G_1 \) i \( G_2 \), aby oszacować ich podobieństwo za pomocą uproszczonej wersji metryki Earth Mover's Distance (EMD). Poniżej przedstawiamy formalny dowód poprawności algorytmu.
+Algorytm \textsc{AproksymacyjneObliczanieMetryki} (\ref{alg:approx_calculate_metric}) wykorzystuje technikę optymalizacyjną symulowanego wyżarzania, aby oszacować podobieństwo dwóch grafów. Poprawność algorytmu opiera się na zasadach łańcuchów Markowa i kryterium Metropolisa-Hastingsa. Poniżej przedstawiamy formalny dowód poprawności algorytmu.
 
-\paragraph{Teza:}
-Dla dwóch grafów \( G_1 = (V_1, E_1) \) i \( G_2 = (V_2, E_2) \), algorytm \textsc{AproksymacyjneObliczanieMetryki} zwraca wartość metryki:
+\paragraph{Sformułowanie problemu}
+Dla skończonej przestrzeni rozwiązań $\mathcal{S}$, funkcji celu $f : \mathcal{S} \to \mathbb{R}$ oraz częstotliwości chłodzenia $T_k$, celem jest znalezienie $s^* \in \mathcal{S}$ takiego, że:
 \[
-\text{metric}(G_1, G_2) = \sum_{k} \left| \text{degree\_dist1}[k] - \text{degree\_dist2}[k] \right|,
-\]
-gdzie \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) są znormalizowanymi histogramami stopni wierzchołków w \( G_1 \) i \( G_2 \).
-
-\paragraph{Definicje formalne:}
-1. Stopień wierzchołka \( v \in V \) w grafie \( G = (V, E) \) to liczba krawędzi incydentnych z \( v \):
-\[
-\deg(v) = \sum_{u \in V} A[v][u],
-\]
-gdzie \( A \) jest macierzą sąsiedztwa grafu \( G \).
-
-2. Histogram stopni \( \text{degree\_dist}[k] \) to znormalizowana liczba wierzchołków o stopniu \( k \):
-\[
-\text{degree\_dist}[k] = \frac{|\{v \in V : \deg(v) = k\}|}{|V|}.
+    f(s^*) \leq f(s) \quad \forall s \in \mathcal{S}.
 \]
 
-3. Metryka Earth Mover's Distance (EMD) w uproszczonej formie między histogramami \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) to:
+\paragraph{Model łańcucha Markowa}
+W każdej iteracji $k$ algorytm przechodzi między stanami (rozwiązaniami) $s \in \mathcal{S}$ zgodnie z prawdopodobieństwem przejścia $P(s \to s')$, zdefiniowanym przez kryterium zaproponowane przez Metropolisa:
 \[
-\text{metric} = \sum_{k} \left| \text{degree\_dist1}[k] - \text{degree\_dist2}[k] \right|.
+    P(s \to s') = \begin{cases}
+                      1, & \text{jeśli } f(s') \leq f(s), \\
+                      e^{-\Delta f / T_k}, & \text{jeśli } f(s') > f(s),
+    \end{cases}
 \]
+gdzie $\Delta f = f(s') - f(s)$, a $T_k$ to temperatura w iteracji $k$. Przestrzeń stanów $\mathcal{S}$ i prawdopodobieństwa przejścia $P(s \to s')$ tworzą niejednorodny łańcuch Markowa.
 
-\paragraph{Dowód poprawności:}
+\paragraph{Zbieżność do globalnego optimum}
+Aby wykazać zbieżność, opieramy się na następujących kluczowych właściwościach:
 
-\textbf{1. Poprawność obliczania histogramów stopni:}
+\textbf{(a) Ergodyczność}
+Dla dowolnej pary stanów $s, s' \in \mathcal{S}$ istnieje skończony ciąg przejść o niezerowym prawdopodobieństwie łączący $s$ i $s'$. Zapewnia to, że łańcuch Markowa jest nieredukowalny i aperiodyczny.
 
-Algorytm oblicza histogram stopni \( \text{degree\_dist}[k] \) dla każdego grafu \( G \) w dwóch krokach:
-1. Dla każdego wierzchołka \( v \in V \), oblicza stopień \( \deg(v) \) przez sumowanie elementów odpowiedniego wiersza macierzy sąsiedztwa \( A[v] \). Dla \( |V| = n \), złożoność tego kroku wynosi \( O(n^2) \).
-2. Liczność wierzchołków o stopniu \( k \) jest zliczana i normalizowana przez dzielenie przez \( n \). Suma wszystkich wartości histogramu jest równa 1:
+\textbf{(b) Rozkład stacjonarny}
+Gdy temperatura $T_k$ maleje wystarczająco wolno, rozkład stacjonarny $\pi_k(s)$ łańcucha Markowa zbiega do rozkładu Boltzmanna:
 \[
-\sum_{k} \text{degree\_dist}[k] = 1.
+    \pi_k(s) = \frac{e^{-f(s) / T_k}}{\sum_{s' \in \mathcal{S}} e^{-f(s') / T_k}}.
 \]
+Dla wystarczająco małego $T_k$, $\pi_k(s)$ koncentruje się na stanach o minimalnym $f(s)$, tj. globalnych optimach.
 
-Histogramy \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) są zatem poprawnymi reprezentacjami rozkładów stopni wierzchołków w \( G_1 \) i \( G_2 \).
-
-\textbf{2. Poprawność metryki:}
-
-Uproszczona wersja EMD, zastosowana w algorytmie, oblicza różnicę między odpowiadającymi sobie wartościami w histogramach \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \):
+\textbf{(c) Częstotliwość chłodzenia}
+Częstotliwość chłodzenia $T_k$ musi spełniać następujące warunki:
 \[
-\text{metric} = \sum_{k} \left| \text{degree\_dist1}[k] - \text{degree\_dist2}[k] \right|.
+    \sum_{k=1}^\infty T_k = \infty, \quad \text{oraz} \quad \sum_{k=1}^\infty \frac{1}{T_k} < \infty.
 \]
-Zastosowanie sumy wartości bezwzględnych zapewnia:
-1. Symetrię metryki:
-\[
-\text{metric}(G_1, G_2) = \text{metric}(G_2, G_1).
-\]
+Typowym przykładem jest $T_k = \frac{T_0}{\log(k+1)}$, co zapewnia wystarczająco wolne chłodzenie dla zbieżności.
 
-2. Niezmienniczość względem kolejności porównania histogramów.
+\paragraph{Dowód zbieżności}
+Niech $P_k(s \to s')$ oznacza prawdopodobieństwo przejścia w iteracji $k$, a $\pi_k(s)$ odpowiadający rozkład stacjonarny. Dzięki ergodyczności łańcucha Markowa i częstotliwości chłodzenia:
+\begin{itemize}
+    \item Dla dużego $k$, $P_k(s \to s')$ zbiega do rozkładu proporcjonalnego do $e^{-f(s') / T_k}$.
+    \item Gdy $T_k \to 0$, prawdopodobieństwo $\pi_k(s)$ dla stanów z suboptymalnym $f(s)$ dąży do $0$.
+\end{itemize}
+Zatem algorytm zbiega do zbioru globalnych optimów $\mathcal{S}^* = \{s \in \mathcal{S} : f(s) = f(s^*)\}$.
 
-\textbf{3. Zbieżność i dokładność aproksymacji:}
+\paragraph{Zastosowanie praktyczne}
+W praktyce algorytm kończy działanie po skończonej liczbie iteracji, dostarczając aproksymacji globalnego optimum. Jakość rozwiązania zależy od początkowej temperatury, tempa chłodzenia i liczby iteracji.
 
-Dokładność algorytmu zależy od kompletności histogramów \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \). Dla dużych grafów, histogramy \( \text{degree\_dist} \) stają się gładkie, a uproszczona metryka EMD zbiega do pełnej metryki:
-\[
-\text{EMD}(G_1, G_2) = \int_{k} \left| \text{degree\_dist1}(k) - \text{degree\_dist2}(k) \right| dk.
-\]
-
-\textbf{4. Dowód indukcyjny:}
-
-\textit{Podstawa indukcji:}  
-Dla \( |V| = 1 \), histogramy \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \) mają jedną wartość \( \deg(v) \). Algorytm zwraca:
-\[
-\text{metric} = \left| \deg(v_1) - \deg(v_2) \right|,
-\]
-co jest poprawną wartością metryki.
-
-\textit{Krok indukcyjny:}  
-Załóżmy, że algorytm działa poprawnie dla grafów \( G_k = (V_k, E_k) \) o \( |V_k| = k \). Dla \( G_{k+1} = (V_{k+1}, E_{k+1}) \), histogram \( \text{degree\_dist} \) uwzględnia nowy wierzchołek \( v_{k+1} \) i aktualizuje wartości dla wszystkich stopni \( k \). Algorytm iteruje po wspólnych stopniach w \( \text{degree\_dist1} \) i \( \text{degree\_dist2} \), co zapewnia poprawność dla \( G_{k+1} \).
-
-\paragraph{Złożoność czasowa:}
-
-1. Obliczanie histogramów dla dwóch grafów: \( O(n^2) \) dla każdego grafu.
-2. Iteracja po wspólnych stopniach: \( O(D) \), gdzie \( D \) to liczba różnych stopni wierzchołków.
-
-Łączna złożoność wynosi:
-\[
-O(n^2 + D).
-\]
-
-\paragraph{Wniosek:}
-
-Na mocy definicji histogramów, symetrii metryki i dowodu indukcyjnego, algorytm \textsc{AproksymacyjneObliczanieMetryki} poprawnie oblicza uproszczoną metrykę między dwoma grafami \( G_1 \) i \( G_2 \).
-
+\paragraph{Wniosek}
+Przy założeniu ergodyczności, wystarczająco małej częstotliwości chłodzenia i nieskończonego czasu działania, symulowane wyżarzanie zbiega do globalnego optimum z prawdopodobieństwem 1. To dowodzi poprawności algorytmu.
 
 \subsection{Dowód poprawności algorytmu aproksymacyjnego minimalnego rozszerzenia do cyklu Hamiltona}
 
