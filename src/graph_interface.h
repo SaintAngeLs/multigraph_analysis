@@ -29,4 +29,13 @@ typedef struct GraphInterface {
 
 } GraphInterface;
 
+
+typedef struct {
+
+    GraphInterface *graph_interface;
+
+    int vertices;
+
+} GraphAlgorithmContext;
+
 #endif // GRAPH_INTERFACE_H

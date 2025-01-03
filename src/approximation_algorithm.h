@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
 #include "graph_algorithm.h"
 
 
@@ -13,7 +14,7 @@ int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles);
 
 int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cycles);
 
-double approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2);
+int approximate_calculate_metric(GraphAlgorithmContext *context_1,  GraphAlgorithmContext *context_2, int vertices_1, int vertices_2);
 
 int approximate_find_minimal_extension(void *graph, int vertices);
 
