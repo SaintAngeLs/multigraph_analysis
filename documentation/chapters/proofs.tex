@@ -159,74 +159,37 @@ Na mocy indukcji matematycznej oraz zgodności z językiem \( L_H \), algorytm \
 
 \subsection{Dowód poprawności algorytmu obliczania metryki pomiędzy dwoma multigrafami}
 
-Algorytm obliczania metryki pomiędzy dwoma multigrafami (\textsc{ObliczMetrykę}, Algorytm 5) opiera się na dwóch kluczowych krokach:
-1. Obliczeniu i normalizacji rozkładu stopni wierzchołków.
-2. Zastosowaniu metryki Earth Mover's Distance (EMD) do porównania znormalizowanych rozkładów.
+Algorytm obliczania metryki pomiędzy dwoma multigrafami (\textsc{ObliczMetrykę}, Algorytm 5) liczy ilość potrzebnych operacji do przekształcenia jednego grafu w drugi.
 
-Przeprowadzimy formalny dowód poprawności algorytmu, wykorzystując indukcję matematyczną, teorię maszyn Turinga oraz przestrzeń języków formalnych.
+\paragraph{Opis algorytmu}
+Algorytm przebiega następująco:
+\begin{enumerate}
+    \item Generujemy wszystkie permutacje \( \pi \) zbioru wierzchołków \( V_1 \) w porządku leksykograficznym.
+    \item Dla każdej permutacji \( \pi \), obliczamy macierz sąsiedztwa \( A(G_1^\pi) \) grafu permutowanego \( G_1^\pi \).
+    \item Porównujemy macierz sąsiedztwa \( A(G_1^\pi) \) z macierzą sąsiedztwa \( A(G_2) \) grafu \( G_2 \), aby określić liczbę wstawień i usunięć krawędzi i wierzchołków.
+    \item Wybieramy permutację \( \pi \), która minimalizuje liczbę wstawień i usunięć niezbędnych do przekształcenia \( A(G_1^\pi) \) w \( A(G_2) \).
+\end{enumerate}
 
-\paragraph{Teza:}
-Algorytm \textsc{ObliczMetrykę} poprawnie oblicza metrykę EMD między dwoma grafami \( G = (V_G, E_G) \) i \( H = (V_H, E_H) \), spełniając:
-\[
-\text{metric}(G, H) = \sum_{d \in D} \left| F_G(d) - F_H(d) \right|,
-\]
-gdzie \( F_G(d) \) oraz \( F_H(d) \) są skumulowanymi rozkładami stopni dla \( G \) i \( H \), a \( D \) to zbiór możliwych stopni.
+\paragraph{Dowód poprawności}
 
-\paragraph{Dowód krokowy:}
-\textbf{1. Obliczenie rozkładu stopni:}  
-Dla każdego wierzchołka \( v \in V \), algorytm oblicza stopień \( \deg(v) = \sum_{j=1}^n A[v][j] \). Rozkład \( \text{dist}(d) \) przypisuje liczbie \( d \) liczność wierzchołków \( |V_d| \) o tym stopniu:
-\[
-\text{dist}(d) = |\{v \in V : \deg(v) = d\}|.
-\]
-Złożoność czasowa wynosi \( O(n^2) \), ponieważ algorytm iteruje przez macierz sąsiedztwa \( A \) dla \( n \) wierzchołków. Normalizacja rozkładu dzieli liczność każdego stopnia \( d \) przez \( n \), co zapewnia, że:
-\[
-\sum_{d} \text{dist}(d) = 1.
-\]
+Niech \( A(G) \) oznacza macierz sąsiedztwa grafu \( G \). Odległość między dwoma grafami \( G_1 \) i \( G_2 \) definiuje się jako minimalną liczbę wstawień i usunięć wierzchołków i krawędzi, które są wymagane, aby przekształcić \( G_1 \) w \( G_2 \).
 
-\textbf{2. Zastosowanie metryki EMD:}  
-EMD oblicza minimalny koszt transportu między dwoma znormalizowanymi rozkładami \( \text{dist1} \) i \( \text{dist2} \). Skumulowany rozkład \( F(d) \) jest zdefiniowany jako:
-\[
-F(d) = \sum_{k \leq d} \text{dist}(k),
-\]
-a metryka jest dana przez:
-\[
-\text{metric} = \sum_{d \in D} \left| F_G(d) - F_H(d) \right|.
-\]
-Algorytm iteruje po \( D \), wykonując \( O(D) \) operacji.
+\textbf{Krok 1: Permutacja wierzchołków grafu \( G_1 \)}.
+Generujemy wszystkie permutacje \( \pi \) zbioru wierzchołków \( V_1 \), ponieważ może istnieć izomorfizm między grafami \( G_1 \) i \( G_2 \), w którym wierzchołki grafu \( G_1 \) mają inne etykiety. Każda permutacja \( \pi \) daje inne rozmieszczenie wierzchołków, a tym samym inną macierz sąsiedztwa \( A(G_1^\pi) \).
 
-\textbf{3. Dowód poprawności przez indukcję:}  
+\textbf{Krok 2: Obliczanie macierzy sąsiedztwa dla każdej permutacji}.
+Dla każdej permutacji \( \pi \) obliczamy macierz sąsiedztwa \( A(G_1^\pi) \) odpowiadającą grafowi \( G_1^\pi \), który ma te same krawędzie co \( G_1 \), ale wierzchołki są ponumerowane zgodnie z \( \pi \).
 
-\textit{Podstawa indukcji:}  
-Dla \( G \) i \( H \) składających się z jednego wierzchołka (\( n = 1 \)), macierz sąsiedztwa to \( A_G[1][1] \) i \( A_H[1][1] \). Rozkład stopni wynosi:
-\[
-\text{dist}_G(d) = \begin{cases} 
-1 & \text{jeśli } d = A_G[1][1], \\
-0 & \text{w przeciwnym razie}.
-\end{cases}
-\]
-Podobnie dla \( H \). Metryka EMD wynosi \( |F_G(d) - F_H(d)| = |A_G[1][1] - A_H[1][1]| \), co algorytm poprawnie oblicza w \( O(1) \).
+\textbf{Krok 3: Porównanie macierzy sąsiedztwa}.
+Obliczamy liczbę wstawień i usunięć krawędzi i wierzchołków, które są wymagane, aby przekształcić \( A(G_1^\pi) \) w \( A(G_2) \). Wymaga to obliczenia sumy wartości bezwzględnych różnic między odpowiadającymi elementami macierzy sąsiedztwa \( A(G_1^\pi) \) i \( A(G_2) \).
 
-\textit{Krok indukcyjny:}  
-Załóżmy, że algorytm działa poprawnie dla grafów \( G_k = (V_k, E_k) \) i \( H_k = (V_k, E_k) \), gdzie \( |V_k| = k \). Pokażemy poprawność dla \( G_{k+1} \) i \( H_{k+1} \) o \( |V| = k+1 \).
+\textbf{Krok 4: Minimalizacja liczby operacji}.
+Algorytm wybiera permutację \( \pi \), która minimalizuje liczbę wstawień i usunięć wymaganych do dopasowania \( A(G_1^\pi) \) do \( A(G_2) \).
 
-Dodanie wierzchołka \( v_{k+1} \) do \( G_k \) oraz \( H_k \) wpływa na rozkład \( \text{dist}(d) \) przez:
-\[
-\text{dist}_G'(d) = \text{dist}_G(d) + \delta(d, \deg(v_{k+1})),
-\]
-gdzie \( \delta(x, y) = 1 \) jeśli \( x = y \), w przeciwnym razie \( 0 \). Skumulowany rozkład \( F(d) \) zmienia się zgodnie z definicją, a algorytm poprawnie uwzględnia nowe wierzchołki, aktualizując skumulowane różnice \( F_G(d) - F_H(d) \) w \( O(D) \).
+\textbf{Poprawność algorytmu}.
+Rozważając wszystkie permutacje wierzchołków grafu \( G_1 \), algorytm gwarantuje, że zostanie znaleziona najlepsza możliwa zgodność między wierzchołkami \( G_1 \) i \( G_2 \). Ponieważ porównanie macierzy sąsiedztwa dla każdej permutacji liczy dokładną liczbę wymaganych wstawień i usunięć, a algorytm wybiera permutację, która minimalizuje liczbę operacji, algorytm oblicza optymalne rozwiązanie problemu transformacji grafu.
 
-\textbf{4. Redukcja do maszyny Turinga:}  
-Rozkład stopni wierzchołków można opisać w języku formalnym:
-\[
-L_\text{dist} = \{\text{dist}(d) \mid \text{dist}(d) \text{ jest znormalizowanym rozkładem stopni}\}.
-\]
-Maszyna Turinga \( M_\text{dist} \) generuje rozkład \( \text{dist}(d) \) w czasie \( O(n^2) \) oraz iteruje po stopniach \( D \), obliczając \( \text{metric} \) w czasie \( O(D) \).
-
-\textbf{5. Złożoność:}  
-Łączna złożoność algorytmu wynosi \( O(n^2 + D) \), co jest ograniczone przez liczby wierzchołków \( n \) i maksymalny stopień \( D \).
-
-\paragraph{Wniosek:}  
-Na mocy indukcji matematycznej oraz definicji maszyn Turinga, algorytm \textsc{ObliczMetrykę} poprawnie oblicza metrykę EMD między dwoma grafami \( G \) i \( H \).
+W związku z tym algorytm jest poprawny i oblicza minimalną liczbę wstawień i usunięć krawędzi oraz wierzchołków, które są wymagane, aby przekształcić \( G_1 \) w \( G_2 \).
 
 
 \subsection{Dowód poprawności algorytmu minimalnego rozszerzenia dla cyklu Hamiltona}
