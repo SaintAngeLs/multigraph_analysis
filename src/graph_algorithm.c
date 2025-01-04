@@ -35,27 +35,36 @@ static int calculate_size(void *graph) {
 }
 
 static void normalize_cycle(GArray *cycle, char *buffer) {
-    int *array = (int *)cycle->data;
     int len = cycle->len;
-    int *sorted_array = malloc(len * sizeof(int));
+    int *array = (int *)cycle->data;
 
-    memcpy(sorted_array, array, len * sizeof(int));
-    qsort(sorted_array, len, sizeof(int), int_cmp);
+    int *extended_array = malloc(2 * len * sizeof(int));
+    memcpy(extended_array, array, len * sizeof(int));
+    memcpy(extended_array + len, array, len * sizeof(int));
 
     int min_idx = 0;
     for (int i = 1; i < len; i++) {
-        if (sorted_array[i] < sorted_array[min_idx]) {
+        int is_smaller = 0;
+        for (int j = 0; j < len; j++) {
+            if (extended_array[i + j] < extended_array[min_idx + j]) {
+                is_smaller = 1;
+                break;
+            } else if (extended_array[i + j] > extended_array[min_idx + j]) {
+                is_smaller = 0;
+                break;
+            }
+        }
+        if (is_smaller) {
             min_idx = i;
         }
     }
 
     int offset = 0;
     for (int i = 0; i < len; i++) {
-        int idx = (min_idx + i) % len;
-        offset += sprintf(buffer + offset, "%d-", sorted_array[idx]);
+        offset += sprintf(buffer + offset, "%d-", extended_array[min_idx + i]);
     }
 
-    free(sorted_array);
+    free(extended_array);
 }
 
 static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
@@ -82,7 +91,7 @@ static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) {
+                if (i == start && (edge_weight > 1 || stack->len > 2)) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 
@@ -160,7 +169,8 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         if (depth == context->vertices) {
-            if (context->graph_interface->get_edge(graph, node, start) > 0) {
+            int edge_weight = context->graph_interface->get_edge(graph, node, start);
+            if (edge_weight > 0 && (edge_weight > 1 || path->len > 2)) {
                 char cycle_str[512];
                 normalize_cycle(path, cycle_str);
 
@@ -404,8 +414,9 @@ static int count_maximal_cycles(void *graph, int vertices) {
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         for (int i = 0; i < context->vertices; i++) {
-            if (context->graph_interface->get_edge(graph, node, i) > 0) {
-                if (i == start && depth > max_cycle_length) {
+            int edge_weight = context->graph_interface->get_edge(graph, node, i);
+            if (edge_weight > 0) {
+                if (i == start && depth > max_cycle_length && (edge_weight > 1 || depth > 2)) {
                     max_cycle_length = depth;
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
                     dfs(i, visited, depth + 1, start);
@@ -484,7 +495,7 @@ static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles)
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) {
+                if (i == start && (edge_weight > 1 || stack->len > 2)) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 
