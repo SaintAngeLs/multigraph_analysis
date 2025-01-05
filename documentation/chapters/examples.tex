@@ -144,30 +144,22 @@
 
 \noindent \textbf{Argumenty wejściowe:}
 \begin{itemize}
-    \item Liczba grafów: \(3\)
-    \item Graf 1: \(3\) wierzchołki, macierz sąsiedztwa:
+    \item Liczba grafów: \(2\)
+    \item Graf 1: \(4\) wierzchołki, macierz sąsiedztwa:
     \[
     A_1 = \begin{bmatrix}
-    0 & 0 & 0 \\
-    0 & 0 & 0 \\
-    0 & 0 & 0 \\
+    0 & 1 & 0 & 1 \\
+    1 & 0 & 1 & 1 \\
+    0 & 1 & 0 & 1 \\
+    1 & 1 & 0 & 0 \\
     \end{bmatrix}
     \]
-    \item Graf 2: \(2\) wierzchołki, macierz sąsiedztwa:
+    \item Graf 2: \(3\) wierzchołki, macierz sąsiedztwa:
     \[
     A_2 = \begin{bmatrix}
-    0 & 1 \\
-    1 & 0 \\
-    \end{bmatrix}
-    \]
-    \item Graf 3: \(5\) wierzchołków, macierz sąsiedztwa:
-    \[
-    A_3 = \begin{bmatrix}
-    0 & 1 & 1 & 1 & 0 \\
-    1 & 0 & 0 & 2 & 1 \\
-    1 & 0 & 0 & 0 & 1 \\
-    1 & 2 & 0 & 0 & 1 \\
-    0 & 1 & 1 & 1 & 0 \\
+    0 & 2 & 1 \\
+    2 & 0 & 1 \\
+    1 & 1 & 0 \\
     \end{bmatrix}
     \]
 \end{itemize}
@@ -176,32 +168,20 @@
 \begin{itemize}
     \item \textbf{Graf 1:}
     \begin{itemize}
-        \item Rozmiar grafu: \(0\)
-        \item Wszystkie cykle: Brak
+        \item Rozmiar grafu: \(4\)
+        \item Wszystkie cykle: \(0 \to 1 \to 3 \to 0\)
         \item Cykl Hamiltona: Nie
-        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(3\)
-        \item Maksymalna długość cyklu: \(0\)
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(1\)
+        \item Maksymalna długość cyklu: \(3\)
     \end{itemize}
     \item \textbf{Graf 2:}
     \begin{itemize}
-        \item Rozmiar grafu: \(1\)
-        \item Wszystkie cykle: Brak
-        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 0\))
+        \item Rozmiar grafu: \(4\)
+        \item Wszystkie cykle: \(0 \to 1 \to 2 \to 0\)
+        \item Cykl Hamiltona: Tak \(1 \to 2 \to 3 \to 1\)
         \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
-        \item Maksymalna długość cyklu: \(2\)
+        \item Maksymalna długość cyklu: \(3\)
     \end{itemize}
-    \item \textbf{Graf 3:}
-    \begin{itemize}
-        \item Rozmiar grafu: \(8\)
-        \item Wszystkie cykle: \(6\)
-        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 3 \to 4 \to 2 \to 0\))
-        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
-        \item Maksymalna długość cyklu: \(5\)
-    \end{itemize}
-    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(1.000\)
-    \item Metryka podobieństwa pomiędzy grafem 2 i grafem 3: \(2.200\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(5\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2 liczona metodą aproksymacyjną: \(5\)
 \end{itemize}
-
-
-
-

@@ -1,5 +1,14 @@
 #include "approximation_algorithm.h"
 
+#include "common_utils.h"
+#include "graph_interface.h"
+
+#include <time.h>
+
+#define MAX_ITER 20000
+#define INITIAL_TEMP 200.0
+#define COOLING_RATE 0.99
+
 
 int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles) {
     GraphAlgorithmContext *context = create_context(graph, vertices);
@@ -53,31 +62,70 @@ int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *outp
     return approximate_count;
 }
 
+void generate_random_permutation(int *arr, int n) {
+    for (int i = 0; i < n; i++) {
+        int j = rand() % n;
+        swap(&arr[i], &arr[j]);
+    }
+}
 
-double approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
-    GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
-    GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
+static int approximate_required_operations(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int *arr, int n, int smaller_n) {
+    int required_operations = n - smaller_n;
 
-    double avg_degree_1 = 0, avg_degree_2 = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i >= smaller_n || j >= smaller_n) {
+                required_operations += context_1->graph_interface->get_edge(context_1->graph_interface, arr[i] - 1, arr[j] - 1);
+                continue;
+            }
 
+            int edge_1 = context_1->graph_interface->get_edge(context_1->graph_interface, arr[i] - 1, arr[j] - 1);
+            int edge_2 = context_2->graph_interface->get_edge(context_2->graph_interface, i, j);
+            required_operations += abs(edge_1 - edge_2);
+        }
+    }
+
+    return required_operations;
+}
+
+int calculate_metric(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int *arr, int n, int smaller_n) {
+    return approximate_required_operations(context_1, context_2, arr, n, smaller_n);
+}
+
+int approximate_calculate_metric(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
+    int arr[vertices_1];
     for (int i = 0; i < vertices_1; i++) {
-        for (int j = 0; j < vertices_1; j++) {
-            avg_degree_1 += context_1->graph_interface->get_edge(graph_1, i, j);
-        }
+        arr[i] = i + 1;
     }
-    avg_degree_1 /= vertices_1;
 
-    for (int i = 0; i < vertices_2; i++) {
-        for (int j = 0; j < vertices_2; j++) {
-            avg_degree_2 += context_2->graph_interface->get_edge(graph_2, i, j);
+    srand(time(NULL));
+
+    generate_random_permutation(arr, vertices_1);
+    int current_metric = calculate_metric(context_1, context_2, arr, vertices_1, vertices_2);
+    int best_metric = current_metric;
+
+    double temperature = INITIAL_TEMP;
+
+    for (int iter = 0; iter < MAX_ITER; iter++) {
+        int i = rand() % vertices_1;
+        int j = rand() % vertices_1;
+        swap(&arr[i], &arr[j]);
+
+        int new_metric = calculate_metric(context_1, context_2, arr, vertices_1, vertices_2);
+
+        if (new_metric < current_metric || (exp((current_metric - new_metric) / temperature) > (rand() / (double)RAND_MAX))) {
+            current_metric = new_metric;
+            if (new_metric < best_metric) {
+                best_metric = new_metric;
+            }
+        } else {
+            swap(&arr[i], &arr[j]);
         }
+
+        temperature *= COOLING_RATE;
     }
-    avg_degree_2 /= vertices_2;
 
-    destroy_context(context_1);
-    destroy_context(context_2);
-
-    return fabs(avg_degree_1 - avg_degree_2);
+    return best_metric;
 }
 
 int approximate_find_minimal_extension(void *graph, int vertices) {

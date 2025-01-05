@@ -1,5 +1,8 @@
 #include "graph_algorithm.h"
 
+#include "common_utils.h"
+
+#include <time.h>
 
 GraphAlgorithmContext* create_context(void *graph, int vertices) {
     GraphAlgorithmContext *context = malloc(sizeof(GraphAlgorithmContext));
@@ -32,27 +35,36 @@ static int calculate_size(void *graph) {
 }
 
 static void normalize_cycle(GArray *cycle, char *buffer) {
-    int *array = (int *)cycle->data;
     int len = cycle->len;
-    int *sorted_array = malloc(len * sizeof(int));
+    int *array = (int *)cycle->data;
 
-    memcpy(sorted_array, array, len * sizeof(int));
-    qsort(sorted_array, len, sizeof(int), int_cmp);
+    int *extended_array = malloc(2 * len * sizeof(int));
+    memcpy(extended_array, array, len * sizeof(int));
+    memcpy(extended_array + len, array, len * sizeof(int));
 
     int min_idx = 0;
     for (int i = 1; i < len; i++) {
-        if (sorted_array[i] < sorted_array[min_idx]) {
+        int is_smaller = 0;
+        for (int j = 0; j < len; j++) {
+            if (extended_array[i + j] < extended_array[min_idx + j]) {
+                is_smaller = 1;
+                break;
+            } else if (extended_array[i + j] > extended_array[min_idx + j]) {
+                is_smaller = 0;
+                break;
+            }
+        }
+        if (is_smaller) {
             min_idx = i;
         }
     }
 
     int offset = 0;
     for (int i = 0; i < len; i++) {
-        int idx = (min_idx + i) % len;
-        offset += sprintf(buffer + offset, "%d-", sorted_array[idx]);
+        offset += sprintf(buffer + offset, "%d-", extended_array[min_idx + i]);
     }
 
-    free(sorted_array);
+    free(extended_array);
 }
 
 static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
@@ -79,7 +91,7 @@ static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) {
+                if (i == start && (edge_weight > 1 || stack->len > 2)) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 
@@ -157,7 +169,8 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         if (depth == context->vertices) {
-            if (context->graph_interface->get_edge(graph, node, start) > 0) {
+            int edge_weight = context->graph_interface->get_edge(graph, node, start);
+            if (edge_weight > 0 && (edge_weight > 1 || path->len > 2)) {
                 char cycle_str[512];
                 normalize_cycle(path, cycle_str);
 
@@ -226,142 +239,106 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
 //     return approximate_count;
 // }
 
+bool nextPermutation(int *arr, int n) {
+    int i = n - 2;
+    // Find the first index `i` such that arr[i] < arr[i+1]
+    while (i >= 0 && arr[i] >= arr[i + 1]) {
+        i--;
+    }
 
-static GHashTable *calculate_degree_distribution(void* graph, int n) {
-    GraphAlgorithmContext *context = create_context(graph, n);
-    GHashTable *degree_count = g_hash_table_new(g_int_hash, g_int_equal);
+    if (i < 0) {
+        return false; // No more permutations
+    }
 
-    // Calculate degrees for each node
+    // Find the smallest element in arr[i+1..n-1] that is greater than arr[i]
+    int j = n - 1;
+    while (arr[j] <= arr[i]) {
+        j--;
+    }
+
+    // Swap arr[i] and arr[j]
+    swap(&arr[i], &arr[j]);
+
+    // Reverse the sequence arr[i+1..n-1]
+    int left = i + 1, right = n - 1;
+    while (left < right) {
+        swap(&arr[left], &arr[right]);
+        left++;
+        right--;
+    }
+
+    return true;
+}
+
+static int calculate_required_operations(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int *arr, int n, int smaller_n) {
+    int required_operations = n - smaller_n;
+
     for (int i = 0; i < n; i++) {
-        int degree = 0;
         for (int j = 0; j < n; j++) {
-            degree += context->graph_interface->get_edge(graph, i, j);
-        }
-
-        int *key = g_new(int, 1);
-        *key = degree;
-        int *value = g_hash_table_lookup(degree_count, key);
-        if (value == NULL) {
-            int *new_value = g_new(int, 1);
-            *new_value = 1;
-            g_hash_table_insert(degree_count, key, new_value);
-        } else {
-            (*value)++;
-            g_free(key);
-        }
-    }
-
-    // Normalize the degree distribution
-    int total_nodes = n;
-    GHashTableIter iter;
-    gpointer key, value;
-    g_hash_table_iter_init(&iter, degree_count);
-    while (g_hash_table_iter_next(&iter, &key, &value)) {
-        double *normalized_value = g_new(double, 1);
-        *normalized_value = *((int *)value) / (double)total_nodes;
-        g_hash_table_insert(degree_count, key, normalized_value);
-        g_free(value);
-    }
-
-    return degree_count;
-}
-
-static gint g_int_compare(gconstpointer a, gconstpointer b) {
-    return *((int *)a) - *((int *)b);
-}
-
-static double calculate_emd(GHashTable *dist1, GHashTable *dist2) {
-    // Combine keys from both distributions
-    GHashTableIter iter;
-    gpointer key, value;
-
-    GList *all_degrees = NULL;
-    g_hash_table_iter_init(&iter, dist1);
-    while (g_hash_table_iter_next(&iter, &key, &value)) {
-        all_degrees = g_list_append(all_degrees, key);
-    }
-    g_hash_table_iter_init(&iter, dist2);
-    while (g_hash_table_iter_next(&iter, &key, &value)) {
-        gboolean exists = FALSE;
-        for (GList *node = all_degrees; node != NULL; node = node->next) {
-            if (*((int *)node->data) == *((int *)key)) {
-                exists = TRUE;
-                break;
+            if (i >= smaller_n || j >= smaller_n) {
+                required_operations += context_1->graph_interface->get_edge(context_1->graph_interface, arr[i] - 1, arr[j] - 1);
+                continue;
             }
-        }
-        if (!exists) {
-            all_degrees = g_list_append(all_degrees, key);
+
+            int edge_1 = context_1->graph_interface->get_edge(context_1->graph_interface, arr[i] - 1, arr[j] - 1);
+            int edge_2 = context_2->graph_interface->get_edge(context_2->graph_interface, i, j);
+
+            required_operations += abs(edge_1 - edge_2);
         }
     }
 
-    all_degrees = g_list_sort(all_degrees, (GCompareFunc)g_int_compare);
-
-    double cumulative_dist1 = 0, cumulative_dist2 = 0;
-    double emd = 0;
-
-    for (GList *node = all_degrees; node != NULL; node = node->next) {
-        int *degree = (int *)node->data;
-        double prob1 = 0, prob2 = 0;
-
-        if (g_hash_table_contains(dist1, degree)) {
-            prob1 = *((double *)g_hash_table_lookup(dist1, degree));
-        }
-        if (g_hash_table_contains(dist2, degree)) {
-            prob2 = *((double *)g_hash_table_lookup(dist2, degree));
-        }
-
-        cumulative_dist1 += prob1;
-        cumulative_dist2 += prob2;
-
-        emd += fabs(cumulative_dist1 - cumulative_dist2);
-    }
-
-    g_list_free(all_degrees);
-    return emd;
+    return required_operations;
 }
 
-static double calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
+static int calculate_graph_metric(GraphAlgorithmContext *context_1,  GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
     if (vertices_1 > THRESHOLD || vertices_2 > THRESHOLD) {
-        return approximate_calculate_metric(graph_1, vertices_1, graph_2, vertices_2);
+        printf("Using approximate algorithm for large graphs (approximate algorithm is used twice).\n");
+        return approximate_calculate_metric(context_1, context_2, vertices_1, vertices_2);
     }
 
-    GHashTable *dist1 = calculate_degree_distribution(graph_1, vertices_1);
-    GHashTable *dist2 = calculate_degree_distribution(graph_2, vertices_2);
+    int arr[vertices_1];
+    for (int i = 0; i < vertices_1; i++) {
+        arr[i] = i + 1;
+    }
 
-    double emd = calculate_emd(dist1, dist2);
+    int min_operations = INT_MAX;
+    do {
+        int tmp = calculate_required_operations(context_1, context_2, arr, vertices_1, vertices_2);
+        min_operations = min(min_operations, tmp);
+    } while (nextPermutation(arr, vertices_1));
 
-    g_hash_table_destroy(dist1);
-    g_hash_table_destroy(dist2);
-
-    return emd;
+    return min_operations;
 }
 
-// double approximate_calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2) {
-//     GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
-//     GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
+static void calculate_metric(void *graph_1, int vertices_1, void *graph_2, int vertices_2, int *exact_metric, int *approximate_metric){
+    if (max(vertices_1, vertices_2) == vertices_2) {
+        void *temp = graph_1;
+        graph_1 = graph_2;
+        graph_2 = temp;
 
-//     // Calculate average degree for both graphs
-//     double avg_degree_1 = 0, avg_degree_2 = 0;
+        int temp_vertices = vertices_1;
+        vertices_1 = vertices_2;
+        vertices_2 = temp_vertices;
+    }
 
-//     for (int i = 0; i < vertices_1; i++) {
-//         for (int j = 0; j < vertices_1; j++) {
-//             avg_degree_1 += context_1->graph_interface->get_edge(graph_1, i, j);
-//         }
-//     }
-//     avg_degree_1 /= vertices_1;
+    GraphAlgorithmContext *context_1 = create_context(graph_1, vertices_1);
+    GraphAlgorithmContext *context_2 = create_context(graph_2, vertices_2);
 
-//     for (int i = 0; i < vertices_2; i++) {
-//         for (int j = 0; j < vertices_2; j++) {
-//             avg_degree_2 += context_2->graph_interface->get_edge(graph_2, i, j);
-//         }
-//     }
-//     avg_degree_2 /= vertices_2;
+    clock_t start, end;
+    double cpu_time_used;
 
-//     destroy_context(context_1);
-//     destroy_context(context_2);
+    start = clock();
+    *exact_metric = calculate_graph_metric(context_1, context_2, vertices_1, vertices_2);
+    end = clock();
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Time taken for exact function: %f seconds\n", cpu_time_used);
 
-//     return fabs(avg_degree_1 - avg_degree_2);
-// }
+    start = clock();
+    *approximate_metric = approximate_calculate_metric(context_1, context_2, vertices_1, vertices_2);
+    end = clock();
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Time taken for approximate function: %f seconds\n", cpu_time_used);
+}
 
 static int find_minimal_extension(void *graph, int vertices) {
     if (vertices >= THRESHOLD) {
@@ -392,7 +369,6 @@ static int find_minimal_extension(void *graph, int vertices) {
             for (int j = 0; j < vertices; j++) {
                 if (i != j && context->graph_interface->get_edge(graph, i, j) == 0) {
                     context->graph_interface->add_edge(graph, i, j, 1);
-
                     explore_extensions(graph, added_edges + 1);
 
                     context->graph_interface->add_edge(graph, i, j, -1);
@@ -438,8 +414,9 @@ static int count_maximal_cycles(void *graph, int vertices) {
         g_hash_table_add(visited, GINT_TO_POINTER(node));
 
         for (int i = 0; i < context->vertices; i++) {
-            if (context->graph_interface->get_edge(graph, node, i) > 0) {
-                if (i == start && depth > max_cycle_length) {
+            int edge_weight = context->graph_interface->get_edge(graph, node, i);
+            if (edge_weight > 0) {
+                if (i == start && depth > max_cycle_length && (edge_weight > 1 || depth > 2)) {
                     max_cycle_length = depth;
                 } else if (!g_hash_table_contains(visited, GINT_TO_POINTER(i))) {
                     dfs(i, visited, depth + 1, start);
@@ -518,7 +495,7 @@ static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles)
         for (int i = 0; i < context->vertices; i++) {
             int edge_weight = context->graph_interface->get_edge(graph, node, i);
             if (edge_weight > 0) {
-                if (i == start && stack->len > 2) {
+                if (i == start && (edge_weight > 1 || stack->len > 2)) {
                     char cycle_str[512];
                     normalize_cycle(stack, cycle_str);
 

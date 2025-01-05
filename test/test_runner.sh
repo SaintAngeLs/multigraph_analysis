@@ -47,6 +47,8 @@ TEST_CASES=(
 METRIC_PAIR_CASES=(
     "metric_1.txt"
     "metric_2.txt"
+    "metric_3.txt"
+    "metric_4.txt"
 )
 
 echo "Running predefined test cases..."
