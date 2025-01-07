@@ -124,33 +124,10 @@ static int find_cycles(void *graph, int vertices, GArray *output_cycles) {
     return cycle_count;
 }
 
-// int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles) {
-//     GraphAlgorithmContext *context = create_context(graph, vertices);
-//     int approximate_cycle_count = 0;
-
-//     // Use random sampling to detect cycles
-//     for (int i = 0; i < vertices / 2; i++) {
-//         for (int j = 0; j < vertices / 2; j++) {
-//             if (context->graph_interface->get_edge(graph, i, j) > 0) {
-//                 GArray *cycle = g_array_new(FALSE, FALSE, sizeof(int));
-//                 g_array_append_val(cycle, i);
-//                 g_array_append_val(cycle, j);
-//                 g_array_append_val(cycle, i);
-//                 g_array_append_val(output_cycles, cycle);
-//                 approximate_cycle_count++;
-//             }
-//         }
-//     }
-
-//     destroy_context(context);
-//     return approximate_cycle_count;
-// }
-
 static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cycles) {
     if (vertices >= THRESHOLD) {
         return approximate_count_hamiltonian_cycles(graph, vertices, output_cycles);
     }
-
 
     GraphAlgorithmContext *context = create_context(graph, vertices);
     int count = 0;
@@ -207,59 +184,23 @@ static int count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cy
     return count;
 }
 
-// int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *output_cycles) {
-//     GraphAlgorithmContext *context = create_context(graph, vertices);
-//     int approximate_count = 0;
-
-//     // Random walks to estimate Hamiltonian cycle presence
-//     for (int start = 0; start < vertices; start++) {
-//         GArray *path = g_array_new(FALSE, FALSE, sizeof(int));
-//         g_array_append_val(path, start);
-
-//         int current = start;
-//         for (int step = 0; step < vertices - 1; step++) {
-//             for (int next = 0; next < vertices; next++) {
-//                 if (context->graph_interface->get_edge(graph, current, next) > 0) {
-//                     g_array_append_val(path, next);
-//                     current = next;
-//                     break;
-//                 }
-//             }
-//         }
-
-//         if (context->graph_interface->get_edge(graph, current, start) > 0) {
-//             g_array_append_val(output_cycles, path);
-//             approximate_count++;
-//         } else {
-//             g_array_free(path, TRUE);
-//         }
-//     }
-
-//     destroy_context(context);
-//     return approximate_count;
-// }
-
 bool nextPermutation(int *arr, int n) {
     int i = n - 2;
-    // Find the first index `i` such that arr[i] < arr[i+1]
     while (i >= 0 && arr[i] >= arr[i + 1]) {
         i--;
     }
 
     if (i < 0) {
-        return false; // No more permutations
+        return false;
     }
 
-    // Find the smallest element in arr[i+1..n-1] that is greater than arr[i]
     int j = n - 1;
     while (arr[j] <= arr[i]) {
         j--;
     }
 
-    // Swap arr[i] and arr[j]
     swap(&arr[i], &arr[j]);
 
-    // Reverse the sequence arr[i+1..n-1]
     int left = i + 1, right = n - 1;
     while (left < right) {
         swap(&arr[left], &arr[right]);
@@ -383,25 +324,6 @@ static int find_minimal_extension(void *graph, int vertices) {
     return min_edges_needed == INT_MAX ? 0 : min_edges_needed;
 }
 
-// int approximate_find_minimal_extension(void *graph, int vertices) {
-//     GraphAlgorithmContext *context = create_context(graph, vertices);
-//     int edge_additions = 0;
-
-//     // Naively connect all disconnected components
-//     for (int i = 0; i < vertices; i++) {
-//         for (int j = i + 1; j < vertices; j++) {
-//             if (context->graph_interface->get_edge(graph, i, j) == 0) {
-//                 context->graph_interface->add_edge(graph, i, j, 1);
-//                 edge_additions++;
-//                 break;
-//             }
-//         }
-//     }
-
-//     destroy_context(context);
-//     return edge_additions;
-// }
-
 static int count_maximal_cycles(void *graph, int vertices) {
     if (vertices >= THRESHOLD) {
         return approximate_count_maximal_cycles(graph, vertices);
@@ -436,39 +358,6 @@ static int count_maximal_cycles(void *graph, int vertices) {
     destroy_context(context);
     return max_cycle_length;
 }
-
-// int approximate_count_maximal_cycles(void *graph, int vertices, GArray *output_cycles) {
-//     GraphAlgorithmContext *context = create_context(graph, vertices);
-//     int approximate_max_cycle_length = 0;
-
-//     // Use a simple depth-first traversal to estimate maximal cycles
-//     for (int i = 0; i < vertices; i++) {
-//         int visited[vertices];
-//         memset(visited, 0, sizeof(visited));
-
-//         int cycle_length = 0;
-//         for (int j = 0; j < vertices; j++) {
-//             if (context->graph_interface->get_edge(graph, i, j) > 0 && !visited[j]) {
-//                 visited[j] = 1;
-//                 cycle_length++;
-//             }
-//         }
-
-//         if (cycle_length > approximate_max_cycle_length) {
-//             approximate_max_cycle_length = cycle_length;
-//             GArray *cycle = g_array_new(FALSE, FALSE, sizeof(int));
-//             for (int k = 0; k < vertices; k++) {
-//                 if (visited[k]) {
-//                     g_array_append_val(cycle, k);
-//                 }
-//             }
-//             g_array_append_val(output_cycles, cycle);
-//         }
-//     }
-
-//     destroy_context(context);
-//     return approximate_max_cycle_length;
-// }
 
 static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles) {
     if (vertices >= THRESHOLD) {
@@ -537,47 +426,6 @@ static int find_maximal_cycles(void *graph, int vertices, GArray *output_cycles)
     return cycle_count;
 }
 
-// int approximate_find_maximal_cycles(void *graph, int vertices, GArray *output_cycles) {
-//     GraphAlgorithmContext *context = create_context(graph, vertices);
-//     int approximate_max_cycle_length = 0;
-
-//     // Random traversal to find maximal cycles
-//     for (int i = 0; i < vertices; i++) {
-//         GArray *current_cycle = g_array_new(FALSE, FALSE, sizeof(int));
-//         int visited[vertices];
-//         memset(visited, 0, sizeof(visited));
-//         int node = i, length = 0;
-
-//         while (length < vertices) {
-//             visited[node] = 1;
-//             g_array_append_val(current_cycle, node);
-//             length++;
-
-//             int found_next = 0;
-//             for (int j = 0; j < vertices; j++) {
-//                 if (!visited[j] && context->graph_interface->get_edge(graph, node, j) > 0) {
-//                     node = j;
-//                     found_next = 1;
-//                     break;
-//                 }
-//             }
-
-//             if (!found_next) break;
-//         }
-
-//         if (length > approximate_max_cycle_length) {
-//             approximate_max_cycle_length = length;
-//             g_array_set_size(output_cycles, 0); // Clear previous cycles
-//             g_array_append_val(output_cycles, current_cycle);
-//         } else {
-//             g_array_free(current_cycle, TRUE);
-//         }
-//     }
-
-//     destroy_context(context);
-//     return approximate_max_cycle_length;
-// }
-
 GraphAlgorithm default_algorithm = {
     .calculate_size = calculate_size,
     .find_cycles = find_cycles,
@@ -586,10 +434,4 @@ GraphAlgorithm default_algorithm = {
     .find_minimal_extension = find_minimal_extension,
     .find_maximal_cycles = find_maximal_cycles,
     .count_maximal_cycles = count_maximal_cycles,
-
-    // .approximate_find_cycles = approximate_find_cycles,
-    // .approximate_count_hamiltonian_cycles = approximate_count_hamiltonian_cycles,
-    // .approximate_calculate_metric = approximate_calculate_metric,
-    // .approximate_find_minimal_extension = approximate_find_minimal_extension,
-    // .approximate_find_maximal_cycles = approximate_find_maximal_cycles
 };
