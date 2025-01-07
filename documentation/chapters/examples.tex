@@ -19,9 +19,14 @@
 
 \noindent \textbf{Wynik:}
 \begin{itemize}
-    \item Rozmiar grafu (liczba krawędzi): \(4\)
-    \item Wszystkie cykle: \(0 \to 1 \to 2 \to 0\)
-    \item Cykl Hamiltona: Tak (\(0 \to 1 \to 2 \to 0\))
+    \item Rozmiar grafu (liczba krawędzi): \(8\)
+    \item Wszystkie cykle: 
+        	\\ \(0 \to 1 \to 0\)
+    		\\ \(0 \to 1 \to 2 \to 0\)
+        	\\ \(0 \to 2 \to 1 \to 0\)
+    \item Cykle Hamiltona:
+        	\\ \(0 \to 1 \to 2 \to 0\)
+        	\\ \(0 \to 2 \to 1 \to 0\)
     \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
     \item Maksymalna długość cyklu: \(3\)
 \end{itemize}
@@ -56,21 +61,27 @@
 \begin{itemize}
     \item \textbf{Graf 1:}
     \begin{itemize}
-        \item Rozmiar grafu: \(2\)
+        \item Rozmiar grafu: \(4\)
         \item Wszystkie cykle: Brak
-        \item Cykl Hamiltona: Nie
+        \item Cykle Hamiltona: Brak
         \item Minimalne rozszerzenie dla cyklu Hamiltona: \(1\)
-        \item Maksymalna długość cyklu: \(2\)
+        \item Maksymalna długość cyklu: \(0\)
     \end{itemize}
     \item \textbf{Graf 2:}
     \begin{itemize}
-        \item Rozmiar grafu: \(5\)
-        \item Wszystkie cykle: \(0 \to 1 \to 2 \to 3 \to 0\)
-        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 2 \to 3 \to 0\))
+        \item Rozmiar grafu: \(10\)
+        \item Wszystkie cykle:
+        		\\ \(0 \to 1 \to 0\)
+    			\\ \(0 \to 1 \to 2 \to 3 \to 0\)
+        		\\ \(0 \to 3 \to 2 \to 1 \to 0\)
+        \item Cykle Hamiltona:
+            	\\ \(0 \to 1 \to 2 \to 3 \to 0\)
+        		\\ \(0 \to 3 \to 2 \to 1 \to 0\)
         \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
         \item Maksymalna długość cyklu: \(4\)
     \end{itemize}
-    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(1.167\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(7\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2 liczona metodą aproksymacyjną: \(7\)
 \end{itemize}
 
 \vspace{1em}
@@ -83,8 +94,8 @@
     \item Graf 1: \(3\) wierzchołki, macierz sąsiedztwa:
     \[
     A_1 = \begin{bmatrix}
-    0 & 2 & 1 \\
-    2 & 0 & 1 \\
+    0 & 2 & 0 \\
+    2 & 0 & 0 \\
     1 & 1 & 0 \\
     \end{bmatrix}
     \]
@@ -92,7 +103,7 @@
     \[
     A_2 = \begin{bmatrix}
     0 & 3 & 1 & 0 \\
-    3 & 0 & 0 & 2 \\
+    3 & 0 & 0 & 0 \\
     1 & 0 & 0 & 1 \\
     0 & 2 & 1 & 0 \\
     \end{bmatrix}
@@ -103,7 +114,7 @@
     0 & 2 & 0 & 0 \\
     2 & 0 & 1 & 2 \\
     0 & 1 & 0 & 1 \\
-    0 & 2 & 1 & 0 \\
+    0 & 0 & 1 & 0 \\
     \end{bmatrix}
     \]
 \end{itemize}
@@ -112,30 +123,37 @@
 \begin{itemize}
     \item \textbf{Graf 1:}
     \begin{itemize}
-        \item Rozmiar grafu: \(4\)
-        \item Wszystkie cykle: \(0 \to 1 \to 2 \to 0\)
-        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 2 \to 0\))
-        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
-        \item Maksymalna długość cyklu: \(3\)
+        \item Rozmiar grafu: \(6\)
+        \item Wszystkie cykle: \(0 \to 1 \to 0\)
+        \item Cykle Hamiltona: Brak
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(1\)
+        \item Maksymalna długość cyklu: \(2\)
     \end{itemize}
     \item \textbf{Graf 2:}
     \begin{itemize}
-        \item Rozmiar grafu: \(7\)
-        \item Wszystkie cykle: \(0 \to 1 \to 3 \to 2 \to 0\)
-        \item Cykl Hamiltona: Tak (\(0 \to 1 \to 3 \to 2 \to 0\))
+        \item Rozmiar grafu: \(12\)
+        \item Wszystkie cykle:
+        		\\ \(0 \to 1 \to 0\)
+    			\\ \(0 \to 2 \to 3 \to 1 \to 0\)  
+        \item Cykle Hamiltona:
+    			\\ \(0 \to 2 \to 3 \to 1 \to 0\)
         \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
         \item Maksymalna długość cyklu: \(4\)
     \end{itemize}
     \item \textbf{Graf 3:}
     \begin{itemize}
-        \item Rozmiar grafu: \(6\)
-        \item Wszystkie cykle: \(1 \to 2 \to 3 \to 1\)
-        \item Cykl Hamiltona: Nie
+        \item Rozmiar grafu: \(10\)
+        \item Wszystkie cykle:
+        		\\ \(0 \to 1 \to 0\)
+    			\\ \(1 \to 3 \to 2 \to 1\)   
+        \item Cykle Hamiltona: Brak
         \item Minimalne rozszerzenie dla cyklu Hamiltona: \(1\)
         \item Maksymalna długość cyklu: \(3\)
     \end{itemize}
-    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(0.833\)
-    \item Metryka podobieństwa pomiędzy grafem 2 i grafem 3: \(0.500\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(9\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2 liczona metodą aproksymacyjną: \(9\)
+    \item Metryka podobieństwa pomiędzy grafem 2 i grafem 3: \(6\)
+    \item Metryka podobieństwa pomiędzy grafem 2 i grafem 3 liczona metodą aproksymacyjną: \(6\)
 \end{itemize}
 
 \vspace{1em}
@@ -168,20 +186,30 @@
 \begin{itemize}
     \item \textbf{Graf 1:}
     \begin{itemize}
-        \item Rozmiar grafu: \(4\)
-        \item Wszystkie cykle: \(0 \to 1 \to 3 \to 0\)
-        \item Cykl Hamiltona: Nie
-        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(1\)
-        \item Maksymalna długość cyklu: \(3\)
+        \item Rozmiar grafu: \(9\)
+        \item Wszystkie cykle:
+        		\\ \(0 \to 1 \to 2 \to 3 \to 0\)
+    			\\ \(0 \to 1 \to 3 \to 0\)
+    			\\ \(0 \to 3 \to 1 \to 0\)
+    			\\ \(1 \to 2 \to 3 \to 1\)    			
+        \item Cykle Hamiltona:
+        		\\ \(0 \to 1 \to 2 \to 3 \to 0\)        
+        \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
+        \item Maksymalna długość cyklu: \(4\)
     \end{itemize}
     \item \textbf{Graf 2:}
     \begin{itemize}
-        \item Rozmiar grafu: \(4\)
-        \item Wszystkie cykle: \(0 \to 1 \to 2 \to 0\)
-        \item Cykl Hamiltona: Tak \(1 \to 2 \to 3 \to 1\)
+        \item Rozmiar grafu: \(8\)
+        \item Wszystkie cykle:
+        		\\ \(0 \to 1 \to 0\)
+    			\\ \(0 \to 1 \to 2 \to 0\)
+    			\\ \(0 \to 2 \to 1 \to 0\)       
+        \item Cykle Hamiltona:
+    			\\ \(0 \to 1 \to 2 \to 0\)
+    			\\ \(0 \to 2 \to 1 \to 0\)        
         \item Minimalne rozszerzenie dla cyklu Hamiltona: \(0\)
         \item Maksymalna długość cyklu: \(3\)
     \end{itemize}
-    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(5\)
-    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2 liczona metodą aproksymacyjną: \(5\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2: \(6\)
+    \item Metryka podobieństwa pomiędzy grafem 1 i grafem 2 liczona metodą aproksymacyjną: \(6\)
 \end{itemize}
