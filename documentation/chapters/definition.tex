@@ -49,26 +49,19 @@ gdzie \( \text{Liczność}((u, v), E) \) to liczba wystąpień krawędzi \( (u, 
 \vspace{1em}
 
 \noindent \textbf{Definicja 7: Metryka w przestrzeni multigrafów.} \\
-Niech $G_1$ i $G_2$ będą dwoma multigrafami o rozkładzie stopni wierzchołków $D_1$ i $D_2$. Rozkład stopni wierzchołków to funkcja:
-\begin{align*}
-    D_i = \frac{\text{Liczba wierzchołków o stopniu k w} \ G_i}{\text{Liczba wierzchołków w} \ G_i}.
-\end{align*}
 
-
-Metryka Earth Mover's Distance (EMD) pomiędzy $D_1$ i $D_2$ to minimalny koszt przekształcenia $D_1$ w $D_2$, gdzie koszt przekształcenia stopnia $d_i$ w $d_j$ wynosi $|d_i - d_j|$. Metryka EMD pomiędzy $D_1$ i $D_2$ to suma kosztów przekształceń dla wszystkich par stopni wierzchołków:
-\[
-    EMD(D_1, D_2) = \min_{F} \sum_{k_1} \sum_{k_2} F(k_1, k_2) \cdot |k_1 - k_2|,
-\]
-gdzie:
+Metryką w przestrzeni multigrafów nazwiemy minimalną liczbą operacji potrzebnych do przekształcenia jednego grafu w drugi. Do operacji zaliczamy:
 \begin{itemize}
-    \item $F(k_1, k_2)$ reprezentuje \textit{przepływ} masy prawdopodobieństwa z stopnia $k_1$ w $D_1$ do stopnia $k_2$ w $D_2$.
-    \item $|k_1 - k_2|$ jest kosztem (lub odległością) przeniesienia jednej jednostki masy prawdopodobieństwa z $k_1$ do $k_2$.
-    \item $\sum_{k_2} F(k_1, k_2) \leq D_1(k_1)$, dla każdego $k_1$: Przepływ z stopnia $k_1$ in $D_1$ nie może przekroczyć prawdopodobieństwa w $k_1$.
-    \item $\sum_{k_1} F(k_1, k_2) \leq D_2(k_2)$, dla każdego $k_2$: Przepływ do stopnia $k_2$ in $D_2$ nie może przekroczyć prawdopodobieństwa w $k_2$.
-    \item $\sum_{k_1} \sum_{k_2} F(k_1, k_2) = \min\left(\sum_{k_1} D_1(k_1), \sum_{k_2} D_2(k_2)\right)$
+    \item dodanie krawędzi (również wielokrotnie),
+    \item usunięcie krawędzi,
+    \item dodanie wierzchołka,
+    \item usunięcie wierzchołka,
+    \item zamianę wierzchołków.
 \end{itemize}
-
-Metryką w przestrzeni multigrafów nazwiemy odległość EMD pomiędzy rozkładami stopni wierzchołków dwóch multigrafów.
+\[
+    d(G, H) = \min_{wszystkie \ sekwencje \ edycji} \sum_{operacje \ edycji \ grafu} f_{cost}(operacja),
+\]
+Przyjmujemy koszt wszystkich operacji edycji jako 1, oprócz zamiany wierzchołków, która ma koszt 0.
 
 \vspace{1em}
 
@@ -126,7 +119,7 @@ W ramach implementacji, duże grafy mogą być reprezentowane jako:
 Dla grafów spełniających powyższe kryteria, algorytmy deterministyczne są zastępowane przez metody aproksymacyjne w celu redukcji złożoności obliczeniowej. Przykłady takich algorytmów to:
 \begin{itemize}
     \item Losowe próbkowanie wierzchołków lub krawędzi w celu znalezienia cykli.
-    \item Przybliżone obliczenia metryki Earth Mover's Distance (\( \text{EMD} \)).
+    \item Przybliżone obliczenia metryki odległości grafów za pomocą algorytmu symulowanego wyżarzania (Simulated Annealing).
     \item Heurystyczne dodawanie krawędzi w procesie rozszerzenia grafu do posiadania cyklu Hamiltona.
 \end{itemize}
 
@@ -162,14 +155,8 @@ Złożoność redukowana jest przez ograniczenie liczby prób \( |T| \ll |V|! \)
 
 \subsection{Obliczanie metryki między grafami}
 
-Niech \( G_1 = (V_1, E_1) \) oraz \( G_2 = (V_2, E_2) \) będą multigrafami o rozkładach stopni \( D_1 \) i \( D_2 \). Rozkład stopni definiujemy jako funkcję:
-\[
-D_i(k) = \frac{\text{liczba wierzchołków o stopniu } k \text{ w } G_i}{|V_i|}.
-\]
-Metryka między \( G_1 \) a \( G_2 \) jest aproksymowana za pomocą uproszczonego obliczenia Earth Mover's Distance:
-\[
-EMD(D_1, D_2) \approx \sum_{k \in \mathbb{Z}} |D_1(k) - D_2(k)|.
-\]
+W celu znalezienia metryki między dwoma grafami \( G_1 = (V_1, E_1) \) i \( G_2 = (V_2, E_2) \) generujemy wszystkie możliwe permutacje wierzchołków grafu o większej liczbie wierzchołków. Dla każdej permutacji \( \pi \) obliczamy metrykę \( d(G_1, G_2) \) jako minimalną liczbę operacji edycji, które przekształcają graf \( G_1 \) w graf \( G_2 \). Metryka jest minimalizowana poprzez wybór permutacji, która daje najmniejszą wartość metryki. Wiąże się to jednak z dużą złożonością obliczeniową, dlatego wykorzystywane są również metody aproksymacyjne. \\
+Symulowane wyżarzanie to probabilistyczna technika optymalizacji, która pozwala aproksymować globalne optimum funkcji, dzięki czemu doskonale nadaje się do aproksymacji odległości grafów. Proces rozpoczyna się od inicjalizacji losowej permutacji wierzchołków grafu i obliczenia początkowej metryki \texttt{required\_operations}. Na każdym kroku generowana jest sąsiednia permutacja poprzez zamianę dwóch wierzchołków. Jeśli nowa permutacja daje niższą wartość \texttt{required\_operations}, jest akceptowana. W przeciwnym razie może być zaakceptowana z pewnym prawdopodobieństwem, które maleje wraz z upływem czasu, co pozwala algorytmowi unikać lokalnych minimów. Harmonogram chłodzenia stopniowo zmniejsza prawdopodobieństwo akceptacji gorszych rozwiązań, zapewniając zbieżność. Algorytm kończy działanie po ustalonej liczbie iteracji lub gdy temperatura osiągnie określony niski próg.
 
 \subsection{Rozszerzenie do cyklu Hamiltona}
 

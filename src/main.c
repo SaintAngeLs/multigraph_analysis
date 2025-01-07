@@ -74,8 +74,8 @@ void analyze_multigraph(GraphInterface *multigraph) {
     printf("Maximal cycle length: %d\n", maximal_cycle_length);
 
     GArray *output_maximal_cycles = g_array_new(FALSE, FALSE, sizeof(GArray *));
-    default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices, output_maximal_cycles);
-    printf("Maximal cycles: %u\n", output_maximal_cycles->len);
+    int maximal_cycle_count = default_algorithm.find_maximal_cycles(multigraph, multigraph->vertices, output_maximal_cycles);
+    printf("Maximal cycles: %u\n", maximal_cycle_count);
     print_cycles(output_maximal_cycles);
     g_array_free(output_maximal_cycles, TRUE);
 
@@ -136,8 +136,10 @@ void process_metrics(GraphInterface* multigraph_1, GraphInterface* multigraph_2)
     printf("First graph with '%d' vertices and '%d' edges\n", multigraph_1->vertices, multigraph_1->calculate_size(multigraph_1));
     printf("Second graph with '%d' vertices and '%d' edges\n", multigraph_2->vertices, multigraph_2->calculate_size(multigraph_2));
 
-    double metric = default_algorithm.calculate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices);
-    printf("Graph similarity metric between graphs: %.3f\n",metric);
+    int exact_metric, approximate_metric;
+    default_algorithm.calculate_metric(multigraph_1, multigraph_1->vertices, multigraph_2, multigraph_2->vertices, &exact_metric, &approximate_metric);
+    printf("Graph similarity metric between graphs: %d\n",exact_metric);
+    printf("Approximate graph similarity metric between graphs: %d\n",approximate_metric);
 
     printf("------------------------------------------------\n\n");
 }
