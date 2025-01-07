@@ -58,7 +58,7 @@ Przykład pliku wejściowego:
 
 Uruchomienie programu:
 \begin{verbatim}
-./multigraph_analysis.exe <input_file>
+./multigraph_analysis.exe <input_file> <optional_input_file_to_compare>
 \end{verbatim}
 
 Przykład:
@@ -66,7 +66,14 @@ Przykład:
 ./multigraph_analysis.exe data/input.txt
 \end{verbatim}
 
-Program przyjmuje jedynie jeden argument, jednak obsługuje wiele grafów w jednym pliku wejściowym. W celu obliczenia metryki pomiędzy grafami, należy umieścić je w jednym pliku, jeden pod drugim. Wyniki analizy grafów zostaną wyświetlone w terminalu i mogą być przekierowane do pliku wyjściowego.
+Przykład dla metryki:
+\begin{verbatim}
+./multigraph_analysis.exe data/input_1.txt data/input_2.txt
+\end{verbatim}
+
+Program przyjmuje jeden obowiązkowy argument – ścieżkę do pliku zawierającego jeden lub więcej grafów. Analiza grafów z tego pliku zostanie wyświetlona w terminalu, z możliwością przekierowania wyników do pliku wyjściowego.
+
+W celu obliczenia metryki pomiędzy grafami, należy podać drugi opcjonalny argument (ścieżka do pliku z grafem, który będzie drugim argumentem metryki). Gdy argument będzie podany, zostanie wyświetlona analiza wszystkich grafów z pierwszego pliku oraz zostanie przeprowadzone porównanie dwóch pierwszych grafów z obu plików za pomocą dostarczonej metryki.
 
 \subsection{Opis funkcji programu głównego}
 
