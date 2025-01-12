@@ -14,13 +14,29 @@ Projekt składa się z kilku kluczowych katalogów i plików:
 
 \subsection{Kompilacja projektu}
 
-Do kompilacji programu i generatora grafów należy użyć polecenia:
+Zakładamy, iż na komputerze laboratoryjnym zainstalowane są następujące narzędzia:
+\begin{itemize}
+	\item CMake (dostępny pod linkiem \url{https://cmake.org/download/})
+	\item MinGW (dostępny pod linkiem \url{https://github.com/Vuniverse0/mingwInstaller/releases})
+\end{itemize}
 
-\begin{verbatim}
-make all
-\end{verbatim}
+Ponadto, zmienna środowiskowa PATH musi być uzupełniona o katalogi zawierające pliki wykonywalne obu powyższych programów (\texttt{\textbackslash CMake\textbackslash bin} oraz \texttt{\textbackslash mingw64\textbackslash bin}).
+\\\\
+Jeśli wstępne warunki są spełnione, kompilację można wykonać poprzez następujące kroki:
+\begin{enumerate}
+	\item Otworzyć w terminalu katalog projektu: \texttt{Source}
+	\item Wykonać polecenie:
+	\begin{spverbatim}
+cmake -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
+-DPKG_CONFIG_EXECUTABLE=".\vcpkg\installed\x64-windows\tools\pkgconf\pkgconf.exe" -G "MinGW Makefiles" .
+	\end{spverbatim}
+	\item Wykonać polecenie:
+	\begin{spverbatim}
+cmake --build .
+	\end{spverbatim}
+\end{enumerate}
 
-Po zakończeniu kompilacji zostanie utworzony następujący plik wykonywalny:
+Po zakończeniu kompilacji w katalogu \texttt{Source} zostanie utworzony następujący plik wykonywalny:
 \begin{itemize}
     \item \texttt{multigraph\_analysis.exe} - Program główny do analizy grafów.
 \end{itemize}
