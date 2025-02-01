@@ -22,7 +22,7 @@ void handle_arguments(int argc, char *argv[], Config *config) {
 FILE* open_file_with_retry(const char *filename) {
     FILE *file;
     do {
-        file = fopen_s(filename, "r");
+        file = fopen(filename, "r");
     } while (!file && errno == EINTR);
 
     if (!file) {

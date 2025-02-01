@@ -1,0 +1,46 @@
+Processing file 1: ./data/multiple_graphs_case2.txt
+Processing 3 graphs.
+
+Graph 1:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size (number of edges): 2
+All cycles: 0
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Maximal cycle length: 0
+Maximal cycles: 0
+------------------------------------------------
+
+Graph 2:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size (number of edges): 5
+All cycles: 3
+0 -> 1 -> 0
+0 -> 1 -> 2 -> 3 -> 0
+0 -> 3 -> 2 -> 1 -> 0
+Hamiltonian cycles: 2
+0 -> 1 -> 2 -> 3 -> 0
+0 -> 3 -> 2 -> 1 -> 0
+Minimal extension for Hamiltonian cycle: 0
+Maximal cycle length: 4
+Maximal cycles: 2
+0 -> 1 -> 2 -> 3 -> 0
+0 -> 3 -> 2 -> 1 -> 0
+------------------------------------------------
+
+Graph 3:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size (number of edges): 4
+All cycles: 1
+0 -> 1 -> 2 -> 3 -> 0
+Hamiltonian cycles: 1
+0 -> 1 -> 2 -> 3 -> 0
+Minimal extension for Hamiltonian cycle: 0
+Maximal cycle length: 4
+Maximal cycles: 1
+0 -> 1 -> 2 -> 3 -> 0
+------------------------------------------------
+

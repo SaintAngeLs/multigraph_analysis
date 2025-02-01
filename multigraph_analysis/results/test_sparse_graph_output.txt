@@ -1,0 +1,22 @@
+Processing file 1: ./data/test_sparse_graph.txt
+Processing 1 graphs.
+
+Graph 1:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size (number of edges): 141
+All cycles: 7
+3 -> 2 -> 3
+3 -> 3 -> 3
+3 -> 4 -> 3
+4 -> 0 -> 4
+4 -> 1 -> 4
+4 -> 2 -> 4
+4 -> 3 -> 4
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 7
+Maximal cycle length: 10
+Maximal cycles: 10
+0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
+------------------------------------------------
+
