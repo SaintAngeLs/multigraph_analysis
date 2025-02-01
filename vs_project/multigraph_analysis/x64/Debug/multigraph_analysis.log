@@ -1,0 +1,3 @@
+﻿  main.c
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(338,14): warning C4013: 'exp' undefined; assuming extern returning int
+  multigraph_analysis.vcxproj -> D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\x64\Debug\multigraph_analysis.exe

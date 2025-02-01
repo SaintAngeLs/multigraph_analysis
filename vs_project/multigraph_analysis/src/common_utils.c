@@ -1,0 +1,15 @@
+#include "common_utils.h"
+
+int common_min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int common_max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+void common_swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
