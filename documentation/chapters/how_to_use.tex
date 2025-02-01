@@ -5,27 +5,40 @@
 Projekt składa się z kilku kluczowych katalogów i plików:
 
 \begin{itemize}
-    \item \textbf{src/} - Katalog zawierający kody źródłowe programu głównego.
-    \item \textbf{data/} - Przykładowe pliki wejściowe z danymi grafów.
-    \item \textbf{results/} - Katalog, w którym zapisywane są wyniki analizy grafów.
-    \item \textbf{documentation.pdf} - Plik dokumentacji projektu, w tym opis algorytmów, dowody i przykłady użycia.
-    \item \textbf{graph\_gen.exe} - Program generujący przykładowe grafy o różnych strukturach.
+    \item \textbf{Source/} - Katalog zawierający kody źródłowe programu głównego.
+    \item \textbf{Examples/} - Przykładowe pliki wejściowe z danymi grafów.
+    \item \textbf{Doc/documentation.pdf} - Plik dokumentacji projektu, w tym opis algorytmów, dowody i przykłady użycia.
+    \item \textbf{Exe/multigraph\_analysis.exe} - Program będący rozwiązaniem zadania.
     \item \textbf{Makefile} - Plik automatyzujący kompilację projektu.
-    \item \textbf{test/} - Testy projektu wraz ze skryptem \texttt{test\_runner.sh} do uruchamiania testów automatycznych.
 \end{itemize}
 
 \subsection{Kompilacja projektu}
 
-Do kompilacji programu i generatora grafów należy użyć polecenia:
+Zakładamy, iż na komputerze laboratoryjnym zainstalowane są następujące narzędzia:
+\begin{itemize}
+	\item CMake (dostępny pod linkiem \url{https://cmake.org/download/})
+	\item MinGW (dostępny pod linkiem \url{https://github.com/Vuniverse0/mingwInstaller/releases})
+\end{itemize}
 
-\begin{verbatim}
-make all
-\end{verbatim}
+Ponadto, zmienna środowiskowa PATH musi być uzupełniona o katalogi zawierające pliki wykonywalne obu powyższych programów (\texttt{\textbackslash CMake\textbackslash bin} oraz \texttt{\textbackslash mingw64\textbackslash bin}).
+\\\\
+Jeśli wstępne warunki są spełnione, kompilację można wykonać poprzez następujące kroki:
+\begin{enumerate}
+	\item Uruchomić PowerShell i jako katalog roboczy ustawić katalog \texttt{Source/}
+	\item Wykonać polecenie:
+	\begin{spverbatim}
+cmake -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
+-DPKG_CONFIG_EXECUTABLE=".\vcpkg\installed\x64-windows\tools\pkgconf\pkgconf.exe" -G "MinGW Makefiles" .
+	\end{spverbatim}
+	\item Wykonać polecenie:
+	\begin{spverbatim}
+cmake --build .
+	\end{spverbatim}
+\end{enumerate}
 
-Po zakończeniu kompilacji zostaną utworzone dwa pliki wykonywalne:
+Po zakończeniu kompilacji w katalogu \texttt{Source} zostanie utworzony następujący plik wykonywalny:
 \begin{itemize}
     \item \texttt{multigraph\_analysis.exe} - Program główny do analizy grafów.
-    \item \texttt{graph\_gen.exe} - Program do generowania przykładowych grafów.
 \end{itemize}
 
 \subsection{Uruchamianie programu głównego}
@@ -36,6 +49,7 @@ Program główny \texttt{multigraph\_analysis.exe} wymaga pliku wejściowego z o
 <number_of_graphs>
 <number_of_vertices_for_graph_1>
 <adjacency_matrix_for_graph_1>
+
 <number_of_vertices_for_graph_2>
 <adjacency_matrix_for_graph_2>
 ...
@@ -58,15 +72,25 @@ Przykład pliku wejściowego:
 
 Uruchomienie programu:
 \begin{verbatim}
-./multigraph_analysis.exe <input_file>
+./multigraph_analysis.exe <input_file> <optional_input_file_to_compare>
 \end{verbatim}
 
 Przykład:
 \begin{verbatim}
-./multigraph_analysis.exe data/input.txt
+./multigraph_analysis.exe ../Examples/input.txt
 \end{verbatim}
 
-Program przyjmuje jedynie jeden argument, jednak obsługuje wiele grafów w jednym pliku wejściowym. W celu obliczenia metryki pomiędzy grafami, należy umieścić je w jednym pliku, jeden pod drugim. Wyniki analizy grafów zostaną wyświetlone w terminalu i mogą być przekierowane do pliku wyjściowego.
+Przykład dla metryki:
+    {\small
+\begin{verbatim}
+./multigraph_analysis.exe ../Examples/metric_case2_graph1.txt ../Examples/metric_case2_graph2.txt
+\end{verbatim}
+}
+
+Program przyjmuje jeden obowiązkowy argument – ścieżkę do pliku zawierającego jeden lub więcej grafów. Analiza grafów z tego pliku zostanie wyświetlona w terminalu, z możliwością przekierowania wyników do pliku wyjściowego.
+
+W celu obliczenia metryki pomiędzy grafami, należy podać drugi opcjonalny argument (ścieżka do pliku z grafem, który będzie drugim argumentem metryki). Gdy argument będzie podany, zostanie wyświetlona analiza wszystkich grafów z pierwszego pliku oraz zostanie przeprowadzone porównanie dwóch pierwszych grafów z obu plików za pomocą dostarczonej metryki.
+
 
 \subsection{Opis funkcji programu głównego}
 
@@ -82,55 +106,3 @@ Program przyjmuje jedynie jeden argument, jednak obsługuje wiele grafów w jedn
         \item Obliczanie minimalnego rozszerzenia dla cyklu Hamiltona.
     \end{itemize}
 \end{itemize}
-
-\subsection{Uruchamianie generatora grafów}
-
-Program \texttt{graph\_gen.exe} pozwala generować grafy o różnej strukturze. Wywołanie:
-\begin{verbatim}
-./graph_gen.exe <graph_type> <num_graphs> <vertices> <max_weight> <output_file>
-<extra_parameter>
-\end{verbatim}
-
-\begin{itemize}
-    \item \texttt{<graph\_type>} - Typ grafu:
-    \begin{itemize}
-        \item \texttt{complete} - Pełny graf skierowany.
-        \item \texttt{sparse} - Rzadki graf skierowany.
-        \item \texttt{bipartite} - Dwudzielny graf skierowany.
-    \end{itemize}
-    \item \texttt{<num\_graphs>} - Liczba grafów do wygenerowania.
-    \item \texttt{<vertices>} - Liczba wierzchołków.
-    \item \texttt{<max\_weight>} - Maksymalna waga krawędzi.
-    \item \texttt{<output\_file>} - Nazwa pliku wyjściowego.
-    \item \texttt{<extra\_parameter>} - Dodatkowy parametr:
-    \begin{itemize}
-        \item Dla \texttt{sparse}: Prawdopodobieństwo krawędzi (\texttt{$0.0 < p \leq 1.0$}).
-        \item Dla \texttt{complete} i \texttt{bipartite}: Maksymalna liczba krawędzi między parami wierzchołków.
-    \end{itemize}
-\end{itemize}
-
-\subsection{Przykłady użycia generatora grafów}
-
-\textbf{Generowanie pełnego grafu:}
-\begin{verbatim}
-./graph_gen.exe complete 1 5 10 data/complete_graph.txt 3
-\end{verbatim}
-
-\textbf{Generowanie rzadkiego grafu:}
-\begin{verbatim}
-./graph_gen.exe sparse 1 5 10 data/sparse_graph.txt 0.2
-\end{verbatim}
-
-\textbf{Generowanie grafu dwudzielnego:}
-\begin{verbatim}
-./graph_gen.exe bipartite 1 10 10 data/bipartite_graph.txt 3
-\end{verbatim}
-
-\subsection{Uruchamianie testów}
-
-Testy można uruchomić za pomocą skryptu \texttt{test\_runner.sh}:
-\begin{verbatim}
-bash test/test_runner.sh
-\end{verbatim}
-
-Skrypt wykonuje analizę predefiniowanych przypadków testowych oraz generuje dodatkowe testy za pomocą programu \texttt{graph\_gen}. Wyniki testów są zapisywane w katalogu \texttt{results/}.
