@@ -223,13 +223,22 @@ static void dfs_findCycles(
         if (w > 0) {
             if (nxt == start && (w > 1 || stackLen > 1)) {
                 /* Found a cycle */
-                char* canonical = normalizeCycle(stack, stackLen + 1);
+                int cycleLength = stackLen + 2;
+                int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+                memcpy(cycleArray, stack, (stackLen + 1) * sizeof(int));
+                /* #34: explicitly repeat the start vertex  */
+                cycleArray[stackLen + 1] = start; 
+
+                /* Normalize for checking duplicates */
+                char* canonical = normalizeCycle(cycleArray, cycleLength);
+
                 if (!stringListContains(uniqueCycles, canonical)) {
                     addStringToList(uniqueCycles, canonical);
-                    addCycle(cycleList, stack, stackLen + 1);
+                    addCycle(cycleList, cycleArray, cycleLength);
                     (*localCount)++;
                 }
                 free(canonical);
+                free(cycleArray);
             }
             else if (!visited[nxt]) {
                 dfs_findCycles(ctx, start, nxt, stack, stackLen + 1,
@@ -260,15 +269,24 @@ static void backtrack_hamiltonian(
     if (depth == context->vertices) {
         /* Attempt to close the cycle */
         int w = gi->get_edge(gi, current, start);
-        if (w > 0 && (w > 1 || depth > 2)) {
-            /* Found a Hamiltonian cycle */
-            char* canonical = normalizeCycle(path, depth);
+        /* #34: ----- CHANGED: no more (w > 1 || depth > 2).
+         * Now if w>0, we do have a Hamiltonian cycle,
+         * store the repeated start as well.
+         */
+        if (w > 0) {
+            int cycleLength = depth + 1;
+            int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+            memcpy(cycleArray, path, depth * sizeof(int));
+            cycleArray[depth] = start; /* close the cycle explicitly */
+
+            char* canonical = normalizeCycle(cycleArray, cycleLength);
             if (!stringListContains(uniqueCycles, canonical)) {
                 addStringToList(uniqueCycles, canonical);
-                addCycle(cycleList, path, depth);
+                addCycle(cycleList, cycleArray, cycleLength);
                 (*localCount)++;
             }
             free(canonical);
+            free(cycleArray);
         }
     }
     else {
@@ -304,18 +322,21 @@ static void dfs_findMaxCycles(
     for (int nxt = 0; nxt < context->vertices; nxt++) {
         int w = gi->get_edge(gi, current, nxt);
         if (w > 0) {
-            if (nxt == start && (w > 1 || stackLen > 0)) {
-                int cycleLength = stackLen + 1;
-                if (cycleLength == *maxCycleLen) {
-                    /* store if it's a brand-new cycle signature */
-                    char* canonical = normalizeCycle(stack, cycleLength);
-                    if (!stringListContains(uniqueCycles, canonical)) {
-                        addStringToList(uniqueCycles, canonical);
-                        addCycle(outputList, stack, cycleLength);
-                        (*foundCount)++;
-                    }
-                    free(canonical);
+            /* #34: ----- CHANGED: we just check if nxt == start and stackLen+1 = maxCycleLen */
+            if (nxt == start && (stackLen + 1) == *maxCycleLen) {
+                int cycleLength = stackLen + 2;
+                int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+                memcpy(cycleArray, stack, (stackLen + 1) * sizeof(int));
+                cycleArray[stackLen + 1] = start;
+
+                char* canonical = normalizeCycle(cycleArray, cycleLength);
+                if (!stringListContains(uniqueCycles, canonical)) {
+                    addStringToList(uniqueCycles, canonical);
+                    addCycle(outputList, cycleArray, cycleLength);
+                    (*foundCount)++;
                 }
+                free(canonical);
+                free(cycleArray);
             }
             else if (!visited[nxt]) {
                 dfs_findMaxCycles(context, start, nxt,
