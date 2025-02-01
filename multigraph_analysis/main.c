@@ -22,7 +22,7 @@ void handle_arguments(int argc, char *argv[], Config *config) {
 FILE* open_file_with_retry(const char *filename) {
     FILE *file;
     do {
-        file = fopen(filename, "r");
+        file = fopen_s(filename, "r");
     } while (!file && errno == EINTR);
 
     if (!file) {
@@ -32,7 +32,7 @@ FILE* open_file_with_retry(const char *filename) {
     return file;
 }
 
-void print_cycles(GArray *output_cycles) {    
+void print_cycles(GArray *output_cycles) {
     for (guint i = 0; i < output_cycles->len; i++) {
         GArray *cycle = g_array_index(output_cycles, GArray *, i);
         
