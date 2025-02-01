@@ -37,6 +37,19 @@ int g_array_append(GArray* array, void* element) {
     return 0;
 }
 
+int g_array_append_vals(GArray* array, void* elements, size_t count) {
+	if (array->len + count > array->capacity) {
+		while (array->len + count > array->capacity) {
+			if (g_array_resize(array) == -1) {
+				return -1;
+			}
+		}
+	}
+	memcpy((char*)array->data + array->len * array->element_size, elements, count * array->element_size);
+	array->len += count;
+	return 0;
+}
+
 void* g_array_get(GArray* array, size_t index) {
     if (index >= array->len) {
         return NULL;
@@ -63,7 +76,7 @@ int string_cmp(void* key1, void* key2) {
     return strcmp((char*)key1, (char*)key2);
 }
 
-GHashTable* g_hash_table_new(size_t(*hash_func)(void* key), int (*key_cmp)(void* key1, void* key2), size_t size) {
+GHashTable* g_hash_table_new(size_t(*hash_func)(void* key), bool (*key_cmp)(void* key1, void* key2), size_t size) {
     GHashTable* table = malloc(sizeof(GHashTable));
     if (!table) return NULL;
 
@@ -82,7 +95,7 @@ GHashTable* g_hash_table_new(size_t(*hash_func)(void* key), int (*key_cmp)(void*
 }
 
 GHashTable* g_hash_table_new_full(size_t(*hash_func)(void* key),
-    int (*key_cmp)(void* key1, void* key2),
+    bool (*key_cmp)(void* key1, void* key2),
     void (*key_destroy)(void* key),
     void (*value_destroy)(void* value)) {
     GHashTable* table = malloc(sizeof(GHashTable));
@@ -108,7 +121,7 @@ int g_hash_table_insert(GHashTable* table, void* key, void* value) {
     HashEntry* entry = table->buckets[hash];
 
     while (entry) {
-        if (table->key_cmp(entry->key, key) == 0) {
+        if (table->key_cmp(entry->key, key)) {
             entry->value = value;
             return 0; 
         }
@@ -127,12 +140,20 @@ int g_hash_table_insert(GHashTable* table, void* key, void* value) {
     return 0;
 }
 
+unsigned int direct_hash(const void* ptr) {
+    return (unsigned int)(uintptr_t)ptr; 
+}
+
+bool direct_equal(const void* ptr1, const void* ptr2) {
+    return ptr1 == ptr2;
+}
+
 void* g_hash_table_lookup(GHashTable* table, void* key) {
     size_t hash = table->hash_func(key) % table->size;
     HashEntry* entry = table->buckets[hash];
 
     while (entry) {
-        if (table->key_cmp(entry->key, key) == 0) {
+        if (table->key_cmp(entry->key, key)) {
             return entry->value; 
         }
         entry = entry->next;
@@ -147,7 +168,7 @@ int g_hash_table_remove(GHashTable* table, void* key) {
     HashEntry* prev = NULL;
 
     while (entry) {
-        if (table->key_cmp(entry->key, key) == 0) {
+        if (table->key_cmp(entry->key, key)) {
             if (prev) {
                 prev->next = entry->next;
             }

@@ -96,14 +96,14 @@ void process_multigraphs(const char* file_name, GArray* multigraphs_to_compare) 
     printf("Processing file %d: %s\n", ++file_counter, file_name);
 
     int num_graphs;
-    fscanf_s(file, "%d", &num_graphs, sizeof(int));
+    fscanf_s(file, "%d", &num_graphs);
     printf("Processing %d graphs.\n\n", num_graphs);
 
     for (int i = 0; i < num_graphs; i++) {
         printf("Graph %d:\n", i + 1);
 
         int vertices;
-        fscanf_s(file, "%d", &vertices, sizeof(int));
+        fscanf_s(file, "%d", &vertices);
 
         GraphInterface *multigraph = create_multigraph(vertices);
         if (!multigraph) {
@@ -112,13 +112,13 @@ void process_multigraphs(const char* file_name, GArray* multigraphs_to_compare) 
         }
 
         if(i == 0){
-            g_array_append_val(multigraphs_to_compare, multigraph);
+            g_array_append(multigraphs_to_compare, multigraph);
         }
 
         for (int j = 0; j < vertices; j++) {
             for (int k = 0; k < vertices; k++) {
                 int weight;
-                fscanf_s(file, "%d", &weight, sizeof(int));
+                fscanf_s(file, "%d", &weight);
                 if (weight > 0) {
                     multigraph->add_edge(multigraph, j, k, weight);
                 }

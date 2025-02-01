@@ -18,10 +18,10 @@ int approximate_find_cycles(void *graph, int vertices, GArray *output_cycles) {
         for (int j = 0; j < vertices / 2; j++) {
             if (context->graph_interface->get_edge(graph, i, j) > 0) {
                 GArray *cycle = g_array_new(FALSE, FALSE, sizeof(int));
-                g_array_append_val(cycle, i);
-                g_array_append_val(cycle, j);
-                g_array_append_val(cycle, i);
-                g_array_append_val(output_cycles, cycle);
+                g_array_append(cycle, i);
+                g_array_append(cycle, j);
+                g_array_append(cycle, i);
+                g_array_append(output_cycles, cycle);
                 approximate_cycle_count++;
             }
         }
@@ -37,13 +37,13 @@ int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *outp
 
     for (int start = 0; start < vertices; start++) {
         GArray *path = g_array_new(FALSE, FALSE, sizeof(int));
-        g_array_append_val(path, start);
+        g_array_append(path, start);
 
         int current = start;
         for (int step = 0; step < vertices - 1; step++) {
             for (int next = 0; next < vertices; next++) {
                 if (context->graph_interface->get_edge(graph, current, next) > 0) {
-                    g_array_append_val(path, next);
+                    g_array_append(path, next);
                     current = next;
                     break;
                 }
@@ -51,7 +51,7 @@ int approximate_count_hamiltonian_cycles(void *graph, int vertices, GArray *outp
         }
 
         if (context->graph_interface->get_edge(graph, current, start) > 0) {
-            g_array_append_val(output_cycles, path);
+            g_array_append(output_cycles, path);
             approximate_count++;
         } else {
             g_array_free(path, TRUE);
@@ -200,7 +200,7 @@ int approximate_find_maximal_cycles(void *graph, int vertices, GArray *output_cy
 
         while (length < vertices) {
             visited[node] = 1;
-            g_array_append_val(current_cycle, node);
+            g_array_append(current_cycle, node);
             length++;
 
             int found_next = 0;
@@ -218,7 +218,7 @@ int approximate_find_maximal_cycles(void *graph, int vertices, GArray *output_cy
         if (length > approximate_max_cycle_length) {
             approximate_max_cycle_length = length;
             g_array_set_size(output_cycles, 0);
-            g_array_append_val(output_cycles, current_cycle);
+            g_array_append(output_cycles, current_cycle);
         } else {
             g_array_free(current_cycle, TRUE);
         }
