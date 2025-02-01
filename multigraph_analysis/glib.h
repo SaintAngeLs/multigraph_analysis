@@ -1,3 +1,6 @@
+#ifndef GLIB_H
+#define GLIB_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -69,3 +72,5 @@ void value_destroy(void* value);
 size_t g_str_hash(void* key);
 
 int g_str_equal(void* key1, void* key2);
+
+#endif // GLIB_H

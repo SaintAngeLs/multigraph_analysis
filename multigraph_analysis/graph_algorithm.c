@@ -1,5 +1,7 @@
 #include "graph_algorithm.h"
+
 #include "common_utils.h"
+
 #include <time.h>
 
 GraphAlgorithmContext* create_context(void* graph, int vertices) {
@@ -238,7 +240,7 @@ static int calculate_graph_metric(GraphAlgorithmContext* context_1, GraphAlgorit
         return approximate_calculate_metric(context_1, context_2, vertices_1, vertices_2);
     }
 
-    int arr[vertices_1];
+    int* arr = malloc(vertices_1 * sizeof(int));
     for (int i = 0; i < vertices_1; i++) {
         arr[i] = i + 1;
     }
@@ -248,6 +250,8 @@ static int calculate_graph_metric(GraphAlgorithmContext* context_1, GraphAlgorit
         int tmp = calculate_required_operations(context_1, context_2, arr, vertices_1, vertices_2);
         min_operations = min(min_operations, tmp);
     } while (nextPermutation(arr, vertices_1));
+
+    free(arr);
 
     return min_operations;
 }

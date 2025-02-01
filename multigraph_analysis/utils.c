@@ -39,7 +39,7 @@ GraphInterface* load_multigraph_from_file(const char *filename) {
 
     int num_graphs;
     fprintf(stdout, "Reading number of graphs from file...\n");
-    if (fscanf(file, "%d", &num_graphs) != 1 || num_graphs <= 0) {
+    if (fscanf_s(file, "%d", &num_graphs, sizeof(int)) != 1 || num_graphs <= 0) {
         fprintf(stderr, "Invalid number of graphs in file. Expected a positive integer.\n");
         fclose(file);
         return NULL;
@@ -48,7 +48,7 @@ GraphInterface* load_multigraph_from_file(const char *filename) {
 
     int vertices;
     fprintf(stdout, "Reading number of vertices for the first graph...\n");
-    if (fscanf(file, "%d", &vertices) != 1 || vertices <= 0) {
+    if (fscanf_s(file, "%d", &vertices, sizeof(int)) != 1 || vertices <= 0) {
         fprintf(stderr, "Invalid vertex count in file. Expected a positive integer.\n");
         fclose(file);
         return NULL;
@@ -68,7 +68,7 @@ GraphInterface* load_multigraph_from_file(const char *filename) {
     for (int i = 0; i < vertices; i++) {
         for (int j = 0; j < vertices; j++) {
             int edge_count;
-            if (fscanf(file, "%d", &edge_count) != 1) {
+            if (fscanf_s(file, "%d", &edge_count, sizeof(int)) != 1) {
                 fprintf(stderr, "Invalid adjacency matrix data at row %d, column %d.\n", i, j);
                 multigraph_interface->destroy(multigraph_interface);
                 fclose(file);

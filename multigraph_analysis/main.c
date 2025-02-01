@@ -19,11 +19,13 @@ void handle_arguments(int argc, char *argv[], Config *config) {
     }
 }
 
-FILE* open_file_with_retry(const char *filename) {
-    FILE *file;
+
+FILE* open_file_with_retry(const char* filename) {
+    FILE* file;
+    errno_t err;
     do {
-        file = fopen(filename, "r");
-    } while (!file && errno == EINTR);
+        err = fopen_s(&file, filename, "r");
+    } while (!file && err != 0);
 
     if (!file) {
         perror("Error opening file");
@@ -33,10 +35,10 @@ FILE* open_file_with_retry(const char *filename) {
 }
 
 void print_cycles(GArray *output_cycles) {
-    for (guint i = 0; i < output_cycles->len; i++) {
+    for (int i = 0; i < output_cycles->len; i++) {
         GArray *cycle = g_array_index(output_cycles, GArray *, i);
         
-        for (guint j = 0; j < cycle->len; j++) {
+        for (int j = 0; j < cycle->len; j++) {
             printf("%d", g_array_index(cycle, int, j));
             if (j < cycle->len - 1) {
                 printf(" -> ");
@@ -94,14 +96,14 @@ void process_multigraphs(const char* file_name, GArray* multigraphs_to_compare) 
     printf("Processing file %d: %s\n", ++file_counter, file_name);
 
     int num_graphs;
-    fscanf(file, "%d", &num_graphs);
+    fscanf_s(file, "%d", &num_graphs, sizeof(int));
     printf("Processing %d graphs.\n\n", num_graphs);
 
     for (int i = 0; i < num_graphs; i++) {
         printf("Graph %d:\n", i + 1);
 
         int vertices;
-        fscanf(file, "%d", &vertices);
+        fscanf_s(file, "%d", &vertices, sizeof(int));
 
         GraphInterface *multigraph = create_multigraph(vertices);
         if (!multigraph) {
@@ -116,7 +118,7 @@ void process_multigraphs(const char* file_name, GArray* multigraphs_to_compare) 
         for (int j = 0; j < vertices; j++) {
             for (int k = 0; k < vertices; k++) {
                 int weight;
-                fscanf(file, "%d", &weight);
+                fscanf_s(file, "%d", &weight, sizeof(int));
                 if (weight > 0) {
                     multigraph->add_edge(multigraph, j, k, weight);
                 }

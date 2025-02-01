@@ -93,7 +93,7 @@ int calculate_metric(GraphAlgorithmContext *context_1, GraphAlgorithmContext *co
 }
 
 int approximate_calculate_metric(GraphAlgorithmContext *context_1, GraphAlgorithmContext *context_2, int vertices_1, int vertices_2) {
-    int arr[vertices_1];
+    int* arr = malloc(vertices_1 * sizeof(int));
     for (int i = 0; i < vertices_1; i++) {
         arr[i] = i + 1;
     }
@@ -125,6 +125,7 @@ int approximate_calculate_metric(GraphAlgorithmContext *context_1, GraphAlgorith
         temperature *= COOLING_RATE;
     }
 
+    free(arr);
     return best_metric;
 }
 
