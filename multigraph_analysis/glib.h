@@ -8,6 +8,9 @@
 #define TRUE  1
 #define FALSE 0
 
+#define g_array_index(array, type, index) \
+    (*((type*)((char*)(array)->data + (index) * (array)->element_size)))
+
 typedef struct {
     void* data;        
     size_t len;        

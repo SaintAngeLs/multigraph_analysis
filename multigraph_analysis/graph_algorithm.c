@@ -62,7 +62,7 @@ static void normalize_cycle(GArray* cycle, char* buffer) {
 
     int offset = 0;
     for (int i = 0; i < len; i++) {
-        offset += sprintf(buffer + offset, "%d-", extended_array[min_idx + i]);
+        offset += sprintf_s(buffer + offset, sizeof(buffer), "%d-", extended_array[min_idx + i]);
     }
 
     free(extended_array);
@@ -87,7 +87,7 @@ static void dfs(GraphAlgorithmContext* context, void* graph, int node, int start
                 normalize_cycle(stack, cycle_str);
 
                 if (!g_hash_table_contains(unique_cycles, cycle_str)) {
-                    g_hash_table_add(unique_cycles, strdup(cycle_str));
+                    g_hash_table_add(unique_cycles, _strdup(cycle_str));
                     (*cycle_count)++;
                     store_cycle(stack, output_cycles);
                 }
@@ -144,7 +144,7 @@ static void backtrack(GraphAlgorithmContext* context, void* graph, int node, int
             normalize_cycle(path, cycle_str);
 
             if (!g_hash_table_contains(unique_cycles, cycle_str)) {
-                g_hash_table_add(unique_cycles, strdup(cycle_str));
+                g_hash_table_add(unique_cycles, _strdup(cycle_str));
                 (*count)++;
                 store_hamiltonian_cycle(path, output_cycles);
             }
@@ -377,7 +377,7 @@ static void dfs_find_max_cycles(GraphAlgorithmContext* context, void* graph, int
                 normalize_cycle(stack, cycle_str);
 
                 if (!g_hash_table_contains(unique_cycles, cycle_str)) {
-                    g_hash_table_add(unique_cycles, strdup(cycle_str));
+                    g_hash_table_add(unique_cycles, _strdup(cycle_str));
 
                     if (stack->len > *max_cycle_length) {
                         *max_cycle_length = stack->len;

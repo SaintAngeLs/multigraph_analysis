@@ -153,7 +153,7 @@ int approximate_count_maximal_cycles(void *graph, int vertices) {
 
     // Use a simple depth-first traversal to estimate maximal cycles
     for (int i = 0; i < vertices; i++) {
-        int visited[vertices];
+        int * visited = malloc(vertices * sizeof(int));
         memset(visited, 0, sizeof(visited));
 
         int cycle_length = 0;
@@ -180,6 +180,8 @@ int approximate_count_maximal_cycles(void *graph, int vertices) {
         if (cycle_length > approximate_max_cycle_length) {
             approximate_max_cycle_length = cycle_length;
         }
+
+        free(visited);
     }
 
     destroy_context(context);
@@ -192,7 +194,7 @@ int approximate_find_maximal_cycles(void *graph, int vertices, GArray *output_cy
 
     for (int i = 0; i < vertices; i++) {
         GArray *current_cycle = g_array_new(FALSE, FALSE, sizeof(int));
-        int visited[vertices];
+        int *visited = malloc(vertices * sizeof(int));
         memset(visited, 0, sizeof(visited));
         int node = i, length = 0;
 
@@ -220,6 +222,8 @@ int approximate_find_maximal_cycles(void *graph, int vertices, GArray *output_cy
         } else {
             g_array_free(current_cycle, TRUE);
         }
+
+        free(visited);
     }
 
     destroy_context(context);
