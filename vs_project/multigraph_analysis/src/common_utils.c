@@ -13,3 +13,7 @@ void common_swap(int *a, int *b) {
     *a = *b;
     *b = temp;
 }
+
+double common_exp(double value_argument) {
+    return exp(value_argument);
+}
