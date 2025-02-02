@@ -132,6 +132,7 @@
     <ClCompile Include="src\common_utils.c" />
     <ClCompile Include="src\graph.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\stack.c" />
     <ClCompile Include="src\utils.c" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="src\common_utils.h" />
     <ClInclude Include="src\graph.h" />
     <ClInclude Include="src\graph_interface.h" />
+    <ClInclude Include="src\stack.h" />
     <ClInclude Include="src\utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

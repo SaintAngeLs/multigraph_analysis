@@ -1,11 +1,9 @@
-
 #include "utils.h"
 #include "graph.h"
 #include "graph_interface.h"
 
-
 Graph* create_graph(int vertices) {
-    Graph *graph = (Graph *)malloc(sizeof(Graph));
+    Graph* graph = (Graph*)malloc(sizeof(Graph));
     if (!graph) {
         fprintf(stderr, "Failed to allocate memory for graph.\n");
         return NULL;
@@ -22,20 +20,20 @@ Graph* create_graph(int vertices) {
     return graph;
 }
 
-void add_edge(Graph *graph, int src, int dest, int weight) {
+void add_edge(Graph* graph, int src, int dest, int weight) {
     if (src < graph->vertices && dest < graph->vertices) {
-        graph->adjacency_matrix[src][dest] = weight; // Simple graph: only set weight once
+        graph->adjacency_matrix[src][dest] = weight;  // Set edge weight
     }
 }
 
-int get_edge(const Graph *graph, int src, int dest) {
+int get_edge(const Graph* graph, int src, int dest) {
     if (src < graph->vertices && dest < graph->vertices) {
         return graph->adjacency_matrix[src][dest];
     }
     return 0;
 }
 
-int calculate_size(const Graph *graph) {
+int calculate_size(const Graph* graph) {
     int size = 0;
     for (int i = 0; i < graph->vertices; i++) {
         for (int j = 0; j < graph->vertices; j++) {
@@ -45,29 +43,49 @@ int calculate_size(const Graph *graph) {
     return size;
 }
 
-void destroy_graph(Graph *graph) {
+void destroy_graph(Graph* graph) {
     free_matrix(graph->adjacency_matrix, graph->vertices);
     free(graph);
+}
+
+// Get all outgoing edges from a vertex
+int* get_all_edges_from_vertex(const Graph* graph, int src, int* out_degree) {
+    if (src >= graph->vertices) {
+        *out_degree = 0;
+        return NULL;
+    }
+
+    int* neighbors = (int*)malloc(graph->vertices * sizeof(int));
+    int count = 0;
+
+    for (int i = 0; i < graph->vertices; i++) {
+        if (graph->adjacency_matrix[src][i] > 0) {
+            neighbors[count++] = i;
+        }
+    }
+
+    *out_degree = count;
+    return neighbors;  // Caller must free this memory
 }
 
 // Multigraph-Specific Functions
-static void multigraph_add_edge(void *self, int src, int dest, int weight) {
-    Multigraph *graph = (Multigraph *)self;
+static void multigraph_add_edge(void* self, int src, int dest, int weight) {
+    Multigraph* graph = (Multigraph*)self;
     if (src < graph->vertices && dest < graph->vertices) {
-        graph->adjacency_matrix[src][dest] += weight; // Multigraph: accumulate weights
+        graph->adjacency_matrix[src][dest] += weight;  // Accumulate weights
     }
 }
 
-static int multigraph_get_edge(void *self, int src, int dest) {
-    Multigraph *graph = (Multigraph *)self;
+static int multigraph_get_edge(void* self, int src, int dest) {
+    Multigraph* graph = (Multigraph*)self;
     if (src < graph->vertices && dest < graph->vertices) {
         return graph->adjacency_matrix[src][dest];
     }
     return 0;
 }
 
-static int multigraph_calculate_size(void *self) {
-    Multigraph *graph = (Multigraph *)self;
+static int multigraph_calculate_size(void* self) {
+    Multigraph* graph = (Multigraph*)self;
     int size = 0;
     for (int i = 0; i < graph->vertices; i++) {
         for (int j = 0; j < graph->vertices; j++) {
@@ -77,14 +95,35 @@ static int multigraph_calculate_size(void *self) {
     return size;
 }
 
-static void multigraph_destroy(void *self) {
-    Multigraph *graph = (Multigraph *)self;
+static void multigraph_destroy(void* self) {
+    Multigraph* graph = (Multigraph*)self;
     free_matrix(graph->adjacency_matrix, graph->vertices);
     free(graph);
 }
 
+// Get all outgoing edges from a vertex in a multigraph
+static int* multigraph_get_all_edges_from_vertex(void* self, int src, int* out_degree) {
+    Multigraph* graph = (Multigraph*)self;
+    if (src >= graph->vertices) {
+        *out_degree = 0;
+        return NULL;
+    }
+
+    int* neighbors = (int*)malloc(graph->vertices * sizeof(int));
+    int count = 0;
+
+    for (int i = 0; i < graph->vertices; i++) {
+        if (graph->adjacency_matrix[src][i] > 0) {
+            neighbors[count++] = i;
+        }
+    }
+
+    *out_degree = count;
+    return neighbors;  // Caller must free this memory
+}
+
 GraphInterface* create_multigraph(int vertices) {
-    Multigraph *graph = (Multigraph *)malloc(sizeof(Multigraph));
+    Multigraph* graph = (Multigraph*)malloc(sizeof(Multigraph));
     if (!graph) {
         fprintf(stderr, "Failed to allocate memory for multigraph.\n");
         return NULL;
@@ -98,10 +137,12 @@ GraphInterface* create_multigraph(int vertices) {
         return NULL;
     }
 
+    // Assign function pointers
     graph->graph_interface.add_edge = multigraph_add_edge;
     graph->graph_interface.get_edge = multigraph_get_edge;
     graph->graph_interface.calculate_size = multigraph_calculate_size;
     graph->graph_interface.destroy = multigraph_destroy;
+    graph->graph_interface.get_all_edges_from_vertex = multigraph_get_all_edges_from_vertex;
     graph->graph_interface.vertices = vertices;
 
     return &graph->graph_interface;
