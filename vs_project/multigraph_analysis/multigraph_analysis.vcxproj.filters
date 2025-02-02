@@ -51,6 +51,9 @@
     <ClCompile Include="src\approximation_algorithm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\method_wrapper.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common_utils.h">
@@ -87,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\approximation_algorithm.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\method_wrapper.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

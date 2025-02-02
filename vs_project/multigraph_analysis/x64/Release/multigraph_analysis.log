@@ -8,13 +8,22 @@ D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\app
 D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(295,16): warning C4013: 'approximate_calculate_metric' undefined; assuming extern returning int
   graph_algorithm_context.c
   main.c
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(873,16): warning C4013: 'approximate_find_cycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(959,16): warning C4013: 'approximate_count_hamiltonian_cycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1077,27): warning C4013: 'approximate_calculate_metric' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1090,16): warning C4013: 'approximate_find_minimal_extension' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1114,16): warning C4013: 'approximate_count_maximal_cycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1148,16): warning C4013: 'approximate_find_maximal_cycles' undefined; assuming extern returning int
   matching.c
+  method_wrapper.c
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(21,16): warning C4013: 'approximate_find_cycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(56,13): warning C4013: 'dfs_findCycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(101,16): warning C4013: 'approximate_count_hamiltonian_cycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(124,9): warning C4013: 'backtrack_hamiltonian' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(147,9): warning C4013: 'common_max' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(160,21): warning C4013: 'calculate_graph_metric' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(165,27): warning C4013: 'approximate_calculate_metric' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(178,16): warning C4013: 'approximate_find_minimal_extension' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(183,21): warning C4013: 'hasHamiltonianCycle' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(190,5): warning C4013: 'explore_extensions' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(202,16): warning C4013: 'approximate_count_maximal_cycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(214,13): warning C4013: 'dfs_maxCycleLength' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(236,16): warning C4013: 'approximate_find_maximal_cycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(278,9): warning C4013: 'dfs_findMaxCycles' undefined; assuming extern returning int
   stack.c
   string_list.c
   utils.c
