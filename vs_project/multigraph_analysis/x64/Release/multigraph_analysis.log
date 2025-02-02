@@ -1,7 +1,25 @@
-﻿  main.c
+﻿  config.c
+  approximation_algorithm.c
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.c(200,23): warning C4013: 'find_maximum_weight_matching' undefined; assuming extern returning int
+  common_utils.c
+  cycle_list.c
+  graph.c
+  graph_algorithm.c
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(295,16): warning C4013: 'approximate_calculate_metric' undefined; assuming extern returning int
+  graph_algorithm_context.c
+  main.c
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(873,16): warning C4013: 'approximate_find_cycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(959,16): warning C4013: 'approximate_count_hamiltonian_cycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1077,27): warning C4013: 'approximate_calculate_metric' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1090,16): warning C4013: 'approximate_find_minimal_extension' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1114,16): warning C4013: 'approximate_count_maximal_cycles' undefined; assuming extern returning int
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\main.c(1148,16): warning C4013: 'approximate_find_maximal_cycles' undefined; assuming extern returning int
+  matching.c
+  stack.c
+  string_list.c
+  utils.c
   Generating code
-  2 of 74 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB not found, fall back to full compilation.
+  All 75 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   multigraph_analysis.vcxproj -> D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\x64\Release\multigraph_analysis.exe

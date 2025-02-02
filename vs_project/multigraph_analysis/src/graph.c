@@ -22,7 +22,7 @@ Graph* create_graph(int vertices) {
 
 void add_edge(Graph* graph, int src, int dest, int weight) {
     if (src < graph->vertices && dest < graph->vertices) {
-        graph->adjacency_matrix[src][dest] = weight;  // Set edge weight
+        graph->adjacency_matrix[src][dest] = weight; 
     }
 }
 
@@ -34,6 +34,8 @@ int get_edge(const Graph* graph, int src, int dest) {
 }
 
 int calculate_size(const Graph* graph) {
+    if (!graph || !graph->adjacency_matrix) return 0;
+
     int size = 0;
     for (int i = 0; i < graph->vertices; i++) {
         for (int j = 0; j < graph->vertices; j++) {
@@ -42,6 +44,7 @@ int calculate_size(const Graph* graph) {
     }
     return size;
 }
+
 
 void destroy_graph(Graph* graph) {
     free_matrix(graph->adjacency_matrix, graph->vertices);
@@ -68,11 +71,10 @@ int* get_all_edges_from_vertex(const Graph* graph, int src, int* out_degree) {
     return neighbors;  // Caller must free this memory
 }
 
-// Multigraph-Specific Functions
 static void multigraph_add_edge(void* self, int src, int dest, int weight) {
     Multigraph* graph = (Multigraph*)self;
     if (src < graph->vertices && dest < graph->vertices) {
-        graph->adjacency_matrix[src][dest] += weight;  // Accumulate weights
+        graph->adjacency_matrix[src][dest] += weight; 
     }
 }
 
@@ -86,6 +88,8 @@ static int multigraph_get_edge(void* self, int src, int dest) {
 
 static int multigraph_calculate_size(void* self) {
     Multigraph* graph = (Multigraph*)self;
+    if (!graph || !graph->adjacency_matrix) return 0;
+
     int size = 0;
     for (int i = 0; i < graph->vertices; i++) {
         for (int j = 0; j < graph->vertices; j++) {
@@ -95,13 +99,13 @@ static int multigraph_calculate_size(void* self) {
     return size;
 }
 
+
 static void multigraph_destroy(void* self) {
     Multigraph* graph = (Multigraph*)self;
     free_matrix(graph->adjacency_matrix, graph->vertices);
     free(graph);
 }
 
-// Get all outgoing edges from a vertex in a multigraph
 static int* multigraph_get_all_edges_from_vertex(void* self, int src, int* out_degree) {
     Multigraph* graph = (Multigraph*)self;
     if (src >= graph->vertices) {

@@ -28,6 +28,39 @@ void free_matrix(int **matrix, int size) {
     free(matrix);
 }
 
+void init_graph_array(GraphArray* arr, size_t capacity) {
+    arr->data = (GraphInterface**)malloc(capacity * sizeof(GraphInterface*));
+    arr->size = 0;
+    arr->capacity = capacity;
+}
+void add_graph(GraphArray* arr, GraphInterface* graph) {
+    if (arr->size >= arr->capacity) {
+        arr->capacity *= 2;
+        arr->data = (GraphInterface**)realloc(arr->data, arr->capacity * sizeof(GraphInterface*));
+    }
+    arr->data[arr->size++] = graph;
+}
+void free_graph_array(GraphArray* arr) {
+    free(arr->data);
+}
+
+void print_cycles(GraphInterface* multigraph, int** output_cycles, int* cycle_sizes, int cycle_count) {
+    for (int i = 0; i < cycle_count; i++) {
+        for (int j = 0; j < cycle_sizes[i]; j++) {
+            printf("%d", output_cycles[i][j]);
+            if (j < cycle_sizes[i] - 1) {
+                printf(" -> ");
+            }
+        }
+        printf("\n");
+        /* Free each cycle array after printing. */
+        free(output_cycles[i]);
+    }
+    free(output_cycles);
+    free(cycle_sizes);
+}
+
+
 GraphInterface* load_multigraph_from_file(const char *filename) {
     fprintf(stdout, "Opening file: %s\n", filename);
 

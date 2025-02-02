@@ -129,18 +129,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\config.c" />
+    <ClCompile Include="src\approximation_algorithm.c" />
     <ClCompile Include="src\common_utils.c" />
+    <ClCompile Include="src\cycle_list.c" />
     <ClCompile Include="src\graph.c" />
+    <ClCompile Include="src\graph_algorithm.c" />
+    <ClCompile Include="src\graph_algorithm_context.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\matching.c" />
     <ClCompile Include="src\stack.c" />
+    <ClCompile Include="src\string_list.c" />
     <ClCompile Include="src\utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\config.h" />
+    <ClInclude Include="src\approximation_algorithm.h" />
     <ClInclude Include="src\common_utils.h" />
+    <ClInclude Include="src\cycle_list.h" />
     <ClInclude Include="src\graph.h" />
+    <ClInclude Include="src\graph_algorithm.h" />
+    <ClInclude Include="src\graph_algorithm_context.h" />
     <ClInclude Include="src\graph_interface.h" />
+    <ClInclude Include="src\matching.h" />
     <ClInclude Include="src\stack.h" />
+    <ClInclude Include="src\string_list.h" />
     <ClInclude Include="src\utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
