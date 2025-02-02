@@ -2,6 +2,7 @@
 #include "common_utils.h"
 #include "graph_interface.h"
 #include <time.h>
+#include "matching.h"
 
 #define MAX_ITER 20000
 #define INITIAL_TEMP 200.0

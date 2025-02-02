@@ -10,6 +10,16 @@
 #include <stdbool.h>
 
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* Function to normalize cycle representation */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* Function to normalize cycle representation */
 char* normalizeCycle(int* cycle, int length) {
     if (length <= 0) return NULL;
 
@@ -20,27 +30,41 @@ char* normalizeCycle(int* cycle, int length) {
         }
     }
 
-    char forward[256] = { 0 };
-    char reverse[256] = { 0 };
+    // Allocate enough space for a unique cycle representation
+    char* forward = (char*)malloc(256);
+    char* reverse = (char*)malloc(256);
+    forward[0] = '\0';
+    reverse[0] = '\0';
 
+    // Generate the canonical representation (forward order)
     for (int i = 0; i < length; i++) {
         char buffer[12];
         sprintf(buffer, "%d-", cycle[(minIndex + i) % length]);
         strcat(forward, buffer);
     }
 
+    // Generate the reverse canonical representation (backward order)
     for (int i = 0; i < length; i++) {
         char buffer[12];
         sprintf(buffer, "%d-", cycle[(minIndex - i + length) % length]);
         strcat(reverse, buffer);
     }
 
-    char* result = (strcmp(forward, reverse) < 0) ? forward : reverse;
+    // Choose the lexicographically smaller representation
+    char* canonical = (strcmp(forward, reverse) < 0) ? forward : reverse;
 
-    char* canonical = (char*)malloc(strlen(result) + 1);
-    strcpy(canonical, result);
-    return canonical;
+    char* result = (char*)malloc(strlen(canonical) + 1);
+    strcpy(result, canonical);
+
+    free(forward);
+    free(reverse);
+
+    return result;
 }
+
+
+
+
 
 
 /* nextPermutation for exact metric calculation */
@@ -345,7 +369,7 @@ void explore_extensions(GraphAlgorithmContext* context, int vertices, int addedE
         return;
     }
     GraphInterface* gi = context->graph_interface;
-    /* Try adding edges that do not exist. */
+ 
     for (int i = 0; i < vertices; i++) {
         for (int j = 0; j < vertices; j++) {
             if (i != j) {
@@ -353,7 +377,7 @@ void explore_extensions(GraphAlgorithmContext* context, int vertices, int addedE
                 if (w == 0) {
                     gi->add_edge(gi, i, j, 1);
                     explore_extensions(context, vertices, addedEdges + 1, minEdgesNeeded);
-                    gi->add_edge(gi, i, j, -1); /* remove that edge again */
+                    gi->add_edge(gi, i, j, -1);
                 }
             }
         }
