@@ -30,6 +30,7 @@ typedef struct GraphInterfaceTag
     /* Basic graph modification/retrieval */
     void (*add_edge)(void* self, int src, int dest, int weight);
     int  (*get_edge)(void* self, int src, int dest);
+    int* (*get_all_edges_from_vertex)(void* self, int src, int* out_degree);
     int  (*calculate_size)(void* self);
 
     /* Cleanup */
@@ -46,6 +47,7 @@ typedef struct GraphInterfaceTag
     int (*find_minimal_extension)(void* self, int vertices);
     int (*count_maximal_cycles)(void* self, int vertices);
     int (*find_maximal_cycles)(void* self, int vertices);
+
 
     /* Tracks the number of vertices in this graph (optional). */
     int vertices;

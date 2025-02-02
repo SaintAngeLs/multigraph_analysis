@@ -30,6 +30,9 @@
     <ClCompile Include="include\config.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\stack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common_utils.h">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\config.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stack.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
