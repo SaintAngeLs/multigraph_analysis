@@ -14,12 +14,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Function to normalize cycle representation */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-/* Function to normalize cycle representation */
 char* normalizeCycle(int* cycle, int length) {
     if (length <= 0) return NULL;
 
@@ -30,27 +24,23 @@ char* normalizeCycle(int* cycle, int length) {
         }
     }
 
-    // Allocate enough space for a unique cycle representation
     char* forward = (char*)malloc(256);
     char* reverse = (char*)malloc(256);
     forward[0] = '\0';
     reverse[0] = '\0';
 
-    // Generate the canonical representation (forward order)
     for (int i = 0; i < length; i++) {
         char buffer[12];
         sprintf(buffer, "%d-", cycle[(minIndex + i) % length]);
         strcat(forward, buffer);
     }
 
-    // Generate the reverse canonical representation (backward order)
     for (int i = 0; i < length; i++) {
         char buffer[12];
         sprintf(buffer, "%d-", cycle[(minIndex - i + length) % length]);
         strcat(reverse, buffer);
     }
 
-    // Choose the lexicographically smaller representation
     char* canonical = (strcmp(forward, reverse) < 0) ? forward : reverse;
 
     char* result = (char*)malloc(strlen(canonical) + 1);
