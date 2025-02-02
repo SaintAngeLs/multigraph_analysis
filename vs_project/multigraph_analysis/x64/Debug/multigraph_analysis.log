@@ -1,7 +1,0 @@
-﻿  config.c
-  common_utils.c
-  graph.c
-  main.c
-  utils.c
-  Generating Code...
-  multigraph_analysis.vcxproj -> D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\x64\Debug\multigraph_analysis.exe

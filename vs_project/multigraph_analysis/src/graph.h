@@ -28,6 +28,8 @@ int calculate_size(const Graph *graph);
 
 void destroy_graph(Graph *graph);
 
+int* get_all_edges_from_vertex(const Graph* graph, int src, int* out_degree);
+
 
 GraphInterface* create_multigraph(int vertices);
 

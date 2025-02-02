@@ -1,39 +1,39 @@
+﻿#ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#define NOMINMAX
-#include <windows.h>
 #include <time.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <windows.h>   /* If on Windows; remove if not needed. */
 
 #include "graph.h"
 #include "utils.h"
-#include "../include/config.h"
 #include "graph_interface.h"
+#include "../include/config.h"
 #include "common_utils.h"
+#include "stack.h"     // For using our stack ADT
 
- /*-----------------------------------------------------------------------------
-  * Macros & Constants
-  *---------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------
+ * Macros & Constants
+ *---------------------------------------------------------------------------*/
 #define THRESHOLD     10      /* If vertices >= THRESHOLD, use approximate */
 #define MAX_ITER      20000   /* For approximate sim-anneal logic */
 #define INITIAL_TEMP  200.0
 #define COOLING_RATE  0.99
 
-  /*-----------------------------------------------------------------------------
-   * GraphAlgorithmContext
-   *  - a simple struct to hold (GraphInterface, #vertices)
-   *---------------------------------------------------------------------------*/
+ /*-----------------------------------------------------------------------------
+  * GraphAlgorithmContext
+  *---------------------------------------------------------------------------*/
 typedef struct {
     GraphInterface* graph_interface;
     int vertices;
 } GraphAlgorithmContext;
 
-/* Create/destroy context */
 static GraphAlgorithmContext* create_context(void* graph, int vertices) {
     GraphAlgorithmContext* ctx = (GraphAlgorithmContext*)malloc(sizeof(GraphAlgorithmContext));
     if (!ctx) {
@@ -81,10 +81,10 @@ static void addCycle(CycleList* cl, const int* cycle, int length) {
         cl->capacity *= 2;
         cl->cycles = (int**)realloc(cl->cycles, cl->capacity * sizeof(int*));
         cl->sizes = (int*)realloc(cl->sizes, cl->capacity * sizeof(int));
-    }
-    if (!cl->cycles || !cl->sizes) {
-        fprintf(stderr, "Memory reallocation failed in addCycle.\n");
-        return;
+        if (!cl->cycles || !cl->sizes) {
+            fprintf(stderr, "Memory reallocation failed in addCycle.\n");
+            return;
+        }
     }
     int* newCycle = (int*)malloc(length * sizeof(int));
     memcpy(newCycle, cycle, length * sizeof(int));
@@ -95,12 +95,12 @@ static void addCycle(CycleList* cl, const int* cycle, int length) {
 }
 
 /*-----------------------------------------------------------------------------
- * StringList: store unique string representations (avoid duplicates)
+ * StringList: to store unique string representations (avoid duplicates)
  *---------------------------------------------------------------------------*/
 typedef struct {
     char** data;
-    int   count;
-    int   capacity;
+    int    count;
+    int    capacity;
 } StringList;
 
 #define INITIAL_STRINGLIST_CAPACITY 16
@@ -119,11 +119,10 @@ static void freeStringList(StringList* sl) {
     sl->count = 0;
     sl->capacity = 0;
 }
+/* Check if we already have a cycle in string form (to avoid duplicates). */
 static bool stringListContains(const StringList* sl, const char* str) {
     for (int i = 0; i < sl->count; i++) {
-        if (strcmp(sl->data[i], str) == 0) {
-            return true;
-        }
+        if (strcmp(sl->data[i], str) == 0) return true;
     }
     return false;
 }
@@ -142,51 +141,37 @@ static void addStringToList(StringList* sl, const char* str) {
 }
 
 /*-----------------------------------------------------------------------------
- * Normalization of cycles & nextPermutation
+ * Helpers: normalizeCycle & nextPermutation
  *---------------------------------------------------------------------------*/
-static char* normalizeCycle(const int* array, int length) {
-    /* Duplicate array => extended for rotation check */
-    int* extended = (int*)malloc(length * 2 * sizeof(int));
-    for (int i = 0; i < length; i++) {
-        extended[i] = array[i];
-        extended[i + length] = array[i];
-    }
-    /* Find lexicographically smallest rotation */
+char* normalizeCycle(int* cycle, int length) {
+    if (length <= 0) return NULL;
+
+    // Find the smallest vertex in the cycle
     int minIndex = 0;
-    for (int start = 1; start < length; start++) {
-        for (int k = 0; k < length; k++) {
-            if (extended[start + k] < extended[minIndex + k]) {
-                minIndex = start;
-                break;
-            }
-            else if (extended[start + k] > extended[minIndex + k]) {
-                break;
-            }
+    for (int i = 1; i < length; i++) {
+        if (cycle[i] < cycle[minIndex]) {
+            minIndex = i;
         }
     }
-    /* Build string like "0-1-2-" */
-    int bufferSize = length * 12 + 1;
-    char* result = (char*)malloc(bufferSize);
+
+    // Create the normalized cycle starting from the smallest vertex
+    char* result = (char*)malloc(length * 12 + 1);
     result[0] = '\0';
     for (int i = 0; i < length; i++) {
-        char temp[32];
-        sprintf(temp, "%d-", extended[minIndex + i]);
-        strcat(result, temp);
+        char buf[32];
+        sprintf(buf, "%d-", cycle[(minIndex + i) % length]);
+        strcat(result, buf);
     }
-    free(extended);
     return result;
 }
 
+/* nextPermutation for exact metric calculation */
 static bool nextPermutation(int* arr, int n) {
     int i = n - 2;
-    while (i >= 0 && arr[i] >= arr[i + 1]) {
-        i--;
-    }
+    while (i >= 0 && arr[i] >= arr[i + 1]) i--;
     if (i < 0) return false;
     int j = n - 1;
-    while (arr[j] <= arr[i]) {
-        j--;
-    }
+    while (arr[j] <= arr[i]) j--;
     common_swap(&arr[i], &arr[j]);
     int left = i + 1, right = n - 1;
     while (left < right) {
@@ -198,98 +183,189 @@ static bool nextPermutation(int* arr, int n) {
 }
 
 /*-----------------------------------------------------------------------------
- * EXACT DFS routines: findCycles, backtrack_hamiltonian, etc.
+ * EXACT DFS routines
  *---------------------------------------------------------------------------*/
 
- /* 1) Non-Hamiltonian cycles */
+ /*
+  * (1) Non-Hamiltonian cycles: all simple cycles (no repeated vertices),
+  *     of length >= 2 edges.
+  */
 static void dfs_findCycles(
     GraphAlgorithmContext* ctx,
     int start,
     int current,
-    int* stack,
-    int stackLen,
+    Stack* stack,
     bool* visited,
     StringList* uniqueCycles,
     CycleList* cycleList,
     int* localCount
-)
-{
-    stack[stackLen] = current;
-    visited[current] = true;
-    GraphInterface* gi = ctx->graph_interface;
+) {
+    push(stack, current);
+    visited[current] = true; // **Mark as visited**
 
-    for (int nxt = 0; nxt < ctx->vertices; nxt++) {
-        int w = gi->get_edge(gi, current, nxt);
-        if (w > 0) {
-            if (nxt == start && (w > 1 || stackLen > 1)) {
-                /* Found a cycle */
-                char* canonical = normalizeCycle(stack, stackLen + 1);
-                if (!stringListContains(uniqueCycles, canonical)) {
-                    addStringToList(uniqueCycles, canonical);
-                    addCycle(cycleList, stack, stackLen + 1);
-                    (*localCount)++;
+    GraphInterface* gi = ctx->graph_interface;
+    int stackLen = stack->top + 1;  // **Number of nodes in stack**
+
+    // **Get all neighbors of the current node**
+    int out_degree;
+    int* neighbors = gi->get_all_edges_from_vertex(gi, current, &out_degree);
+    printf("Node %d has %d neighbors: ", current, out_degree);
+    for (int i = 0; i < out_degree; i++) {
+        printf("%d ", neighbors[i]);
+    }
+    printf("\n");
+
+    for (int i = 0; i < out_degree; i++) {
+        int nxt = neighbors[i];
+
+        if (nxt == start && stackLen >= 2) {
+            // **Valid cycle found**
+            int cycleLength = stackLen + 1;
+            int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+            for (int j = 0; j < stackLen; j++) {
+                cycleArray[j] = stack->data[j];
+            }
+            cycleArray[cycleLength - 1] = start; // **Close the cycle**
+
+            printf("[Vefore CYCLE FOUND]: ");
+            for (int j = 0; j < cycleLength; j++) {
+                printf("%d ", cycleArray[j]);
+            }
+            printf("\n");
+            // **Ensure no duplicate cycles are stored**
+            char* canonical = normalizeCycle(cycleArray, cycleLength);
+            if (!stringListContains(uniqueCycles, canonical)) {
+                printf("[CYCLE FOUND]: ");
+                for (int j = 0; j < cycleLength; j++) {
+                    printf("%d ", cycleArray[j]);
                 }
-                free(canonical);
+                printf("\n");
+
+                addStringToList(uniqueCycles, canonical);
+                addCycle(cycleList, cycleArray, cycleLength);
+                (*localCount)++;
             }
-            else if (!visited[nxt]) {
-                dfs_findCycles(ctx, start, nxt, stack, stackLen + 1,
-                    visited, uniqueCycles, cycleList, localCount);
-            }
+
+            free(canonical);
+            free(cycleArray);
+        }
+        else if (!visited[nxt]) {
+            // **Recursive DFS to explore deeper cycles**
+            dfs_findCycles(ctx, start, nxt, stack, visited, uniqueCycles, cycleList, localCount);
         }
     }
+
+    // **Backtrack: Remove last added node and allow revisits**
+    pop(stack);
     visited[current] = false;
+    free(neighbors);
 }
 
-/* 2) Hamiltonian cycles (backtrack) */
+
+
+/*
+ * (2) Hamiltonian cycles (backtrack).
+ *     We'll also keep the path in a stack for clarity.
+ */
 static void backtrack_hamiltonian(
     GraphAlgorithmContext* context,
     int start,
     int current,
-    int depth,
-    int* path,
+    Stack* stack,
     bool* visited,
     StringList* uniqueCycles,
     CycleList* cycleList,
     int* localCount
 )
 {
-    path[depth - 1] = current;
+    push(stack, current);
     visited[current] = true;
+
     GraphInterface* gi = context->graph_interface;
+    int depth = stack->top + 1;  // how many distinct vertices visited so far
 
     if (depth == context->vertices) {
-        /* Attempt to close the cycle */
+        // Try to close the cycle back to 'start'
         int w = gi->get_edge(gi, current, start);
-        if (w > 0 && (w > 1 || depth > 2)) {
-            /* Found a Hamiltonian cycle */
-            char* canonical = normalizeCycle(path, depth);
+        if (w > 0) {
+            int cycleLength = depth + 1;  // e.g. 4 + 1 => 5
+            int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+            for (int i = 0; i < depth; i++) {
+                cycleArray[i] = stack->data[i];
+            }
+            cycleArray[depth] = start; // close cycle
+
+            char* canonical = normalizeCycle(cycleArray, cycleLength);
             if (!stringListContains(uniqueCycles, canonical)) {
                 addStringToList(uniqueCycles, canonical);
-                addCycle(cycleList, path, depth);
+                addCycle(cycleList, cycleArray, cycleLength);
                 (*localCount)++;
             }
             free(canonical);
+            free(cycleArray);
         }
     }
     else {
+        // Try all possible next vertices that aren't visited
         for (int nxt = 0; nxt < context->vertices; nxt++) {
             int w2 = gi->get_edge(gi, current, nxt);
             if (w2 > 0 && !visited[nxt]) {
-                backtrack_hamiltonian(context, start, nxt, depth + 1,
-                    path, visited, uniqueCycles, cycleList, localCount);
+                backtrack_hamiltonian(context, start, nxt, stack,
+                    visited, uniqueCycles, cycleList, localCount);
             }
         }
     }
+
+    // Backtrack
+    pop(stack);
     visited[current] = false;
 }
 
-/* 3) Maximal cycles: enumerates all cycles that match the max length */
+/*
+ * (3) Maximal cycle length: we only need a "depth" count. The maximum
+ *     simple cycle length found across any DFS is stored in *maxLen.
+ */
+static void dfs_maxCycleLength(
+    GraphAlgorithmContext* context,
+    int start,
+    int current,
+    Stack* stack,
+    bool* visited,
+    int* maxLen
+)
+{
+    push(stack, current);
+    visited[current] = true;
+    int depth = stack->top + 1;
+
+    GraphInterface* gi = context->graph_interface;
+    for (int nxt = 0; nxt < context->vertices; nxt++) {
+        int w = gi->get_edge(gi, current, nxt);
+        if (w > 0) {
+            // If we returned to 'start', we have a cycle. The length is depth+1.
+            if (nxt == start && depth >= 1) {
+                if (depth > *maxLen) {
+                    *maxLen = depth;
+                }
+            }
+            else if (!visited[nxt]) {
+                dfs_maxCycleLength(context, start, nxt, stack, visited, maxLen);
+            }
+        }
+    }
+    // backtrack
+    pop(stack);
+    visited[current] = false;
+}
+
+/*
+ * (4) find all cycles exactly matching the maximum length *maxCycleLen
+ */
 static void dfs_findMaxCycles(
     GraphAlgorithmContext* context,
     int start,
     int current,
-    int* stack,
-    int stackLen,
+    Stack* stack,
     bool* visited,
     StringList* uniqueCycles,
     CycleList* outputList,
@@ -297,70 +373,45 @@ static void dfs_findMaxCycles(
     int* foundCount
 )
 {
-    stack[stackLen] = current;
+    push(stack, current);
     visited[current] = true;
-    GraphInterface* gi = context->graph_interface;
+    int stackLen = stack->top + 1;
 
-    for (int nxt = 0; nxt < context->vertices; nxt++) {
-        int w = gi->get_edge(gi, current, nxt);
-        if (w > 0) {
-            if (nxt == start && (w > 1 || stackLen > 0)) {
-                int cycleLength = stackLen + 1;
-                if (cycleLength == *maxCycleLen) {
-                    /* store if it's a brand-new cycle signature */
-                    char* canonical = normalizeCycle(stack, cycleLength);
-                    if (!stringListContains(uniqueCycles, canonical)) {
-                        addStringToList(uniqueCycles, canonical);
-                        addCycle(outputList, stack, cycleLength);
-                        (*foundCount)++;
-                    }
-                    free(canonical);
-                }
-            }
-            else if (!visited[nxt]) {
-                dfs_findMaxCycles(context, start, nxt,
-                    stack, stackLen + 1,
-                    visited, uniqueCycles, outputList,
-                    maxCycleLen, foundCount);
-            }
-        }
-    }
-    visited[current] = false;
-}
-
-/* 4) find the max cycle length (by DFS from each start) */
-static void dfs_maxCycleLength(
-    GraphAlgorithmContext* context,
-    int start,
-    int current,
-    int depth,
-    bool* visited,
-    int* maxLen
-)
-{
-    visited[current] = true;
     GraphInterface* gi = context->graph_interface;
     for (int nxt = 0; nxt < context->vertices; nxt++) {
         int w = gi->get_edge(gi, current, nxt);
         if (w > 0) {
-            if (nxt == start && (w > 1 || depth > 1)) {
-                if (depth > *maxLen) {
-                    *maxLen = depth;
+            // If we closed a cycle of length == *maxCycleLen, record it
+            if (nxt == start && stackLen == *maxCycleLen) {
+                int cycleLength = stackLen + 1;  // e.g. 3 -> 4 array
+                int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+                for (int i = 0; i < stackLen; i++) {
+                    cycleArray[i] = stack->data[i];
                 }
+                cycleArray[stackLen] = start;
+
+                char* canonical = normalizeCycle(cycleArray, cycleLength);
+                if (!stringListContains(uniqueCycles, canonical)) {
+                    addStringToList(uniqueCycles, canonical);
+                    addCycle(outputList, cycleArray, cycleLength);
+                    (*foundCount)++;
+                }
+                free(canonical);
+                free(cycleArray);
             }
-            else if (!visited[nxt]) {
-                dfs_maxCycleLength(context, start, nxt, depth + 1, visited, maxLen);
+            else if (!visited[nxt] && stackLen < *maxCycleLen) {
+                dfs_findMaxCycles(context, start, nxt, stack, visited,
+                    uniqueCycles, outputList, maxCycleLen, foundCount);
             }
         }
     }
+    pop(stack);
     visited[current] = false;
 }
 
 /*-----------------------------------------------------------------------------
- * Approximate logic (for large graphs)
+ * Approximate logic stubs (for large graphs >= THRESHOLD)
  *---------------------------------------------------------------------------*/
- /* We define approximate_required_operations, approximate_calculate_metric, etc. */
-
 static int approximate_required_operations(
     GraphAlgorithmContext* context_1,
     GraphAlgorithmContext* context_2,
@@ -384,7 +435,6 @@ static int approximate_required_operations(
     }
     return required_operations;
 }
-
 static void generate_random_permutation(int* arr, int n) {
     for (int i = 0; i < n; i++) {
         int j = rand() % n;
@@ -414,6 +464,7 @@ static int approximate_calculate_metric(
         int j = rand() % vertices_1;
         common_swap(&arr[i], &arr[j]);
         int new_metric = approximate_required_operations(context_1, context_2, arr, vertices_1, vertices_2);
+
         if (new_metric < current_metric ||
             (common_exp((current_metric - new_metric) / temperature) > ((double)rand() / RAND_MAX))) {
             current_metric = new_metric;
@@ -429,7 +480,6 @@ static int approximate_calculate_metric(
     free(arr);
     return best_metric;
 }
-
 static int approximate_find_minimal_extension(void* graph, int vertices) {
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     int edge_additions = 0;
@@ -445,7 +495,6 @@ static int approximate_find_minimal_extension(void* graph, int vertices) {
     destroy_context(ctx);
     return edge_additions;
 }
-
 static int approximate_count_maximal_cycles(void* graph, int vertices) {
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     int max_cycle_length = 0;
@@ -474,7 +523,6 @@ static int approximate_count_maximal_cycles(void* graph, int vertices) {
     destroy_context(ctx);
     return max_cycle_length;
 }
-
 static int approximate_find_maximal_cycles(void* graph, int vertices,
     int*** output_cycles,
     int** cycle_sizes,
@@ -513,7 +561,6 @@ static int approximate_find_maximal_cycles(void* graph, int vertices,
     destroy_context(ctx);
     return *cycle_count;
 }
-
 static int approximate_find_cycles(void* graph, int vertices,
     int*** output_cycles,
     int** cycle_sizes,
@@ -523,6 +570,7 @@ static int approximate_find_cycles(void* graph, int vertices,
     *cycle_count = 0;
     *output_cycles = NULL;
     *cycle_sizes = NULL;
+    /* A trivial placeholder: "small cycles" from half the matrix. */
     for (int i = 0; i < vertices / 2; i++) {
         for (int j = 0; j < vertices / 2; j++) {
             if (ctx->graph_interface->get_edge(graph, i, j) > 0) {
@@ -541,7 +589,6 @@ static int approximate_find_cycles(void* graph, int vertices,
     destroy_context(ctx);
     return *cycle_count;
 }
-
 static int approximate_count_hamiltonian_cycles(void* graph, int vertices,
     int*** output_cycles,
     int** cycle_sizes,
@@ -584,26 +631,19 @@ static int approximate_count_hamiltonian_cycles(void* graph, int vertices,
  * Wrapper to get graph size from the interface
  *---------------------------------------------------------------------------*/
 static int calculate_size_wrapper(void* graph) {
-    if (!graph) {
-        fprintf(stderr, "Error: Null graph pointer in calculate_size.\n");
-        return -1;
-    }
+    if (!graph) return -1;
     GraphInterface* gi = (GraphInterface*)graph;
-    if (!gi->calculate_size) {
-        fprintf(stderr, "Error: GraphInterface missing calculate_size.\n");
-        return -1;
-    }
+    if (!gi->calculate_size) return -1;
     return gi->calculate_size(graph);
 }
 
 /*-----------------------------------------------------------------------------
- * Checking if there's at least 1 Hamiltonian cycle (hasHamiltonianCycle)
+ * Checking if there's at least 1 Hamiltonian cycle (used in minimal extension)
  *---------------------------------------------------------------------------*/
 static void checkCycle(GraphAlgorithmContext* context, int start, int current, int depth,
     int* path, bool* visited, bool* foundOne);
 
-static bool hasHamiltonianCycle(GraphAlgorithmContext* context)
-{
+static bool hasHamiltonianCycle(GraphAlgorithmContext* context) {
     bool foundOne = false;
     for (int i = 0; i < context->vertices && !foundOne; i++) {
         int* path = (int*)malloc(context->vertices * sizeof(int));
@@ -625,11 +665,11 @@ static void checkCycle(GraphAlgorithmContext* context, int start, int current, i
     if (*foundOne) return;
     path[depth - 1] = current;
     visited[current] = true;
-    GraphInterface* gi = context->graph_interface;
 
+    GraphInterface* gi = context->graph_interface;
     if (depth == context->vertices) {
         int w = gi->get_edge(gi, current, start);
-        if (w > 0 && (w > 1 || depth > 2)) {
+        if (w > 0) {
             *foundOne = true;
         }
     }
@@ -645,11 +685,10 @@ static void checkCycle(GraphAlgorithmContext* context, int start, int current, i
 }
 
 /*-----------------------------------------------------------------------------
- * explore_extensions: for minimal extension
+ * explore_extensions: for minimal extension search
  *---------------------------------------------------------------------------*/
 static void explore_extensions(GraphAlgorithmContext* context, int vertices, int addedEdges, int* minEdgesNeeded);
-static void explore_extensions(GraphAlgorithmContext* context, int vertices, int addedEdges, int* minEdgesNeeded)
-{
+static void explore_extensions(GraphAlgorithmContext* context, int vertices, int addedEdges, int* minEdgesNeeded) {
     if (addedEdges >= *minEdgesNeeded) return;
     if (hasHamiltonianCycle(context)) {
         if (addedEdges < *minEdgesNeeded) {
@@ -658,6 +697,7 @@ static void explore_extensions(GraphAlgorithmContext* context, int vertices, int
         return;
     }
     GraphInterface* gi = context->graph_interface;
+    /* Try adding edges that do not exist. */
     for (int i = 0; i < vertices; i++) {
         for (int j = 0; j < vertices; j++) {
             if (i != j) {
@@ -665,7 +705,7 @@ static void explore_extensions(GraphAlgorithmContext* context, int vertices, int
                 if (w == 0) {
                     gi->add_edge(gi, i, j, 1);
                     explore_extensions(context, vertices, addedEdges + 1, minEdgesNeeded);
-                    gi->add_edge(gi, i, j, -1); /* remove edge */
+                    gi->add_edge(gi, i, j, -1); /* remove that edge again */
                 }
             }
         }
@@ -677,25 +717,37 @@ static void explore_extensions(GraphAlgorithmContext* context, int vertices, int
  *---------------------------------------------------------------------------*/
 typedef struct GraphAlgorithmTag {
     int  (*calculate_size)(void* graph);
-    int  (*find_cycles)(void* graph, int vertices, int*** output_cycles, int** cycle_sizes, int* cycle_count);
-    int  (*count_hamiltonian_cycles)(void* graph, int vertices, int*** output_cycles, int** cycle_sizes, int* cycle_count);
-    void (*calculate_metric)(void* graph1, int v1, void* graph2, int v2, int* exact_metric, int* approximate_metric);
+    int  (*find_cycles)(void* graph, int vertices,
+        int*** output_cycles, int** cycle_sizes, int* cycle_count);
+    int  (*count_hamiltonian_cycles)(void* graph, int vertices,
+        int*** output_cycles, int** cycle_sizes, int* cycle_count);
+    void (*calculate_metric)(void* g1, int v1, void* g2, int v2,
+        int* exact_metric, int* approximate_metric);
     int  (*find_minimal_extension)(void* graph, int vertices);
     int  (*count_maximal_cycles)(void* graph, int vertices);
-    int  (*find_maximal_cycles)(void* graph, int vertices, int*** output_cycles, int** cycle_sizes, int* cycle_count);
+    int  (*find_maximal_cycles)(void* graph, int vertices,
+        int*** output_cycles, int** cycle_sizes, int* cycle_count);
 } GraphAlgorithm;
 
 /*
- * Local wrapper prototypes
+ * Forward declarations of wrappers
  */
-static int  find_cycles_wrapper(void* graph, int vertices, int*** outA, int** outS, int* outCount);
-static int  count_hamiltonian_cycles_wrapper(void* graph, int vertices, int*** outA, int** outS, int* outCount);
-static void calculate_metric_wrapper(void* g1, int v1, void* g2, int v2, int* exact_metric, int* approximate_metric);
+static int  find_cycles_wrapper(
+    void* graph, int vertices,
+    int*** outA, int** outS, int* outCount);
+static int  count_hamiltonian_cycles_wrapper(
+    void* graph, int vertices,
+    int*** outA, int** outS, int* outCount);
+static void calculate_metric_wrapper(
+    void* g1, int v1, void* g2, int v2,
+    int* exact_metric, int* approximate_metric);
 static int  find_minimal_extension_wrapper(void* graph, int v);
 static int  count_maximal_cycles_wrapper(void* graph, int v);
-static int  find_maximal_cycles_wrapper(void* graph, int v, int*** outA, int** outS, int* outC);
+static int  find_maximal_cycles_wrapper(
+    void* graph, int v,
+    int*** outA, int** outS, int* outC);
 
-/* Our "default_algorithm" in object */
+/* Our global "default_algorithm" object */
 static GraphAlgorithm default_algorithm = {
     .calculate_size = calculate_size_wrapper,
     .find_cycles = find_cycles_wrapper,
@@ -706,7 +758,10 @@ static GraphAlgorithm default_algorithm = {
     .find_maximal_cycles = find_maximal_cycles_wrapper
 };
 
-/* EXACT: find_cycles */
+/*
+ * EXACT: find_cycles_wrapper
+ *   - enumerates all simple cycles of length >= 2 edges
+ */
 static int find_cycles_wrapper(
     void* graph,
     int vertices,
@@ -715,50 +770,10 @@ static int find_cycles_wrapper(
     int* cycle_count)
 {
     if (vertices >= THRESHOLD) {
+        /* Use approximate logic for large graphs */
         return approximate_find_cycles(graph, vertices, output_cycles, cycle_sizes, cycle_count);
     }
-    GraphAlgorithmContext* ctx = create_context(graph, vertices);
-    if (!ctx) return 0;
-    CycleList   cycleList;
-    initCycleList(&cycleList);
 
-    StringList  uniqueCycles;
-    initStringList(&uniqueCycles);
-
-    int localCount = 0;
-    for (int start = 0; start < vertices; start++) {
-        int* stack = (int*)malloc(vertices * sizeof(int));
-        bool* visited = (bool*)calloc(vertices, sizeof(bool));
-        if (!stack || !visited) {
-            free(stack);
-            free(visited);
-            continue;
-        }
-        dfs_findCycles(ctx, start, start, stack, 0,
-            visited, &uniqueCycles, &cycleList, &localCount);
-        free(stack);
-        free(visited);
-    }
-    *output_cycles = cycleList.cycles;
-    *cycle_sizes = cycleList.sizes;
-    *cycle_count = cycleList.count;
-
-    freeStringList(&uniqueCycles);
-    destroy_context(ctx);
-    return cycleList.count;
-}
-
-/* EXACT: count_hamiltonian_cycles */
-static int count_hamiltonian_cycles_wrapper(
-    void* graph,
-    int vertices,
-    int*** output_cycles,
-    int** cycle_sizes,
-    int* cycle_count)
-{
-    if (vertices >= THRESHOLD) {
-        return approximate_count_hamiltonian_cycles(graph, vertices, output_cycles, cycle_sizes, cycle_count);
-    }
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     if (!ctx) return 0;
 
@@ -769,20 +784,83 @@ static int count_hamiltonian_cycles_wrapper(
     initStringList(&uniqueCycles);
 
     int localCount = 0;
-    /* Try each vertex as a start node */
+
     for (int start = 0; start < vertices; start++) {
-        int* path = (int*)malloc(vertices * sizeof(int));
+        /* Use a stack for DFS */
+        Stack stack;
+        initStack(&stack, vertices);
+
         bool* visited = (bool*)calloc(vertices, sizeof(bool));
-        if (!path || !visited) {
-            free(path);
-            free(visited);
+        if (!visited) {
+            freeStack(&stack);
             continue;
         }
-        backtrack_hamiltonian(ctx, start, start, 1, path, visited,
-            &uniqueCycles, &cycleList, &localCount);
-        free(path);
+
+        /* Ensure all vertices and paths are checked */
+        int out_degree;
+        int* neighbors = ctx->graph_interface->get_all_edges_from_vertex(ctx->graph_interface, start, &out_degree);
+
+        if (out_degree > 0) {
+            dfs_findCycles(ctx, start, start, &stack, visited, &uniqueCycles, &cycleList, &localCount);
+        }
+
+        free(neighbors);
+        freeStack(&stack);
         free(visited);
     }
+
+    *output_cycles = cycleList.cycles;
+    *cycle_sizes = cycleList.sizes;
+    *cycle_count = cycleList.count;
+
+    freeStringList(&uniqueCycles);
+    destroy_context(ctx);
+
+    return cycleList.count;
+}
+
+
+/*
+ * EXACT: count_hamiltonian_cycles_wrapper
+ */
+static int count_hamiltonian_cycles_wrapper(
+    void* graph,
+    int vertices,
+    int*** output_cycles,
+    int** cycle_sizes,
+    int* cycle_count)
+{
+    if (vertices >= THRESHOLD) {
+        return approximate_count_hamiltonian_cycles(graph, vertices,
+            output_cycles, cycle_sizes, cycle_count);
+    }
+    GraphAlgorithmContext* ctx = create_context(graph, vertices);
+    if (!ctx) return 0;
+
+    CycleList  cycleList;
+    initCycleList(&cycleList);
+
+    StringList uniqueCycles;
+    initStringList(&uniqueCycles);
+
+    int localCount = 0;
+    for (int start = 0; start < vertices; start++) {
+        Stack st;
+        initStack(&st, vertices);
+
+        bool* visited = (bool*)calloc(vertices, sizeof(bool));
+        if (!visited) {
+            freeStack(&st);
+            continue;
+        }
+        /* Perform Hamiltonian DFS from 'start'. */
+        backtrack_hamiltonian(ctx, start, start, &st, visited,
+            &uniqueCycles, &cycleList, &localCount);
+
+        freeStack(&st);
+        free(visited);
+    }
+
     *output_cycles = cycleList.cycles;
     *cycle_sizes = cycleList.sizes;
     *cycle_count = cycleList.count;
@@ -792,6 +870,9 @@ static int count_hamiltonian_cycles_wrapper(
     return cycleList.count;
 }
 
+/*
+ * EXACT: metric calculation
+ */
 static int calculate_required_operations(
     GraphAlgorithmContext* context1,
     GraphAlgorithmContext* context2,
@@ -818,7 +899,6 @@ static int calculate_required_operations(
     }
     return required_operations;
 }
-
 static int calculate_graph_metric(
     GraphAlgorithmContext* context1,
     GraphAlgorithmContext* context2,
@@ -830,11 +910,8 @@ static int calculate_graph_metric(
         printf("Using approximate algorithm for large graphs.\n");
         return approximate_calculate_metric(context1, context2, vertices1, vertices2);
     }
+
     int* arr = (int*)malloc(vertices1 * sizeof(int));
-    if (!arr) {
-        fprintf(stderr, "Memory allocation error in calculate_graph_metric.\n");
-        return -1;
-    }
     for (int i = 0; i < vertices1; i++) {
         arr[i] = i + 1;
     }
@@ -843,22 +920,22 @@ static int calculate_graph_metric(
         int tmp = calculate_required_operations(context1, context2, arr, vertices1, vertices2);
         minOperations = common_min(minOperations, tmp);
     } while (nextPermutation(arr, vertices1));
+
     free(arr);
     return minOperations;
 }
-
-/* EXACT: calculate_metric */
 static void calculate_metric_wrapper(
     void* g1, int v1,
     void* g2, int v2,
     int* exact_metric,
     int* approximate_metric)
 {
+    /* Ensure g1 has >= #vertices. If not, swap. */
     if (common_max(v1, v2) == v2) {
-        /* swap so g1 always has >= # vertices */
         void* tmp = g1;  g1 = g2;   g2 = tmp;
-        int tv = v1;     v1 = v2;   v2 = tv;
+        int   tv = v1;  v1 = v2;   v2 = tv;
     }
+
     GraphAlgorithmContext* ctx1 = create_context(g1, v1);
     GraphAlgorithmContext* ctx2 = create_context(g2, v2);
     if (!ctx1 || !ctx2) {
@@ -880,7 +957,9 @@ static void calculate_metric_wrapper(
     destroy_context(ctx2);
 }
 
-/* EXACT: find_minimal_extension */
+/*
+ * EXACT: find_minimal_extension_wrapper
+ */
 static int find_minimal_extension_wrapper(void* graph, int vertices) {
     if (vertices >= THRESHOLD) {
         return approximate_find_minimal_extension(graph, vertices);
@@ -888,33 +967,23 @@ static int find_minimal_extension_wrapper(void* graph, int vertices) {
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     if (!ctx) return 0;
 
-    int minEdgesNeeded = INT_MAX;
-
-    /* Check if there's already a Hamiltonian cycle */
-    bool foundOne = false;
-    for (int i = 0; i < ctx->vertices && !foundOne; i++) {
-        int* path = (int*)malloc(ctx->vertices * sizeof(int));
-        bool* visited = (bool*)calloc(ctx->vertices, sizeof(bool));
-        if (!path || !visited) {
-            free(path);
-            free(visited);
-            continue;
-        }
-        checkCycle(ctx, i, i, 1, path, visited, &foundOne);
-        free(path);
-        free(visited);
-    }
+    bool foundOne = hasHamiltonianCycle(ctx);
     if (foundOne) {
         destroy_context(ctx);
         return 0;
     }
+
+    int minEdgesNeeded = INT_MAX;
     explore_extensions(ctx, vertices, 0, &minEdgesNeeded);
     destroy_context(ctx);
+
     if (minEdgesNeeded == INT_MAX) return 0;
     return minEdgesNeeded;
 }
 
-/* EXACT: count_maximal_cycles => length of longest cycle */
+/*
+ * EXACT: count_maximal_cycles_wrapper => length of the longest simple cycle
+ */
 static int count_maximal_cycles_wrapper(void* graph, int vertices) {
     if (vertices >= THRESHOLD) {
         return approximate_count_maximal_cycles(graph, vertices);
@@ -924,16 +993,24 @@ static int count_maximal_cycles_wrapper(void* graph, int vertices) {
 
     int maxCycleLength = 0;
     for (int start = 0; start < vertices; start++) {
+        Stack st;
+        initStack(&st, vertices);
+
         bool* visited = (bool*)calloc(vertices, sizeof(bool));
-        if (!visited) continue;
-        dfs_maxCycleLength(ctx, start, start, 1, visited, &maxCycleLength);
+        if (visited) {
+            dfs_maxCycleLength(ctx, start, start, &st, visited, &maxCycleLength);
+        }
         free(visited);
+        freeStack(&st);
     }
     destroy_context(ctx);
     return maxCycleLength;
 }
 
-/* EXACT: find_maximal_cycles => enumerates & returns all cycles of that length */
+/*
+ * EXACT: find_maximal_cycles_wrapper => enumerates all cycles that match
+ * the maximum cycle length found above.
+ */
 static int find_maximal_cycles_wrapper(
     void* graph,
     int vertices,
@@ -954,16 +1031,21 @@ static int find_maximal_cycles_wrapper(
         return 0;
     }
 
-    /* 1) find maximum cycle length */
+    /* First: find the maximum cycle length. */
     int maxCycleLength = 0;
     for (int start = 0; start < vertices; start++) {
+        Stack st;
+        initStack(&st, vertices);
+
         bool* visited = (bool*)calloc(vertices, sizeof(bool));
-        if (!visited) continue;
-        dfs_maxCycleLength(ctx, start, start, 1, visited, &maxCycleLength);
+        if (visited) {
+            dfs_maxCycleLength(ctx, start, start, &st, visited, &maxCycleLength);
+        }
         free(visited);
+        freeStack(&st);
     }
 
-    /* 2) collect all cycles matching max length */
+    /* Next: collect all cycles of length == maxCycleLength. */
     CycleList cycleList;
     initCycleList(&cycleList);
 
@@ -972,28 +1054,34 @@ static int find_maximal_cycles_wrapper(
 
     int foundCount = 0;
     for (int start = 0; start < vertices; start++) {
-        int* stack = (int*)malloc(vertices * sizeof(int));
+        Stack st;
+        initStack(&st, vertices);
+
         bool* visited = (bool*)calloc(vertices, sizeof(bool));
-        if (!stack || !visited) {
-            free(stack);
-            free(visited);
+        if (!visited) {
+            freeStack(&st);
             continue;
         }
-        dfs_findMaxCycles(ctx, start, start, stack, 0, visited,
-            &uniqueCycles, &cycleList, &maxCycleLength, &foundCount);
-        free(stack);
+        dfs_findMaxCycles(ctx, start, start, &st, visited,
+            &uniqueCycles, &cycleList,
+            &maxCycleLength, &foundCount);
+
+        freeStack(&st);
         free(visited);
     }
+
     *output_cycles = cycleList.cycles;
     *cycle_sizes = cycleList.sizes;
     *cycle_count = cycleList.count;
 
+    freeStringList(&uniqueCycles);
     destroy_context(ctx);
+
     return cycleList.count;
 }
 
 /*-----------------------------------------------------------------------------
- * "print cycles" in a "0 -> 1 -> 2" format
+ * "print_cycles": prints cycles as "0 -> 1 -> 2 -> 0", etc.
  *---------------------------------------------------------------------------*/
 void print_cycles(GraphInterface* multigraph, int** output_cycles, int* cycle_sizes, int cycle_count) {
     for (int i = 0; i < cycle_count; i++) {
@@ -1004,13 +1092,16 @@ void print_cycles(GraphInterface* multigraph, int** output_cycles, int* cycle_si
             }
         }
         printf("\n");
-        free(output_cycles[i]);  /* free each cycle array */
+        /* Free each cycle array after printing. */
+        free(output_cycles[i]);
     }
-    free(output_cycles); /* free the array of pointers */
-    free(cycle_sizes);   /* free the sizes array */
+    free(output_cycles);
+    free(cycle_sizes);
 }
 
-
+/*-----------------------------------------------------------------------------
+ * GraphArray: hold multiple graphs
+ *---------------------------------------------------------------------------*/
 void init_graph_array(GraphArray* arr, size_t capacity) {
     arr->data = (GraphInterface**)malloc(capacity * sizeof(GraphInterface*));
     arr->size = 0;
@@ -1052,20 +1143,18 @@ FILE* open_file_with_retry(const char* filename) {
 
 /*
  * analyze_multigraph
- *  => prints
- *     1) All cycles
- *     2) Hamiltonian cycles
- *     3) Minimal extension
- *     4) Maximal cycle length
- *     5) Maximal cycles
+ *    1) All cycles
+ *    2) Hamiltonian cycles
+ *    3) Minimal extension for Hamiltonian cycle
+ *    4) Maximal cycle length
+ *    5) All cycles of that maximal length
  */
-extern GraphAlgorithm default_algorithm;  /* Our global struct above. */
+extern GraphAlgorithm default_algorithm;  /* Our global struct above */
 
 void analyze_multigraph(GraphInterface* multigraph) {
     printf("Analyzing Multigraph:\n");
     printf("------------------------------------------------\n");
 
-    /* Print a size measure (number of edges, etc.) */
     int graph_size = default_algorithm.calculate_size(multigraph);
     printf("Graph size (number of edges): %d\n", graph_size);
 
@@ -1143,18 +1232,19 @@ void process_multigraphs(const char* file_name, GraphArray* multigraphs_to_compa
         int vertices;
         fscanf(file, "%d", &vertices);
 
-        /* create a multigraph from "graph.c" */
+        /* create a multigraph from "graph.c" (your custom create_multigraph). */
         GraphInterface* multigraph = create_multigraph(vertices);
         if (!multigraph) {
             fprintf(stderr, "Failed to initialize graph interface for graph %d.\n", i + 1);
             continue;
         }
 
+        /* We only store the first one in 'multigraphs_to_compare', but you can adapt. */
         if (i == 0) {
             add_graph(multigraphs_to_compare, multigraph);
         }
 
-        /* read adjacency matrix */
+        /* read adjacency matrix from file */
         for (int j = 0; j < vertices; j++) {
             for (int k = 0; k < vertices; k++) {
                 int weight;
@@ -1164,11 +1254,13 @@ void process_multigraphs(const char* file_name, GraphArray* multigraphs_to_compa
                 }
             }
         }
+
         analyze_multigraph(multigraph);
     }
     fclose(file);
 }
 
+/* Compare two loaded graphs for metrics */
 void process_metrics(GraphInterface* multigraph_1, GraphInterface* multigraph_2) {
     printf("Comparing graphs:\n");
     printf("------------------------------------------------\n");
@@ -1187,8 +1279,8 @@ void process_metrics(GraphInterface* multigraph_1, GraphInterface* multigraph_2)
         &exact_metric,
         &approximate_metric
     );
-    printf("Graph similarity metric between graphs: %d\n", exact_metric);
-    printf("Approximate graph similarity metric between graphs: %d\n", approximate_metric);
+    printf("Graph similarity metric (exact): %d\n", exact_metric);
+    printf("Graph similarity metric (approx): %d\n", approximate_metric);
     printf("------------------------------------------------\n\n");
 }
 
@@ -1202,15 +1294,19 @@ int main(int argc, char* argv[]) {
     GraphArray multigraphs_to_compare;
     init_graph_array(&multigraphs_to_compare, 2);
 
+    /* Load & analyze graphs from the input file */
     process_multigraphs(config->input_file, &multigraphs_to_compare);
 
+    /* If there's a second file for metric comparison, load & compare */
     if (config->metric_optional_file) {
         process_multigraphs(config->metric_optional_file, &multigraphs_to_compare);
         if (multigraphs_to_compare.size >= 2) {
-            process_metrics(multigraphs_to_compare.data[0], multigraphs_to_compare.data[1]);
+            process_metrics(multigraphs_to_compare.data[0],
+                multigraphs_to_compare.data[1]);
         }
     }
 
+    /* Cleanup */
     free_graph_array(&multigraphs_to_compare);
     return EXIT_SUCCESS;
 }
