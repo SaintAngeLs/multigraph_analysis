@@ -33,6 +33,27 @@
     <ClCompile Include="src\stack.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\matching.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graph_algorithm_context.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cycle_list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\string_list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graph_algorithm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\approximation_algorithm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\method_wrapper.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common_utils.h">
@@ -51,6 +72,27 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\stack.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\matching.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graph_algorithm_context.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cycle_list.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\string_list.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graph_algorithm.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\approximation_algorithm.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\method_wrapper.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
