@@ -1,0 +1,1 @@
+  -L"E:/Users/amade/Documents/Programowanie/TAiO/multigraph_analysis/visual_studio/vcpkg/installed/x64-windows/debug/lib"  -lglib-2.0 -lintl -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

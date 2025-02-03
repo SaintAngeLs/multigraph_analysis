@@ -1,0 +1,179 @@
+\section{Definicje}
+
+\noindent \textbf{Definicja 1: Multigraf.} \\
+\emph{Multigraf} to uporządkowana para \( G = (V, E) \), gdzie:
+\begin{itemize}
+    \item \( V \) jest skończonym zbiorem wierzchołków,
+    \item \( E \) jest multizbiorem krawędzi, z których każda łączy parę wierzchołków z \( V \). Krawędzie mogą się powtarzać, co oznacza możliwość występowania wielokrotnych krawędzi między tą samą parą wierzchołków. Nie rozważamy krawędzi w postaci pętli tj. krawędzie \( (v, v) \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 2: Rozmiar multigrafu.} \\
+Rozmiar multigrafu \( G = (V, E) \), oznaczany \( |E| \), to całkowita liczba krawędzi w multigrafie, uwzględniająca wszystkie wielokrotne krawędzie. Formalnie:
+\[
+|E| = \sum_{(u, v) \in V \times V} \text{Liczność}((u, v), E),
+\]
+gdzie \( \text{Liczność}((u, v), E) \) to liczba wystąpień krawędzi \( (u, v) \) w \( E \).
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 3: Cykl w multigrafie.} \\
+\emph{Cykl} w multigrafie \( G = (V, E) \) to ciąg wierzchołków \( v_1, v_2, \dots, v_k, v_1 \), spełniający następujące warunki:
+\begin{itemize}
+    \item \( v_i \in V \) dla \( i = 1, 2, \dots, k \),
+    \item \( (v_i, v_{i+1}) \in E \) dla \( i = 1, 2, \dots, k-1 \), oraz \( (v_k, v_1) \in E \),
+    \item \( v_i \neq v_j \) dla \( 1 \leq i < j \leq k \), z wyjątkiem \( v_1 = v_k \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 4: Maksymalny cykl w multigrafie.} \\
+\emph{Maksymalny cykl} w multigrafie \( G \) to cykl, który zawiera największą liczbę wierzchołków spośród wszystkich cykli w \( G \).
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 5: Cykl Hamiltona.} \\
+\emph{Cykl Hamiltona} w multigrafie \( G = (V, E) \) to cykl, który odwiedza każdy wierzchołek z \( V \) dokładnie raz i powraca do wierzchołka początkowego. Formalnie, jest to ciąg \( v_1, v_2, \dots, v_{|V|}, v_1 \), taki że:
+\begin{itemize}
+    \item \( v_i \in V \) dla \( i = 1, 2, \dots, |V| \),
+    \item \( (v_i, v_{i+1}) \in E \) dla \( i = 1, 2, \dots, |V|-1 \), oraz \( (v_{|V|}, v_1) \in E \),
+    \item \( v_i \neq v_j \) dla \( 1 \leq i < j \leq |V| \).
+\end{itemize}
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 6: Minimalne rozszerzenie multigrafu.} \\
+\emph{Minimalne rozszerzenie multigrafu} \( G = (V, E) \) to najmniejsza liczba krawędzi, które należy dodać do \( G \), aby istniał w nim cykl Hamiltona.
+
+\vspace{1em}
+
+\noindent \textbf{Definicja 7: Metryka w przestrzeni multigrafów.} \\
+
+Metryką w przestrzeni multigrafów nazwiemy minimalną liczbą operacji potrzebnych do przekształcenia jednego grafu w drugi. Do operacji zaliczamy:
+\begin{itemize}
+    \item dodanie krawędzi (również wielokrotnie),
+    \item usunięcie krawędzi,
+    \item dodanie wierzchołka,
+    \item usunięcie wierzchołka,
+    \item zamianę wierzchołków.
+\end{itemize}
+\[
+    d(G, H) = \min_{wszystkie \ sekwencje \ edycji} \sum_{operacje \ edycji \ grafu} f_{cost}(operacja),
+\]
+Przyjmujemy koszt wszystkich operacji edycji jako 1, oprócz zamiany wierzchołków, która ma koszt 0.
+
+\vspace{1em}
+
+\section{Metody aproksymacyjne}
+
+Rozważamy problem obliczeniowy na dużych multigrafach \( G = (V, E) \), gdzie klasyczne algorytmy deterministyczne mają zbyt dużą złożoność obliczeniową. Z tego powodu stosuje się metody aproksymacyjne, które dają oszacowania wyników w ograniczonym czasie.
+
+\subsection{Definicja dużego grafu}
+
+W kontekście niniejszej implementacji, za \emph{duży graf} uznaje się graf \( G = (V, E) \), który spełnia poniższe kryteria:
+
+\begin{itemize}
+    \item Liczba wierzchołków \( |V| \) przekracza zdefiniowany próg \( \text{THRESHOLD} \), tj. \( |V| > \text{THRESHOLD} \), gdzie w implementacji \( \text{THRESHOLD} = 10 \).
+    \item Liczba krawędzi \( |E| \) jest proporcjonalna do \( |V|^2 \), co wskazuje na gęsty graf.
+\end{itemize}
+
+\noindent W szczególności, \( \text{THRESHOLD} \) jest parametrem definiowanym w kodzie źródłowym jako:
+\[
+\texttt{\#define THRESHOLD 10}
+\]
+Oznacza to, że dla grafów o \( |V| \leq \text{THRESHOLD} \) stosowane są algorytmy deterministyczne, natomiast dla \( |V| > \text{THRESHOLD} \) stosowane są algorytmy aproksymacyjne.
+
+\subsection{Kryteria formalne dla dużych grafów}
+
+Graf \( G \) uznaje się za duży, jeśli spełnia przynajmniej jeden z poniższych warunków:
+\begin{enumerate}
+    \item \( |V| \gg \text{THRESHOLD} \), przy czym \( |E| \approx O(|V|^2) \), co wskazuje na graf gęsty.
+    \item Rozmiar grafu w sensie pamięciowym przekracza możliwości operacyjne dostępnego środowiska obliczeniowego, tj.:
+    \[
+    \text{Memory}(G) > \text{Available\_Memory}.
+    \]
+    \item Algorytmy deterministyczne na grafie \( G \) mają złożoność obliczeniową wyższą niż \( O(|V|!) \), co czyni ich wykonanie niepraktycznym w rozsądnym czasie.
+\end{enumerate}
+
+\subsection{Przykłady dużych grafów w implementacji}
+
+W ramach implementacji, duże grafy mogą być reprezentowane jako:
+\begin{itemize}
+    \item \emph{Gęste grafy} (dense graphs), gdzie:
+    \[
+    \frac{|E|}{|V|(|V|-1)} \geq \alpha, \quad \alpha \in (0.1, 1].
+    \]
+    \item \emph{Rzadkie grafy} (sparse graphs) o dużej liczbie wierzchołków \( |V| \), dla których:
+    \[
+    |E| \ll |V|^2, \quad |V| > \text{THRESHOLD}.
+    \]
+    \item \emph{Multigrafy}, gdzie liczba wielokrotnych krawędzi jest znaczna, tj.:
+    \[
+    \sum_{(u, v) \in V \times V} \text{Liczność}((u, v), E) \gg |V|.
+    \]
+\end{itemize}
+
+\subsection{Zastosowanie metod aproksymacyjnych do dużych grafów}
+
+Dla grafów spełniających powyższe kryteria, algorytmy deterministyczne są zastępowane przez metody aproksymacyjne w celu redukcji złożoności obliczeniowej. Przykłady takich algorytmów to:
+\begin{itemize}
+    \item Losowe próbkowanie wierzchołków lub krawędzi w celu znalezienia cykli.
+    \item Przybliżone obliczenia metryki odległości grafów za pomocą algorytmu symulowanego wyżarzania (Simulated Annealing).
+    \item Heurystyczne dodawanie krawędzi w procesie rozszerzenia grafu do posiadania cyklu Hamiltona.
+\end{itemize}
+
+\subsection{Wartości graniczne w implementacji}
+
+W implementacji za duże grafy uznaje się:
+\begin{enumerate}
+    \item Grafy o liczbie wierzchołków \( |V| > 10 \).
+    \item Grafy, dla których algorytmy deterministyczne, takie jak pełne przeszukiwanie przestrzeni cykli, mają złożoność obliczeniową \( O(|V|!) \).
+\end{enumerate}
+Próg \( \text{THRESHOLD} = 10 \) może być zmieniany w zależności od dostępnych zasobów sprzętowych.
+
+
+\subsection{Znajdowanie cykli}
+
+Problem polega na znalezieniu wszystkich cykli w multigrafie. Formalnie:
+\[
+\mathcal{C}(G) = \{ C \subseteq V : \forall v_i, v_{i+1} \in C, (v_i, v_{i+1}) \in E \text{ oraz } v_{|C|} = v_1 \}.
+\]
+Metoda aproksymacyjna wybiera podzbiór \( V' \subseteq V \) oraz analizuje jedynie podgraf \( G' = (V', E') \), gdzie \( E' = \{ (u, v) \in E : u, v \in V' \} \). Wybór \( V' \) może być losowy lub deterministyczny, np. \( |V'| = \lceil \alpha |V| \rceil \), gdzie \( \alpha \in (0, 1] \) jest współczynnikiem redukcji.
+
+\subsection{Liczenie cykli Hamiltona}
+
+Problem polega na wyznaczeniu liczby cykli Hamiltona, czyli cykli zawierających wszystkie wierzchołki:
+\[
+\mathcal{H}(G) = \{ C \in \mathcal{C}(G) : |C| = |V| \}.
+\]
+Aproksymacja tego problemu opiera się na zastosowaniu losowych prób \( T \), w których generujemy losowe permutacje \( \pi \) zbioru \( V \). Każda permutacja jest sprawdzana pod kątem spełnienia warunku cyklu:
+\[
+C_\pi = (v_{\pi(1)}, v_{\pi(2)}, \dots, v_{\pi(|V|)}, v_{\pi(1)}) \in \mathcal{H}(G).
+\]
+Złożoność redukowana jest przez ograniczenie liczby prób \( |T| \ll |V|! \).
+
+\subsection{Obliczanie metryki między grafami}
+
+W celu znalezienia metryki między dwoma grafami \( G_1 = (V_1, E_1) \) i \( G_2 = (V_2, E_2) \) generujemy wszystkie możliwe permutacje wierzchołków grafu o większej liczbie wierzchołków. Dla każdej permutacji \( \pi \) obliczamy metrykę \( d(G_1, G_2) \) jako minimalną liczbę operacji edycji, które przekształcają graf \( G_1 \) w graf \( G_2 \). Metryka jest minimalizowana poprzez wybór permutacji, która daje najmniejszą wartość metryki. Wiąże się to jednak z dużą złożonością obliczeniową, dlatego wykorzystywane są również metody aproksymacyjne. \\
+Symulowane wyżarzanie to probabilistyczna technika optymalizacji, która pozwala aproksymować globalne optimum funkcji, dzięki czemu doskonale nadaje się do aproksymacji odległości grafów. Proces rozpoczyna się od inicjalizacji losowej permutacji wierzchołków grafu i obliczenia początkowej metryki \texttt{required\_operations}. Na każdym kroku generowana jest sąsiednia permutacja poprzez zamianę dwóch wierzchołków. Jeśli nowa permutacja daje niższą wartość \texttt{required\_operations}, jest akceptowana. W przeciwnym razie może być zaakceptowana z pewnym prawdopodobieństwem, które maleje wraz z upływem czasu, co pozwala algorytmowi unikać lokalnych minimów. Harmonogram chłodzenia stopniowo zmniejsza prawdopodobieństwo akceptacji gorszych rozwiązań, zapewniając zbieżność. Algorytm kończy działanie po ustalonej liczbie iteracji lub gdy temperatura osiągnie określony niski próg.
+
+\subsection{Rozszerzenie do cyklu Hamiltona}
+
+Minimalne rozszerzenie grafu \( G = (V, E) \) polega na dodaniu minimalnej liczby krawędzi \( E^* \), tak aby graf \( G' = (V, E \cup E^*) \) spełniał:
+\[
+\mathcal{H}(G') \neq \emptyset.
+\]
+Aproksymacja opiera się na heurystycznym dodawaniu krawędzi \( (u, v) \in \{ V \times V \setminus E \} \), gdzie \( u, v \) mają minimalne stopnie w \( G \).
+
+\subsection{Maksymalny cykl}
+
+Problem maksymalnego cyklu polega na znalezieniu cyklu \( C_{\text{max}} \) o największej liczbie wierzchołków:
+\[
+C_{\text{max}} \in \arg\max_{C \in \mathcal{C}(G)} |C|.
+\]
+Algorytm aproksymacyjny korzysta z losowego przeszukiwania grafu, ograniczając głębokość rekursji \( d \) oraz wykluczając powtarzające się ścieżki. Wartość \( d \) jest parametrem kontrolującym dokładność metody.
+
+
+\vspace{1em}
+

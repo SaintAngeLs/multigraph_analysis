@@ -1,0 +1,18 @@
+﻿  config.c
+  approximation_algorithm.c
+  common_utils.c
+  cycle_list.c
+  graph.c
+  graph_algorithm.c
+  graph_algorithm_context.c
+  main.c
+  matching.c
+  method_wrapper.c
+  stack.c
+  string_list.c
+  utils.c
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 75 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  multigraph_analysis.vcxproj -> D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\x64\Release\multigraph_analysis.exe

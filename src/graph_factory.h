@@ -3,8 +3,10 @@
 
 #include "graph.h"
 
+
 typedef enum { SIMPLE_GRAPH, MULTIGRAPH } GraphType;
 
-Graph* create_graph_with_type(GraphType type, int vertices);
 
-#endif
+GraphInterface* create_graph_with_type(GraphType type, int vertices);
+
+#endif // GRAPH_FACTORY_H

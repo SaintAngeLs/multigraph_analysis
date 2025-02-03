@@ -1,0 +1,59 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{nccmath}
+\usepackage{empheq}
+\usepackage[font={small,it}]{caption}
+
+\usepackage{spverbatim}
+\usepackage{geometry}
+\geometry{hdivide={2cm,*,2cm}}
+\geometry{vdivide={2cm,*,2cm}}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ }
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\graphicspath{ {figures/} }
+\usepackage{array}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+	\bibliographystyle{unsrt}
+
+\title{
+    {\Huge Teoria algorytmów i obliczeń - laboratorium} \\[1em]
+    \large \textit{Zadanie laboratoryjne - multigrafy}
+}
+\author{
+    Amadeusz Nowak \and
+    Andrii Voznesenskyi \and
+    Oleh Kiprik \and
+    Piotr Padamczyk	
+}
+
+\begin{document}
+
+    \maketitle
+
+    \tableofcontents
+    
+	
+\input{chapters/definition}
+
+\input{chapters/examples}
+
+\input{chapters/alg_description}
+
+\input{chapters/proofs}
+
+\input{chapters/how_to_use}
+
+\input{chapters/conclusion}
+
+    
+\end{document}    

@@ -1,0 +1,279 @@
+\section{Opis algorytmów}
+
+\subsection{Algorytm obliczania rozmiaru multigrafu}
+\begin{algorithm}[H]
+\caption{Obliczanie rozmiaru multigrafu}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
+\Ensure Rozmiar multigrafu \( |E| \)
+\State \( |E| \gets 0 \)
+\ForEach{wierzchołki \( i, j \) w \( V \)}
+    \State \( |E| \gets |E| + A[i][j] \)
+\EndFor
+\State \Return \( |E| \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa algorytmu wynosi \( O(n^2) \), gdzie \( n \) to liczba wierzchołków w multigrafie. Wynika to z iteracji po całej macierzy sąsiedztwa \( A \) o wymiarach \( n \times n \).
+
+\subsection{Algorytm wyszukiwania cykli w multigrafie}
+\begin{algorithm}[H]
+\caption{Znajdowanie cykli w multigrafie}\label{alg:find_cycles}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
+\Ensure Liczba cykli w \( G \)
+\State \( \text{cycle\_count} \gets 0 \)
+\State Utwórz pusty zbiór \( \text{visited} \)
+\Function{DFS}{( u, start, path )}
+    \If{\( \text{length}(path) > 2 \textbf{ and } u = \text{start} \)}
+        \State \( \text{cycle\_count} \gets \text{cycle\_count} + 1 \)
+        \State \Return
+    \EndIf
+    \ForEach{\( v \) sąsiadujący z \( u \)}
+        \If{\( v \notin \text{visited} \)}
+            \State Dodaj \( v \) do \( \text{visited} \)
+            \State \Call{DFS}{( v, start, path + [v] )}
+            \State Usuń \( v \) z \( \text{visited} \)
+        \EndIf
+    \EndFor
+\EndFunction
+\ForEach{wierzchołek \( u \in V \)}
+    \State \( \text{visited} \gets \{u\} \)
+    \State \Call{DFS}{( u, u, [u] )}
+\EndFor
+\State \Return \( \text{cycle\_count} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa algorytmu DFS wynosi \( O(V + E) \). W przypadku multigrafu, gdzie \( V \) może być większe niż \( E \), złożoność obliczeniowa wynosi \( O(V^2) \). Ponieważ algorytm DFS jest wywoływany dla każdego wierzchołka, złożoność obliczeniowa całego algorytmu wynosi \( O(V(V + E)) \) lub \( O(V^3) \) dla przytoczonego drugiego przypadku.
+
+\subsection{Algorytm liczenia cykli Hamiltona}
+\begin{algorithm}[H]
+\caption{Liczenie cykli Hamiltona w multigrafie}\label{alg:count_hamiltonian_cycles}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
+\Ensure Liczba cykli Hamiltona
+\State \( \text{count} \gets 0 \)
+\Function{HamiltonianBacktrack}{( u, visited, depth )}
+    \If{\( \text{depth} = |V| \textbf{ and } A[u][\text{start}] > 0 \)}
+        \State \( \text{count} \gets \text{count} + 1 \)
+        \State \Return
+    \EndIf
+    \ForEach{\( v \) sąsiadujący z \( u \)}
+        \If{\( v \notin \text{visited} \)}
+            \State Dodaj \( v \) do \( \text{visited} \)
+            \State \Call{HamiltonianBacktrack}{( v, visited, depth + 1 )}
+            \State Usuń \( v \) z \( \text{visited} \)
+        \EndIf
+    \EndFor
+\EndFunction
+\ForEach{wierzchołek \( u \in V \)}
+    \State \( \text{visited} \gets \{u\} \)
+    \State \Call{HamiltonianBacktrack}{( u, \text{visited}, 1 )}
+\EndFor
+\State \Return \( \text{count} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa algorytmu liczenia cykli Hamiltona wynosi \( O(V!) \). Wynika to z wykonywania funkcji rekurencyjnej do znajdowania wszystkich ścieżek. Z każdym poziomem głębokości funkcji rekurencyjnej mamy o jeden mniej wierzchołek do wyboru, co daje \( V! \) możliwości.
+
+\subsection{Algorytm obliczania metryki pomiędzy dwoma multigrafami}
+
+\begin{algorithm}[H]
+\caption{Obliczanie metryki pomiędzy dwoma multigrafami}
+\begin{algorithmic}[1]
+\Require \( G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) - dwa multigrafy reprezentowane przez macierze sąsiedztwa \( A_G \) i \( A_H \) oraz $\left| V_G \right| \geq \left| V_H \right|$.
+\Ensure Metryka pomiędzy \( G \) i \( H \)
+\State \( \text{metric} \gets \infty \)
+\ForEach{permutacja $\pi$ wierzchołków $V_G$}
+    \State \( \text{tmp} \gets 0 \)
+    \ForEach{wierzchołki \( i, j \) w \( V_H \)}
+        \If {\(\ i \geq V_H \ \text{OR} \ j \geq V_H \)}
+            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[\pi[i]][\pi[j]] \right| \)
+        \ElsIf{}
+            \State \( \text{tmp} \gets \text{tmp} + \left| A_G[\pi[i]][\pi[j]] - A_H[i][j] \right| \)
+        \EndIf
+    \EndFor
+\EndFor
+\State $\text{metric} \gets \text{metric} + \left| V_G \right| - \left| V_H \right|$
+\State \Return \( \text{metric} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność algorytmu obliczania metryki dla grafów \(G = (V_G, E_G) \) oraz \( H = (V_H, E_H) \) wynosi \( O(\left| V_G \right| !) \), gdzie graf G ma większą liczbę wierzchołków niż H.
+
+
+\subsection{Algorytm minimalnego rozszerzenia dla cyklu Hamiltona}
+
+\begin{algorithm}[H]
+\caption{Minimalne rozszerzenie dla cyklu Hamiltona}
+\label{alg:minimal_extension}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \)
+\Ensure Minimalna liczba krawędzi do dodania, aby uzyskać cykl Hamiltona
+\State \( \text{min\_edges} \gets \infty \)
+\Function{HasHamiltonianCycle}{G, V}
+    \State \( \text{cycle\_count} \gets \textsc{CountHamiltonianCycles}(G, V) \)
+    \State \Return \( \text{cycle\_count} > 0 \)
+\EndFunction
+\Function{ExtendGraph}{G, added\_edges}
+    \If{\( \text{added\_edges} \geq \text{min\_edges} \)}
+        \State \Return
+    \EndIf
+    \If{\Call{HasHamiltonianCycle}{G, V}}
+        \State \( \text{min\_edges} \gets \text{added\_edges} \)
+        \State \Return
+    \EndIf
+    \ForEach{\( u, v \in V \)}
+        \If{\( u \neq v \textbf{ i } A[u][v] = 0 \)}
+            \State Dodaj krawędź \( (u, v) \) do \( A \)
+            \State \Call{ExtendGraph}{G, added\_edges + 1}
+            \State Usuń krawędź \( (u, v) \) z \( A \)
+        \EndIf
+    \EndFor
+\EndFunction
+\State \Call{ExtendGraph}{G, 0}
+\State \Return \( \text{min\_edges} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność algorytmu wynosi \( O(2^m \cdot n!) \), gdzie \( n \) to liczba wierzchołków, a \(m = {n\choose 2} - \left| E \right|\). Wynika to z tego, że tworzymy grafy poprzez dodanie jeszcze nie istniejących krawędzi, i dla każdego takiego grafu wykonujemy algorytm ~\ref{alg:count_hamiltonian_cycles}.
+
+
+\section{Metody aproksymacyjne}
+
+Aproksymacyjne metody pozwalają na zmniejszenie złożoności obliczeniowej algorytmów, dzięki czemu możliwe jest szybkie przetwarzanie dużych multigrafów \( G = (V, E) \). Poniżej opisano szczegółowo podejścia aproksymacyjne dla problemów, które zostały zaimplementowane w kodzie.
+
+\subsection{Znajdowanie cykli w multigrafie}
+
+\begin{algorithm}[H]
+\caption{Aproksymacyjne znajdowanie cykli w multigrafie}
+\label{alg:approx_find_cycles}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \), \( T \) - liczba prób
+\Ensure Przybliżona liczba cykli w \( G \)
+\State \( \text{cycle\_count} \gets 0 \)
+\For{\( t = 1 \) do \( T \)}
+    \State Wybierz losowy wierzchołek \( u \in V \)
+    \ForEach{\( v \in V \) sąsiadujący z \( u \)}
+        \If{\( (u, v) \in E \)}
+            \State Dodaj \( u, v, u \) jako cykl
+            \State \( \text{cycle\_count} \gets \text{cycle\_count} + 1 \)
+        \EndIf
+    \EndFor
+\EndFor
+\State \Return \( \text{cycle\_count} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa wynosi \( O(T \cdot \text{deg}(V)) \), gdzie \( T \) to liczba prób, a \( \text{deg}(V) \) to średni stopień wierzchołka.
+
+\subsection{Liczenie cykli Hamiltona}
+
+\begin{algorithm}[H]
+\caption{Aproksymacyjne liczenie cykli Hamiltona}
+\label{alg:approx_count_hamiltonian_cycles}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa \( A \), \( T \) - liczba prób
+\Ensure Przybliżona liczba cykli Hamiltona
+\State \( \text{hamiltonian\_count} \gets 0 \)
+\For{\( t = 1 \) do \( T \)}
+    \State Wygeneruj losową permutację \( \pi \) zbioru \( V \)
+    \State Sprawdź, czy \( \pi \) tworzy cykl Hamiltona:
+    \For{\( i = 1 \) do \( |V| - 1 \)}
+        \If{\( (v_{\pi(i)}, v_{\pi(i+1)}) \notin E \)}
+            \State Przerwij pętlę
+        \EndIf
+    \EndFor
+    \If{\( (v_{\pi(|V|)}, v_{\pi(1)}) \in E \)}
+        \State \( \text{hamiltonian\_count} \gets \text{hamiltonian\_count} + 1 \)
+    \EndIf
+\EndFor
+\State \Return \( \text{hamiltonian\_count} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa wynosi \( O(T \cdot |V|) \), gdzie \( T \) to liczba prób.
+
+\subsection{Obliczanie metryki między dwoma multigrafami}
+
+\begin{algorithm}[H]
+\caption{Aproksymacyjne obliczanie metryki między dwoma grafami}
+\label{alg:approx_calculate_metric}
+\begin{algorithmic}[1]
+\Require \( G_1 = (V_1, E_1) \), \( G_2 = (V_2, E_2) \) - dwa multigrafy reprezentowane przez macierze sąsiedztwa, gdzie \( |V_1| \geq |V_2| \), \( T \) - liczba prób, \( InitialTemperature \) - początkowa temperatura, \( CoolingRate \) - współczynnik chłodzenia (w implementacji \( CoolingRate = 0.99 \))
+\Ensure Przybliżona wartość metryki między \( G_1 \) a \( G_2 \)
+\State Wygeneruj losową permutację \( \pi \) zbioru \( V_1 \)
+\State Oblicz początkową metrykę \( \textbf{metric} \) dla \( \pi \)
+\State \( \text{best\_metric} \gets \text{metric} \)
+\State \( \text{temperature} \gets InitialTemperature \)
+\For{\( t = 1 \) do \( T \)}
+    \State Zamień losowe wierzchołki \( u, v \in V_1 \) w permutacji \( \pi \)
+    \State Oblicz metrykę \( \text{metric}' \) dla nowego \( \pi \)
+    \If{\( \text{metric}' < \text{metric} \) OR \( \text{rand}(0, 1) < \exp(\frac{\text{metric} - \text{metric}'}{t}) \)}
+        \State \( \text{metric} \gets \text{metric}' \)
+        \If{\( \text{metric} < \text{best\_metric} \)}
+            \State \( \text{best\_metric} \gets \text{metric} \)
+        \ElsIf{}
+            \State Przywróć poprzednią permutację
+        \EndIf
+    \EndIf
+    \State \( \text{temperature} \gets \text{temperature} \times CoolingRate \)
+\EndFor
+\State \Return \( \text{best\_metric} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa wynosi \( O(T \cdot n) \), gdzie \( n = \max(|V_1|, |V_2|) \). Wykonujemy T iteracji, a w każdej z nich zamieniamy wierzchołki w permutacji, co wiąże się z liniową złożonością obliczeniową.
+
+\subsection{Minimalne rozszerzenie do cyklu Hamiltona}
+
+\begin{algorithm}[H]
+\caption{Aproksymacyjne minimalne rozszerzenie do cyklu Hamiltona}
+\label{alg:approx_minimal_extension}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa
+\Ensure Minimalna liczba krawędzi do dodania
+\State \( \text{added\_edges} \gets 0 \)
+\For{\( u = 1 \) do \( |V| \)}
+    \For{\( v = u+1 \) do \( |V| \)}
+        \If{\( A[u][v] = 0 \)}
+            \State Dodaj \( (u, v) \) do \( E \)
+            \State \( \text{added\_edges} \gets \text{added\_edges} + 1 \)
+            \State Przerwij wewnętrzną pętlę
+        \EndIf
+    \EndFor
+\EndFor
+\State \Return \( \text{added\_edges} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa wynosi \( O(|V|^2) \).
+
+\subsection{Wykrywanie maksymalnego cyklu}
+
+\begin{algorithm}[H]
+\caption{Aproksymacyjne wykrywanie maksymalnego cyklu}
+\label{alg:approx_maximal_cycle}
+\begin{algorithmic}[1]
+\Require \( G = (V, E) \) - multigraf reprezentowany przez macierz sąsiedztwa, \( T \) - liczba prób
+\Ensure Maksymalny cykl w \( G \)
+\State \( \text{max\_cycle\_length} \gets 0 \)
+\For{\( t = 1 \) do \( T \)}
+    \State Wybierz losowy wierzchołek \( u \)
+    \State Wykonaj DFS do maksymalnej głębokości \( d \)
+    \State Zapisz długość cyklu, jeśli \( u \) zostanie osiągnięte ponownie
+    \If{\( \text{cycle\_length} > \text{max\_cycle\_length} \)}
+        \State Zaktualizuj \( \text{max\_cycle\_length} \)
+    \EndIf
+\EndFor
+\State \Return \( \text{max\_cycle\_length} \)
+\end{algorithmic}
+\end{algorithm}
+
+Złożoność obliczeniowa wynosi \( O(T \cdot |V|) \), gdzie \( T \) to liczba prób.
+
+\subsection{Podsumowanie metod aproksymacyjnych}
+
+Metody aproksymacyjne opisane w tej sekcji pozwalają na szybsze rozwiązanie problemów na dużych grafach. Dzięki ograniczeniu liczby prób \( T \), losowemu próbkowaniu oraz uproszczeniu obliczeń, możliwe jest znalezienie przybliżonych wyników w czasie wykładniczo mniejszym niż w przypadku klasycznych algorytmów deterministycznych.
+

@@ -1,0 +1,108 @@
+\section{Instrukcja obsługi}
+
+\subsection{Struktura projektu}
+
+Projekt składa się z kilku kluczowych katalogów i plików:
+
+\begin{itemize}
+    \item \textbf{Source/} - Katalog zawierający kody źródłowe programu głównego.
+    \item \textbf{Examples/} - Przykładowe pliki wejściowe z danymi grafów.
+    \item \textbf{Doc/documentation.pdf} - Plik dokumentacji projektu, w tym opis algorytmów, dowody i przykłady użycia.
+    \item \textbf{Exe/multigraph\_analysis.exe} - Program będący rozwiązaniem zadania.
+    \item \textbf{Makefile} - Plik automatyzujący kompilację projektu.
+\end{itemize}
+
+\subsection{Kompilacja projektu}
+
+Zakładamy, iż na komputerze laboratoryjnym zainstalowane są następujące narzędzia:
+\begin{itemize}
+	\item CMake (dostępny pod linkiem \url{https://cmake.org/download/})
+	\item MinGW (dostępny pod linkiem \url{https://github.com/Vuniverse0/mingwInstaller/releases})
+\end{itemize}
+
+Ponadto, zmienna środowiskowa PATH musi być uzupełniona o katalogi zawierające pliki wykonywalne obu powyższych programów (\texttt{\textbackslash CMake\textbackslash bin} oraz \texttt{\textbackslash mingw64\textbackslash bin}).
+\\\\
+Jeśli wstępne warunki są spełnione, kompilację można wykonać poprzez następujące kroki:
+\begin{enumerate}
+	\item Uruchomić PowerShell i jako katalog roboczy ustawić katalog \texttt{Source/}
+	\item Wykonać polecenie:
+	\begin{spverbatim}
+cmake -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
+-DPKG_CONFIG_EXECUTABLE=".\vcpkg\installed\x64-windows\tools\pkgconf\pkgconf.exe" -G "MinGW Makefiles" .
+	\end{spverbatim}
+	\item Wykonać polecenie:
+	\begin{spverbatim}
+cmake --build .
+	\end{spverbatim}
+\end{enumerate}
+
+Po zakończeniu kompilacji w katalogu \texttt{Source} zostanie utworzony następujący plik wykonywalny:
+\begin{itemize}
+    \item \texttt{multigraph\_analysis.exe} - Program główny do analizy grafów.
+\end{itemize}
+
+\subsection{Uruchamianie programu głównego}
+
+Program główny \texttt{multigraph\_analysis.exe} wymaga pliku wejściowego z opisem grafów. Plik wejściowy powinien mieć format:
+
+\begin{verbatim}
+<number_of_graphs>
+<number_of_vertices_for_graph_1>
+<adjacency_matrix_for_graph_1>
+
+<number_of_vertices_for_graph_2>
+<adjacency_matrix_for_graph_2>
+...
+\end{verbatim}
+
+Przykład pliku wejściowego:
+\begin{verbatim}
+2
+3
+0 1 1
+1 0 1
+1 1 0
+
+4
+0 2 0 1
+2 0 1 0
+0 1 0 1
+1 0 1 0
+\end{verbatim}
+
+Uruchomienie programu:
+\begin{verbatim}
+./multigraph_analysis.exe <input_file> <optional_input_file_to_compare>
+\end{verbatim}
+
+Przykład:
+\begin{verbatim}
+./multigraph_analysis.exe ../Examples/input.txt
+\end{verbatim}
+
+Przykład dla metryki:
+    {\small
+\begin{verbatim}
+./multigraph_analysis.exe ../Examples/metric_case2_graph1.txt ../Examples/metric_case2_graph2.txt
+\end{verbatim}
+}
+
+Program przyjmuje jeden obowiązkowy argument – ścieżkę do pliku zawierającego jeden lub więcej grafów. Analiza grafów z tego pliku zostanie wyświetlona w terminalu, z możliwością przekierowania wyników do pliku wyjściowego.
+
+W celu obliczenia metryki pomiędzy grafami, należy podać drugi opcjonalny argument (ścieżka do pliku z grafem, który będzie drugim argumentem metryki). Gdy argument będzie podany, zostanie wyświetlona analiza wszystkich grafów z pierwszego pliku oraz zostanie przeprowadzone porównanie dwóch pierwszych grafów z obu plików za pomocą dostarczonej metryki.
+
+
+\subsection{Opis funkcji programu głównego}
+
+\begin{itemize}
+    \item \texttt{handle\_arguments(int argc, char *argv[], Config *config)} - Przetwarza argumenty wiersza poleceń. Oczekuje podania pliku wejściowego.
+    \item \texttt{open\_file\_with\_retry(const char *filename)} - Otwiera plik wejściowy z danymi grafów, obsługując ponowne próby w przypadku zakłóceń systemowych.
+    \item \texttt{print\_cycles(GArray *output\_cycles)} - Wyświetla cykle znalezione w grafie.
+    \item \texttt{analyze\_multigraph(GraphInterface *multigraph)} - Wykonuje analizę pojedynczego grafu, w tym:
+    \begin{itemize}
+        \item Liczenie rozmiaru grafu.
+        \item Znajdowanie wszystkich cykli.
+        \item Znajdowanie cykli Hamiltona.
+        \item Obliczanie minimalnego rozszerzenia dla cyklu Hamiltona.
+    \end{itemize}
+\end{itemize}
