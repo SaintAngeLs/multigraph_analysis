@@ -89,7 +89,8 @@ GraphInterface* load_multigraph_from_file(const char *filename) {
     fprintf(stdout, "Number of vertices: %d\n", vertices);
 
     fprintf(stdout, "Creating multigraph with %d vertices...\n", vertices);
-    GraphInterface *multigraph_interface = create_multigraph(vertices);
+    Multigraph* multigraph_handle;
+    GraphInterface *multigraph_interface = create_multigraph(vertices, &multigraph_handle);
     if (!multigraph_interface) {
         fprintf(stderr, "Failed to create multigraph structure.\n");
         fclose(file);
@@ -121,6 +122,8 @@ GraphInterface* load_multigraph_from_file(const char *filename) {
             }
         }
     }
+    free_multigraph(multigraph_handle);
+
     fprintf(stdout, "Adjacency matrix successfully read.\n");
 
     fclose(file);

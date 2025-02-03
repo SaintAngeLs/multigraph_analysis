@@ -30,7 +30,9 @@ void destroy_graph(Graph *graph);
 
 int* get_all_edges_from_vertex(const Graph* graph, int src, int* out_degree);
 
+/* call free_multigraph(*multigraph) after use */
+GraphInterface* create_multigraph(int vertices, Multigraph** multigraph);
 
-GraphInterface* create_multigraph(int vertices);
+void free_multigraph(Multigraph* graph);
 
 #endif // GRAPH_H

@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "graph.h"
 #include "graph_interface.h"
+#include <assert.h>
 
 Graph* create_graph(int vertices) {
     Graph* graph = (Graph*)malloc(sizeof(Graph));
@@ -126,7 +127,7 @@ static int* multigraph_get_all_edges_from_vertex(void* self, int src, int* out_d
     return neighbors;  // Caller must free this memory
 }
 
-GraphInterface* create_multigraph(int vertices) {
+GraphInterface* create_multigraph(int vertices, Multigraph** multigraph) {
     Multigraph* graph = (Multigraph*)malloc(sizeof(Multigraph));
     if (!graph) {
         fprintf(stderr, "Failed to allocate memory for multigraph.\n");
@@ -149,5 +150,12 @@ GraphInterface* create_multigraph(int vertices) {
     graph->graph_interface.get_all_edges_from_vertex = multigraph_get_all_edges_from_vertex;
     graph->graph_interface.vertices = vertices;
 
+    assert(multigraph != NULL);
+    *multigraph = graph;
     return &graph->graph_interface;
+}
+
+void free_multigraph(Multigraph* graph) {
+    free_matrix(graph->adjacency_matrix, graph->vertices);
+    free(graph);
 }

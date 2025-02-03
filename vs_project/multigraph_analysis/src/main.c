@@ -182,7 +182,8 @@ void process_multigraphs(const char* file_name, GraphArray* multigraphs_to_compa
         int vertices;
         fscanf(file, "%d", &vertices);
 
-        GraphInterface* multigraph = create_multigraph(vertices);
+        Multigraph* multigraph_handle;
+        GraphInterface* multigraph = create_multigraph(vertices, &multigraph_handle);
         if (!multigraph) {
             fprintf(stderr, "Failed to initialize graph interface for graph %d.\n", i + 1);
             continue;
@@ -201,8 +202,9 @@ void process_multigraphs(const char* file_name, GraphArray* multigraphs_to_compa
                 }
             }
         }
-
+        
         analyze_multigraph(multigraph);
+        free_multigraph(multigraph_handle);
     }
     fclose(file);
 }

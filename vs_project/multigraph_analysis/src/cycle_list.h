@@ -18,6 +18,7 @@ void initCycleList(CycleList* cl);
 
 void freeCycleList(CycleList* cl);
 
+/* cycle is deeply copied */
 void addCycle(CycleList* cl, const int* cycle, int length);
 
 #endif // CYCLE_LIST_H

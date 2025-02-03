@@ -197,10 +197,11 @@ int approximate_find_cycles(void* graph, int vertices,
     int* match = (int*)malloc(vertices * sizeof(int));
     for (int i = 0; i < vertices; i++) match[i] = -1;
 
-#if 0
     // This function should use a **better algorithm**, currently placeholder
+#if 0
     int match_count = find_maximum_weight_matching(adj_matrix, vertices, match);
 #endif
+    (void)find_maximum_weight_matching(adj_matrix, vertices, match);
 
     // Step 3: Extract cycles from the matching structure
     bool* visited = (bool*)calloc(vertices, sizeof(bool));
@@ -223,9 +224,11 @@ int approximate_find_cycles(void* graph, int vertices,
 
             // If a cycle is detected, store it
             if (current == start) {
+                /* TODO:test malloc OR don't deeply copy cycle */
                 int* final_cycle = (int*)malloc(cycle_length * sizeof(int));
                 memcpy(final_cycle, cycle, cycle_length * sizeof(int));
                 addCycle(&cycleList, final_cycle, cycle_length);
+                free(final_cycle);
             }
 
             free(cycle);
