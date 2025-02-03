@@ -1,4 +1,5 @@
 #include "common_utils.h"
+#include <math.h>
 
 int common_min(int a, int b) {
     return (a < b) ? a : b;

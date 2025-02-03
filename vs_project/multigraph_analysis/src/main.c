@@ -9,12 +9,24 @@
 #include <time.h>
 #include <limits.h>
 #include <stdbool.h>
+
+#ifdef _WIN32
 #include <windows.h>  
+#else
+#include <pthread.h>
+#include <unistd.h>
+#endif
 
 #include "graph.h"
 #include "utils.h"
 #include "graph_interface.h"
+
+#ifdef _WIN32
 #include "../include/config.h"
+#else
+#include <config.h>
+#endif
+
 #include "common_utils.h"
 #include "stack.h"   
 #include "matching.h"

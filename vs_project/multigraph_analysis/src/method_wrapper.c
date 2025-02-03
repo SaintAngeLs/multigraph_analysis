@@ -21,10 +21,12 @@ int find_cycles_wrapper(
         return approximate_find_cycles(graph, vertices, output_cycles, cycle_sizes, cycle_count);
     }
 
+#ifdef _WIN32
     LARGE_INTEGER frequency, start_exact, end_exact, start_approx, end_approx;
     QueryPerformanceFrequency(&frequency);
 
     QueryPerformanceCounter(&start_exact);
+#endif
 
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     if (!ctx) return 0;
@@ -61,6 +63,7 @@ int find_cycles_wrapper(
         free(visited);
     }
 
+#ifdef _WIN32
     QueryPerformanceCounter(&end_exact);  // End timing
     double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
 
@@ -68,17 +71,22 @@ int find_cycles_wrapper(
 
     // Run approximate cycle detection algorithm
     QueryPerformanceCounter(&start_approx);  // Start timing
+#endif
+
     int approx_cycle_count;
     int** approx_output_cycles;
     int* approx_cycle_sizes;
 
     approx_cycle_count = approximate_find_cycles(graph, vertices, &approx_output_cycles, &approx_cycle_sizes, &approx_cycle_count);
+
+#ifdef _WIN32
     QueryPerformanceCounter(&end_approx);  // End timing
 
     double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
 
     printf("Approximate cycle count: %d\n", approx_cycle_count);
     printf("Time taken for approximate cycle detection: %.2f microseconds\n", approx_time);
+#endif
 
     *output_cycles = cycleList.cycles;
     *cycle_sizes = cycleList.sizes;

@@ -6,7 +6,14 @@
 #include <stdbool.h>
 #include <limits.h>
 #include "graph.h" 
+
+#ifdef _WIN32
 #include <windows.h>
+#else
+#include <pthread.h>
+#include <unistd.h>
+#endif
+
 #include "utils.h"
 #include "graph_algorithm_context.h"
 #include "string_list.h"
