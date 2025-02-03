@@ -1,34 +1,95 @@
-﻿  config.c
-  approximation_algorithm.c
+﻿  approximation_algorithm.c
 D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.c(200,23): warning C4013: 'find_maximum_weight_matching' undefined; assuming extern returning int
-  common_utils.c
-  cycle_list.c
-  graph.c
   graph_algorithm.c
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(295,16): warning C4013: 'approximate_calculate_metric' undefined; assuming extern returning int
-  graph_algorithm_context.c
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(18,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(18,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(19,26): error C2143: syntax error: missing ';' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(20,8): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(23,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(28,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(28,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(29,26): error C2143: syntax error: missing ';' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(30,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(32,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm_context.h(9,3): error C2371: 'GraphAlgorithmContext': redefinition; different basic types
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\approximation_algorithm.h(29,5): message : see declaration of 'GraphAlgorithmContext'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm_context.h(11,22): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm_context.h(13,43): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm_context.h(13,43): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm_context.h(13,52): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(36,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(36,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(37,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(44,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(52,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(52,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(53,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(60,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(67,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(67,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(68,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(73,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(79,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(79,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(80,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(88,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(91,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(91,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(92,26): error C2143: syntax error: missing ';' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(93,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(95,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(98,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(98,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(99,26): error C2143: syntax error: missing ';' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(100,8): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(103,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(105,46): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(105,46): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(105,61): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(105,106): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(107,47): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(107,47): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(107,56): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(109,38): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(109,38): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(109,53): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.h(110,45): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(72,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(72,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(73,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(80,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(145,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(145,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(146,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(153,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(203,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(203,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(204,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(209,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(239,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(239,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(240,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(248,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(287,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(287,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(288,26): error C2143: syntax error: missing ';' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(289,9): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(291,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(313,26): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(313,26): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(314,26): error C2143: syntax error: missing ';' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(315,8): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(318,1): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(339,46): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(339,46): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(339,61): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(339,106): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(363,47): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(363,47): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(363,56): error C2059: syntax error: ')'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(363,58): error C2054: expected '(' to follow 'context'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(380,38): error C2143: syntax error: missing ')' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(380,38): error C2143: syntax error: missing '{' before '*'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(380,53): error C2059: syntax error: 'type'
+D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\graph_algorithm.c(381,45): error C2059: syntax error: ')'
   main.c
-  matching.c
-  method_wrapper.c
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(21,16): warning C4013: 'approximate_find_cycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(56,13): warning C4013: 'dfs_findCycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(101,16): warning C4013: 'approximate_count_hamiltonian_cycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(124,9): warning C4013: 'backtrack_hamiltonian' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(147,9): warning C4013: 'common_max' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(160,21): warning C4013: 'calculate_graph_metric' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(165,27): warning C4013: 'approximate_calculate_metric' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(178,16): warning C4013: 'approximate_find_minimal_extension' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(183,21): warning C4013: 'hasHamiltonianCycle' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(190,5): warning C4013: 'explore_extensions' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(202,16): warning C4013: 'approximate_count_maximal_cycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(214,13): warning C4013: 'dfs_maxCycleLength' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(236,16): warning C4013: 'approximate_find_maximal_cycles' undefined; assuming extern returning int
-D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\src\method_wrapper.c(278,9): warning C4013: 'dfs_findMaxCycles' undefined; assuming extern returning int
-  stack.c
-  string_list.c
-  utils.c
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 75 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  multigraph_analysis.vcxproj -> D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\x64\Release\multigraph_analysis.exe
