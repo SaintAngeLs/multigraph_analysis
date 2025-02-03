@@ -13,6 +13,9 @@
 #include "cycle_list.h"
 #include "stack.h"
 #include "time.h"
+#include "graph_algorithm.h"
+#include "approximation_algorithm.h"
+#include "common_utils.h"
 
 #define THRESHOLD     10  
 
