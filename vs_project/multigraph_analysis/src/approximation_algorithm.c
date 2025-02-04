@@ -116,7 +116,7 @@ int approximate_count_maximal_cycles(void* graph, int vertices) {
                 int possible_moves = 0;
                 int* neighbors = (int*)malloc(vertices * sizeof(int));
 
-                // Collect **directed** edges only
+                // Collect directed edges only.
                 for (int j = 0; j < vertices; j++) {
                     if (gi->get_edge(graph, node, j) > 0 && !visited[j]) {
                         neighbors[possible_moves++] = j;
@@ -128,7 +128,7 @@ int approximate_count_maximal_cycles(void* graph, int vertices) {
                     break;
                 }
 
-                // **Prioritize** moving forward in directed edges
+                // Prioritize moving forward based on out-degree.
                 int best_choice = -1;
                 int max_degree = -1;
                 for (int k = 0; k < possible_moves; k++) {
@@ -144,8 +144,9 @@ int approximate_count_maximal_cycles(void* graph, int vertices) {
                 node = best_choice;
             }
 
-            // Ensure we **close** the cycle correctly
+            // If the cycle can be closed, add one to the cycle length.
             if (gi->get_edge(graph, node, start) > 0 && cycle_length > 1) {
+                cycle_length++; // Account for the starting vertex being appended.
                 if (cycle_length > max_cycle_length) {
                     max_cycle_length = cycle_length;
                 }
@@ -159,6 +160,7 @@ int approximate_count_maximal_cycles(void* graph, int vertices) {
     destroy_context(ctx);
     return max_cycle_length;
 }
+
 int approximate_find_maximal_cycles(void* graph, int vertices,
     int*** output_cycles,
     int** cycle_sizes,
@@ -168,8 +170,13 @@ int approximate_find_maximal_cycles(void* graph, int vertices,
     *cycle_count = 0;
     *output_cycles = NULL;
     *cycle_sizes = NULL;
+
+    // Seed the random number generator.
+    srand((unsigned int)time(NULL));
+
     for (int i = 0; i < vertices; i++) {
-        int* cycle = (int*)malloc(vertices * sizeof(int));
+        // Allocate one extra slot to store the start vertex at the end if cycle is closed.
+        int* cycle = (int*)malloc((vertices + 1) * sizeof(int));
         int length = 0;
         int* visited = (int*)calloc(vertices, sizeof(int));
 
@@ -177,26 +184,51 @@ int approximate_find_maximal_cycles(void* graph, int vertices,
         while (length < vertices) {
             visited[node] = 1;
             cycle[length++] = node;
+
+            // Create an array of neighbor indices and shuffle it for randomization.
+            int* neighbor_indices = (int*)malloc(vertices * sizeof(int));
+            for (int k = 0; k < vertices; k++) {
+                neighbor_indices[k] = k;
+            }
+            // Fisher-Yates shuffle.
+            for (int k = vertices - 1; k > 0; k--) {
+                int r = rand() % (k + 1);
+                int temp = neighbor_indices[k];
+                neighbor_indices[k] = neighbor_indices[r];
+                neighbor_indices[r] = temp;
+            }
+
             int found_next = 0;
-            for (int j = 0; j < vertices; j++) {
+            for (int idx = 0; idx < vertices; idx++) {
+                int j = neighbor_indices[idx];
                 if (!visited[j] && ctx->graph_interface->get_edge(graph, node, j) > 0) {
                     node = j;
                     found_next = 1;
                     break;
                 }
             }
+            free(neighbor_indices);
+
             if (!found_next) break;
         }
+
+        // Attempt to "close" the cycle by checking if an edge exists from the last node to the starting node.
+        if (length > 1 && ctx->graph_interface->get_edge(graph, node, i) > 0) {
+            cycle[length++] = i; // Append the start vertex to close the cycle.
+        }
+
         (*cycle_count)++;
         *output_cycles = (int**)realloc(*output_cycles, (*cycle_count) * sizeof(int*));
         *cycle_sizes = (int*)realloc(*cycle_sizes, (*cycle_count) * sizeof(int));
         (*output_cycles)[*cycle_count - 1] = cycle;
         (*cycle_sizes)[*cycle_count - 1] = length;
+
         free(visited);
     }
     destroy_context(ctx);
     return *cycle_count;
 }
+
 /*
     Approximation algorithms for cycle and path partitions in complete graphs https://arxiv.org/pdf/2311.11332
 */

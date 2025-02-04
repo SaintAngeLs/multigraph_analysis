@@ -209,10 +209,7 @@ void backtrack_hamiltonian(
     visited[current] = false;
 }
 
-/*
- * (3) Maximal cycle length: we only need a "depth" count. The maximum
- *     simple cycle length found across any DFS is stored in *maxLen.
- */
+
 void dfs_maxCycleLength(
     GraphAlgorithmContext* context,
     int start,

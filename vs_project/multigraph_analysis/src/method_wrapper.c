@@ -201,19 +201,23 @@ int count_maximal_cycles_wrapper(void* graph, int vertices) {
     LARGE_INTEGER frequency, start_exact, end_exact, start_approx, end_approx;
     QueryPerformanceFrequency(&frequency);
 
+    // For large graphs, run only the approximate method.
     if (vertices >= THRESHOLD) {
-        return approximate_count_maximal_cycles(graph, vertices);
+        int approx_length = approximate_count_maximal_cycles(graph, vertices);
+        printf("Approximate maximal cycle length: %d\n", approx_length);
+        return approx_length;
     }
+
+    // For smaller graphs, run both the exact and approximate methods.
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     if (!ctx) return 0;
 
+    // Exact maximal cycle length detection
     QueryPerformanceCounter(&start_exact);
-
     int maxCycleLength = 0;
     for (int start = 0; start < vertices; start++) {
         Stack st;
         initStack(&st, vertices);
-
         bool* visited = (bool*)calloc(vertices, sizeof(bool));
         if (visited) {
             dfs_maxCycleLength(ctx, start, start, &st, visited, &maxCycleLength);
@@ -221,20 +225,18 @@ int count_maximal_cycles_wrapper(void* graph, int vertices) {
         free(visited);
         freeStack(&st);
     }
-
     QueryPerformanceCounter(&end_exact);
     double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
+    printf("Exact maximal cycle length: %d\n", maxCycleLength + 1);
     printf("Time taken for exact maximal cycle length detection: %.2f microseconds\n", exact_time);
 
-    // Measure approximate cycle detection time
+    // Approximate maximal cycle length detection
     QueryPerformanceCounter(&start_approx);
     int approx_max_cycle_length = approximate_count_maximal_cycles(graph, vertices);
     QueryPerformanceCounter(&end_approx);
-
     double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
     printf("Approximate maximal cycle length: %d\n", approx_max_cycle_length);
     printf("Time taken for approximate maximal cycle length detection: %.2f microseconds\n", approx_time);
-
 
     destroy_context(ctx);
     return maxCycleLength;
@@ -244,6 +246,10 @@ int count_maximal_cycles_wrapper(void* graph, int vertices) {
  * EXACT: find_maximal_cycles_wrapper => enumerates all cycles that match
  * the maximum cycle length found above.
  */
+ /*
+  * EXACT: find_maximal_cycles_wrapper => enumerates all cycles that match
+  * the maximum cycle length found above.
+  */
 int find_maximal_cycles_wrapper(
     void* graph,
     int vertices,
@@ -255,81 +261,140 @@ int find_maximal_cycles_wrapper(
     LARGE_INTEGER frequency, start_exact, end_exact, start_approx, end_approx;
     QueryPerformanceFrequency(&frequency);
 
+    // If the graph is large, run only the approximate method.
     if (vertices >= THRESHOLD) {
-        return approximate_find_maximal_cycles(graph, vertices,
-            output_cycles, cycle_sizes, cycle_count);
-    }
-    GraphAlgorithmContext* ctx = create_context(graph, vertices);
-    if (!ctx) {
-        *output_cycles = NULL;
-        *cycle_sizes = NULL;
-        *cycle_count = 0;
-        return 0;
-    }
+        int approx_cycle_count;
+        int** approx_output_cycles;
+        int* approx_cycle_sizes;
 
-    QueryPerformanceCounter(&start_exact);
-    /* First: find the maximum cycle length. */
-    int maxCycleLength = 0;
-    for (int start = 0; start < vertices; start++) {
-        Stack st;
-        initStack(&st, vertices);
+        QueryPerformanceCounter(&start_approx);
+        approx_cycle_count = approximate_find_maximal_cycles(
+            graph, vertices, &approx_output_cycles, &approx_cycle_sizes, &approx_cycle_count);
+        QueryPerformanceCounter(&end_approx);
 
-        bool* visited = (bool*)calloc(vertices, sizeof(bool));
-        if (visited) {
-            dfs_maxCycleLength(ctx, start, start, &st, visited, &maxCycleLength);
+        double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Approximate maximal cycle count: %d\n", approx_cycle_count);
+        printf("Time taken for approximate maximal cycle detection: %.2f microseconds\n", approx_time);
+
+        // Print each found approximate cycle and its length.
+        for (int i = 0; i < approx_cycle_count; i++) {
+            printf("Approx Cycle %d (length %d): ", i + 1, approx_cycle_sizes[i]);
+            for (int j = 0; j < approx_cycle_sizes[i]; j++) {
+                printf("%d ", approx_output_cycles[i][j]);
+            }
+            printf("\n");
         }
-        free(visited);
-        freeStack(&st);
+
+        // Return the cycles and sizes from the approximate method.
+        *output_cycles = approx_output_cycles;
+        *cycle_sizes = approx_cycle_sizes;
+        *cycle_count = approx_cycle_count;
+        return approx_cycle_count;
     }
+    else {
+        /* For smaller graphs, run both approximate and exact methods. */
 
-    /* Next: collect all cycles of length == maxCycleLength. */
-    CycleList cycleList;
-    initCycleList(&cycleList);
+        // --- Approximate Method ---
+        int approx_cycle_count;
+        int** approx_output_cycles;
+        int* approx_cycle_sizes;
 
-    StringList uniqueCycles;
-    initStringList(&uniqueCycles);
+        QueryPerformanceCounter(&start_approx);
+        approx_cycle_count = approximate_find_maximal_cycles(
+            graph, vertices, &approx_output_cycles, &approx_cycle_sizes, &approx_cycle_count);
+        QueryPerformanceCounter(&end_approx);
 
-    int foundCount = 0;
-    for (int start = 0; start < vertices; start++) {
-        Stack st;
-        initStack(&st, vertices);
+        double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Approximate maximal cycle count: %d\n", approx_cycle_count);
+        printf("Time taken for approximate maximal cycle detection: %.2f microseconds\n", approx_time);
 
-        bool* visited = (bool*)calloc(vertices, sizeof(bool));
-        if (!visited) {
+        // Print each found approximate cycle.
+        for (int i = 0; i < approx_cycle_count; i++) {
+            printf("Approx Cycle %d (length %d): ", i + 1, approx_cycle_sizes[i]);
+            for (int j = 0; j < approx_cycle_sizes[i]; j++) {
+                printf("%d ", approx_output_cycles[i][j]);
+            }
+            printf("\n");
+        }
+
+        // Free approximate results if not needed further, or you might decide to use them.
+        // In this implementation, we choose to run the exact method and return its results.
+        for (int i = 0; i < approx_cycle_count; i++) {
+            free(approx_output_cycles[i]);
+        }
+        free(approx_output_cycles);
+        free(approx_cycle_sizes);
+
+        // --- Exact Method ---
+        GraphAlgorithmContext* ctx = create_context(graph, vertices);
+        if (!ctx) {
+            *output_cycles = NULL;
+            *cycle_sizes = NULL;
+            *cycle_count = 0;
+            return 0;
+        }
+
+        QueryPerformanceCounter(&start_exact);
+
+        /* First: find the maximum cycle length. */
+        int maxCycleLength = 0;
+        for (int start = 0; start < vertices; start++) {
+            Stack st;
+            initStack(&st, vertices);
+
+            bool* visited = (bool*)calloc(vertices, sizeof(bool));
+            if (visited) {
+                dfs_maxCycleLength(ctx, start, start, &st, visited, &maxCycleLength);
+            }
+            free(visited);
             freeStack(&st);
-            continue;
         }
-        dfs_findMaxCycles(ctx, start, start, &st, visited,
-            &uniqueCycles, &cycleList,
-            &maxCycleLength, &foundCount);
 
-        freeStack(&st);
-        free(visited);
+        /* Next: collect all cycles of length == maxCycleLength. */
+        CycleList cycleList;
+        initCycleList(&cycleList);
+
+        StringList uniqueCycles;
+        initStringList(&uniqueCycles);
+
+        int foundCount = 0;
+        for (int start = 0; start < vertices; start++) {
+            Stack st;
+            initStack(&st, vertices);
+
+            bool* visited = (bool*)calloc(vertices, sizeof(bool));
+            if (!visited) {
+                freeStack(&st);
+                continue;
+            }
+            dfs_findMaxCycles(ctx, start, start, &st, visited,
+                &uniqueCycles, &cycleList,
+                &maxCycleLength, &foundCount);
+
+            freeStack(&st);
+            free(visited);
+        }
+
+        QueryPerformanceCounter(&end_exact);
+        double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Time taken for exact maximal cycle detection: %.2f microseconds\n", exact_time);
+
+        // Print each found exact cycle.
+        for (int i = 0; i < cycleList.count; i++) {
+            printf("Exact Cycle %d (length %d): ", i + 1, cycleList.sizes[i]);
+            for (int j = 0; j < cycleList.sizes[i]; j++) {
+                printf("%d ", cycleList.cycles[i][j]);
+            }
+            printf("\n");
+        }
+
+        *output_cycles = cycleList.cycles;
+        *cycle_sizes = cycleList.sizes;
+        *cycle_count = cycleList.count;
+
+        freeStringList(&uniqueCycles);
+        destroy_context(ctx);
+
+        return cycleList.count;
     }
-
-    QueryPerformanceCounter(&end_exact);
-    double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
-    printf("Time taken for exact maximal cycle detection: %.2f microseconds\n", exact_time);
-
-    // Measure approximate cycle detection time
-    QueryPerformanceCounter(&start_approx);
-    int approx_cycle_count;
-    int** approx_output_cycles;
-    int* approx_cycle_sizes;
-
-    approx_cycle_count = approximate_find_maximal_cycles(graph, vertices, &approx_output_cycles, &approx_cycle_sizes, &approx_cycle_count);
-    QueryPerformanceCounter(&end_approx);
-
-    double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
-    printf("Approximate maximal cycle count: %d\n", approx_cycle_count);
-    printf("Time taken for approximate maximal cycle detection: %.2f microseconds\n", approx_time);
-
-    *output_cycles = cycleList.cycles;
-    *cycle_sizes = cycleList.sizes;
-    *cycle_count = cycleList.count;
-
-    freeStringList(&uniqueCycles);
-    destroy_context(ctx);
-
-    return cycleList.count;
 }

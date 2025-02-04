@@ -136,7 +136,7 @@ void analyze_multigraph(GraphInterface* multigraph) {
 
     /* 4) maximal cycle length */
     int max_len = default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices);
-    printf("Maximal cycle length: %d\n", max_len);
+    printf("Maximal cycle length: %d\n", max_len + 1);
 
     /* 5) find all cycles of that length */
     {
