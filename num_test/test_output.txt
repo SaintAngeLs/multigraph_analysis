@@ -1,0 +1,2559 @@
+Graph 1:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 10
+Time taken for exact cycle detection: 24.30 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 4.40 microseconds
+All cycles: 4
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 0.90 microseconds
+Approximate maximal cycle length: 2
+Time taken for approximate maximal cycle length detection: 18.90 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 8.70 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 2.70 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 2:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 16
+Time taken for exact cycle detection: 21.40 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.10 microseconds
+All cycles: 10
+Hamiltonian cycles: 4
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.20 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 9.60 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 9.70 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.70 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 3:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 6
+Time taken for exact cycle detection: 11.50 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.40 microseconds
+All cycles: 4
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 0.90 microseconds
+Approximate maximal cycle length: 2
+Time taken for approximate maximal cycle length detection: 8.80 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 12.90 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.60 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 4:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 12
+Time taken for exact cycle detection: 16.20 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 1.90 microseconds
+All cycles: 10
+Hamiltonian cycles: 4
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.10 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 9.00 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 8.70 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.60 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 5:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 8
+Time taken for exact cycle detection: 9.40 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 3.70 microseconds
+All cycles: 4
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.00 microseconds
+Approximate maximal cycle length: 2
+Time taken for approximate maximal cycle length detection: 8.70 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 6.70 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.60 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 6:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 0
+Time taken for exact cycle detection: 1.50 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.50 microseconds
+All cycles: 0
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 3
+Time taken for exact maximal cycle length detection: 0.70 microseconds
+Approximate maximal cycle length: 0
+Time taken for approximate maximal cycle length detection: 5.50 microseconds
+Maximal cycle length: 0
+Time taken for exact maximal cycle detection: 1.30 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 2.40 microseconds
+Maximal cycles: 0
+------------------------------------------------
+
+Graph 7:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 10
+Time taken for exact cycle detection: 29.20 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 6.50 microseconds
+All cycles: 10
+Hamiltonian cycles: 4
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.30 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 9.60 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 31.30 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 3.90 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 8:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 6
+Time taken for exact cycle detection: 6.20 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.70 microseconds
+All cycles: 2
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 2
+Time taken for exact maximal cycle length detection: 0.80 microseconds
+Approximate maximal cycle length: 2
+Time taken for approximate maximal cycle length detection: 6.90 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 5.10 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.90 microseconds
+Maximal cycles: 2
+------------------------------------------------
+
+Graph 9:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 10
+Time taken for exact cycle detection: 15.20 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.40 microseconds
+All cycles: 10
+Hamiltonian cycles: 4
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.20 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.40 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 9.00 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.80 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 10:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 8
+Time taken for exact cycle detection: 7.10 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 9.70 microseconds
+All cycles: 4
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.00 microseconds
+Approximate maximal cycle length: 2
+Time taken for approximate maximal cycle length detection: 9.10 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 6.70 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 2.10 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 11:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 8
+Time taken for exact cycle detection: 7.80 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.50 microseconds
+All cycles: 4
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.40 microseconds
+Approximate maximal cycle length: 2
+Time taken for approximate maximal cycle length detection: 14.70 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 6.70 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 2.50 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 12:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 16
+Time taken for exact cycle detection: 15.10 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.70 microseconds
+All cycles: 10
+Hamiltonian cycles: 4
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.20 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 9.50 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 9.00 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.60 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 13:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 14
+Time taken for exact cycle detection: 15.10 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 4.60 microseconds
+All cycles: 10
+Hamiltonian cycles: 4
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.10 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 9.40 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 8.40 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 2.00 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 14:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 0
+Time taken for exact cycle detection: 1.50 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.60 microseconds
+All cycles: 0
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 3
+Time taken for exact maximal cycle length detection: 0.70 microseconds
+Approximate maximal cycle length: 0
+Time taken for approximate maximal cycle length detection: 6.00 microseconds
+Maximal cycle length: 0
+Time taken for exact maximal cycle detection: 1.40 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.60 microseconds
+Maximal cycles: 0
+------------------------------------------------
+
+Graph 15:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 6
+Time taken for exact cycle detection: 5.00 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 1.90 microseconds
+All cycles: 2
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 2
+Time taken for exact maximal cycle length detection: 0.60 microseconds
+Approximate maximal cycle length: 2
+Time taken for approximate maximal cycle length detection: 6.90 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 4.90 microseconds
+Approximate maximal cycle count: 3
+Time taken for approximate maximal cycle detection: 1.50 microseconds
+Maximal cycles: 2
+------------------------------------------------
+
+Graph 16:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 18
+Time taken for exact cycle detection: 17.80 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.30 microseconds
+All cycles: 12
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.70 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 16.40 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 11.40 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 3.00 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 17:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 20
+Time taken for exact cycle detection: 44.10 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.70 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.10 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.70 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 12.80 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.00 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 18:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 16
+Time taken for exact cycle detection: 41.70 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.60 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.90 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 13.70 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 15.20 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.60 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 19:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 18
+Time taken for exact cycle detection: 43.80 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 3.70 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.30 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.20 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 13.90 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 3.40 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 20:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 14
+Time taken for exact cycle detection: 9.80 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.20 microseconds
+All cycles: 6
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.30 microseconds
+Approximate maximal cycle length: 0
+Time taken for approximate maximal cycle length detection: 13.80 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 8.20 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.90 microseconds
+Maximal cycles: 6
+------------------------------------------------
+
+Graph 21:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 22
+Time taken for exact cycle detection: 41.10 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 4.90 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.00 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.50 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 13.10 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.90 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 22:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 16
+Time taken for exact cycle detection: 37.70 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.20 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.10 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.60 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 11.40 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.80 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 23:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 30
+Time taken for exact cycle detection: 29.00 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.00 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.10 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.60 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 11.70 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.10 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 24:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 24
+Time taken for exact cycle detection: 57.70 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.10 microseconds
+All cycles: 43
+Hamiltonian cycles: 15
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 3.80 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 15.70 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 28.20 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.60 microseconds
+Maximal cycles: 15
+------------------------------------------------
+
+Graph 25:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 26
+Time taken for exact cycle detection: 29.10 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.10 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.10 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.90 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 10.80 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.80 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 26:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 14
+Time taken for exact cycle detection: 7.70 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.50 microseconds
+All cycles: 6
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.40 microseconds
+Approximate maximal cycle length: 0
+Time taken for approximate maximal cycle length detection: 13.70 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 6.70 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.20 microseconds
+Maximal cycles: 6
+------------------------------------------------
+
+Graph 27:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 26
+Time taken for exact cycle detection: 30.20 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 1.90 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.20 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 15.10 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 11.10 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.90 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 28:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 22
+Time taken for exact cycle detection: 28.30 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.00 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.00 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 13.80 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 10.70 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.90 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 29:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 14
+Time taken for exact cycle detection: 41.50 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 4.10 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.50 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 15.00 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 11.90 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.10 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 30:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 14
+Time taken for exact cycle detection: 40.50 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.30 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2.20 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 14.60 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 11.80 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.20 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 31:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 22
+Time taken for exact cycle detection: 66.10 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 6.70 microseconds
+All cycles: 43
+Hamiltonian cycles: 15
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 3.00 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 15.80 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 26.00 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 2.20 microseconds
+Maximal cycles: 15
+------------------------------------------------
+
+Graph 32:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 20
+Time taken for exact cycle detection: 40.10 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.20 microseconds
+All cycles: 23
+Hamiltonian cycles: 5
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1.90 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 13.80 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 10.60 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.80 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 33:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 14
+Time taken for exact cycle detection: 7.50 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.20 microseconds
+All cycles: 6
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.30 microseconds
+Approximate maximal cycle length: 0
+Time taken for approximate maximal cycle length detection: 13.40 microseconds
+Maximal cycle length: 2
+Time taken for exact maximal cycle detection: 6.50 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.90 microseconds
+Maximal cycles: 6
+------------------------------------------------
+
+Graph 34:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 18
+Time taken for exact cycle detection: 13.50 microseconds
+Approximate cycle count: 2
+Time taken for approximate cycle detection: 2.00 microseconds
+All cycles: 12
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 1.50 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 13.20 microseconds
+Maximal cycle length: 3
+Time taken for exact maximal cycle detection: 7.60 microseconds
+Approximate maximal cycle count: 4
+Time taken for approximate maximal cycle detection: 1.80 microseconds
+Maximal cycles: 4
+------------------------------------------------
+
+Graph 35:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 36
+Time taken for exact cycle detection: 130.80 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.60 microseconds
+All cycles: 81
+Hamiltonian cycles: 24
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 6.10 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 22.00 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 49.20 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.80 microseconds
+Maximal cycles: 24
+------------------------------------------------
+
+Graph 36:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 28
+Time taken for exact cycle detection: 132.00 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.70 microseconds
+All cycles: 73
+Hamiltonian cycles: 12
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 6.20 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 20.30 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 29.80 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.40 microseconds
+Maximal cycles: 12
+------------------------------------------------
+
+Graph 37:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 36
+Time taken for exact cycle detection: 218.30 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.60 microseconds
+All cycles: 127
+Hamiltonian cycles: 36
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.60 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 21.90 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 94.80 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.20 microseconds
+Maximal cycles: 36
+------------------------------------------------
+
+Graph 38:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 42
+Time taken for exact cycle detection: 308.10 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.20 microseconds
+All cycles: 127
+Hamiltonian cycles: 36
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.30 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 21.80 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 82.40 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.00 microseconds
+Maximal cycles: 36
+------------------------------------------------
+
+Graph 39:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 28
+Time taken for exact cycle detection: 59.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.50 microseconds
+All cycles: 42
+Hamiltonian cycles: 6
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 4.80 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 28.60 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 19.20 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.50 microseconds
+Maximal cycles: 6
+------------------------------------------------
+
+Graph 40:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 32
+Time taken for exact cycle detection: 116.50 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.80 microseconds
+All cycles: 73
+Hamiltonian cycles: 12
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 6.30 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 21.10 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 31.20 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.30 microseconds
+Maximal cycles: 12
+------------------------------------------------
+
+Graph 41:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 22
+Time taken for exact cycle detection: 77.10 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 5.60 microseconds
+All cycles: 49
+Hamiltonian cycles: 12
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 4.70 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 23.90 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 34.80 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 7.60 microseconds
+Maximal cycles: 12
+------------------------------------------------
+
+Graph 42:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 38
+Time taken for exact cycle detection: 227.80 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.70 microseconds
+All cycles: 127
+Hamiltonian cycles: 36
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.50 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 21.60 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 74.00 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.10 microseconds
+Maximal cycles: 36
+------------------------------------------------
+
+Graph 43:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 26
+Time taken for exact cycle detection: 58.60 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.50 microseconds
+All cycles: 42
+Hamiltonian cycles: 6
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 4.80 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 20.60 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 18.10 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.20 microseconds
+Maximal cycles: 6
+------------------------------------------------
+
+Graph 44:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 38
+Time taken for exact cycle detection: 113.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.70 microseconds
+All cycles: 73
+Hamiltonian cycles: 12
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 6.60 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 20.00 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 30.40 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.50 microseconds
+Maximal cycles: 12
+------------------------------------------------
+
+Graph 45:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 30
+Time taken for exact cycle detection: 221.80 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.80 microseconds
+All cycles: 127
+Hamiltonian cycles: 36
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.50 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 24.70 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 83.90 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.20 microseconds
+Maximal cycles: 36
+------------------------------------------------
+
+Graph 46:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 30
+Time taken for exact cycle detection: 130.60 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.50 microseconds
+All cycles: 81
+Hamiltonian cycles: 24
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 6.40 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 23.10 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 50.50 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.10 microseconds
+Maximal cycles: 24
+------------------------------------------------
+
+Graph 47:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 26
+Time taken for exact cycle detection: 37.60 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.50 microseconds
+All cycles: 27
+Hamiltonian cycles: 6
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 3.40 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 19.00 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 16.00 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.40 microseconds
+Maximal cycles: 6
+------------------------------------------------
+
+Graph 48:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 28
+Time taken for exact cycle detection: 109.70 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.60 microseconds
+All cycles: 73
+Hamiltonian cycles: 12
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 5.80 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 21.20 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 29.90 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.50 microseconds
+Maximal cycles: 12
+------------------------------------------------
+
+Graph 49:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 26
+Time taken for exact cycle detection: 109.90 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.70 microseconds
+All cycles: 42
+Hamiltonian cycles: 6
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 4.50 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 29.50 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 24.90 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 3.70 microseconds
+Maximal cycles: 6
+------------------------------------------------
+
+Graph 50:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 34
+Time taken for exact cycle detection: 133.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.60 microseconds
+All cycles: 73
+Hamiltonian cycles: 12
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.50 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 38.80 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 32.90 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 3.30 microseconds
+Maximal cycles: 12
+------------------------------------------------
+
+Graph 51:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 24
+Time taken for exact cycle detection: 67.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 11.70 microseconds
+All cycles: 27
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 3.10 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 22.40 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 28.00 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.90 microseconds
+Maximal cycles: 15
+------------------------------------------------
+
+Graph 52:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 22
+Time taken for exact cycle detection: 31.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 5.60 microseconds
+All cycles: 23
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 2
+Time taken for exact maximal cycle length detection: 2.50 microseconds
+Approximate maximal cycle length: 3
+Time taken for approximate maximal cycle length detection: 16.20 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 12.20 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.30 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 53:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 32
+Time taken for exact cycle detection: 214.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.60 microseconds
+All cycles: 127
+Hamiltonian cycles: 36
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.60 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 21.90 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 73.90 microseconds
+Approximate maximal cycle count: 5
+Time taken for approximate maximal cycle detection: 2.10 microseconds
+Maximal cycles: 36
+------------------------------------------------
+
+Graph 54:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 40
+Time taken for exact cycle detection: 240.90 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 3.90 microseconds
+All cycles: 129
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 12.80 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 30.50 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 83.20 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 3.20 microseconds
+Maximal cycles: 36
+------------------------------------------------
+
+Graph 55:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 48
+Time taken for exact cycle detection: 1587.10 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.90 microseconds
+All cycles: 549
+Hamiltonian cycles: 168
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 34.20 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 34.50 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 506.30 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 4.10 microseconds
+Maximal cycles: 168
+------------------------------------------------
+
+Graph 56:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 38
+Time taken for exact cycle detection: 122.40 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.90 microseconds
+All cycles: 68
+Hamiltonian cycles: 7
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.50 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 28.10 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 28.80 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.60 microseconds
+Maximal cycles: 7
+------------------------------------------------
+
+Graph 57:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 56
+Time taken for exact cycle detection: 4724.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 7.70 microseconds
+All cycles: 797
+Hamiltonian cycles: 252
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 42.10 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 32.40 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 755.40 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.90 microseconds
+Maximal cycles: 252
+------------------------------------------------
+
+Graph 58:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 46
+Time taken for exact cycle detection: 413.80 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 4.80 microseconds
+All cycles: 197
+Hamiltonian cycles: 28
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 17.50 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 30.40 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 91.30 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.80 microseconds
+Maximal cycles: 28
+------------------------------------------------
+
+Graph 59:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 44
+Time taken for exact cycle detection: 1527.50 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 6.80 microseconds
+All cycles: 504
+Hamiltonian cycles: 126
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 31.70 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 31.90 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 324.10 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.60 microseconds
+Maximal cycles: 126
+------------------------------------------------
+
+Graph 60:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 46
+Time taken for exact cycle detection: 383.60 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.80 microseconds
+All cycles: 209
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 14.90 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 29.90 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 151.50 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.80 microseconds
+Maximal cycles: 72
+------------------------------------------------
+
+Graph 61:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 26
+Time taken for exact cycle detection: 45.30 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 3.20 microseconds
+All cycles: 33
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 5.30 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 25.40 microseconds
+Maximal cycle length: 4
+Time taken for exact maximal cycle detection: 16.90 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 3.00 microseconds
+Maximal cycles: 5
+------------------------------------------------
+
+Graph 62:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 44
+Time taken for exact cycle detection: 256.70 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.00 microseconds
+All cycles: 139
+Hamiltonian cycles: 28
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 13.40 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 28.80 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 76.60 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.70 microseconds
+Maximal cycles: 28
+------------------------------------------------
+
+Graph 63:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 46
+Time taken for exact cycle detection: 1333.50 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 4.50 microseconds
+All cycles: 504
+Hamiltonian cycles: 126
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 32.70 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 31.70 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 339.00 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.80 microseconds
+Maximal cycles: 126
+------------------------------------------------
+
+Graph 64:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 48
+Time taken for exact cycle detection: 556.00 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 12.20 microseconds
+All cycles: 236
+Hamiltonian cycles: 56
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 18.90 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 31.70 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 149.90 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 3.00 microseconds
+Maximal cycles: 56
+------------------------------------------------
+
+Graph 65:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 42
+Time taken for exact cycle detection: 1409.60 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 2.90 microseconds
+All cycles: 504
+Hamiltonian cycles: 126
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 31.90 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 45.40 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 342.70 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.80 microseconds
+Maximal cycles: 126
+------------------------------------------------
+
+Graph 66:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 52
+Time taken for exact cycle detection: 755.20 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.60 microseconds
+All cycles: 322
+Hamiltonian cycles: 70
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 22.70 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 30.90 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 182.10 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.70 microseconds
+Maximal cycles: 70
+------------------------------------------------
+
+Graph 67:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 32
+Time taken for exact cycle detection: 245.80 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 3.00 microseconds
+All cycles: 133
+Hamiltonian cycles: 21
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 13.10 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 31.10 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 62.90 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.80 microseconds
+Maximal cycles: 21
+------------------------------------------------
+
+Graph 68:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 40
+Time taken for exact cycle detection: 568.80 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 5.60 microseconds
+All cycles: 243
+Hamiltonian cycles: 70
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 19.50 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 32.60 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 202.90 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 6.80 microseconds
+Maximal cycles: 70
+------------------------------------------------
+
+Graph 69:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 32
+Time taken for exact cycle detection: 143.40 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.20 microseconds
+All cycles: 68
+Hamiltonian cycles: 7
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 8.10 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 26.90 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 28.80 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 3.00 microseconds
+Maximal cycles: 7
+------------------------------------------------
+
+Graph 70:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 54
+Time taken for exact cycle detection: 2714.10 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 5.10 microseconds
+All cycles: 797
+Hamiltonian cycles: 252
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 41.60 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 32.10 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 700.10 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.90 microseconds
+Maximal cycles: 252
+------------------------------------------------
+
+Graph 71:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 42
+Time taken for exact cycle detection: 741.80 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.40 microseconds
+All cycles: 322
+Hamiltonian cycles: 70
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 33.80 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 32.80 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 212.60 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.70 microseconds
+Maximal cycles: 70
+------------------------------------------------
+
+Graph 72:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 40
+Time taken for exact cycle detection: 843.90 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 43.50 microseconds
+All cycles: 322
+Hamiltonian cycles: 70
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 23.40 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 31.40 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 194.20 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.60 microseconds
+Maximal cycles: 70
+------------------------------------------------
+
+Graph 73:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 44
+Time taken for exact cycle detection: 1467.30 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 3.10 microseconds
+All cycles: 504
+Hamiltonian cycles: 126
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 29.90 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 32.10 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 329.10 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 2.90 microseconds
+Maximal cycles: 126
+------------------------------------------------
+
+Graph 74:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 56
+Time taken for exact cycle detection: 2768.40 microseconds
+Approximate cycle count: 3
+Time taken for approximate cycle detection: 5.80 microseconds
+All cycles: 797
+Hamiltonian cycles: 252
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 41.90 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 54.40 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 851.70 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 3.50 microseconds
+Maximal cycles: 252
+------------------------------------------------
+
+Graph 75:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 36
+Time taken for exact cycle detection: 128.80 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 3.70 microseconds
+All cycles: 75
+Hamiltonian cycles: 0
+Minimal extension for Hamiltonian cycle: 1
+Time taken for exact maximal cycle length detection: 8.00 microseconds
+Approximate maximal cycle length: 4
+Time taken for approximate maximal cycle length detection: 26.90 microseconds
+Maximal cycle length: 5
+Time taken for exact maximal cycle detection: 34.10 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 3.00 microseconds
+Maximal cycles: 12
+------------------------------------------------
+
+Graph 76:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 40
+Time taken for exact cycle detection: 446.10 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 4.50 microseconds
+All cycles: 215
+Hamiltonian cycles: 49
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 18.00 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 32.30 microseconds
+Maximal cycle length: 6
+Time taken for exact maximal cycle detection: 168.50 microseconds
+Approximate maximal cycle count: 6
+Time taken for approximate maximal cycle detection: 3.30 microseconds
+Maximal cycles: 49
+------------------------------------------------
+
+Graph 77:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 70
+Time taken for exact cycle detection: 21187.30 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 13.70 microseconds
+All cycles: 2052
+Hamiltonian cycles: 560
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 166.60 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 62.00 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 3060.60 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.30 microseconds
+Maximal cycles: 560
+------------------------------------------------
+
+Graph 78:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 80
+Time taken for exact cycle detection: 95502.20 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.20 microseconds
+All cycles: 5757
+Hamiltonian cycles: 1920
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 261.90 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 48.20 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 16311.50 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 10.00 microseconds
+Maximal cycles: 1920
+------------------------------------------------
+
+Graph 79:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 62
+Time taken for exact cycle detection: 5088.10 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 7.00 microseconds
+All cycles: 959
+Hamiltonian cycles: 240
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 77.70 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 50.70 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 1086.60 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.60 microseconds
+Maximal cycles: 240
+------------------------------------------------
+
+Graph 80:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 74
+Time taken for exact cycle detection: 12501.20 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.60 microseconds
+All cycles: 1781
+Hamiltonian cycles: 384
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 134.10 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 49.40 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 1810.50 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 3.50 microseconds
+Maximal cycles: 384
+------------------------------------------------
+
+Graph 81:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 62
+Time taken for exact cycle detection: 1940.60 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 3.80 microseconds
+All cycles: 499
+Hamiltonian cycles: 32
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 45.70 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 46.00 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 167.20 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.20 microseconds
+Maximal cycles: 32
+------------------------------------------------
+
+Graph 82:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 62
+Time taken for exact cycle detection: 793.00 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 3.90 microseconds
+All cycles: 326
+Hamiltonian cycles: 40
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 35.50 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 40.30 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 156.90 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 3.70 microseconds
+Maximal cycles: 40
+------------------------------------------------
+
+Graph 83:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 64
+Time taken for exact cycle detection: 26077.40 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 14.50 microseconds
+All cycles: 2921
+Hamiltonian cycles: 864
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 167.90 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 53.20 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 4161.70 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.00 microseconds
+Maximal cycles: 864
+------------------------------------------------
+
+Graph 84:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 76
+Time taken for exact cycle detection: 22221.90 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.10 microseconds
+All cycles: 2710
+Hamiltonian cycles: 720
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 161.80 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 46.70 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 3543.10 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 5.90 microseconds
+Maximal cycles: 720
+------------------------------------------------
+
+Graph 85:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 58
+Time taken for exact cycle detection: 7495.50 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.20 microseconds
+All cycles: 1385
+Hamiltonian cycles: 360
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 101.30 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 46.90 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 1320.60 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.10 microseconds
+Maximal cycles: 360
+------------------------------------------------
+
+Graph 86:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 82
+Time taken for exact cycle detection: 54629.20 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.40 microseconds
+All cycles: 4193
+Hamiltonian cycles: 1344
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 210.30 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 48.00 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 8209.50 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 10.10 microseconds
+Maximal cycles: 1344
+------------------------------------------------
+
+Graph 87:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 60
+Time taken for exact cycle detection: 22935.50 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 7.40 microseconds
+All cycles: 2710
+Hamiltonian cycles: 720
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 162.40 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 48.10 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 3550.00 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 5.60 microseconds
+Maximal cycles: 720
+------------------------------------------------
+
+Graph 88:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 72
+Time taken for exact cycle detection: 53856.30 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.00 microseconds
+All cycles: 4193
+Hamiltonian cycles: 1344
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 209.30 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 49.30 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 8120.40 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 5.10 microseconds
+Maximal cycles: 1344
+------------------------------------------------
+
+Graph 89:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 50
+Time taken for exact cycle detection: 1671.90 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.90 microseconds
+All cycles: 550
+Hamiltonian cycles: 64
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 48.90 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 40.60 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 241.10 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 3.50 microseconds
+Maximal cycles: 64
+------------------------------------------------
+
+Graph 90:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 68
+Time taken for exact cycle detection: 52405.90 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.50 microseconds
+All cycles: 4193
+Hamiltonian cycles: 1344
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 217.40 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 49.10 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 8350.30 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.20 microseconds
+Maximal cycles: 1344
+------------------------------------------------
+
+Graph 91:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 78
+Time taken for exact cycle detection: 96975.70 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.00 microseconds
+All cycles: 5757
+Hamiltonian cycles: 1920
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 265.00 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 48.10 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 14724.10 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 5.40 microseconds
+Maximal cycles: 1920
+------------------------------------------------
+
+Graph 92:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 60
+Time taken for exact cycle detection: 6958.40 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.60 microseconds
+All cycles: 1294
+Hamiltonian cycles: 304
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 95.40 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 44.50 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 1121.50 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 3.90 microseconds
+Maximal cycles: 304
+------------------------------------------------
+
+Graph 93:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 66
+Time taken for exact cycle detection: 7090.90 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 12.50 microseconds
+All cycles: 1293
+Hamiltonian cycles: 256
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 93.50 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 41.70 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 904.90 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 5.70 microseconds
+Maximal cycles: 256
+------------------------------------------------
+
+Graph 94:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 56
+Time taken for exact cycle detection: 7070.40 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.40 microseconds
+All cycles: 1385
+Hamiltonian cycles: 360
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 102.90 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 46.80 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 1406.60 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 11.30 microseconds
+Maximal cycles: 360
+------------------------------------------------
+
+Graph 95:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 72
+Time taken for exact cycle detection: 22741.60 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 7.10 microseconds
+All cycles: 2710
+Hamiltonian cycles: 720
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 168.00 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 64.40 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 3397.30 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.90 microseconds
+Maximal cycles: 720
+------------------------------------------------
+
+Graph 96:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 70
+Time taken for exact cycle detection: 6481.50 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.60 microseconds
+All cycles: 1271
+Hamiltonian cycles: 272
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 92.30 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 48.40 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 956.70 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.00 microseconds
+Maximal cycles: 272
+------------------------------------------------
+
+Graph 97:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 58
+Time taken for exact cycle detection: 2555.00 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.30 microseconds
+All cycles: 538
+Hamiltonian cycles: 96
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 49.90 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 39.00 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 326.30 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 3.90 microseconds
+Maximal cycles: 96
+------------------------------------------------
+
+Graph 98:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 64
+Time taken for exact cycle detection: 6834.10 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.20 microseconds
+All cycles: 1271
+Hamiltonian cycles: 272
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 96.20 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 45.20 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 1199.40 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 4.30 microseconds
+Maximal cycles: 272
+------------------------------------------------
+
+Graph 99:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 54
+Time taken for exact cycle detection: 1386.70 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 9.80 microseconds
+All cycles: 454
+Hamiltonian cycles: 24
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 43.30 microseconds
+Approximate maximal cycle length: 5
+Time taken for approximate maximal cycle length detection: 39.20 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 138.80 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 5.30 microseconds
+Maximal cycles: 24
+------------------------------------------------
+
+Graph 100:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 48
+Time taken for exact cycle detection: 1187.70 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 3.40 microseconds
+All cycles: 403
+Hamiltonian cycles: 64
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 38.90 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 43.50 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 217.10 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 3.30 microseconds
+Maximal cycles: 64
+------------------------------------------------
+
+Graph 101:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 64
+Time taken for exact cycle detection: 7019.20 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 7.80 microseconds
+All cycles: 1197
+Hamiltonian cycles: 224
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 85.40 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 43.40 microseconds
+Maximal cycle length: 7
+Time taken for exact maximal cycle detection: 819.90 microseconds
+Approximate maximal cycle count: 7
+Time taken for approximate maximal cycle detection: 3.40 microseconds
+Maximal cycles: 224
+------------------------------------------------
+
+Graph 102:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 96
+Time taken for exact cycle detection: 879847.20 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.20 microseconds
+All cycles: 18511
+Hamiltonian cycles: 5184
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 979.80 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 56.60 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 84769.60 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.40 microseconds
+Maximal cycles: 5184
+------------------------------------------------
+
+Graph 103:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 84
+Time taken for exact cycle detection: 293497.30 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 7.10 microseconds
+All cycles: 10035
+Hamiltonian cycles: 2682
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 658.70 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 66.70 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 28288.90 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.90 microseconds
+Maximal cycles: 2682
+------------------------------------------------
+
+Graph 104:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 96
+Time taken for exact cycle detection: 1810146.70 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.30 microseconds
+All cycles: 26279
+Hamiltonian cycles: 8208
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1414.90 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 65.70 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 208407.60 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.60 microseconds
+Maximal cycles: 8208
+------------------------------------------------
+
+Graph 105:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 78
+Time taken for exact cycle detection: 41731.50 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 9.70 microseconds
+All cycles: 3599
+Hamiltonian cycles: 810
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 319.60 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 69.80 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 4600.00 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 4.80 microseconds
+Maximal cycles: 810
+------------------------------------------------
+
+Graph 106:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 90
+Time taken for exact cycle detection: 86010.70 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.10 microseconds
+All cycles: 5347
+Hamiltonian cycles: 1242
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 403.30 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 58.40 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 8721.10 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 7.20 microseconds
+Maximal cycles: 1242
+------------------------------------------------
+
+Graph 107:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 60
+Time taken for exact cycle detection: 7692.00 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 7.30 microseconds
+All cycles: 1362
+Hamiltonian cycles: 117
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 140.50 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 58.00 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 639.40 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.80 microseconds
+Maximal cycles: 117
+------------------------------------------------
+
+Graph 108:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 64
+Time taken for exact cycle detection: 11870.50 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 7.80 microseconds
+All cycles: 1784
+Hamiltonian cycles: 126
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 168.60 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 57.90 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 722.80 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 4.80 microseconds
+Maximal cycles: 126
+------------------------------------------------
+
+Graph 109:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 82
+Time taken for exact cycle detection: 167014.10 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 7.90 microseconds
+All cycles: 7589
+Hamiltonian cycles: 1908
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 627.00 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 58.80 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 16716.60 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 9.50 microseconds
+Maximal cycles: 1908
+------------------------------------------------
+
+Graph 110:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 90
+Time taken for exact cycle detection: 52078.10 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 6.20 microseconds
+All cycles: 3916
+Hamiltonian cycles: 630
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 318.00 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 55.70 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 3363.50 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 4.80 microseconds
+Maximal cycles: 630
+------------------------------------------------
+
+Graph 111:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 102
+Time taken for exact cycle detection: 507644.30 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 9.60 microseconds
+All cycles: 13091
+Hamiltonian cycles: 3510
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 825.90 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 58.70 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 47285.80 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 8.60 microseconds
+Maximal cycles: 3510
+------------------------------------------------
+
+Graph 112:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 76
+Time taken for exact cycle detection: 11662.10 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 6.30 microseconds
+All cycles: 1745
+Hamiltonian cycles: 108
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 171.90 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 50.70 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 647.50 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 7.50 microseconds
+Maximal cycles: 108
+------------------------------------------------
+
+Graph 113:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 98
+Time taken for exact cycle detection: 287352.90 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 6.00 microseconds
+All cycles: 10035
+Hamiltonian cycles: 2682
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 650.80 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 78.60 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 28239.70 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.90 microseconds
+Maximal cycles: 2682
+------------------------------------------------
+
+Graph 114:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 76
+Time taken for exact cycle detection: 46369.20 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.00 microseconds
+All cycles: 3805
+Hamiltonian cycles: 702
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 316.80 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 49.70 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 4179.80 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 10.00 microseconds
+Maximal cycles: 702
+------------------------------------------------
+
+Graph 115:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 86
+Time taken for exact cycle detection: 21538.00 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 5.90 microseconds
+All cycles: 2360
+Hamiltonian cycles: 405
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 218.50 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 63.50 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 1919.90 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.10 microseconds
+Maximal cycles: 405
+------------------------------------------------
+
+Graph 116:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 72
+Time taken for exact cycle detection: 12484.10 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 5.90 microseconds
+All cycles: 1779
+Hamiltonian cycles: 342
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 169.80 microseconds
+Approximate maximal cycle length: 6
+Time taken for approximate maximal cycle length detection: 51.90 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 1537.10 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.40 microseconds
+Maximal cycles: 342
+------------------------------------------------
+
+Graph 117:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 98
+Time taken for exact cycle detection: 1910600.40 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 7.60 microseconds
+All cycles: 26279
+Hamiltonian cycles: 8208
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1363.90 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 61.40 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 205464.50 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 5.50 microseconds
+Maximal cycles: 8208
+------------------------------------------------
+
+Graph 118:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 62
+Time taken for exact cycle detection: 23687.30 microseconds
+Approximate cycle count: 4
+Time taken for approximate cycle detection: 8.10 microseconds
+All cycles: 2412
+Hamiltonian cycles: 495
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 224.00 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 77.20 microseconds
+Maximal cycle length: 8
+Time taken for exact maximal cycle detection: 2564.20 microseconds
+Approximate maximal cycle count: 8
+Time taken for approximate maximal cycle detection: 6.30 microseconds
+Maximal cycles: 495
+------------------------------------------------
+
+Graph 119:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 102
+Time taken for exact cycle detection: 4657650.80 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 7.00 microseconds
+All cycles: 42183
+Hamiltonian cycles: 9240
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 3071.70 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 75.80 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 263805.90 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 11.40 microseconds
+Maximal cycles: 9240
+------------------------------------------------
+
+Graph 120:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 102
+Time taken for exact cycle detection: 3463950.80 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 6.50 microseconds
+All cycles: 35827
+Hamiltonian cycles: 8600
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2667.30 microseconds
+Approximate maximal cycle length: 9
+Time taken for approximate maximal cycle length detection: 77.50 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 239347.70 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 6.80 microseconds
+Maximal cycles: 8600
+------------------------------------------------
+
+Graph 121:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 128
+Time taken for exact cycle detection: 74900255.30 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 6.80 microseconds
+All cycles: 159271
+Hamiltonian cycles: 48960
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 9884.70 microseconds
+Approximate maximal cycle length: 9
+Time taken for approximate maximal cycle length detection: 75.80 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 6570428.60 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 6.00 microseconds
+Maximal cycles: 48960
+------------------------------------------------
+
+Graph 122:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 110
+Time taken for exact cycle detection: 1217333.10 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 5.60 microseconds
+All cycles: 21049
+Hamiltonian cycles: 1880
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1668.60 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 76.70 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 20666.90 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 6.80 microseconds
+Maximal cycles: 1880
+------------------------------------------------
+
+Graph 123:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 100
+Time taken for exact cycle detection: 2636013.70 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 7.50 microseconds
+All cycles: 30920
+Hamiltonian cycles: 6480
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2467.20 microseconds
+Approximate maximal cycle length: 9
+Time taken for approximate maximal cycle length detection: 114.90 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 142934.50 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 7.30 microseconds
+Maximal cycles: 6480
+------------------------------------------------
+
+Graph 124:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 110
+Time taken for exact cycle detection: 3386147.80 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 10.40 microseconds
+All cycles: 35830
+Hamiltonian cycles: 8800
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2658.50 microseconds
+Approximate maximal cycle length: 9
+Time taken for approximate maximal cycle length detection: 70.20 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 254119.00 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 6.80 microseconds
+Maximal cycles: 8800
+------------------------------------------------
+
+Graph 125:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 122
+Time taken for exact cycle detection: 20226846.50 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 7.00 microseconds
+All cycles: 85159
+Hamiltonian cycles: 23760
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 5618.50 microseconds
+Approximate maximal cycle length: 9
+Time taken for approximate maximal cycle length detection: 73.80 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 1559511.50 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 6.50 microseconds
+Maximal cycles: 23760
+------------------------------------------------
+
+Graph 126:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 102
+Time taken for exact cycle detection: 363745.30 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 6.20 microseconds
+All cycles: 11303
+Hamiltonian cycles: 910
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 1025.90 microseconds
+Approximate maximal cycle length: 7
+Time taken for approximate maximal cycle length detection: 61.90 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 7691.90 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 5.30 microseconds
+Maximal cycles: 910
+------------------------------------------------
+
+Graph 127:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 106
+Time taken for exact cycle detection: 3734627.80 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 5.60 microseconds
+All cycles: 33886
+Hamiltonian cycles: 7980
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2721.00 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 153.50 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 214021.20 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 6.30 microseconds
+Maximal cycles: 7980
+------------------------------------------------
+
+Graph 128:
+Analyzing Multigraph:
+------------------------------------------------
+Graph size: 108
+Time taken for exact cycle detection: 3368979.80 microseconds
+Approximate cycle count: 5
+Time taken for approximate cycle detection: 26.20 microseconds
+All cycles: 36858
+Hamiltonian cycles: 5840
+Minimal extension for Hamiltonian cycle: 0
+Time taken for exact maximal cycle length detection: 2844.40 microseconds
+Approximate maximal cycle length: 8
+Time taken for approximate maximal cycle length detection: 94.10 microseconds
+Maximal cycle length: 9
+Time taken for exact maximal cycle detection: 123786.80 microseconds
+Approximate maximal cycle count: 9
+Time taken for approximate maximal cycle detection: 6.80 microseconds
+Maximal cycles: 5840
+------------------------------------------------

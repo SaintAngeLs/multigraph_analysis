@@ -1,4 +1,4 @@
-#include "approximation_algorithm.h"
+﻿#include "approximation_algorithm.h"
 #include "common_utils.h"
 #include "graph_interface.h"
 #include <time.h>
@@ -91,31 +91,71 @@ int approximate_find_minimal_extension(void* graph, int vertices) {
     destroy_context(ctx);
     return edge_additions;
 }
+#define ITERATIONS 10  // Number of random DFS attempts to improve accuracy
+
 int approximate_count_maximal_cycles(void* graph, int vertices) {
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
+    if (!ctx) return 0;
+
+    GraphInterface* gi = ctx->graph_interface;
     int max_cycle_length = 0;
-    for (int i = 0; i < vertices; i++) {
-        int* visited = (int*)calloc(vertices, sizeof(int));
-        int cycle_length = 0;
-        int node = i;
-        while (cycle_length < vertices) {
-            visited[node] = 1;
-            cycle_length++;
-            int found_next = 0;
-            for (int j = 0; j < vertices; j++) {
-                if (!visited[j] && ctx->graph_interface->get_edge(graph, node, j) > 0) {
-                    node = j;
-                    found_next = 1;
+
+    srand((unsigned int)time(NULL));
+
+    for (int iter = 0; iter < ITERATIONS; iter++) {
+        for (int start = 0; start < vertices; start++) {
+            int* visited = (int*)calloc(vertices, sizeof(int));
+            int* path = (int*)malloc(vertices * sizeof(int));
+            int cycle_length = 0;
+            int node = start;
+
+            while (cycle_length < vertices) {
+                visited[node] = 1;
+                path[cycle_length++] = node;
+
+                int possible_moves = 0;
+                int* neighbors = (int*)malloc(vertices * sizeof(int));
+
+                // Collect **directed** edges only
+                for (int j = 0; j < vertices; j++) {
+                    if (gi->get_edge(graph, node, j) > 0 && !visited[j]) {
+                        neighbors[possible_moves++] = j;
+                    }
+                }
+
+                if (possible_moves == 0) {
+                    free(neighbors);
                     break;
                 }
+
+                // **Prioritize** moving forward in directed edges
+                int best_choice = -1;
+                int max_degree = -1;
+                for (int k = 0; k < possible_moves; k++) {
+                    int degree = gi->get_out_degree(graph, neighbors[k]);
+                    if (degree > max_degree) {
+                        max_degree = degree;
+                        best_choice = neighbors[k];
+                    }
+                }
+
+                free(neighbors);
+                if (best_choice == -1) break;
+                node = best_choice;
             }
-            if (!found_next) break;
+
+            // Ensure we **close** the cycle correctly
+            if (gi->get_edge(graph, node, start) > 0 && cycle_length > 1) {
+                if (cycle_length > max_cycle_length) {
+                    max_cycle_length = cycle_length;
+                }
+            }
+
+            free(visited);
+            free(path);
         }
-        if (cycle_length > max_cycle_length) {
-            max_cycle_length = cycle_length;
-        }
-        free(visited);
     }
+
     destroy_context(ctx);
     return max_cycle_length;
 }

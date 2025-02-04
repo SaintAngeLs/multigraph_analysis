@@ -198,11 +198,16 @@ int find_minimal_extension_wrapper(void* graph, int vertices) {
  * EXACT: count_maximal_cycles_wrapper => length of the longest simple cycle
  */
 int count_maximal_cycles_wrapper(void* graph, int vertices) {
+    LARGE_INTEGER frequency, start_exact, end_exact, start_approx, end_approx;
+    QueryPerformanceFrequency(&frequency);
+
     if (vertices >= THRESHOLD) {
         return approximate_count_maximal_cycles(graph, vertices);
     }
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     if (!ctx) return 0;
+
+    QueryPerformanceCounter(&start_exact);
 
     int maxCycleLength = 0;
     for (int start = 0; start < vertices; start++) {
@@ -216,6 +221,21 @@ int count_maximal_cycles_wrapper(void* graph, int vertices) {
         free(visited);
         freeStack(&st);
     }
+
+    QueryPerformanceCounter(&end_exact);
+    double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
+    printf("Time taken for exact maximal cycle length detection: %.2f microseconds\n", exact_time);
+
+    // Measure approximate cycle detection time
+    QueryPerformanceCounter(&start_approx);
+    int approx_max_cycle_length = approximate_count_maximal_cycles(graph, vertices);
+    QueryPerformanceCounter(&end_approx);
+
+    double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
+    printf("Approximate maximal cycle length: %d\n", approx_max_cycle_length);
+    printf("Time taken for approximate maximal cycle length detection: %.2f microseconds\n", approx_time);
+
+
     destroy_context(ctx);
     return maxCycleLength;
 }
@@ -232,6 +252,9 @@ int find_maximal_cycles_wrapper(
     int* cycle_count
 )
 {
+    LARGE_INTEGER frequency, start_exact, end_exact, start_approx, end_approx;
+    QueryPerformanceFrequency(&frequency);
+
     if (vertices >= THRESHOLD) {
         return approximate_find_maximal_cycles(graph, vertices,
             output_cycles, cycle_sizes, cycle_count);
@@ -244,6 +267,7 @@ int find_maximal_cycles_wrapper(
         return 0;
     }
 
+    QueryPerformanceCounter(&start_exact);
     /* First: find the maximum cycle length. */
     int maxCycleLength = 0;
     for (int start = 0; start < vertices; start++) {
@@ -282,6 +306,23 @@ int find_maximal_cycles_wrapper(
         freeStack(&st);
         free(visited);
     }
+
+    QueryPerformanceCounter(&end_exact);
+    double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
+    printf("Time taken for exact maximal cycle detection: %.2f microseconds\n", exact_time);
+
+    // Measure approximate cycle detection time
+    QueryPerformanceCounter(&start_approx);
+    int approx_cycle_count;
+    int** approx_output_cycles;
+    int* approx_cycle_sizes;
+
+    approx_cycle_count = approximate_find_maximal_cycles(graph, vertices, &approx_output_cycles, &approx_cycle_sizes, &approx_cycle_count);
+    QueryPerformanceCounter(&end_approx);
+
+    double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
+    printf("Approximate maximal cycle count: %d\n", approx_cycle_count);
+    printf("Time taken for approximate maximal cycle detection: %.2f microseconds\n", approx_time);
 
     *output_cycles = cycleList.cycles;
     *cycle_sizes = cycleList.sizes;
