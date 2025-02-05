@@ -328,31 +328,44 @@ int approximate_count_hamiltonian_cycles(void* graph, int vertices,
     *cycle_count = 0;
     *output_cycles = NULL;
     *cycle_sizes = NULL;
+
+    int* path = (int*)malloc((vertices + 1) * sizeof(int)); // Allocate for extra closing vertex
+    bool* visited = (bool*)calloc(vertices, sizeof(bool));
+
     for (int start = 0; start < vertices; start++) {
-        int* path = (int*)malloc(vertices * sizeof(int));
         path[0] = start;
-        int current = start;
+        visited[start] = true;
         int step = 1;
+        int current = start;
+
         for (; step < vertices; step++) {
             for (int nxt = 0; nxt < vertices; nxt++) {
-                if (ctx->graph_interface->get_edge(graph, current, nxt) > 0) {
+                if (!visited[nxt] && ctx->graph_interface->get_edge(graph, current, nxt) > 0) {
                     path[step] = nxt;
+                    visited[nxt] = true;
                     current = nxt;
                     break;
                 }
             }
         }
+
         if (ctx->graph_interface->get_edge(graph, current, start) > 0) {
+            path[step] = start;  // Close the cycle
+            step++;  // Increment length to account for closure
+
             (*cycle_count)++;
             *output_cycles = (int**)realloc(*output_cycles, (*cycle_count) * sizeof(int*));
             *cycle_sizes = (int*)realloc(*cycle_sizes, (*cycle_count) * sizeof(int));
-            (*output_cycles)[*cycle_count - 1] = path;
-            (*cycle_sizes)[*cycle_count - 1] = vertices;
+            (*output_cycles)[*cycle_count - 1] = (int*)malloc(step * sizeof(int));
+            memcpy((*output_cycles)[*cycle_count - 1], path, step * sizeof(int));
+            (*cycle_sizes)[*cycle_count - 1] = step;
         }
-        else {
-            free(path);
-        }
+
+        memset(visited, false, vertices * sizeof(bool)); // Reset visited array
     }
+
+    free(path);
+    free(visited);
     destroy_context(ctx);
     return *cycle_count;
 }

@@ -1,4 +1,4 @@
-#include "method_wrapper.h"
+﻿#include "method_wrapper.h"
 
 
 int calculate_size_wrapper(void* graph) {
@@ -97,14 +97,35 @@ int count_hamiltonian_cycles_wrapper(
     int** cycle_sizes,
     int* cycle_count)
 {
+    LARGE_INTEGER frequency, start_exact, end_exact, start_approx, end_approx;
+    QueryPerformanceFrequency(&frequency);
+
     if (vertices >= THRESHOLD) {
-        return approximate_count_hamiltonian_cycles(graph, vertices,
-            output_cycles, cycle_sizes, cycle_count);
+        printf("Graph size exceeds threshold, using approximate algorithm.\n");
+        QueryPerformanceCounter(&start_approx);
+        int result = approximate_count_hamiltonian_cycles(graph, vertices, output_cycles, cycle_sizes, cycle_count);
+        QueryPerformanceCounter(&end_approx);
+
+        double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Time taken for approximate Hamiltonian cycle detection: %.2f microseconds\n", approx_time);
+
+        printf("Approximate Hamiltonian cycles found: \n");
+        for (int i = 0; i < *cycle_count; i++) {
+            printf("Cycle %d: ", i + 1);
+            for (int j = 0; j < (*cycle_sizes)[i]; j++) {
+                printf("%d ", (*output_cycles)[i][j]);
+            }
+            printf("\n");
+        }
+
+        return result;
     }
+
+    QueryPerformanceCounter(&start_exact);
     GraphAlgorithmContext* ctx = create_context(graph, vertices);
     if (!ctx) return 0;
 
-    CycleList  cycleList;
+    CycleList cycleList;
     initCycleList(&cycleList);
 
     StringList uniqueCycles;
@@ -120,12 +141,46 @@ int count_hamiltonian_cycles_wrapper(
             freeStack(&st);
             continue;
         }
-        /* Perform Hamiltonian DFS from 'start'. */
+
         backtrack_hamiltonian(ctx, start, start, &st, visited,
             &uniqueCycles, &cycleList, &localCount);
 
         freeStack(&st);
         free(visited);
+    }
+
+    QueryPerformanceCounter(&end_exact);
+    double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
+    printf("Time taken for exact Hamiltonian cycle detection: %.2f microseconds\n", exact_time);
+
+    printf("Exact Hamiltonian cycles found: \n");
+    for (int i = 0; i < cycleList.count; i++) {
+        printf("Cycle %d: ", i + 1);
+        for (int j = 0; j < cycleList.sizes[i]; j++) {
+            printf("%d ", cycleList.cycles[i][j]);
+        }
+        printf("\n");
+    }
+
+    QueryPerformanceCounter(&start_approx);
+    int approx_cycle_count;
+    int** approx_output_cycles;
+    int* approx_cycle_sizes;
+
+    approx_cycle_count = approximate_count_hamiltonian_cycles(graph, vertices, &approx_output_cycles, &approx_cycle_sizes, &approx_cycle_count);
+    QueryPerformanceCounter(&end_approx);
+
+    double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
+    printf("Approximate Hamiltonian cycle count: %d\n", approx_cycle_count);
+    printf("Time taken for approximate Hamiltonian cycle detection: %.2f microseconds\n", approx_time);
+
+    printf("Approximate Hamiltonian cycles found: \n");
+    for (int i = 0; i < approx_cycle_count; i++) {
+        printf("Cycle %d: ", i + 1);
+        for (int j = 0; j < approx_cycle_sizes[i]; j++) {
+            printf("%d ", approx_output_cycles[i][j]);
+        }
+        printf("\n");
     }
 
     *output_cycles = cycleList.cycles;
@@ -134,8 +189,11 @@ int count_hamiltonian_cycles_wrapper(
 
     freeStringList(&uniqueCycles);
     destroy_context(ctx);
+
     return cycleList.count;
 }
+
+
 
 void calculate_metric_wrapper(
     void* g1, int v1,
@@ -174,25 +232,53 @@ void calculate_metric_wrapper(
  * EXACT: find_minimal_extension_wrapper
  */
 int find_minimal_extension_wrapper(void* graph, int vertices) {
-    if (vertices >= THRESHOLD) {
-        return approximate_find_minimal_extension(graph, vertices);
-    }
-    GraphAlgorithmContext* ctx = create_context(graph, vertices);
-    if (!ctx) return 0;
+    LARGE_INTEGER frequency, start, end;
+    QueryPerformanceFrequency(&frequency);
+    int result;
 
-    bool foundOne = hasHamiltonianCycle(ctx);
-    if (foundOne) {
+    if (vertices < THRESHOLD) {
+        QueryPerformanceCounter(&start);
+        GraphAlgorithmContext* ctx = create_context(graph, vertices);
+        if (!ctx) return 0;
+
+        bool has_hamiltonian = hasHamiltonianCycle(ctx);
+        if (has_hamiltonian) {
+            destroy_context(ctx);
+            printf("Graph already has a Hamiltonian cycle. No edges needed.\n");
+            return 0;
+        }
+
+        int minEdgesNeeded = INT_MAX;
+        explore_extensions(ctx, vertices, 0, &minEdgesNeeded);
         destroy_context(ctx);
-        return 0;
+        QueryPerformanceCounter(&end);
+        double exact_time = (double)(end.QuadPart - start.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Exact minimal extension required: %d edges\n", minEdgesNeeded);
+        printf("Time taken for exact minimal extension detection: %.2f microseconds\n", exact_time);
+
+        QueryPerformanceCounter(&start);
+        int approx_result = approximate_find_minimal_extension(graph, vertices);
+        QueryPerformanceCounter(&end);
+        double approx_time = (double)(end.QuadPart - start.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Approximate minimal extension required: %d edges\n", approx_result);
+        printf("Time taken for approximate minimal extension detection: %.2f microseconds\n", approx_time);
+
+        // Możemy wybrać zwrócenie jednej z tych wartości (np. dokładnej) lub dokonać uśrednienia.
+        // W tym przykładzie zwracamy wynik metody dokładnej.
+        result = minEdgesNeeded;
     }
-
-    int minEdgesNeeded = INT_MAX;
-    explore_extensions(ctx, vertices, 0, &minEdgesNeeded);
-    destroy_context(ctx);
-
-    if (minEdgesNeeded == INT_MAX) return 0;
-    return minEdgesNeeded;
+    else {
+        QueryPerformanceCounter(&start);
+        result = approximate_find_minimal_extension(graph, vertices);
+        QueryPerformanceCounter(&end);
+        double approx_time = (double)(end.QuadPart - start.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Graph size exceeds threshold (%d), using approximate algorithm.\n", THRESHOLD);
+        printf("Approximate minimal extension required: %d edges\n", result);
+        printf("Time taken for approximate minimal extension detection: %.2f microseconds\n", approx_time);
+    }
+    return result;
 }
+
 
 /*
  * EXACT: count_maximal_cycles_wrapper => length of the longest simple cycle
