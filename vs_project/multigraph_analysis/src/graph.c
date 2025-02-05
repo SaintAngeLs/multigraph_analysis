@@ -113,17 +113,23 @@ static int* multigraph_get_all_edges_from_vertex(void* self, int src, int* out_d
         return NULL;
     }
 
-    int* neighbors = (int*)malloc(graph->vertices * sizeof(int));
+    int total_edges = 0;
+    for (int i = 0; i < graph->vertices; i++) {
+        total_edges += graph->adjacency_matrix[src][i];
+    }
+
+    int* neighbors = (int*)malloc(total_edges * sizeof(int));
     int count = 0;
 
     for (int i = 0; i < graph->vertices; i++) {
-        if (graph->adjacency_matrix[src][i] > 0) {
+        int multiplicity = graph->adjacency_matrix[src][i];
+        for (int j = 0; j < multiplicity; j++) {
             neighbors[count++] = i;
         }
     }
 
     *out_degree = count;
-    return neighbors;  // Caller must free this memory
+    return neighbors;
 }
 
 static int multigraph_get_out_degree(void* self, int vertex) {

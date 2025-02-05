@@ -123,20 +123,22 @@ void dfs_findCycles(
                 printf("%d ", cycleArray[j]);
             }
             printf("\n");*/
-            char* canonical = normalizeCycle(cycleArray, cycleLength);
-            if (!stringListContains(uniqueCycles, canonical)) {
-                /* printf("[CYCLE FOUND]: ");
-                 for (int j = 0; j < cycleLength; j++) {
-                     printf("%d ", cycleArray[j]);
-                 }
-                 printf("\n");*/
+            //char* canonical = normalizeCycle(cycleArray, cycleLength);
+            //if (!stringListContains(uniqueCycles, canonical)) {
+            //    /* printf("[CYCLE FOUND]: ");
+            //     for (int j = 0; j < cycleLength; j++) {
+            //         printf("%d ", cycleArray[j]);
+            //     }
+            //     printf("\n");*/
 
-                addStringToList(uniqueCycles, canonical);
-                addCycle(cycleList, cycleArray, cycleLength);
-                (*localCount)++;
-            }
+            //    addStringToList(uniqueCycles, canonical);
+            //    addCycle(cycleList, cycleArray, cycleLength);
+            //    (*localCount)++;
+            //}
+            addCycle(cycleList, cycleArray, cycleLength);
+            (*localCount)++;
 
-            free(canonical);
+            //free(canonical);
             free(cycleArray);
         }
         else if (!visited[nxt]) {
