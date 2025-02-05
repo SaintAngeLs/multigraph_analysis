@@ -463,6 +463,7 @@ int find_maximal_cycles_wrapper(
 
         QueryPerformanceCounter(&end_exact);
         double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
+        printf("Exact maximal cycle count: %d\n", cycleList.count);
         printf("Time taken for exact maximal cycle detection: %.2f microseconds\n", exact_time);
 
         // Print each found exact cycle.
