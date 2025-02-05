@@ -1,7 +1,7 @@
-﻿  approximation_algorithm.c
+﻿  method_wrapper.c
   Generating code
-  2 of 70 functions ( 2.9%) were compiled, the rest were copied from previous compilation.
+  1 of 69 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   multigraph_analysis.vcxproj -> D:\a_multigraph _anal\multigraph_analysis\vs_project\multigraph_analysis\x64\Release\multigraph_analysis.exe

@@ -111,7 +111,7 @@ void analyze_multigraph(GraphInterface* multigraph) {
             &cyc_count_num
         );
         printf("All cycles: %d\n", cyc_count);
-        print_cycles(multigraph, cyc_out, cyc_sizes, cyc_count);
+        //print_cycles(multigraph, cyc_out, cyc_sizes, cyc_count);
     }
 
     /* 2) Hamiltonian cycles */
@@ -127,7 +127,7 @@ void analyze_multigraph(GraphInterface* multigraph) {
             &ham_count_num
         );
         printf("Hamiltonian cycles: %d\n", ham_count);
-        print_cycles(multigraph, ham_out, ham_sizes, ham_count);
+        //print_cycles(multigraph, ham_out, ham_sizes, ham_count);
     }
 
     /* 3) minimal extension for Hamiltonian cycle */
@@ -151,7 +151,7 @@ void analyze_multigraph(GraphInterface* multigraph) {
             &max_count_var
         );
         printf("Maximal cycles: %d\n", max_count);
-        print_cycles(multigraph, max_out, max_sizes, max_count);
+        //print_cycles(multigraph, max_out, max_sizes, max_count);
     }
 
     printf("------------------------------------------------\n\n");

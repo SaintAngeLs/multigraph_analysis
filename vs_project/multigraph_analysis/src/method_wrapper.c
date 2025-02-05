@@ -109,14 +109,14 @@ int count_hamiltonian_cycles_wrapper(
         double approx_time = (double)(end_approx.QuadPart - start_approx.QuadPart) * 1000000.0 / frequency.QuadPart;
         printf("Time taken for approximate Hamiltonian cycle detection: %.2f microseconds\n", approx_time);
 
-        printf("Approximate Hamiltonian cycles found: \n");
+        /*printf("Approximate Hamiltonian cycles found: \n");
         for (int i = 0; i < *cycle_count; i++) {
             printf("Cycle %d: ", i + 1);
             for (int j = 0; j < (*cycle_sizes)[i]; j++) {
                 printf("%d ", (*output_cycles)[i][j]);
             }
             printf("\n");
-        }
+        }*/
 
         return result;
     }
@@ -153,14 +153,14 @@ int count_hamiltonian_cycles_wrapper(
     double exact_time = (double)(end_exact.QuadPart - start_exact.QuadPart) * 1000000.0 / frequency.QuadPart;
     printf("Time taken for exact Hamiltonian cycle detection: %.2f microseconds\n", exact_time);
 
-    printf("Exact Hamiltonian cycles found: \n");
+    /*printf("Exact Hamiltonian cycles found: \n");
     for (int i = 0; i < cycleList.count; i++) {
         printf("Cycle %d: ", i + 1);
         for (int j = 0; j < cycleList.sizes[i]; j++) {
             printf("%d ", cycleList.cycles[i][j]);
         }
         printf("\n");
-    }
+    }*/
 
     QueryPerformanceCounter(&start_approx);
     int approx_cycle_count;
@@ -174,14 +174,14 @@ int count_hamiltonian_cycles_wrapper(
     printf("Approximate Hamiltonian cycle count: %d\n", approx_cycle_count);
     printf("Time taken for approximate Hamiltonian cycle detection: %.2f microseconds\n", approx_time);
 
-    printf("Approximate Hamiltonian cycles found: \n");
+    /*printf("Approximate Hamiltonian cycles found: \n");
     for (int i = 0; i < approx_cycle_count; i++) {
         printf("Cycle %d: ", i + 1);
         for (int j = 0; j < approx_cycle_sizes[i]; j++) {
             printf("%d ", approx_output_cycles[i][j]);
         }
         printf("\n");
-    }
+    }*/
 
     *output_cycles = cycleList.cycles;
     *cycle_sizes = cycleList.sizes;
@@ -363,13 +363,13 @@ int find_maximal_cycles_wrapper(
         printf("Time taken for approximate maximal cycle detection: %.2f microseconds\n", approx_time);
 
         // Print each found approximate cycle and its length.
-        for (int i = 0; i < approx_cycle_count; i++) {
+        /*for (int i = 0; i < approx_cycle_count; i++) {
             printf("Approx Cycle %d (length %d): ", i + 1, approx_cycle_sizes[i]);
             for (int j = 0; j < approx_cycle_sizes[i]; j++) {
                 printf("%d ", approx_output_cycles[i][j]);
             }
             printf("\n");
-        }
+        }*/
 
         // Return the cycles and sizes from the approximate method.
         *output_cycles = approx_output_cycles;
@@ -395,13 +395,13 @@ int find_maximal_cycles_wrapper(
         printf("Time taken for approximate maximal cycle detection: %.2f microseconds\n", approx_time);
 
         // Print each found approximate cycle.
-        for (int i = 0; i < approx_cycle_count; i++) {
+        /*for (int i = 0; i < approx_cycle_count; i++) {
             printf("Approx Cycle %d (length %d): ", i + 1, approx_cycle_sizes[i]);
             for (int j = 0; j < approx_cycle_sizes[i]; j++) {
                 printf("%d ", approx_output_cycles[i][j]);
             }
             printf("\n");
-        }
+        }*/
 
         // Free approximate results if not needed further, or you might decide to use them.
         // In this implementation, we choose to run the exact method and return its results.
@@ -466,13 +466,13 @@ int find_maximal_cycles_wrapper(
         printf("Time taken for exact maximal cycle detection: %.2f microseconds\n", exact_time);
 
         // Print each found exact cycle.
-        for (int i = 0; i < cycleList.count; i++) {
+       /* for (int i = 0; i < cycleList.count; i++) {
             printf("Exact Cycle %d (length %d): ", i + 1, cycleList.sizes[i]);
             for (int j = 0; j < cycleList.sizes[i]; j++) {
                 printf("%d ", cycleList.cycles[i][j]);
             }
             printf("\n");
-        }
+        }*/
 
         *output_cycles = cycleList.cycles;
         *cycle_sizes = cycleList.sizes;
