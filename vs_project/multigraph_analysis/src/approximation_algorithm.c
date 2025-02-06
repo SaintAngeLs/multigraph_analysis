@@ -104,6 +104,7 @@ int approximate_count_maximal_cycles(void* graph, int vertices) {
 
     for (int iter = 0; iter < ITERATIONS; iter++) {
         for (int start = 0; start < vertices; start++) {
+            
             int* visited = (int*)calloc(vertices, sizeof(int));
             int* path = (int*)malloc(vertices * sizeof(int));
             int cycle_length = 0;
@@ -113,40 +114,46 @@ int approximate_count_maximal_cycles(void* graph, int vertices) {
                 visited[node] = 1;
                 path[cycle_length++] = node;
 
-                int possible_moves = 0;
-                int* neighbors = (int*)malloc(vertices * sizeof(int));
-
-                // Collect directed edges only.
-                for (int j = 0; j < vertices; j++) {
-                    if (gi->get_edge(graph, node, j) > 0 && !visited[j]) {
-                        neighbors[possible_moves++] = j;
-                    }
-                }
-
-                if (possible_moves == 0) {
+                int out_degree = 0;
+                int* neighbors = gi->get_all_edges_from_vertex(gi, node, &out_degree);
+                if (out_degree == 0) {
                     free(neighbors);
                     break;
                 }
 
-                // Prioritize moving forward based on out-degree.
+                // Wybieramy tylko te sąsiedztwa, które nie są odwiedzone.
+                int possible_moves = 0;
+                int* possible = (int*)malloc(out_degree * sizeof(int));
+                for (int j = 0; j < out_degree; j++) {
+                    if (!visited[neighbors[j]]) {
+                        possible[possible_moves++] = neighbors[j];
+                    }
+                }
+                free(neighbors);
+
+                if (possible_moves == 0) {
+                    free(possible);
+                    break;
+                }
+
+                // Możemy zastosować priorytet wyboru na podstawie out-degree.
+                // Wybieramy sąsiada o największej liczbie wychodzących krawędzi.
                 int best_choice = -1;
                 int max_degree = -1;
                 for (int k = 0; k < possible_moves; k++) {
-                    int degree = gi->get_out_degree(graph, neighbors[k]);
+                    int degree = gi->get_out_degree(gi, possible[k]);
                     if (degree > max_degree) {
                         max_degree = degree;
-                        best_choice = neighbors[k];
+                        best_choice = possible[k];
                     }
                 }
-
-                free(neighbors);
+                free(possible);
                 if (best_choice == -1) break;
                 node = best_choice;
             }
 
-            // If the cycle can be closed, add one to the cycle length.
-            if (gi->get_edge(graph, node, start) > 0 && cycle_length > 1) {
-                cycle_length++; // Account for the starting vertex being appended.
+            if (gi->get_edge(gi, node, start) > 0 && cycle_length > 1) {
+                cycle_length++;  
                 if (cycle_length > max_cycle_length) {
                     max_cycle_length = cycle_length;
                 }
@@ -160,6 +167,7 @@ int approximate_count_maximal_cycles(void* graph, int vertices) {
     destroy_context(ctx);
     return max_cycle_length;
 }
+
 
 int approximate_find_maximal_cycles(void* graph, int vertices,
     int*** output_cycles,
@@ -175,7 +183,7 @@ int approximate_find_maximal_cycles(void* graph, int vertices,
     srand((unsigned int)time(NULL));
 
     for (int i = 0; i < vertices; i++) {
-        // Allocate one extra slot to store the start vertex at the end if cycle is closed.
+        // Allocate space for up to (vertices + 1) elementów (na zamknięty cykl).
         int* cycle = (int*)malloc((vertices + 1) * sizeof(int));
         int length = 0;
         int* visited = (int*)calloc(vertices, sizeof(int));
@@ -185,36 +193,37 @@ int approximate_find_maximal_cycles(void* graph, int vertices,
             visited[node] = 1;
             cycle[length++] = node;
 
-            // Create an array of neighbor indices and shuffle it for randomization.
-            int* neighbor_indices = (int*)malloc(vertices * sizeof(int));
-            for (int k = 0; k < vertices; k++) {
-                neighbor_indices[k] = k;
+            int out_degree = 0;
+            int* neighbor_list = ctx->graph_interface->get_all_edges_from_vertex(ctx->graph_interface, node, &out_degree);
+            if (out_degree == 0) {
+                free(neighbor_list);
+                break;
             }
-            // Fisher-Yates shuffle.
-            for (int k = vertices - 1; k > 0; k--) {
+
+            for (int k = out_degree - 1; k > 0; k--) {
                 int r = rand() % (k + 1);
-                int temp = neighbor_indices[k];
-                neighbor_indices[k] = neighbor_indices[r];
-                neighbor_indices[r] = temp;
+                int temp = neighbor_list[k];
+                neighbor_list[k] = neighbor_list[r];
+                neighbor_list[r] = temp;
             }
 
             int found_next = 0;
-            for (int idx = 0; idx < vertices; idx++) {
-                int j = neighbor_indices[idx];
-                if (!visited[j] && ctx->graph_interface->get_edge(graph, node, j) > 0) {
+            for (int idx = 0; idx < out_degree; idx++) {
+                int j = neighbor_list[idx];
+                if (!visited[j]) {
                     node = j;
                     found_next = 1;
                     break;
                 }
             }
-            free(neighbor_indices);
-
-            if (!found_next) break;
+            free(neighbor_list);
+            if (!found_next)
+                break;
         }
 
-        // Attempt to "close" the cycle by checking if an edge exists from the last node to the starting node.
-        if (length > 1 && ctx->graph_interface->get_edge(graph, node, i) > 0) {
-            cycle[length++] = i; // Append the start vertex to close the cycle.
+        // Próba domknięcia cyklu – jeśli długość > 1 i istnieje krawędź z ostatniego wierzchołka do startu.
+        if (length > 1 && ctx->graph_interface->get_edge(ctx->graph_interface, node, i) > 0) {
+            cycle[length++] = i;  // Zamknięcie cyklu.
         }
 
         (*cycle_count)++;
@@ -228,6 +237,7 @@ int approximate_find_maximal_cycles(void* graph, int vertices,
     destroy_context(ctx);
     return *cycle_count;
 }
+
 
 /*
     Approximation algorithms for cycle and path partitions in complete graphs https://arxiv.org/pdf/2311.11332

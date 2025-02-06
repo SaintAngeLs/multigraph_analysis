@@ -1,4 +1,4 @@
-
+﻿
 #include "graph_algorithm.h"
 #include "common_utils.h"
 
@@ -123,20 +123,22 @@ void dfs_findCycles(
                 printf("%d ", cycleArray[j]);
             }
             printf("\n");*/
-            char* canonical = normalizeCycle(cycleArray, cycleLength);
-            if (!stringListContains(uniqueCycles, canonical)) {
-                /* printf("[CYCLE FOUND]: ");
-                 for (int j = 0; j < cycleLength; j++) {
-                     printf("%d ", cycleArray[j]);
-                 }
-                 printf("\n");*/
+            //char* canonical = normalizeCycle(cycleArray, cycleLength);
+            //if (!stringListContains(uniqueCycles, canonical)) {
+            //    /* printf("[CYCLE FOUND]: ");
+            //     for (int j = 0; j < cycleLength; j++) {
+            //         printf("%d ", cycleArray[j]);
+            //     }
+            //     printf("\n");*/
 
-                addStringToList(uniqueCycles, canonical);
-                addCycle(cycleList, cycleArray, cycleLength);
-                (*localCount)++;
-            }
+            //    addStringToList(uniqueCycles, canonical);
+            //    addCycle(cycleList, cycleArray, cycleLength);
+            //    (*localCount)++;
+            //}
+            addCycle(cycleList, cycleArray, cycleLength);
+            (*localCount)++;
 
-            free(canonical);
+            //free(canonical);
             free(cycleArray);
         }
         else if (!visited[nxt]) {
@@ -161,7 +163,7 @@ void backtrack_hamiltonian(
     int current,
     Stack* stack,
     bool* visited,
-    StringList* uniqueCycles,
+    StringList* uniqueCycles,  // w tej wersji nie stosujemy filtrowania duplikatów
     CycleList* cycleList,
     int* localCount
 )
@@ -170,44 +172,49 @@ void backtrack_hamiltonian(
     visited[current] = true;
 
     GraphInterface* gi = context->graph_interface;
-    int depth = stack->top + 1;  // how many distinct vertices visited so far
+    int depth = stack->top + 1;  // liczba unikalnie odwiedzonych wierzchołków
 
     if (depth == context->vertices) {
-        // Try to close the cycle back to 'start'
         int w = gi->get_edge(gi, current, start);
         if (w > 0) {
             int cycleLength = depth + 1;
-            int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
-            for (int i = 0; i < depth; i++) {
-                cycleArray[i] = stack->data[i];
-            }
-            cycleArray[depth] = start; // close cycle
+            // Dla każdej kopii krawędzi zamykającej (current -> start)
+            for (int copy = 0; copy < w; copy++) {
+                int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+                for (int i = 0; i < depth; i++) {
+                    cycleArray[i] = stack->data[i];
+                }
+                cycleArray[depth] = start; // domknięcie cyklu
 
-            char* canonical = normalizeCycle(cycleArray, cycleLength);
-            if (!stringListContains(uniqueCycles, canonical)) {
-                addStringToList(uniqueCycles, canonical);
+                // W trybie multigrafu każdy cykl (nawet o tej samej sekwencji)
+                // dodajemy osobno – nie filtrujemy przez normalizeCycle/uniqueCycles.
                 addCycle(cycleList, cycleArray, cycleLength);
                 (*localCount)++;
+
+                free(cycleArray);
             }
-            free(canonical);
-            free(cycleArray);
         }
     }
     else {
-        // Try all possible next vertices that aren't visited
+        // Dla każdego kolejnego wierzchołka, jeśli istnieje krawędź (current -> nxt)
+        // i wierzchołek nie został jeszcze odwiedzony, wykonujemy rekurencję.
+        // Jeśli krawędź występuje wielokrotnie, wykonujemy rekurencję tyle razy.
         for (int nxt = 0; nxt < context->vertices; nxt++) {
             int w2 = gi->get_edge(gi, current, nxt);
             if (w2 > 0 && !visited[nxt]) {
-                backtrack_hamiltonian(context, start, nxt, stack,
-                    visited, uniqueCycles, cycleList, localCount);
+                for (int copy = 0; copy < w2; copy++) {
+                    backtrack_hamiltonian(context, start, nxt, stack,
+                        visited, uniqueCycles, cycleList, localCount);
+                }
             }
         }
     }
 
-    // Backtrack
+    // Cofamy zmianę – backtracking
     pop(stack);
     visited[current] = false;
 }
+
 
 
 void dfs_maxCycleLength(
@@ -224,35 +231,35 @@ void dfs_maxCycleLength(
     int depth = stack->top + 1;
 
     GraphInterface* gi = context->graph_interface;
+    
     for (int nxt = 0; nxt < context->vertices; nxt++) {
         int w = gi->get_edge(gi, current, nxt);
         if (w > 0) {
-            // If we returned to 'start', we have a cycle. The length is depth+1.
-            if (nxt == start && depth >= 1) {
-                if (depth > *maxLen) {
-                    *maxLen = depth;
+            for (int copy = 0; copy < w; copy++) {
+    
+                if (nxt == start && depth >= 1) {
+                    if (depth > *maxLen) {
+                        *maxLen = depth;
+                    }
                 }
-            }
-            else if (!visited[nxt]) {
-                dfs_maxCycleLength(context, start, nxt, stack, visited, maxLen);
+                else if (!visited[nxt]) {
+                    dfs_maxCycleLength(context, start, nxt, stack, visited, maxLen);
+                }
             }
         }
     }
-    // backtrack
     pop(stack);
     visited[current] = false;
 }
 
-/*
- * (4) find all cycles exactly matching the maximum length *maxCycleLen
- */
+
 void dfs_findMaxCycles(
     GraphAlgorithmContext* context,
     int start,
     int current,
     Stack* stack,
     bool* visited,
-    StringList* uniqueCycles,
+    StringList* uniqueCycles,   
     CycleList* outputList,
     int* maxCycleLen,
     int* foundCount
@@ -263,36 +270,35 @@ void dfs_findMaxCycles(
     int stackLen = stack->top + 1;
 
     GraphInterface* gi = context->graph_interface;
-    for (int nxt = 0; nxt < context->vertices; nxt++) {
-        int w = gi->get_edge(gi, current, nxt);
-        if (w > 0) {
-            // If we closed a cycle of length == *maxCycleLen, record it
-            if (nxt == start && stackLen == *maxCycleLen) {
-                int cycleLength = stackLen + 1;  // e.g. 3 -> 4 array
-                int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
-                for (int i = 0; i < stackLen; i++) {
-                    cycleArray[i] = stack->data[i];
-                }
-                cycleArray[stackLen] = start;
+    int out_degree;
+    int* neighbors = gi->get_all_edges_from_vertex(gi, current, &out_degree);
+    for (int i = 0; i < out_degree; i++) {
+        int nxt = neighbors[i];
 
-                char* canonical = normalizeCycle(cycleArray, cycleLength);
-                if (!stringListContains(uniqueCycles, canonical)) {
-                    addStringToList(uniqueCycles, canonical);
-                    addCycle(outputList, cycleArray, cycleLength);
-                    (*foundCount)++;
-                }
-                free(canonical);
-                free(cycleArray);
+        if (nxt == start && stackLen == *maxCycleLen) {
+            int cycleLength = stackLen + 1;  
+            int* cycleArray = (int*)malloc(cycleLength * sizeof(int));
+            for (int j = 0; j < stackLen; j++) {
+                cycleArray[j] = stack->data[j];
             }
-            else if (!visited[nxt] && stackLen < *maxCycleLen) {
-                dfs_findMaxCycles(context, start, nxt, stack, visited,
-                    uniqueCycles, outputList, maxCycleLen, foundCount);
-            }
+            cycleArray[stackLen] = start;
+
+            addCycle(outputList, cycleArray, cycleLength);
+            (*foundCount)++;
+            free(cycleArray);
+        }
+        else if (!visited[nxt] && stackLen < *maxCycleLen) {
+            dfs_findMaxCycles(context, start, nxt, stack, visited,
+                uniqueCycles, outputList, maxCycleLen, foundCount);
         }
     }
+    free(neighbors);
+
     pop(stack);
     visited[current] = false;
 }
+
+
 
 int calculate_graph_metric(
     GraphAlgorithmContext* context1,
