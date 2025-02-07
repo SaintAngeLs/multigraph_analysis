@@ -6,7 +6,6 @@
 
 #define MAX_ITER 20000
 #define INITIAL_TEMP 200.0
-#define COOLING_RATE 0.99
 
 int approximate_required_operations(
     GraphAlgorithmContext* context_1,
@@ -71,7 +70,7 @@ int approximate_calculate_metric(
         else {
             common_swap(&arr[i], &arr[j]); /* revert */
         }
-        temperature *= COOLING_RATE;
+        temperature = INITIAL_TEMP / log(iter + 2);
     }
     free(arr);
     return best_metric;

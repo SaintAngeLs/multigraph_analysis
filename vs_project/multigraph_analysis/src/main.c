@@ -29,7 +29,6 @@
 #define THRESHOLD     10      /* If vertices >= THRESHOLD, use approximate */
 #define MAX_ITER      20000   /* For approximate sim-anneal logic */
 #define INITIAL_TEMP  200.0
-#define COOLING_RATE  0.99
 
  
 typedef struct GraphAlgorithmTag {
