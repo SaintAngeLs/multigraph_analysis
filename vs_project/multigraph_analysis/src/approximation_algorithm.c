@@ -71,7 +71,7 @@ int approximate_calculate_metric(
         else {
             common_swap(&arr[i], &arr[j]); /* revert */
         }
-        temperature *= COOLING_RATE;
+        temperature = INITIAL_TEMP / log(iter + 2);
     }
     free(arr);
     return best_metric;
