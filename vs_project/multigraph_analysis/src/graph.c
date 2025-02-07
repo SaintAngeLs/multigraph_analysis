@@ -113,18 +113,40 @@ static int* multigraph_get_all_edges_from_vertex(void* self, int src, int* out_d
         return NULL;
     }
 
-    int* neighbors = (int*)malloc(graph->vertices * sizeof(int));
+    int total_edges = 0;
+    for (int i = 0; i < graph->vertices; i++) {
+        total_edges += graph->adjacency_matrix[src][i];
+    }
+
+    int* neighbors = (int*)malloc(total_edges * sizeof(int));
     int count = 0;
 
     for (int i = 0; i < graph->vertices; i++) {
-        if (graph->adjacency_matrix[src][i] > 0) {
+        int multiplicity = graph->adjacency_matrix[src][i];
+        for (int j = 0; j < multiplicity; j++) {
             neighbors[count++] = i;
         }
     }
 
     *out_degree = count;
-    return neighbors;  // Caller must free this memory
+    return neighbors;
 }
+
+static int multigraph_get_out_degree(void* self, int vertex) {
+    Multigraph* graph = (Multigraph*)self;
+    if (vertex >= graph->vertices) {
+        return 0;
+    }
+
+    int count = 0;
+    for (int i = 0; i < graph->vertices; i++) {
+        if (graph->adjacency_matrix[vertex][i] > 0) {
+            count++;
+        }
+    }
+    return count;
+}
+
 
 GraphInterface* create_multigraph(int vertices) {
     Multigraph* graph = (Multigraph*)malloc(sizeof(Multigraph));
@@ -144,6 +166,7 @@ GraphInterface* create_multigraph(int vertices) {
     // Assign function pointers
     graph->graph_interface.add_edge = multigraph_add_edge;
     graph->graph_interface.get_edge = multigraph_get_edge;
+    graph->graph_interface.get_out_degree = multigraph_get_out_degree;
     graph->graph_interface.calculate_size = multigraph_calculate_size;
     graph->graph_interface.destroy = multigraph_destroy;
     graph->graph_interface.get_all_edges_from_vertex = multigraph_get_all_edges_from_vertex;

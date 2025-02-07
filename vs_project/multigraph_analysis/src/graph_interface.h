@@ -33,6 +33,8 @@ typedef struct GraphInterfaceTag
     int* (*get_all_edges_from_vertex)(void* self, int src, int* out_degree);
     int  (*calculate_size)(void* self);
 
+    int (*get_out_degree)(void* self, int vertex);
+
     /* Cleanup */
     void (*destroy)(void* self);
 

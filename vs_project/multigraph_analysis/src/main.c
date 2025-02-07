@@ -29,7 +29,6 @@
 #define THRESHOLD     10      /* If vertices >= THRESHOLD, use approximate */
 #define MAX_ITER      20000   /* For approximate sim-anneal logic */
 #define INITIAL_TEMP  200.0
-#define COOLING_RATE  0.99
 
  
 typedef struct GraphAlgorithmTag {
@@ -40,6 +39,7 @@ typedef struct GraphAlgorithmTag {
         int*** output_cycles, int** cycle_sizes, int* cycle_count);
     void (*calculate_metric)(void* g1, int v1, void* g2, int v2,
         int* exact_metric, int* approximate_metric);
+    int (*get_out_degree)(void* self, int vertex);
     int  (*find_minimal_extension)(void* graph, int vertices);
     int  (*count_maximal_cycles)(void* graph, int vertices);
     int  (*find_maximal_cycles)(void* graph, int vertices,
@@ -95,7 +95,7 @@ void analyze_multigraph(GraphInterface* multigraph) {
     printf("------------------------------------------------\n");
 
     int graph_size = default_algorithm.calculate_size(multigraph);
-    printf("Graph size: %d\n", graph_size);
+    printf("Graph size: %d\n\n", graph_size);
 
     /* 1) All cycles */
     {
@@ -110,7 +110,8 @@ void analyze_multigraph(GraphInterface* multigraph) {
             &cyc_count_num
         );
         printf("All cycles: %d\n", cyc_count);
-        print_cycles(multigraph, cyc_out, cyc_sizes, cyc_count);
+        //print_cycles(multigraph, cyc_out, cyc_sizes, cyc_count);
+        printf("\n");
     }
 
     /* 2) Hamiltonian cycles */
@@ -126,16 +127,16 @@ void analyze_multigraph(GraphInterface* multigraph) {
             &ham_count_num
         );
         printf("Hamiltonian cycles: %d\n", ham_count);
-        print_cycles(multigraph, ham_out, ham_sizes, ham_count);
+        //print_cycles(multigraph, ham_out, ham_sizes, ham_count);
     }
 
     /* 3) minimal extension for Hamiltonian cycle */
     int min_ext = default_algorithm.find_minimal_extension(multigraph, multigraph->vertices);
-    printf("Minimal extension for Hamiltonian cycle: %d\n", min_ext);
+    printf("Minimal extension for Hamiltonian cycle: %d\n\n", min_ext);
 
     /* 4) maximal cycle length */
     int max_len = default_algorithm.count_maximal_cycles(multigraph, multigraph->vertices);
-    printf("Maximal cycle length: %d\n", max_len);
+    printf("Maximal cycle length: %d\n", max_len + 1);
 
     /* 5) find all cycles of that length */
     {
@@ -149,8 +150,8 @@ void analyze_multigraph(GraphInterface* multigraph) {
             &max_sizes,
             &max_count_var
         );
-        printf("Maximal cycles: %d\n", max_count);
-        print_cycles(multigraph, max_out, max_sizes, max_count);
+        //printf("Maximal cycles: %d\n", max_count);
+        //print_cycles(multigraph, max_out, max_sizes, max_count);
     }
 
     printf("------------------------------------------------\n\n");
@@ -197,7 +198,7 @@ void process_multigraphs(const char* file_name, GraphArray* multigraphs_to_compa
 
 /* Compare two loaded graphs for metrics */
 void process_metrics(GraphInterface* multigraph_1, GraphInterface* multigraph_2) {
-    printf("Comparing graphs:\n");
+    printf("Comparing first graph from file 1 with first graph from file 2:\n");
     printf("------------------------------------------------\n");
 
     printf("First graph with '%d' vertices and '%d' edges\n",
