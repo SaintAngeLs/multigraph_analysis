@@ -6,7 +6,6 @@
 
 #define MAX_ITER 20000
 #define INITIAL_TEMP 200.0
-#define COOLING_RATE 0.99
 
 int approximate_required_operations(
     GraphAlgorithmContext* context_1,
