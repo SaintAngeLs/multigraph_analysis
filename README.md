@@ -3,9 +3,9 @@
 **Exact & Approximation Algorithms for Large Multigraphs**
 
 <p align="center">
-  <a href="https://github.com/SaintAngeLs/multigraph_analysis/stargazers"><img src="https://img.shields.io/github/stars/SaintAngeLs/multigraph_analysis?style=social" alt="GitHub Stars"></a>
-  <a href="https://github.com/SaintAngeLs/multigraph_analysis/actions/workflows/c-cpp.yml"><img src="https://github.com/SaintAngeLs/multigraph_analysis/actions/workflows/c-cpp.yml/badge.svg" alt="CI Status"></a>
-  <a href="https://github.com/SaintAngeLs/multigraph_analysis/blob/main/LICENSE"><img src="https://img.shields.io/github/license/SaintAngeLs/multigraph_analysis.svg" alt="License"></a>
+  <a href="https://github.com/YOUR-ORG/YOUR-REPO/stargazers"><img src="https://img.shields.io/github/stars/YOUR-ORG/YOUR-REPO?style=social" alt="GitHub Stars"></a>
+  <a href="https://github.com/YOUR-ORG/YOUR-REPO/actions/workflows/c-cpp.yml"><img src="https://github.com/YOUR-ORG/YOUR-REPO/actions/workflows/c-cpp.yml/badge.svg" alt="CI Status"></a>
+  <a href="https://github.com/YOUR-ORG/YOUR-REPO/blob/main/LICENSE"><img src="https://img.shields.io/github/license/YOUR-ORG/YOUR-REPO.svg" alt="License"></a>
 </p>
 
 ---
@@ -41,18 +41,18 @@ The project began as a laboratory assignment for the *Algorithms & Computability
 
 ## 🧮 Mathematical Foundations
 
-Below we recap the core definitions using standard graph‑theoretic notation. All proofs can be found in [`documentation/main.pdf`](documentation/main.pdf).
+Below we recap the core definitions using standard graph‑theoretic notation. All proofs can be found in [`docs/proofs.pdf`](docs/proofs.pdf).
 
 ### Definition 1 (Multigraph)
 
 A **multigraph** is an ordered pair $G = (V,E)$ where
-$E\subseteq \operatorname{Multiset}(V\times V),$
+$E\subseteq \mathrm{Multiset}(V\times V),$
 allowing repeated edges but disallowing loops $(v,v)$.
 
 ### Definition 2 (Graph Size)
 
 The *size* of $G$ is
-$|E| = \sum_{(u,v)\in V\times V} \operatorname{mult}((u,v),E).$
+$|E| = \sum_{(u,v)\in V\times V} \mathrm{mult}((u,v),E).$
 
 ### Definition 3 (Cycle)
 
@@ -68,7 +68,7 @@ $|\{v_1,\dots,v_k\}| = |V|.$
 ### Definition 5 (Graph Metric)
 
 Given two multigraphs $G,H$, the edit‑distance metric is
-$d(G,H)=\min_{\text{edit sequences}}\sum_{e\in\text{seq}}\operatorname{cost}(e),$
+$d(G,H)=\min_{\gamma}\sum_{e\in\gamma}\mathrm{cost}(e),$
 with unit cost for edge/vertex insertion & deletion and zero cost for vertex relabelling.
 
 *Formal proofs of theorems & algorithmic correctness are included in the documentation.*
@@ -87,8 +87,8 @@ with unit cost for edge/vertex insertion & deletion and zero cost for vertex re
 
 ```bash
 # 1️⃣ Clone with submodules (if any)
-git clone --recursive https://github.com/SaintAngeLs/multigraph_analysis.git
-cd multigraph_analysis
+git clone --recursive https://github.com/YOUR-ORG/YOUR-REPO.git
+cd YOUR-REPO/Source
 
 # 2️⃣ Configure (Windows + MinGW)
 cmake -G"MinGW Makefiles" -DCMAKE_TOOLCHAIN_FILE="../vcpkg/scripts/buildsystems/vcpkg.cmake" -DPKG_CONFIG_EXECUTABLE="../vcpkg/installed/x64-windows/tools/pkgconf/pkgconf.exe" .
@@ -192,7 +192,7 @@ This project is distributed under the **MIT License**—see [`LICENSE`](LICENSE
   author       = {Nowak, Amadeusz and Voznesenskyi, Andrii and Kiprik, Oleh and Padamczyk, Piotr},
   title        = {Multigraph Toolkit — Exact & Approximation Algorithms for Large Multigraphs},
   year         = {2025},
-  howpublished = {\url{https://github.com/SaintAngeLs/multigraph_analysis}},
+  howpublished = {\url{https://github.com/YOUR-ORG/YOUR-REPO}},
   note         = {Version 1.0.0}
 }
 ```
